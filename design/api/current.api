@@ -56,7 +56,7 @@ package com.urlaunched.design.ui.backhandler {
 package com.urlaunched.design.ui.progressbarcontainer {
 
   public final class ProgressBarContainerKt {
-    method @androidx.compose.runtime.Composable public static void ProgressBarContainer(boolean isLoading, long indicatorColor, long indicatorTrackColor, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static void ProgressBarContainer(boolean isLoading, optional long indicatorColor, optional long indicatorTrackColor, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
 }
