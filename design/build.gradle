@@ -62,6 +62,7 @@ dependencies {
     implementation libs.composeDependencies.composeUi
     implementation libs.composeDependencies.composePreview
     implementation libs.composeDependencies.composeMaterial3
+    implementation libs.composeDependencies.composeMaterial2
     implementation libs.composeDependencies.composeNavigation
     implementation libs.composeDependencies.composeConstraintLayout
     implementation libs.composeDependencies.runtime
