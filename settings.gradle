@@ -20,4 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "URL UiKit"
-include ':app'
+//include ':app'
+include ':design'
