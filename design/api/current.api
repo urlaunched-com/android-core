@@ -1,8 +1,78 @@
 // Signature format: 4.0
+package com.urlaunched.design.resources.dimens {
+
+  public final class Dimens {
+    method public float getCornerRadiusBig();
+    method public float getCornerRadiusBigSpecial();
+    method public float getCornerRadiusLarge();
+    method public float getCornerRadiusMediumSpecial();
+    method public float getCornerRadiusNormal();
+    method public float getCornerRadiusNormalSpecial();
+    method public float getCornerRadiusSmall();
+    method public float getCornerRadiusTiny();
+    method public float getSpacingBig();
+    method public float getSpacingBigSpecial();
+    method public float getSpacingExtraLarge();
+    method public float getSpacingLarge();
+    method public float getSpacingLargeSpecial();
+    method public float getSpacingNormal();
+    method public float getSpacingNormalSpecial();
+    method public float getSpacingSmall();
+    method public float getSpacingSmallSpecial();
+    method public float getSpacingTiny();
+    method public float getSpacingTinyHalf();
+    property public final float cornerRadiusBig;
+    property public final float cornerRadiusBigSpecial;
+    property public final float cornerRadiusLarge;
+    property public final float cornerRadiusMediumSpecial;
+    property public final float cornerRadiusNormal;
+    property public final float cornerRadiusNormalSpecial;
+    property public final float cornerRadiusSmall;
+    property public final float cornerRadiusTiny;
+    property public final float spacingBig;
+    property public final float spacingBigSpecial;
+    property public final float spacingExtraLarge;
+    property public final float spacingLarge;
+    property public final float spacingLargeSpecial;
+    property public final float spacingNormal;
+    property public final float spacingNormalSpecial;
+    property public final float spacingSmall;
+    property public final float spacingSmallSpecial;
+    property public final float spacingTiny;
+    property public final float spacingTinyHalf;
+    field public static final com.urlaunched.design.resources.dimens.Dimens INSTANCE;
+  }
+
+}
+
+package com.urlaunched.design.ui.backhandler {
+
+  public final class DisableBackButtonKt {
+    method @androidx.compose.runtime.Composable public static void DisableBackButton();
+  }
+
+}
+
+package com.urlaunched.design.ui.progressbarcontainer {
+
+  public final class ProgressBarContainerKt {
+    method @androidx.compose.runtime.Composable public static void ProgressBarContainer(boolean isLoading, long indicatorColor, long indicatorTrackColor, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+}
+
 package com.urlaunched.design.ui.shadow {
 
-  public final class CustomShadowKt {
+  public final class ShadowKt {
     method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
+  }
+
+}
+
+package com.urlaunched.design.ui.shimmer {
+
+  public final class ShimmerKt {
+    method public static androidx.compose.ui.Modifier shimmer(androidx.compose.ui.Modifier, optional long backgroundColor, optional long highlightColor, optional androidx.compose.ui.graphics.Shape shape);
   }
 
 }

@@ -70,4 +70,7 @@ dependencies {
     // Paging
     implementation libs.pagingDependencies.core
     implementation libs.pagingDependencies.compose
+
+    // Placeholder
+    implementation libs.composePlaceholder.core
 }

@@ -29,6 +29,9 @@ pagingComposeVersion = "3.2.1"
 junitVersion = "4.13.2"
 junitKtxVersion = "1.1.5"
 
+# composePlaceholder
+composePlaceholderVersion = "1.0.7"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -67,6 +70,8 @@ pagingDependencies-compose = { module = "androidx.paging:paging-compose", versio
 testDependencies-junit = { module = "junit:junit", version.ref = "junitVersion" }
 testDependencies-junitExt = { module = "androidx.test.ext:junit-ktx", version.ref = "junitKtxVersion" }
 testDependencies-compose = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
+
+composePlaceholder-core = { module = "com.eygraber:compose-placeholder", version.ref = "composePlaceholderVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
