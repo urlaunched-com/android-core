@@ -1,1 +1,9 @@
 // Signature format: 4.0
+package com.urlaunched.design.ui.shadow {
+
+  public final class CustomShadowKt {
+    method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
+  }
+
+}
+

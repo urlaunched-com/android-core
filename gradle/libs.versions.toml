@@ -37,7 +37,7 @@ kotlinAndroidPluginVersion = "1.9.23"
 kotlinJvmPluginVersion = "1.9.23"
 kotlinSerializationPluginVersion = "1.9.23"
 ktlintPluginVersion = "12.1.0"
-metalava = "0.3.3"
+metalava = "0.3.5"
 
 [libraries]
 androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
