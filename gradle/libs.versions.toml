@@ -41,6 +41,7 @@ kotlinJvmPluginVersion = "1.9.23"
 kotlinSerializationPluginVersion = "1.9.23"
 ktlintPluginVersion = "12.1.0"
 metalava = "0.3.5"
+mavenPublish = "0.28.0"
 
 [libraries]
 androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -81,3 +82,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPluginVe
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPluginVersion" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPluginVersion" }
 metalava = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
