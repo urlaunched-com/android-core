@@ -1,4 +1,20 @@
 // Signature format: 4.0
+package com.urlaunched.design.extensions {
+
+  public enum Keyboard {
+    method public static com.urlaunched.design.extensions.Keyboard valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.design.extensions.Keyboard[] values();
+    enum_constant public static final com.urlaunched.design.extensions.Keyboard CLOSED;
+    enum_constant public static final com.urlaunched.design.extensions.Keyboard OPENED;
+  }
+
+  public final class KeyboardExtensionsKt {
+    method public static androidx.compose.ui.Modifier clearFocusOnKeyboardDismiss(androidx.compose.ui.Modifier);
+    method @androidx.compose.runtime.Composable public static androidx.compose.runtime.State<com.urlaunched.design.extensions.Keyboard> keyboardAsState();
+  }
+
+}
+
 package com.urlaunched.design.resources.dimens {
 
   public final class Dimens {
@@ -148,6 +164,18 @@ package com.urlaunched.design.ui.shimmer {
 
   public final class ShimmerKt {
     method public static androidx.compose.ui.Modifier shimmer(androidx.compose.ui.Modifier, optional long backgroundColor, optional long highlightColor, optional androidx.compose.ui.graphics.Shape shape);
+  }
+
+}
+
+package com.urlaunched.design.ui.textfield {
+
+  public final class PasswordTextFieldKt {
+    method @androidx.compose.runtime.Composable public static void PasswordTextField(optional androidx.compose.ui.Modifier modifier, String value, String label, optional long focusedBorderColor, optional long unfocusedBorderColor, optional long errorBorderColor, optional long errorTextColor, optional long textColor, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.text.TextStyle labelStyle, optional long labelColor, optional long backgroundColor, optional androidx.compose.ui.graphics.Shape backgroundShape, optional float borderWidth, optional androidx.compose.ui.graphics.Shape borderShape, optional androidx.compose.ui.text.TextStyle placeholderStyle, optional long placeholderColor, optional long bottomLabelColor, optional androidx.compose.ui.text.TextStyle errorTextStyle, optional androidx.compose.ui.text.TextStyle bottomLabelTextStyle, optional String? placeHolder, optional String? bottomLabel, optional String? error, optional boolean enabled, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange, kotlin.jvm.functions.Function0<kotlin.Unit> passwordVisibleIcon, kotlin.jvm.functions.Function0<kotlin.Unit> passwordHiddenIcon);
+  }
+
+  public final class TextFieldKt {
+    method @androidx.compose.runtime.Composable public static void TextField(optional androidx.compose.ui.Modifier modifier, String value, String label, optional long focusedBorderColor, optional long unfocusedBorderColor, optional long errorBorderColor, optional long errorTextColor, optional long textColor, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.text.TextStyle labelStyle, optional long labelColor, optional long backgroundColor, optional androidx.compose.ui.graphics.Shape backgroundShape, optional float borderWidth, optional androidx.compose.ui.graphics.Shape borderShape, optional androidx.compose.ui.text.TextStyle placeholderStyle, optional long placeholderColor, optional long bottomLabelColor, optional androidx.compose.ui.text.TextStyle errorTextStyle, optional androidx.compose.ui.text.TextStyle bottomLabelTextStyle, optional String? placeHolder, optional String? bottomLabel, optional String? error, optional boolean enabled, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange);
   }
 
 }
