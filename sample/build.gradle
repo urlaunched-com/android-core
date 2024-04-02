@@ -1,19 +1,21 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.metalava)
 }
 
 android {
-    namespace 'com.urlaunched.design'
+    namespace 'com.urlaunched.sample'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {
+        applicationId "com.urlaunched.sample"
         minSdk gradleDependencies.minSdk
+        targetSdk gradleDependencies.targetSdk
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -39,11 +41,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
     }
-}
 
-metalava {
-    sourcePaths.setFrom("src/main")
-    filename.set("api/current.api")
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
 }
 
 dependencies {
@@ -67,7 +70,6 @@ dependencies {
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
-    // Paging
-    implementation libs.pagingDependencies.core
-    implementation libs.pagingDependencies.compose
+    // Local modules
+    implementation project(":design")
 }

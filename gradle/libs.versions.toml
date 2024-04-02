@@ -33,10 +33,11 @@ junitKtxVersion = "1.1.5"
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
 androidLibraryPluginVersion = "8.2.2"
-kotlinAndroidPluginVersion = "1.9.22"
-kotlinJvmPluginVersion = "1.9.22"
-kotlinSerializationPluginVersion = "1.9.22"
+kotlinAndroidPluginVersion = "1.9.23"
+kotlinJvmPluginVersion = "1.9.23"
+kotlinSerializationPluginVersion = "1.9.23"
 ktlintPluginVersion = "12.1.0"
+metalava = "0.3.3"
 
 [libraries]
 androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -74,3 +75,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAnd
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPluginVersion" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPluginVersion" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPluginVersion" }
+metalava = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
