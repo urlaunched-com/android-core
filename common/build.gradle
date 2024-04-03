@@ -87,4 +87,8 @@ dependencies {
 
     // Ucrop
     implementation libs.ucropDependencies.core
+
+    // Room
+    implementation libs.roomDependencies.room
+    implementation libs.roomDependencies.ktx
 }

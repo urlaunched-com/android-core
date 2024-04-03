@@ -41,6 +41,9 @@ browserVersion = "1.8.0"
 # uCropDependencies
 uCropVersion = '2.2.8'
 
+# roomDependencies
+roomVersion = "2.6.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -90,6 +93,12 @@ datastoreDependencies-datastoreCore = { module = "androidx.datastore:datastore-c
 browserDependencies-core = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 
 ucropDependencies-core = { module = "com.github.yalantis:ucrop", version.ref = "uCropVersion" }
+
+roomDependencies-room = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+roomDependencies-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+roomDependencies-kapt = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+roomDependencies-testing = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
+roomDependencies-paging = { module = "androidx.room:room-paging", version.ref = "roomVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
