@@ -8,9 +8,9 @@ import com.urlaunched.android.common.response.Response
 fun <T : Any> remotePagingSource(
     refreshKey: (state: PagingState<Int, T>) -> Int? = { null },
     loadItems: suspend (page: Int, pageSize: Int) -> Response<List<T>>
-) = BaseRemotePagingSource(refreshKey = refreshKey, loadItems = loadItems)
+) = RemotePagingSource(refreshKey = refreshKey, loadItems = loadItems)
 
-class BaseRemotePagingSource<T : Any> internal constructor(
+class RemotePagingSource<T : Any> internal constructor(
     private val refreshKey: (state: PagingState<Int, T>) -> Int? = { null },
     private val loadItems: suspend (page: Int, pageSize: Int) -> Response<List<T>>
 ) : PagingSource<Int, T>() {
