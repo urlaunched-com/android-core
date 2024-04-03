@@ -21,7 +21,7 @@ object CoilCacheHelper {
         val cacheKey = request.diskCacheKey ?: imageUrl
 
         val diskCache = imageLoader.diskCache
-        val snapshot = diskCache?.get(cacheKey)
+        val snapshot = diskCache?.openSnapshot(cacheKey)
 
         return if (snapshot != null && snapshot.data.toFile().exists()) {
             val cachedFile = snapshot.data.toFile()
