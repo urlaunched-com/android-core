@@ -1,4 +1,18 @@
 // Signature format: 4.0
+package com.urlaunched.android.common.basedao {
+
+  public interface BaseDao<T> {
+    method @androidx.room.Delete public suspend Object? delete(java.util.List<? extends T> obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Delete public suspend Object? delete(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super java.util.List<? extends java.lang.Long>>);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(T obj, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method public default suspend Object? insertOrUpdate(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Update public suspend Object? update(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Update public suspend Object? update(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+}
+
 package com.urlaunched.android.common.coil {
 
   public final class CoilCacheHelper {
@@ -10,6 +24,105 @@ package com.urlaunched.android.common.coil {
   public final class DownloadImageHelper {
     method public suspend Object? downloadImage(String mediaLink, android.content.Context context, kotlin.coroutines.Continuation<? super java.io.File>);
     field public static final com.urlaunched.android.common.coil.DownloadImageHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.downloadhelper {
+
+  public final class DownloadHelper {
+    method public void downloadFile(android.content.Context context, String fileUrl, String fileName, String description);
+    field public static final com.urlaunched.android.common.downloadhelper.DownloadHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.files {
+
+  public final class FileHelper {
+    method public boolean clearDirectory(android.content.Context context, String directory);
+    method public java.io.File createTempCameraPickFile(android.content.Context context, String fileExtension);
+    method public java.io.File createTempFile(android.content.Context context, String fileExtension);
+    method public boolean deleteFileByName(android.content.Context context, String directory, String name);
+    method public void deleteTempFilesFromCache(android.content.Context context);
+    method public java.io.File? getFileByName(android.content.Context context, String directory, String name);
+    method public String getVideDownloadFolderPath(android.content.Context context);
+    field public static final com.urlaunched.android.common.files.FileHelper INSTANCE;
+  }
+
+  public final class FilePickerHelper {
+    method public java.io.File? createFileFromUri(android.content.Context context, android.net.Uri uri);
+    method public kotlin.time.Duration? getMediaDuration(java.io.File file);
+    method public java.io.File? getVideoThumbnail(android.content.Context context, java.io.File file);
+    field public static final com.urlaunched.android.common.files.FilePickerHelper INSTANCE;
+  }
+
+  public interface MediaType {
+    method public java.util.List<java.lang.String> getExtraMimeTypes();
+    method public String getMimeType();
+    property public abstract java.util.List<java.lang.String> extraMimeTypes;
+    property public abstract String mimeType;
+  }
+
+  public final class PickFileContract extends androidx.activity.result.contract.ActivityResultContract<com.urlaunched.android.common.files.MediaType,android.net.Uri> {
+    ctor public PickFileContract();
+    method public android.content.Intent createIntent(android.content.Context context, com.urlaunched.android.common.files.MediaType input);
+    method public android.net.Uri? parseResult(int resultCode, android.content.Intent? intent);
+  }
+
+  public final class PickMultipleFilesContract extends androidx.activity.result.contract.ActivityResultContract<com.urlaunched.android.common.files.MediaType,java.util.List<? extends android.net.Uri>> {
+    ctor public PickMultipleFilesContract();
+    method public android.content.Intent createIntent(android.content.Context context, com.urlaunched.android.common.files.MediaType input);
+    method public java.util.List<android.net.Uri> parseResult(int resultCode, android.content.Intent? intent);
+  }
+
+  public final class TakeCameraPictureContract extends androidx.activity.result.contract.ActivityResultContract<kotlin.Unit,java.io.File> {
+    ctor public TakeCameraPictureContract(String fileProviderAuthority);
+    method public android.content.Intent createIntent(android.content.Context context, kotlin.Unit input);
+    method public java.io.File? parseResult(int resultCode, android.content.Intent? intent);
+    field public static final com.urlaunched.android.common.files.TakeCameraPictureContract.Companion Companion;
+  }
+
+  public static final class TakeCameraPictureContract.Companion {
+  }
+
+}
+
+package com.urlaunched.android.common.formatters {
+
+  public final class DateTimeFormatter {
+    method public String formatLocalDate(java.time.LocalDate value, optional String pattern);
+    method public String formatLocalDate(java.time.LocalDate value, java.time.format.FormatStyle style);
+    method public String formatLocalDateTime(java.time.LocalDateTime value, android.content.Context context, optional String pattern, optional String pattern24Hours);
+    method public String formatLocalDateTime(java.time.LocalDateTime value, optional java.time.format.FormatStyle style);
+    method public java.time.LocalDate? formatStringToLocalDate(String value);
+    method public java.time.LocalDateTime? formatStringToLocalDateTime(String value);
+    field public static final String DATE_PLACEHOLDER = "\u2014";
+    field public static final com.urlaunched.android.common.formatters.DateTimeFormatter INSTANCE;
+  }
+
+  public final class DecimalFormatter {
+    method public double centsToDollar(long);
+    method public long dollarsToCent(double);
+    method public long dollarsToCent(long);
+    method public String formatNumber(Double?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional String postfix, optional boolean useGrouping);
+    method public String formatNumber(Integer?);
+    method public String toDollarCent(Integer?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional boolean useGrouping);
+    method public String toDollarCent(Long?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional boolean useGrouping);
+    method public int toPercent(float);
+    method public float toPercent(int);
+    method public String toThousandsOrMillions(Integer?);
+    field public static final com.urlaunched.android.common.formatters.DecimalFormatter INSTANCE;
+    field public static final int NO_FRACTION_DIGITS = 0; // 0x0
+  }
+
+}
+
+package com.urlaunched.android.common.imagecropper {
+
+  public final class ImageCropper {
+    method public void startCropActivity(android.content.Context context, androidx.activity.result.ActivityResultLauncher<android.content.Intent> cropActivityResultLauncher, java.io.File imageFile, optional float aspectRatioX, optional float aspectRatioY);
+    field public static final com.urlaunched.android.common.imagecropper.ImageCropper INSTANCE;
   }
 
 }
@@ -54,6 +167,10 @@ package com.urlaunched.android.common.navigation {
   public static interface Router.NavArgs {
   }
 
+  public final class SetBottomBarVisibilityOnStartDestinationKt {
+    method @androidx.compose.runtime.Composable public static void SetBottomBarVisibilityOnStartDestination(androidx.navigation.NavController navController, String startDestination, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> showBottomBar);
+  }
+
   public final class StringToBase64Kt {
     method public static String fromUrlBase64(String);
     method public static String toUrlBase64(String);
@@ -78,17 +195,34 @@ package com.urlaunched.android.common.networkmonitor {
 
 package com.urlaunched.android.common.pagination {
 
-  public final class BaseRemotePagingSource<T> extends androidx.paging.PagingSource<java.lang.Integer,T> {
-    method public Integer? getRefreshKey(androidx.paging.PagingState<java.lang.Integer,T> state);
-    method public suspend Object? load(androidx.paging.PagingSource.LoadParams<java.lang.Integer> params, kotlin.coroutines.Continuation<? super androidx.paging.PagingSource.LoadResult<java.lang.Integer,T>>);
-  }
-
   public final class FilterUniqueKt {
     method public static <T> androidx.paging.PagingData<T> filterUnique(androidx.paging.PagingData<T>, kotlin.jvm.functions.Function1<? super T,?> comparisonField);
   }
 
+  public final class RemotePagingSource<T> extends androidx.paging.PagingSource<java.lang.Integer,T> {
+    method public Integer? getRefreshKey(androidx.paging.PagingState<java.lang.Integer,T> state);
+    method public suspend Object? load(androidx.paging.PagingSource.LoadParams<java.lang.Integer> params, kotlin.coroutines.Continuation<? super androidx.paging.PagingSource.LoadResult<java.lang.Integer,T>>);
+  }
+
   public final class RemotePagingSourceKt {
-    method public static <T> com.urlaunched.android.common.pagination.BaseRemotePagingSource<T> remotePagingSource(optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
+    method public static <T> com.urlaunched.android.common.pagination.RemotePagingSource<T> remotePagingSource(optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
+  }
+
+}
+
+package com.urlaunched.android.common.resources {
+
+  public interface AppResources {
+    method public String getString(@StringRes int id);
+    method public String getString(@StringRes int id, java.lang.Object... args);
+    method public java.io.InputStream openRawResource(@RawRes int id);
+  }
+
+  public final class AppResourcesImpl implements com.urlaunched.android.common.resources.AppResources {
+    ctor public AppResourcesImpl(android.content.res.Resources resources);
+    method public String getString(int id);
+    method public String getString(int id, java.lang.Object... args);
+    method public java.io.InputStream openRawResource(int id);
   }
 
 }
@@ -157,6 +291,14 @@ package com.urlaunched.android.common.serializer {
 
   public final class DataStoreSerializerKt {
     method public static inline <reified T> androidx.datastore.core.Serializer<T>! creteDataStoreSerializer(T defaultValue);
+  }
+
+}
+
+package com.urlaunched.android.common.string {
+
+  public final class OrNullKt {
+    method public static String? orNull(String?);
   }
 
 }
