@@ -84,4 +84,7 @@ dependencies {
 
     // Browser
     implementation libs.browserDependencies.core
+
+    // Ucrop
+    implementation libs.ucropDependencies.core
 }

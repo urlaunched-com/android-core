@@ -38,6 +38,9 @@ datastoreVersion = "1.0.0"
 # browserDependencies
 browserVersion = "1.8.0"
 
+# uCropDependencies
+uCropVersion = '2.2.8'
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -85,6 +88,8 @@ datastoreDependencies-datastore = { module = "androidx.datastore:datastore-prefe
 datastoreDependencies-datastoreCore = { module = "androidx.datastore:datastore-core", version.ref = "datastoreVersion" }
 
 browserDependencies-core = { module = "androidx.browser:browser", version.ref = "browserVersion" }
+
+ucropDependencies-core = { module = "com.github.yalantis:ucrop", version.ref = "uCropVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
