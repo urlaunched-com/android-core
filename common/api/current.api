@@ -1,0 +1,172 @@
+// Signature format: 4.0
+package com.urlaunched.android.common.coil {
+
+  public final class CoilCacheHelper {
+    method public suspend Object? extractImageFromCachesOrDownloadFile(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super java.io.File>);
+    method public void preloadImage(android.content.Context context, String imageUrl);
+    field public static final com.urlaunched.android.common.coil.CoilCacheHelper INSTANCE;
+  }
+
+  public final class DownloadImageHelper {
+    method public suspend Object? downloadImage(String mediaLink, android.content.Context context, kotlin.coroutines.Continuation<? super java.io.File>);
+    field public static final com.urlaunched.android.common.coil.DownloadImageHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.intent {
+
+  public final class IntentHelper {
+    method public void openCustomTab(android.content.Context context, String url);
+    method public void openEmail(android.content.Context context, String email);
+    method public void openLink(android.content.Context context, String url);
+    method public void openSettings(android.content.Context context);
+    method public void sharePlainText(android.content.Context context, String text);
+    field public static final com.urlaunched.android.common.intent.IntentHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.lifecycle {
+
+  public final class HandleLifecycleEventsKt {
+    method @androidx.compose.runtime.Composable public static void HandleLifecycleEvents(optional androidx.lifecycle.LifecycleOwner lifecycleOwner, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCreate, optional kotlin.jvm.functions.Function0<kotlin.Unit> onStart, optional kotlin.jvm.functions.Function0<kotlin.Unit> onResume, optional kotlin.jvm.functions.Function0<kotlin.Unit> onPause, optional kotlin.jvm.functions.Function0<kotlin.Unit> onStop, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDestroy, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDispose, optional kotlin.jvm.functions.Function0<kotlin.Unit> onAny);
+  }
+
+}
+
+package com.urlaunched.android.common.navigation {
+
+  public final class CustomTypeNavArgKt {
+    method public static inline <reified T> T fromNavArgString(String);
+    method public static inline <reified T> String toNavArgString(T);
+  }
+
+  public final class HasDestinationInStackKt {
+    method public static boolean hasDestinationInStack(androidx.navigation.NavHostController, String destination);
+  }
+
+  public interface Router {
+    method public void navigate(String parentRoute, androidx.navigation.NavController navController, optional com.urlaunched.android.common.navigation.Router.NavArgs? args, optional androidx.navigation.NavOptions? navOptions);
+    method public String route(String parentRoute);
+  }
+
+  public static interface Router.NavArgs {
+  }
+
+  public final class StringToBase64Kt {
+    method public static String fromUrlBase64(String);
+    method public static String toUrlBase64(String);
+  }
+
+}
+
+package com.urlaunched.android.common.networkmonitor {
+
+  public final class ConnectivityManagerNetworkMonitor implements com.urlaunched.android.common.networkmonitor.NetworkMonitor {
+    ctor public ConnectivityManagerNetworkMonitor(android.content.Context context);
+    method public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline();
+    property public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline;
+  }
+
+  public interface NetworkMonitor {
+    method public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline();
+    property public abstract kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline;
+  }
+
+}
+
+package com.urlaunched.android.common.pagination {
+
+  public final class BaseRemotePagingSource<T> extends androidx.paging.PagingSource<java.lang.Integer,T> {
+    method public Integer? getRefreshKey(androidx.paging.PagingState<java.lang.Integer,T> state);
+    method public suspend Object? load(androidx.paging.PagingSource.LoadParams<java.lang.Integer> params, kotlin.coroutines.Continuation<? super androidx.paging.PagingSource.LoadResult<java.lang.Integer,T>>);
+  }
+
+  public final class FilterUniqueKt {
+    method public static <T> androidx.paging.PagingData<T> filterUnique(androidx.paging.PagingData<T>, kotlin.jvm.functions.Function1<? super T,?> comparisonField);
+  }
+
+  public final class RemotePagingSourceKt {
+    method public static <T> com.urlaunched.android.common.pagination.BaseRemotePagingSource<T> remotePagingSource(optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
+  }
+
+}
+
+package com.urlaunched.android.common.response {
+
+  public final class ErrorCodes {
+    field public static final com.urlaunched.android.common.response.ErrorCodes INSTANCE;
+    field public static final int INTERNET_CONNECTION_ERROR = 1025; // 0x401
+    field public static final int INVALID_PARAMS = 422; // 0x1a6
+    field public static final int JSON_VALIDATION_ERROR = 1026; // 0x402
+    field public static final int NO_AUTHORIZED = 401; // 0x191
+    field public static final int UNKNOWN_ERROR = 1024; // 0x400
+  }
+
+  public final class ErrorData {
+    ctor public ErrorData(Integer? code, String? message, optional java.util.List<java.lang.String> errorKeys);
+    method public Integer? component1();
+    method public String? component2();
+    method public java.util.List<java.lang.String> component3();
+    method public com.urlaunched.android.common.response.ErrorData copy(Integer? code, String? message, java.util.List<java.lang.String> errorKeys);
+    method public Integer? getCode();
+    method public java.util.List<java.lang.String> getErrorKeys();
+    method public String? getMessage();
+    property public final Integer? code;
+    property public final java.util.List<java.lang.String> errorKeys;
+    property public final String? message;
+  }
+
+  public abstract sealed class Response<T> {
+  }
+
+  public static final class Response.Error<T> extends com.urlaunched.android.common.response.Response<T> {
+    ctor public Response.Error(com.urlaunched.android.common.response.ErrorData error);
+    method public com.urlaunched.android.common.response.ErrorData component1();
+    method public com.urlaunched.android.common.response.Response.Error<T> copy(com.urlaunched.android.common.response.ErrorData error);
+    method public com.urlaunched.android.common.response.ErrorData getError();
+    property public final com.urlaunched.android.common.response.ErrorData error;
+  }
+
+  public static final class Response.Success<T> extends com.urlaunched.android.common.response.Response<T> {
+    ctor public Response.Success(T data);
+    method public T component1();
+    method public com.urlaunched.android.common.response.Response.Success<T> copy(T data);
+    method public T getData();
+    method public void setData(T);
+    property public final T data;
+  }
+
+  public final class ResponseKt {
+    method public static <T, R> com.urlaunched.android.common.response.Response<R> map(com.urlaunched.android.common.response.Response<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+  }
+
+}
+
+package com.urlaunched.android.common.scroll {
+
+  public final class CustomVerticalScrollKt {
+    method public static androidx.compose.ui.Modifier customFillMaxSize(androidx.compose.ui.Modifier, optional float height);
+    method public static androidx.compose.ui.Modifier customVerticalScroll(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState state);
+  }
+
+}
+
+package com.urlaunched.android.common.serializer {
+
+  public final class DataStoreSerializerKt {
+    method public static inline <reified T> androidx.datastore.core.Serializer<T>! creteDataStoreSerializer(T defaultValue);
+  }
+
+}
+
+package com.urlaunched.android.common.viewmodel {
+
+  public final class ViewModelExtensionsKt {
+    method public static inline void loadingTask(androidx.lifecycle.ViewModel, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> setLoading, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static suspend <T> Object? performUseCase(androidx.lifecycle.ViewModel, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<T>>,?> useCase, kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> success, kotlin.jvm.functions.Function2<? super com.urlaunched.android.common.response.ErrorData,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> error, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+}
+

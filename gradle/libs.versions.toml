@@ -32,6 +32,12 @@ junitKtxVersion = "1.1.5"
 # composePlaceholder
 composePlaceholderVersion = "1.0.7"
 
+# datastoreDependencies
+datastoreVersion = "1.0.0"
+
+# browserDependencies
+browserVersion = "1.8.0"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -74,6 +80,11 @@ testDependencies-junitExt = { module = "androidx.test.ext:junit-ktx", version.re
 testDependencies-compose = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
 
 composePlaceholder-core = { module = "com.eygraber:compose-placeholder", version.ref = "composePlaceholderVersion" }
+
+datastoreDependencies-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreVersion" }
+datastoreDependencies-datastoreCore = { module = "androidx.datastore:datastore-core", version.ref = "datastoreVersion" }
+
+browserDependencies-core = { module = "androidx.browser:browser", version.ref = "browserVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
