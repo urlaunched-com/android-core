@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "URL UiKit"
+rootProject.name = "AndroidDevKit"
 include ':design'
 include ':sample'
