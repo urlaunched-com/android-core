@@ -11,10 +11,10 @@ kotlinSerializationVersion = "1.6.3"
 
 # composeDependencies
 composeActivity = "1.8.2"
-composeVersion = "1.6.4"
+composeVersion = "1.6.5"
 composeNavigationVersion = "2.7.7"
 composeMaterial3Version = "1.2.1"
-composeMaterial2Version = "1.5.4"
+composeMaterial2Version = "1.6.5"
 composeConstraintLayout = "1.0.1"
 composeCompilerVersion = "1.5.11"
 
@@ -52,6 +52,13 @@ androidXMediaVersion = "1.7.0"
 
 # kableDependencies
 kableVersion = "0.29.1"
+
+# networkDependencies
+retrofitVersion = "2.11.0"
+okHttpVersion = "4.12.0"
+
+# firebaseDependencies
+firebaseBomVersion = "32.8.0"
 
 # plugins
 # dependencies
@@ -116,6 +123,14 @@ media3Dependencies-session = { module = "androidx.media3:media3-session", versio
 androidXMediaDependencies-core = { module = "androidx.media:media", version.ref = "androidXMediaVersion" }
 
 kableDependencies-core = { module = "com.juul.kable:core", version.ref = "kableVersion" }
+
+networkDependencies-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+networkDependencies-okHttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttpVersion" }
+networkDependencies-okHttpLogging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttpVersion" }
+networkDependencies-kotlinSerialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofitVersion" }
+
+firebaseDependencies-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
+firebaseDependencies-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
