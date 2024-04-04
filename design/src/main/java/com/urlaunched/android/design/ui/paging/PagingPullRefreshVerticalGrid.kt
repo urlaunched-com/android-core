@@ -30,9 +30,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.paging.PagingData
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 
 private const val DEFAULT_PLACEHOLDER_ITEMS_NUM = 10
+private const val REFRESHING_ANIMATION_DELAY_MS = 1000L
 
 @Composable
 fun <T : Any> PagingPullRefreshVerticalGrid(
@@ -141,18 +143,17 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
     ) { pagingState ->
         var isUserInitiatedRefresh by remember { mutableStateOf(false) }
 
-        val isRefreshing = isUserInitiatedRefresh && pagingState.isLoading
-
         val pullRefreshState = rememberPullRefreshState(
             onRefresh = {
                 isUserInitiatedRefresh = true
                 pagingState.pagingItems.refresh()
             },
-            refreshing = isRefreshing
+            refreshing = isUserInitiatedRefresh
         )
 
         LaunchedEffect(isUserInitiatedRefresh, pagingState.isLoading) {
             if (!pagingState.isLoading && isUserInitiatedRefresh) {
+                delay(REFRESHING_ANIMATION_DELAY_MS)
                 isUserInitiatedRefresh = false
             }
         }
@@ -223,7 +224,7 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
 
             PullRefreshIndicator(
                 modifier = Modifier.align(Alignment.TopCenter),
-                refreshing = isRefreshing,
+                refreshing = isUserInitiatedRefresh,
                 state = pullRefreshState,
                 backgroundColor = refreshIndicatorBackgroundColor,
                 contentColor = refreshIndicatorContentColor
