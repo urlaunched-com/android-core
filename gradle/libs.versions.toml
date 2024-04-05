@@ -44,6 +44,9 @@ uCropVersion = '2.2.8'
 # roomDependencies
 roomVersion = "2.6.1"
 
+# kableDependencies
+kableVersion = "0.29.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -99,6 +102,8 @@ roomDependencies-ktx = { module = "androidx.room:room-ktx", version.ref = "roomV
 roomDependencies-kapt = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 roomDependencies-testing = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
 roomDependencies-paging = { module = "androidx.room:room-paging", version.ref = "roomVersion" }
+
+kableDependencies-core = { module = "com.juul.kable:core", version.ref = "kableVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
