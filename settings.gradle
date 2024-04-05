@@ -24,3 +24,4 @@ rootProject.name = "AndroidDevKit"
 include ':design'
 include ':sample'
 include ':common'
+include ':player'
