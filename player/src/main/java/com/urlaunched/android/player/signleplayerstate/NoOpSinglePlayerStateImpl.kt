@@ -1,7 +1,7 @@
 package com.urlaunched.android.player.signleplayerstate
 
 import androidx.media3.common.Player
-import com.urlaunched.android.player.signleplayerstate.model.AudioState
+import com.urlaunched.android.player.models.AudioState
 import com.urlaunched.android.player.signleplayerstate.model.PlayerUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

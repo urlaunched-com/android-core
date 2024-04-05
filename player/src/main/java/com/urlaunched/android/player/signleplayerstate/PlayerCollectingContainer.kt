@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.urlaunched.android.player.signleplayerstate.model.AudioState
+import com.urlaunched.android.player.models.AudioState
 import com.urlaunched.android.player.signleplayerstate.model.PlayerUiState
 import kotlinx.coroutines.delay
 

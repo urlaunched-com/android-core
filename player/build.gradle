@@ -74,6 +74,7 @@ dependencies {
     // Media3
     implementation libs.media3Dependencies.core
     implementation libs.media3Dependencies.ui
+    implementation libs.media3Dependencies.session
 
     // Compat media
     implementation libs.androidXMediaDependencies.core

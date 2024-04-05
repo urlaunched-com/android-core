@@ -11,7 +11,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerNotificationManager
-import com.urlaunched.android.player.signleplayerstate.model.AudioState
+import com.urlaunched.android.player.models.AudioState
 import com.urlaunched.android.player.signleplayerstate.model.PlayerUiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
