@@ -1,0 +1,110 @@
+// Signature format: 4.0
+package com.urlaunched.android.tempattachment.data.remote.api {
+
+  public interface TempAttachmentsApi {
+    method @retrofit2.http.POST("api/v1/temp_attachments") public suspend Object? sendFile(@retrofit2.http.Body com.urlaunched.android.tempattachment.models.remote.TempAttachmentsParamsRemoteModel params, kotlin.coroutines.Continuation<? super retrofit2.Response<com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel>>);
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.data.remote.datasource {
+
+  public interface TempAttachmentsRemoteDataSource {
+    method public suspend Object? sendFile(String fileName, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel>>);
+  }
+
+  public final class TempAttachmentsRemoteDataSourceImpl implements com.urlaunched.android.tempattachment.data.remote.datasource.TempAttachmentsRemoteDataSource {
+    ctor public TempAttachmentsRemoteDataSourceImpl(com.urlaunched.android.tempattachment.data.remote.api.TempAttachmentsApi api);
+    method public suspend Object? sendFile(String fileName, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel>>);
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.data.repository {
+
+  public final class TempAttachmentsRepositoryImpl implements com.urlaunched.android.tempattachment.domain.repository.TempAttachmentsRepository {
+    ctor public TempAttachmentsRepositoryImpl(com.urlaunched.android.tempattachment.data.remote.datasource.TempAttachmentsRemoteDataSource tempAttachmentsRemoteDataSource, okhttp3.OkHttpClient okHttpClient);
+    method public suspend Object? getPresignedAndPublicUrl(String fileName, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomainModel>>);
+    method public suspend Object? uploadFileToPresignedUrl(com.urlaunched.android.common.files.MediaType mediaType, java.io.File file, String presignedUrl, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.domain.repository {
+
+  public interface TempAttachmentsRepository {
+    method public suspend Object? getPresignedAndPublicUrl(String fileName, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomainModel>>);
+    method public suspend Object? uploadFileToPresignedUrl(com.urlaunched.android.common.files.MediaType mediaType, java.io.File file, String presignedUrl, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.domain.usecases {
+
+  public final class GetPresignedAndPublicUrlUseCase {
+    ctor public GetPresignedAndPublicUrlUseCase(com.urlaunched.android.tempattachment.domain.repository.TempAttachmentsRepository tempAttachmentsRepository);
+    method public suspend operator Object? invoke(String fileName, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomainModel>>);
+  }
+
+  public final class UploadFileAndGetPublicUrlUseCase {
+    ctor public UploadFileAndGetPublicUrlUseCase(com.urlaunched.android.tempattachment.domain.repository.TempAttachmentsRepository tempAttachmentsRepository);
+    method public suspend operator Object? invoke(com.urlaunched.android.common.files.MediaType mediaType, java.io.File file, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+  public final class UploadToPresignedUrlUseCase {
+    ctor public UploadToPresignedUrlUseCase(com.urlaunched.android.tempattachment.domain.repository.TempAttachmentsRepository tempAttachmentsRepository);
+    method public suspend operator Object? invoke(com.urlaunched.android.common.files.MediaType mediaType, java.io.File file, String presignedUrl, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.models.domain {
+
+  public final class TempAttachmentsDomainModel {
+    ctor public TempAttachmentsDomainModel(String publicUrl, String presignedUrl);
+    method public String component1();
+    method public String component2();
+    method public com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomainModel copy(String publicUrl, String presignedUrl);
+    method public String getPresignedUrl();
+    method public String getPublicUrl();
+    property public final String presignedUrl;
+    property public final String publicUrl;
+  }
+
+}
+
+package com.urlaunched.android.tempattachment.models.remote {
+
+  @kotlinx.serialization.Serializable public final class TempAttachmentsParamsRemoteModel {
+    ctor public TempAttachmentsParamsRemoteModel(@kotlinx.serialization.SerialName("filename") String fileName);
+    method public String component1();
+    method public com.urlaunched.android.tempattachment.models.remote.TempAttachmentsParamsRemoteModel copy(String fileName);
+    method public String getFileName();
+    property public final String fileName;
+  }
+
+  @kotlinx.serialization.Serializable public final class TempAttachmentsRemoteModel {
+    ctor public TempAttachmentsRemoteModel(@kotlinx.serialization.SerialName("public_url") String publicUrl, @kotlinx.serialization.SerialName("presigned_url") String presignedUrl);
+    method public String component1();
+    method public String component2();
+    method public com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel copy(String publicUrl, String presignedUrl);
+    method public String getPresignedUrl();
+    method public String getPublicUrl();
+    property public final String presignedUrl;
+    property public final String publicUrl;
+  }
+
+  public final class TempAttachmentsRemoteModelKt {
+    method public static com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomainModel toDomainModel(com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel);
+  }
+
+  @kotlinx.serialization.Serializable public final class TempAttachmentsWrapperRemoteModel {
+    ctor public TempAttachmentsWrapperRemoteModel(@kotlinx.serialization.SerialName("attachment") com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel attachment);
+    method public com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel component1();
+    method public com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel copy(com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel attachment);
+    method public com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel getAttachment();
+    property public final com.urlaunched.android.tempattachment.models.remote.TempAttachmentsRemoteModel attachment;
+  }
+
+}
+
