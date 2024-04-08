@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew ":design:metalavaCheckCompatibilityRelease" ":common:metalavaGenerateSignatureRelease"
+./gradlew ":design:metalavaCheckCompatibilityRelease" ":common:metalavaCheckCompatibilityRelease" ":network:metalavaCheckCompatibilityRelease"

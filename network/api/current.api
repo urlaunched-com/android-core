@@ -1,0 +1,90 @@
+// Signature format: 4.0
+package com.urlaunched.android.network.interceptors {
+
+  public final class AccessTokenInterceptor implements okhttp3.Interceptor {
+    method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
+    field public static final com.urlaunched.android.network.interceptors.AccessTokenInterceptor.Companion Companion;
+  }
+
+  public static final class AccessTokenInterceptor.Companion {
+  }
+
+  public final class AccessTokenInterceptorKt {
+    method public static com.urlaunched.android.network.interceptors.AccessTokenInterceptor accessTokenInterceptor(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super java.lang.String>,?> getAuthToken);
+  }
+
+  public final class AppLanguagesInterceptor implements okhttp3.Interceptor {
+    ctor public AppLanguagesInterceptor(android.content.Context context);
+    method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
+    field public static final com.urlaunched.android.network.interceptors.AppLanguagesInterceptor.Companion Companion;
+  }
+
+  public static final class AppLanguagesInterceptor.Companion {
+  }
+
+  public final class SignOutInterceptor implements okhttp3.Interceptor {
+    method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
+  }
+
+  public final class SignOutInterceptorKt {
+    method public static com.urlaunched.android.network.interceptors.SignOutInterceptor signOutInterceptor(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> onNotAuthenticated);
+  }
+
+}
+
+package com.urlaunched.android.network.okhttp {
+
+  public final class OkHttpInitializer {
+    method public okhttp3.OkHttpClient createGeneralOkHttpClient(boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor... interceptors);
+    field public static final com.urlaunched.android.network.okhttp.OkHttpInitializer INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.network.retorift {
+
+  public final class RetrofitInitializer {
+    method public retrofit2.Retrofit createGeneralRetrofitClient(String baseUrl, boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor... interceptors);
+    field public static final com.urlaunched.android.network.retorift.RetrofitInitializer INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.network.sockets {
+
+  public final class ActionCableSocket {
+    method public kotlinx.coroutines.flow.Flow<com.urlaunched.android.common.socket.ActionCableSocketEventMessage<kotlinx.serialization.json.JsonElement>> subscribeToChannel(String channelName, optional java.util.Map<java.lang.String,? extends kotlinx.serialization.json.JsonElement> params);
+    field public static final com.urlaunched.android.network.sockets.ActionCableSocket.Companion Companion;
+  }
+
+  public static final class ActionCableSocket.Companion {
+  }
+
+  public final class ActionCableSocketInitializer {
+    method public com.urlaunched.android.network.sockets.ActionCableSocket createGeneralActionCableSocket(boolean enableLogging, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super java.lang.String>,?> getSocketUrl, optional okhttp3.OkHttpClient? okHttpClient);
+    field public static final com.urlaunched.android.network.sockets.ActionCableSocketInitializer INSTANCE;
+  }
+
+  public final class ActionCableStaleConnectionException extends java.lang.Exception {
+    ctor public ActionCableStaleConnectionException();
+  }
+
+}
+
+package com.urlaunched.android.network.utils {
+
+  public final class ExecuteRequestKt {
+    method public static suspend Object? executeOkhttpRequest(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super okhttp3.Call>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+    method public static suspend <T> Object? executeRequest(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super retrofit2.Response<T>>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<T>>);
+    method public static suspend Object? executeRequestNullable(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super retrofit2.Response<kotlin.Unit>>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+    method public static inline <reified T> kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T>> executeSocketCallback(optional kotlinx.serialization.json.Json json, kotlin.jvm.functions.Function0<? extends kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<kotlinx.serialization.json.JsonElement>>> request);
+    method public static kotlinx.serialization.json.Json getNetworkJson();
+    property public static final kotlinx.serialization.json.Json networkJson;
+  }
+
+  public final class SaveUserTokenKt {
+    method public static suspend <T> Object? executeRequestAndTryGetAuthToken(retrofit2.Response<T>, optional String header, optional kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Pair<? extends T,? extends java.lang.String>>>);
+  }
+
+}
+
