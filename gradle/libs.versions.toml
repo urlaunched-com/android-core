@@ -32,6 +32,18 @@ junitKtxVersion = "1.1.5"
 # composePlaceholder
 composePlaceholderVersion = "1.0.7"
 
+# datastoreDependencies
+datastoreVersion = "1.0.0"
+
+# browserDependencies
+browserVersion = "1.8.0"
+
+# uCropDependencies
+uCropVersion = '2.2.8'
+
+# roomDependencies
+roomVersion = "2.6.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -74,6 +86,19 @@ testDependencies-junitExt = { module = "androidx.test.ext:junit-ktx", version.re
 testDependencies-compose = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
 
 composePlaceholder-core = { module = "com.eygraber:compose-placeholder", version.ref = "composePlaceholderVersion" }
+
+datastoreDependencies-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreVersion" }
+datastoreDependencies-datastoreCore = { module = "androidx.datastore:datastore-core", version.ref = "datastoreVersion" }
+
+browserDependencies-core = { module = "androidx.browser:browser", version.ref = "browserVersion" }
+
+ucropDependencies-core = { module = "com.github.yalantis:ucrop", version.ref = "uCropVersion" }
+
+roomDependencies-room = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+roomDependencies-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+roomDependencies-kapt = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+roomDependencies-testing = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
+roomDependencies-paging = { module = "androidx.room:room-paging", version.ref = "roomVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
