@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.AndroidMultiVariantLibrary
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -40,6 +42,13 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
+    }
+
+    mavenPublishing {
+        // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
+        // the first parameter represents whether to publish a sources jar
+        // the second whether to publish a javadoc jar
+        configure(new AndroidMultiVariantLibrary(true, false))
     }
 }
 
