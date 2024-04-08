@@ -54,7 +54,7 @@ fun TextField(
     label: String,
     focusedBorderColor: Color = Color.Black,
     unfocusedBorderColor: Color = Color.Gray,
-    errorBorderColor: Color = Color.Red,
+    errorBorderColor: Color? = Color.Red,
     errorTextColor: Color = Color.Red,
     textColor: Color = Color.Black,
     selectionHandleColor: Color = Color.Black,
@@ -91,7 +91,7 @@ fun TextField(
     var isFocused by remember { mutableStateOf(false) }
     val borderColor by animateColorAsState(
         targetValue = when {
-            error != null -> errorBorderColor
+            error != null && errorBorderColor != null -> errorBorderColor
             isFocused -> focusedBorderColor
             else -> unfocusedBorderColor
         },
