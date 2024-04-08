@@ -51,6 +51,9 @@ okHttpVersion = "4.12.0"
 # firebaseDependencies
 firebaseBomVersion = "32.8.0"
 
+# kableDependencies
+kableVersion = "0.29.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -117,6 +120,8 @@ firebaseDependencies-bom = { module = "com.google.firebase:firebase-bom", versio
 firebaseDependencies-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 
 paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazziPluginVersion"}
+
+kableDependencies-core = { module = "com.juul.kable:core", version.ref = "kableVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }

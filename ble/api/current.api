@@ -1,0 +1,122 @@
+// Signature format: 4.0
+package com.urlaunched.android.ble.devicemanager {
+
+  public interface BleDeviceManager {
+    method public kotlinx.coroutines.flow.Flow<com.urlaunched.android.ble.models.DeviceState> connectToDevice(String address);
+    method public kotlinx.coroutines.flow.Flow<byte[]> observeCharacteristic(String service, String characteristic, optional kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> onSubscription);
+    method public suspend Object? readCharacteristic(String service, String characteristic, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<byte[]>>);
+    method public suspend Object? reconnect(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? writeData(String service, String characteristic, byte[] data, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+  }
+
+  public final class BleDeviceManagerImpl implements com.urlaunched.android.ble.devicemanager.BleDeviceManager {
+    ctor public BleDeviceManagerImpl(boolean loggingEnabled, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher, android.content.Context context);
+    method public kotlinx.coroutines.flow.Flow<com.urlaunched.android.ble.models.DeviceState> connectToDevice(String address);
+    method public kotlinx.coroutines.flow.Flow<byte[]> observeCharacteristic(String service, String characteristic, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> onSubscription);
+    method public suspend Object? readCharacteristic(String service, String characteristic, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<byte[]>>);
+    method public suspend Object? reconnect(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? writeData(String service, String characteristic, byte[] data, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+    field public static final com.urlaunched.android.ble.devicemanager.BleDeviceManagerImpl.Companion Companion;
+  }
+
+  public static final class BleDeviceManagerImpl.Companion {
+  }
+
+}
+
+package com.urlaunched.android.ble.models {
+
+  public final class BleAdvertisement {
+    ctor public BleAdvertisement(String name, String address);
+    method public String component1();
+    method public String component2();
+    method public com.urlaunched.android.ble.models.BleAdvertisement copy(String name, String address);
+    method public String getAddress();
+    method public String getName();
+    property public final String address;
+    property public final String name;
+  }
+
+  public abstract sealed class DeviceState {
+  }
+
+  public static final class DeviceState.BluetoothUnavailable extends com.urlaunched.android.ble.models.DeviceState {
+    field public static final com.urlaunched.android.ble.models.DeviceState.BluetoothUnavailable INSTANCE;
+  }
+
+  public static final class DeviceState.Connected extends com.urlaunched.android.ble.models.DeviceState {
+    field public static final com.urlaunched.android.ble.models.DeviceState.Connected INSTANCE;
+  }
+
+  public static final class DeviceState.Connecting extends com.urlaunched.android.ble.models.DeviceState {
+    ctor public DeviceState.Connecting(optional int attempt);
+    method public int component1();
+    method public com.urlaunched.android.ble.models.DeviceState.Connecting copy(int attempt);
+    method public int getAttempt();
+    property public final int attempt;
+  }
+
+  public static final class DeviceState.Disconnected extends com.urlaunched.android.ble.models.DeviceState {
+    ctor public DeviceState.Disconnected(String? cause);
+    method public String? component1();
+    method public com.urlaunched.android.ble.models.DeviceState.Disconnected copy(String? cause);
+    method public String? getCause();
+    property public final String? cause;
+  }
+
+  public abstract sealed class ScanStatus {
+  }
+
+  public static final class ScanStatus.BluetoothDisabled extends com.urlaunched.android.ble.models.ScanStatus {
+    field public static final com.urlaunched.android.ble.models.ScanStatus.BluetoothDisabled INSTANCE;
+  }
+
+  public static final class ScanStatus.Failed extends com.urlaunched.android.ble.models.ScanStatus {
+    ctor public ScanStatus.Failed(Throwable cause);
+    method public Throwable component1();
+    method public com.urlaunched.android.ble.models.ScanStatus.Failed copy(Throwable cause);
+    method public Throwable getCause();
+    property public final Throwable cause;
+  }
+
+  public static final class ScanStatus.ScanResults extends com.urlaunched.android.ble.models.ScanStatus {
+    ctor public ScanStatus.ScanResults(java.util.List<com.urlaunched.android.ble.models.BleAdvertisement> advertisements);
+    method public java.util.List<com.urlaunched.android.ble.models.BleAdvertisement> component1();
+    method public com.urlaunched.android.ble.models.ScanStatus.ScanResults copy(java.util.List<com.urlaunched.android.ble.models.BleAdvertisement> advertisements);
+    method public java.util.List<com.urlaunched.android.ble.models.BleAdvertisement> getAdvertisements();
+    property public final java.util.List<com.urlaunched.android.ble.models.BleAdvertisement> advertisements;
+  }
+
+}
+
+package com.urlaunched.android.ble.scanner {
+
+  public interface BleScanner {
+    method public kotlinx.coroutines.flow.Flow<com.juul.kable.AndroidAdvertisement> scanDevices(optional java.util.List<? extends com.juul.kable.Filter>? scanFilters);
+  }
+
+  public final class BleScannerImpl implements com.urlaunched.android.ble.scanner.BleScanner {
+    ctor public BleScannerImpl(boolean loggingEnabled);
+    method public kotlinx.coroutines.flow.Flow<com.juul.kable.AndroidAdvertisement> scanDevices(java.util.List<? extends com.juul.kable.Filter>? scanFilters);
+  }
+
+}
+
+package com.urlaunched.android.ble.usecase {
+
+  public final class ScanBleDevicesUseCase {
+    ctor public ScanBleDevicesUseCase(com.urlaunched.android.ble.scanner.BleScanner bleScanner);
+    method public operator kotlinx.coroutines.flow.Flow<com.urlaunched.android.ble.models.ScanStatus> invoke(String uuidFilter);
+  }
+
+}
+
+package com.urlaunched.android.ble.utils {
+
+  public final class BlePermissionsUtil {
+    method public java.util.List<java.lang.String> getBlePermissionsForApi();
+    field public static final com.urlaunched.android.ble.utils.BlePermissionsUtil INSTANCE;
+  }
+
+}
+
