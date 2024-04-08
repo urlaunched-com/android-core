@@ -1,0 +1,274 @@
+// Signature format: 4.0
+package com.urlaunched.android.cdn.data.remote.api {
+
+  public interface CdnMediaApi {
+    method @retrofit2.http.GET("/api/v1/signed_downloads/{media_id}") public suspend Object? generateDownloadLink(@retrofit2.http.Path("media_id") int mediaId, kotlin.coroutines.Continuation<? super retrofit2.Response<com.urlaunched.android.cdn.models.remote.GenerateDownloadLinkRemoteModel>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.data.remote.source {
+
+  public interface CdnDataSource {
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.links.MediaLink mediaLink, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.links.MediaLink.Private mediaLink, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+  public final class CdnDataSourceImpl implements com.urlaunched.android.cdn.data.remote.source.CdnDataSource {
+    ctor public CdnDataSourceImpl(com.urlaunched.android.cdn.data.remote.api.CdnMediaApi cdnMediaApi, okhttp3.OkHttpClient okHttpClient);
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.links.MediaLink mediaLink, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.links.MediaLink.Private mediaLink, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.data.repository {
+
+  public final class OriginalFilePreviewLinkRepositoryImpl implements com.urlaunched.android.cdn.domain.repository.OriginalFilePreviewLinkRepository {
+    ctor public OriginalFilePreviewLinkRepositoryImpl(com.urlaunched.android.cdn.data.remote.source.CdnDataSource cdnDataSource);
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.links.MediaLink mediaLink, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.links.MediaLink.Private mediaLink, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.domain.repository {
+
+  public interface OriginalFilePreviewLinkRepository {
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.links.MediaLink mediaLink, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.links.MediaLink.Private mediaLink, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.domain.usecases {
+
+  public final class DownloadFileUseCase {
+    ctor public DownloadFileUseCase(com.urlaunched.android.cdn.domain.repository.OriginalFilePreviewLinkRepository repository);
+    method public suspend operator Object? invoke(com.urlaunched.android.cdn.models.domain.links.MediaLink mediaLink, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState>>);
+  }
+
+  public final class GetOriginalFileLinkUseCase {
+    ctor public GetOriginalFileLinkUseCase(com.urlaunched.android.cdn.domain.repository.OriginalFilePreviewLinkRepository repository);
+    method public suspend operator Object? invoke(com.urlaunched.android.cdn.models.domain.links.MediaLink.Private mediaLink, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.generators {
+
+  public final class MediaCDNGenerator {
+    method public com.urlaunched.android.cdn.models.domain.links.MediaLink.Public generateBitmapLink(com.urlaunched.android.cdn.models.domain.media.MediaDomainModel media, com.urlaunched.android.cdn.models.domain.transaform.Edits edits, com.urlaunched.android.cdn.models.CdnConfig cdnConfig);
+    method public com.urlaunched.android.cdn.models.domain.links.MediaLink generateImageLink(com.urlaunched.android.cdn.models.domain.media.MediaDomainModel media, com.urlaunched.android.cdn.models.CdnConfig cdnConfig);
+    method public com.urlaunched.android.cdn.models.domain.links.MediaLink generateNotImageLink(com.urlaunched.android.cdn.models.domain.media.MediaDomainModel media, com.urlaunched.android.cdn.models.CdnConfig cdnConfig);
+    field public static final com.urlaunched.android.cdn.generators.MediaCDNGenerator INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models {
+
+  public final class CdnConfig {
+    ctor public CdnConfig(String publicImageCdn, String publicMediaCdn, String privateMediaCdn, String privateMediaEndpoint, String bucket, String tempBucket, String privateBucket);
+    method public String component1();
+    method public String component2();
+    method public String component3();
+    method public String component4();
+    method public String component5();
+    method public String component6();
+    method public String component7();
+    method public com.urlaunched.android.cdn.models.CdnConfig copy(String publicImageCdn, String publicMediaCdn, String privateMediaCdn, String privateMediaEndpoint, String bucket, String tempBucket, String privateBucket);
+    method public String getBucket();
+    method public String getPrivateBucket();
+    method public String getPrivateMediaCdn();
+    method public String getPrivateMediaEndpoint();
+    method public String getPublicImageCdn();
+    method public String getPublicMediaCdn();
+    method public String getTempBucket();
+    property public final String bucket;
+    property public final String privateBucket;
+    property public final String privateMediaCdn;
+    property public final String privateMediaEndpoint;
+    property public final String publicImageCdn;
+    property public final String publicMediaCdn;
+    property public final String tempBucket;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models.domain.downloadstate {
+
+  public abstract sealed class DownloadState {
+  }
+
+  public static final class DownloadState.Downloading extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState {
+    ctor public DownloadState.Downloading(long progress);
+    method public long component1();
+    method public com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState.Downloading copy(long progress);
+    method public long getProgress();
+    property public final long progress;
+  }
+
+  public static final class DownloadState.Failed extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState {
+    ctor public DownloadState.Failed(optional Throwable? error);
+    method public Throwable? component1();
+    method public com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState.Failed copy(Throwable? error);
+    method public Throwable? getError();
+    property public final Throwable? error;
+  }
+
+  public static final class DownloadState.Finished extends com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState {
+    ctor public DownloadState.Finished(long progress);
+    method public long component1();
+    method public com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState.Finished copy(long progress);
+    method public long getProgress();
+    property public final long progress;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models.domain.links {
+
+  @kotlinx.serialization.Serializable public abstract sealed class MediaLink {
+    method public abstract int getId();
+    method public abstract String getLink();
+    method public abstract int getSizeKb();
+    property public abstract int id;
+    property public abstract String link;
+    property public abstract int sizeKb;
+  }
+
+  @kotlinx.serialization.Serializable public static final class MediaLink.Private extends com.urlaunched.android.cdn.models.domain.links.MediaLink {
+    ctor public MediaLink.Private(int id, String link, int sizeKb);
+    method public int component1();
+    method public String component2();
+    method public int component3();
+    method public com.urlaunched.android.cdn.models.domain.links.MediaLink.Private copy(int id, String link, int sizeKb);
+    method public int getId();
+    method public String getLink();
+    method public int getSizeKb();
+    property public int id;
+    property public String link;
+    property public int sizeKb;
+  }
+
+  @kotlinx.serialization.Serializable public static final class MediaLink.Public extends com.urlaunched.android.cdn.models.domain.links.MediaLink {
+    ctor public MediaLink.Public(int id, String link, int sizeKb);
+    method public int component1();
+    method public String component2();
+    method public int component3();
+    method public com.urlaunched.android.cdn.models.domain.links.MediaLink.Public copy(int id, String link, int sizeKb);
+    method public int getId();
+    method public String getLink();
+    method public int getSizeKb();
+    property public int id;
+    property public String link;
+    property public int sizeKb;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models.domain.media {
+
+  @kotlinx.serialization.Serializable public final class MediaDomainModel {
+    ctor public MediaDomainModel(int id, String mediaRawLink, int sizeKb);
+    method public int component1();
+    method public String component2();
+    method public int component3();
+    method public com.urlaunched.android.cdn.models.domain.media.MediaDomainModel copy(int id, String mediaRawLink, int sizeKb);
+    method public int getId();
+    method public String getMediaRawLink();
+    method public int getSizeKb();
+    property public final int id;
+    property public final String mediaRawLink;
+    property public final int sizeKb;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models.domain.transaform {
+
+  @kotlinx.serialization.Serializable public final class Edits {
+    ctor public Edits(@kotlinx.serialization.SerialName("resize") com.urlaunched.android.cdn.models.domain.transaform.Resize resize, optional @kotlinx.serialization.SerialName("grayscale") boolean isGrayscale);
+    method public com.urlaunched.android.cdn.models.domain.transaform.Resize component1();
+    method public boolean component2();
+    method public com.urlaunched.android.cdn.models.domain.transaform.Edits copy(com.urlaunched.android.cdn.models.domain.transaform.Resize resize, boolean isGrayscale);
+    method public com.urlaunched.android.cdn.models.domain.transaform.Resize getResize();
+    method public boolean isGrayscale();
+    property public final boolean isGrayscale;
+    property public final com.urlaunched.android.cdn.models.domain.transaform.Resize resize;
+  }
+
+  @kotlinx.serialization.Serializable public final class Resize {
+    ctor public Resize(optional @kotlinx.serialization.SerialName("width") Integer? width, optional @kotlinx.serialization.SerialName("height") Integer? height, @kotlinx.serialization.SerialName("fit") com.urlaunched.android.cdn.models.domain.transaform.ResizeMode resizeMode);
+    method public Integer? component1();
+    method public Integer? component2();
+    method public com.urlaunched.android.cdn.models.domain.transaform.ResizeMode component3();
+    method public com.urlaunched.android.cdn.models.domain.transaform.Resize copy(Integer? width, Integer? height, com.urlaunched.android.cdn.models.domain.transaform.ResizeMode resizeMode);
+    method public Integer? getHeight();
+    method public com.urlaunched.android.cdn.models.domain.transaform.ResizeMode getResizeMode();
+    method public Integer? getWidth();
+    property public final Integer? height;
+    property public final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode resizeMode;
+    property public final Integer? width;
+  }
+
+  @kotlinx.serialization.Serializable public enum ResizeMode {
+    method public static com.urlaunched.android.cdn.models.domain.transaform.ResizeMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.cdn.models.domain.transaform.ResizeMode[] values();
+    enum_constant @kotlinx.serialization.SerialName("contain") public static final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode CONTAIN;
+    enum_constant @kotlinx.serialization.SerialName("cover") public static final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode COVER;
+    enum_constant @kotlinx.serialization.SerialName("fill") public static final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode FILL;
+    enum_constant @kotlinx.serialization.SerialName("inside") public static final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode INSIDE;
+    enum_constant @kotlinx.serialization.SerialName("outside") public static final com.urlaunched.android.cdn.models.domain.transaform.ResizeMode OUTSIDE;
+  }
+
+  @kotlinx.serialization.Serializable public final class TransformData {
+    ctor public TransformData(@kotlinx.serialization.SerialName("bucket") String bucket, @kotlinx.serialization.SerialName("key") String objectKey, @kotlinx.serialization.SerialName("edits") com.urlaunched.android.cdn.models.domain.transaform.Edits edits);
+    method public String component1();
+    method public String component2();
+    method public com.urlaunched.android.cdn.models.domain.transaform.Edits component3();
+    method public com.urlaunched.android.cdn.models.domain.transaform.TransformData copy(String bucket, String objectKey, com.urlaunched.android.cdn.models.domain.transaform.Edits edits);
+    method public String getBucket();
+    method public com.urlaunched.android.cdn.models.domain.transaform.Edits getEdits();
+    method public String getObjectKey();
+    property public final String bucket;
+    property public final com.urlaunched.android.cdn.models.domain.transaform.Edits edits;
+    property public final String objectKey;
+  }
+
+}
+
+package com.urlaunched.android.cdn.models.remote {
+
+  @kotlinx.serialization.Serializable public final class GenerateDownloadLinkRemoteModel {
+    ctor public GenerateDownloadLinkRemoteModel(@kotlinx.serialization.SerialName("download_link") String downloadLink);
+    method public String component1();
+    method public com.urlaunched.android.cdn.models.remote.GenerateDownloadLinkRemoteModel copy(String downloadLink);
+    method public String getDownloadLink();
+    property public final String downloadLink;
+  }
+
+  @kotlinx.serialization.Serializable public final class MediaRemoteModel {
+    ctor public MediaRemoteModel(@kotlinx.serialization.SerialName("id") int id, @kotlinx.serialization.SerialName("media_type") String mediaType, @kotlinx.serialization.SerialName("media_url") String mediaUrl, @kotlinx.serialization.SerialName("size_kb") int sizeKb);
+    method public int component1();
+    method public String component2();
+    method public String component3();
+    method public int component4();
+    method public com.urlaunched.android.cdn.models.remote.MediaRemoteModel copy(int id, String mediaType, String mediaUrl, int sizeKb);
+    method public int getId();
+    method public String getMediaType();
+    method public String getMediaUrl();
+    method public int getSizeKb();
+    property public final int id;
+    property public final String mediaType;
+    property public final String mediaUrl;
+    property public final int sizeKb;
+  }
+
+  public final class MediaRemoteModelKt {
+    method public static com.urlaunched.android.cdn.models.domain.media.MediaDomainModel toCDNMedia(com.urlaunched.android.cdn.models.remote.MediaRemoteModel);
+  }
+
+}
+
