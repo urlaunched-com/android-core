@@ -295,6 +295,64 @@ package com.urlaunched.android.common.serializer {
 
 }
 
+package com.urlaunched.android.common.socket {
+
+  public abstract sealed class ActionCableSocketEventMessage<T> {
+  }
+
+  public static final class ActionCableSocketEventMessage.Connected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Connected();
+  }
+
+  public static final class ActionCableSocketEventMessage.Disconnected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Disconnected(String? reason);
+    method public String? component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Disconnected<T> copy(String? reason);
+    method public String? getReason();
+    property public final String? reason;
+  }
+
+  public static final class ActionCableSocketEventMessage.Error<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Error(Throwable? error);
+    method public Throwable? component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Error<T> copy(Throwable? error);
+    method public Throwable? getError();
+    property public final Throwable? error;
+  }
+
+  public static final class ActionCableSocketEventMessage.Message<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Message(String identifier, T? body);
+    method public String component1();
+    method public T? component2();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Message<T> copy(String identifier, T? body);
+    method public T? getBody();
+    method public String getIdentifier();
+    property public final T? body;
+    property public final String identifier;
+  }
+
+  public static final class ActionCableSocketEventMessage.Subscribed<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Subscribed(String identifier);
+    method public String component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Subscribed<T> copy(String identifier);
+    method public String getIdentifier();
+    property public final String identifier;
+  }
+
+  public static final class ActionCableSocketEventMessage.SubscriptionRejected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.SubscriptionRejected(String identifier);
+    method public String component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.SubscriptionRejected<T> copy(String identifier);
+    method public String getIdentifier();
+    property public final String identifier;
+  }
+
+  public final class ActionCableSocketEventMessageKt {
+    method public static <T, R> com.urlaunched.android.common.socket.ActionCableSocketEventMessage<R> map(com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+  }
+
+}
+
 package com.urlaunched.android.common.string {
 
   public final class OrNullKt {
