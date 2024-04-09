@@ -1,0 +1,209 @@
+// Signature format: 4.0
+package com.urlaunched.android.player.mediacontroller {
+
+  public final class MediaControllerManager {
+    ctor public MediaControllerManager(android.content.Context context, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher, kotlinx.coroutines.CoroutineDispatcher mainImmediateDispatcher, Class<? extends androidx.media3.session.MediaSessionService> mediaSessionServiceClass);
+    method public kotlinx.coroutines.flow.SharedFlow<com.urlaunched.android.player.mediacontroller.models.MediaControllerUiState> getMediaControllerUiState();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getTimer();
+    method public suspend Object? pause(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? play(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? playItem(com.urlaunched.android.player.mediacontroller.models.Track track, optional boolean autoplay, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? playItemInPlaylistByIndex(int index, optional boolean autoplay, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? playItemInPlaylistWithId(int id, optional boolean autoplay, optional kotlin.time.Duration? customPosition, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? playNext(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? playPrevious(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? seekBack(long duration, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? seekForward(long duration, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? seekTo(float position, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? setPlaybackSpeed(com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed playbackSpeed, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? setPlaylist(java.util.List<? extends com.urlaunched.android.player.mediacontroller.models.Track> tracks, optional boolean autoplay, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public void setTimer(long timeMillis);
+    method public void stopTimer();
+    property public final kotlinx.coroutines.flow.SharedFlow<com.urlaunched.android.player.mediacontroller.models.MediaControllerUiState> mediaControllerUiState;
+    property public final kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> timer;
+    field public static final com.urlaunched.android.player.mediacontroller.MediaControllerManager.Companion Companion;
+  }
+
+  public static final class MediaControllerManager.Companion {
+  }
+
+}
+
+package com.urlaunched.android.player.mediacontroller.models {
+
+  public final class MediaControllerUiState {
+    ctor public MediaControllerUiState(com.urlaunched.android.player.models.AudioState audioState, long currentItemDuration, long currentAudioPosition, String? currentAudioId, boolean hasNextItem, boolean hasPreviousItem, com.urlaunched.android.player.mediacontroller.models.Track? currentTrack, com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed playbackSpeed, java.util.List<? extends com.urlaunched.android.player.mediacontroller.models.Track> playlist);
+    method public com.urlaunched.android.player.models.AudioState component1();
+    method public long component2-UwyO8pc();
+    method public long component3-UwyO8pc();
+    method public String? component4();
+    method public boolean component5();
+    method public boolean component6();
+    method public com.urlaunched.android.player.mediacontroller.models.Track? component7();
+    method public com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed component8();
+    method public java.util.List<com.urlaunched.android.player.mediacontroller.models.Track> component9();
+    method public com.urlaunched.android.player.mediacontroller.models.MediaControllerUiState copy-ZH2SSTU(com.urlaunched.android.player.models.AudioState audioState, long currentItemDuration, long currentAudioPosition, String? currentAudioId, boolean hasNextItem, boolean hasPreviousItem, com.urlaunched.android.player.mediacontroller.models.Track? currentTrack, com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed playbackSpeed, java.util.List<? extends com.urlaunched.android.player.mediacontroller.models.Track> playlist);
+    method public com.urlaunched.android.player.models.AudioState getAudioState();
+    method public String? getCurrentAudioId();
+    method public long getCurrentAudioPosition();
+    method public long getCurrentItemDuration();
+    method public com.urlaunched.android.player.mediacontroller.models.Track? getCurrentTrack();
+    method public boolean getHasNextItem();
+    method public boolean getHasPreviousItem();
+    method public com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed getPlaybackSpeed();
+    method public java.util.List<com.urlaunched.android.player.mediacontroller.models.Track> getPlaylist();
+    property public final com.urlaunched.android.player.models.AudioState audioState;
+    property public final String? currentAudioId;
+    property public final long currentAudioPosition;
+    property public final long currentItemDuration;
+    property public final com.urlaunched.android.player.mediacontroller.models.Track? currentTrack;
+    property public final boolean hasNextItem;
+    property public final boolean hasPreviousItem;
+    property public final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed playbackSpeed;
+    property public final java.util.List<com.urlaunched.android.player.mediacontroller.models.Track> playlist;
+  }
+
+  public enum PlaybackSpeed {
+    method public final float getSpeed();
+    method public final String! getStringValue();
+    method public static com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed[] values();
+    property public final float speed;
+    property public final String! stringValue;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_0_5;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_0_75;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_1;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_1_25;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_1_5;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_1_75;
+    enum_constant public static final com.urlaunched.android.player.mediacontroller.models.PlaybackSpeed X_2;
+  }
+
+  public interface Track {
+    method public String getAuthor();
+    method public int getId();
+    method public String? getImageMedia();
+    method public String getName();
+    method public String getUrl();
+    property public abstract String author;
+    property public abstract int id;
+    property public abstract String? imageMedia;
+    property public abstract String name;
+    property public abstract String url;
+  }
+
+}
+
+package com.urlaunched.android.player.models {
+
+  public enum AudioState {
+    method public static com.urlaunched.android.player.models.AudioState valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.player.models.AudioState[] values();
+    enum_constant public static final com.urlaunched.android.player.models.AudioState BUFFERING;
+    enum_constant public static final com.urlaunched.android.player.models.AudioState PAUSE;
+    enum_constant public static final com.urlaunched.android.player.models.AudioState PLAYING;
+  }
+
+}
+
+package com.urlaunched.android.player.signleplayerstate {
+
+  public final class NoOpSinglePlayerStateImpl implements com.urlaunched.android.player.signleplayerstate.SinglePlayerState {
+    ctor public NoOpSinglePlayerStateImpl();
+    method public long getCurrentPlayingPosition();
+    method public androidx.media3.common.Player? getPlayer();
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> getPlayerUiState();
+    method public void pause();
+    method public void playFile(String path, String id);
+    method public void playUrl(String url, String id);
+    method public void release();
+    method public void seekFor(long millis);
+    method public void seekTo(long millis);
+    property public long currentPlayingPosition;
+    property public androidx.media3.common.Player? player;
+    property public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> playerUiState;
+  }
+
+  public final class NotificationPlayerHelper {
+    method @androidx.media3.common.util.UnstableApi public androidx.media3.ui.PlayerNotificationManager initializePlayerNotificationManager(android.content.Context context, android.support.v4.media.session.MediaSessionCompat mediaSessionCompat, androidx.media3.common.Player? player, com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData notificationData, String notificationChannelName);
+    method public android.support.v4.media.session.MediaSessionCompat initializerMediaSessionCompat(android.content.Context context);
+    field public static final com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper INSTANCE;
+  }
+
+  public static final class NotificationPlayerHelper.NotificationData {
+    ctor public NotificationPlayerHelper.NotificationData(String title, String description, java.io.File? imageFile);
+    method public String component1();
+    method public String component2();
+    method public java.io.File? component3();
+    method public com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData copy(String title, String description, java.io.File? imageFile);
+    method public String getDescription();
+    method public java.io.File? getImageFile();
+    method public String getTitle();
+    property public final String description;
+    property public final java.io.File? imageFile;
+    property public final String title;
+  }
+
+  public final class PlayerCollectingContainerKt {
+    method @androidx.compose.runtime.Composable public static void PlayerCollectingContainer(com.urlaunched.android.player.signleplayerstate.model.PlayerUiState playerUiState, kotlin.jvm.functions.Function0<java.lang.Long> getCurrentPosition, optional boolean seekPauseSupport, kotlin.jvm.functions.Function4<? super com.urlaunched.android.player.signleplayerstate.model.PlayerUiState,? super java.lang.Long,? super androidx.compose.runtime.MutableState<java.lang.Long>,? super java.lang.Long,kotlin.Unit> content);
+  }
+
+  public interface SinglePlayerState extends androidx.lifecycle.DefaultLifecycleObserver {
+    method public long getCurrentPlayingPosition();
+    method public androidx.media3.common.Player? getPlayer();
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> getPlayerUiState();
+    method public void pause();
+    method public void playFile(String path, String id);
+    method public void playUrl(String url, String id);
+    method public void release();
+    method public void seekFor(long millis);
+    method public void seekTo(long millis);
+    property public abstract long currentPlayingPosition;
+    property public abstract androidx.media3.common.Player? player;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> playerUiState;
+  }
+
+  @androidx.media3.common.util.UnstableApi public final class SinglePlayerStateImpl implements com.urlaunched.android.player.signleplayerstate.SinglePlayerState {
+    ctor public SinglePlayerStateImpl(android.content.Context context, kotlinx.coroutines.CoroutineScope coroutineScope, com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, String? notificationChannelName);
+    method public long getCurrentPlayingPosition();
+    method public androidx.media3.common.Player? getPlayer();
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> getPlayerUiState();
+    method public void pause();
+    method public void playFile(String path, String id);
+    method public void playUrl(String url, String id);
+    method @androidx.media3.common.util.UnstableApi public void release();
+    method public void seekFor(long millis);
+    method public void seekTo(long millis);
+    method public void setPlayer(androidx.media3.common.Player?);
+    property public long currentPlayingPosition;
+    property public androidx.media3.common.Player? player;
+    property public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> playerUiState;
+  }
+
+  public final class SinglePlayerStateKt {
+    method @androidx.compose.runtime.Composable @androidx.media3.common.util.UnstableApi public static com.urlaunched.android.player.signleplayerstate.SinglePlayerState rememberPlayerState(optional android.content.Context context, optional kotlinx.coroutines.CoroutineScope coroutineScope, optional com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, String? notificationChannelName);
+  }
+
+}
+
+package com.urlaunched.android.player.signleplayerstate.model {
+
+  public final class PlayerUiState {
+    ctor public PlayerUiState(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, optional boolean isWaitingForAutoplay);
+    method public com.urlaunched.android.player.models.AudioState component1();
+    method public String component2();
+    method public long component3();
+    method public boolean component4();
+    method public com.urlaunched.android.player.signleplayerstate.model.PlayerUiState copy(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, boolean isWaitingForAutoplay);
+    method public long getAudioDuration();
+    method public com.urlaunched.android.player.models.AudioState getAudioState();
+    method public String getCurrentMediaItemId();
+    method public boolean isWaitingForAutoplay();
+    property public final long audioDuration;
+    property public final com.urlaunched.android.player.models.AudioState audioState;
+    property public final String currentMediaItemId;
+    property public final boolean isWaitingForAutoplay;
+  }
+
+}
+
