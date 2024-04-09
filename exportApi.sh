@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew ":design:metalavaGenerateSignatureRelease"
+./gradlew "metalavaGenerateSignatureRelease"
