@@ -1,0 +1,372 @@
+// Signature format: 4.0
+package com.urlaunched.android.common.basedao {
+
+  public interface BaseDao<T> {
+    method @androidx.room.Delete public suspend Object? delete(java.util.List<? extends T> obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Delete public suspend Object? delete(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super java.util.List<? extends java.lang.Long>>);
+    method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(T obj, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method public default suspend Object? insertOrUpdate(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Update public suspend Object? update(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Update public suspend Object? update(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+}
+
+package com.urlaunched.android.common.coil {
+
+  public final class CoilCacheHelper {
+    method public suspend Object? extractImageFromCachesOrDownloadFile(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super java.io.File>);
+    method public void preloadImage(android.content.Context context, String imageUrl);
+    field public static final com.urlaunched.android.common.coil.CoilCacheHelper INSTANCE;
+  }
+
+  public final class DownloadImageHelper {
+    method public suspend Object? downloadImage(String mediaLink, android.content.Context context, kotlin.coroutines.Continuation<? super java.io.File>);
+    field public static final com.urlaunched.android.common.coil.DownloadImageHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.downloadhelper {
+
+  public final class DownloadHelper {
+    method public void downloadFile(android.content.Context context, String fileUrl, String fileName, String description);
+    field public static final com.urlaunched.android.common.downloadhelper.DownloadHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.files {
+
+  public final class FileHelper {
+    method public boolean clearDirectory(android.content.Context context, String directory);
+    method public java.io.File createTempCameraPickFile(android.content.Context context, String fileExtension);
+    method public java.io.File createTempFile(android.content.Context context, String fileExtension);
+    method public boolean deleteFileByName(android.content.Context context, String directory, String name);
+    method public void deleteTempFilesFromCache(android.content.Context context);
+    method public java.io.File? getFileByName(android.content.Context context, String directory, String name);
+    method public String getVideDownloadFolderPath(android.content.Context context);
+    field public static final com.urlaunched.android.common.files.FileHelper INSTANCE;
+  }
+
+  public final class FilePickerHelper {
+    method public java.io.File? createFileFromUri(android.content.Context context, android.net.Uri uri);
+    method public kotlin.time.Duration? getMediaDuration(java.io.File file);
+    method public java.io.File? getVideoThumbnail(android.content.Context context, java.io.File file);
+    field public static final com.urlaunched.android.common.files.FilePickerHelper INSTANCE;
+  }
+
+  public interface MediaType {
+    method public java.util.List<java.lang.String> getExtraMimeTypes();
+    method public String getMimeType();
+    property public abstract java.util.List<java.lang.String> extraMimeTypes;
+    property public abstract String mimeType;
+  }
+
+  public final class PickFileContract extends androidx.activity.result.contract.ActivityResultContract<com.urlaunched.android.common.files.MediaType,android.net.Uri> {
+    ctor public PickFileContract();
+    method public android.content.Intent createIntent(android.content.Context context, com.urlaunched.android.common.files.MediaType input);
+    method public android.net.Uri? parseResult(int resultCode, android.content.Intent? intent);
+  }
+
+  public final class PickMultipleFilesContract extends androidx.activity.result.contract.ActivityResultContract<com.urlaunched.android.common.files.MediaType,java.util.List<? extends android.net.Uri>> {
+    ctor public PickMultipleFilesContract();
+    method public android.content.Intent createIntent(android.content.Context context, com.urlaunched.android.common.files.MediaType input);
+    method public java.util.List<android.net.Uri> parseResult(int resultCode, android.content.Intent? intent);
+  }
+
+  public final class TakeCameraPictureContract extends androidx.activity.result.contract.ActivityResultContract<kotlin.Unit,java.io.File> {
+    ctor public TakeCameraPictureContract(String fileProviderAuthority);
+    method public android.content.Intent createIntent(android.content.Context context, kotlin.Unit input);
+    method public java.io.File? parseResult(int resultCode, android.content.Intent? intent);
+    field public static final com.urlaunched.android.common.files.TakeCameraPictureContract.Companion Companion;
+  }
+
+  public static final class TakeCameraPictureContract.Companion {
+  }
+
+}
+
+package com.urlaunched.android.common.formatters {
+
+  public final class DateTimeFormatter {
+    method public String formatLocalDate(java.time.LocalDate value, optional String pattern);
+    method public String formatLocalDate(java.time.LocalDate value, java.time.format.FormatStyle style);
+    method public String formatLocalDateTime(java.time.LocalDateTime value, android.content.Context context, optional String pattern, optional String pattern24Hours);
+    method public String formatLocalDateTime(java.time.LocalDateTime value, optional java.time.format.FormatStyle style);
+    method public java.time.LocalDate? formatStringToLocalDate(String value);
+    method public java.time.LocalDateTime? formatStringToLocalDateTime(String value);
+    field public static final String DATE_PLACEHOLDER = "\u2014";
+    field public static final com.urlaunched.android.common.formatters.DateTimeFormatter INSTANCE;
+  }
+
+  public final class DecimalFormatter {
+    method public double centsToDollar(long);
+    method public long dollarsToCent(double);
+    method public long dollarsToCent(long);
+    method public String formatNumber(Double?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional String postfix, optional boolean useGrouping);
+    method public String formatNumber(Integer?);
+    method public String toDollarCent(Integer?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional boolean useGrouping);
+    method public String toDollarCent(Long?, optional int minimumFractionDigits, optional int maximumFractionDigits, optional boolean useGrouping);
+    method public int toPercent(float);
+    method public float toPercent(int);
+    method public String toThousandsOrMillions(Integer?);
+    field public static final com.urlaunched.android.common.formatters.DecimalFormatter INSTANCE;
+    field public static final int NO_FRACTION_DIGITS = 0; // 0x0
+  }
+
+}
+
+package com.urlaunched.android.common.imagecropper {
+
+  public final class ImageCropper {
+    method public void startCropActivity(android.content.Context context, androidx.activity.result.ActivityResultLauncher<android.content.Intent> cropActivityResultLauncher, java.io.File imageFile, optional float aspectRatioX, optional float aspectRatioY);
+    field public static final com.urlaunched.android.common.imagecropper.ImageCropper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.intent {
+
+  public final class IntentHelper {
+    method public void openCustomTab(android.content.Context context, String url);
+    method public void openEmail(android.content.Context context, String email);
+    method public void openLink(android.content.Context context, String url);
+    method public void openSettings(android.content.Context context);
+    method public void sharePlainText(android.content.Context context, String text);
+    field public static final com.urlaunched.android.common.intent.IntentHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.common.lifecycle {
+
+  public final class HandleLifecycleEventsKt {
+    method @androidx.compose.runtime.Composable public static void HandleLifecycleEvents(optional androidx.lifecycle.LifecycleOwner lifecycleOwner, optional kotlin.jvm.functions.Function0<kotlin.Unit> onCreate, optional kotlin.jvm.functions.Function0<kotlin.Unit> onStart, optional kotlin.jvm.functions.Function0<kotlin.Unit> onResume, optional kotlin.jvm.functions.Function0<kotlin.Unit> onPause, optional kotlin.jvm.functions.Function0<kotlin.Unit> onStop, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDestroy, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDispose, optional kotlin.jvm.functions.Function0<kotlin.Unit> onAny);
+  }
+
+}
+
+package com.urlaunched.android.common.navigation {
+
+  public final class CustomTypeNavArgKt {
+    method public static inline <reified T> T fromNavArgString(String);
+    method public static inline <reified T> String toNavArgString(T);
+  }
+
+  public final class HasDestinationInStackKt {
+    method public static boolean hasDestinationInStack(androidx.navigation.NavHostController, String destination);
+  }
+
+  public interface Router {
+    method public void navigate(String parentRoute, androidx.navigation.NavController navController, optional com.urlaunched.android.common.navigation.Router.NavArgs? args, optional androidx.navigation.NavOptions? navOptions);
+    method public String route(String parentRoute);
+  }
+
+  public static interface Router.NavArgs {
+  }
+
+  public final class SetBottomBarVisibilityOnStartDestinationKt {
+    method @androidx.compose.runtime.Composable public static void SetBottomBarVisibilityOnStartDestination(androidx.navigation.NavController navController, String startDestination, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> showBottomBar);
+  }
+
+  public final class StringToBase64Kt {
+    method public static String fromUrlBase64(String);
+    method public static String toUrlBase64(String);
+  }
+
+}
+
+package com.urlaunched.android.common.networkmonitor {
+
+  public final class ConnectivityManagerNetworkMonitor implements com.urlaunched.android.common.networkmonitor.NetworkMonitor {
+    ctor public ConnectivityManagerNetworkMonitor(android.content.Context context);
+    method public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline();
+    property public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline;
+  }
+
+  public interface NetworkMonitor {
+    method public kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline();
+    property public abstract kotlinx.coroutines.flow.Flow<java.lang.Boolean> isOnline;
+  }
+
+}
+
+package com.urlaunched.android.common.pagination {
+
+  public final class FilterUniqueKt {
+    method public static <T> androidx.paging.PagingData<T> filterUnique(androidx.paging.PagingData<T>, kotlin.jvm.functions.Function1<? super T,?> comparisonField);
+  }
+
+  public final class RemotePagingSource<T> extends androidx.paging.PagingSource<java.lang.Integer,T> {
+    method public Integer? getRefreshKey(androidx.paging.PagingState<java.lang.Integer,T> state);
+    method public suspend Object? load(androidx.paging.PagingSource.LoadParams<java.lang.Integer> params, kotlin.coroutines.Continuation<? super androidx.paging.PagingSource.LoadResult<java.lang.Integer,T>>);
+  }
+
+  public final class RemotePagingSourceKt {
+    method public static <T> com.urlaunched.android.common.pagination.RemotePagingSource<T> remotePagingSource(optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
+  }
+
+}
+
+package com.urlaunched.android.common.resources {
+
+  public interface AppResources {
+    method public String getString(@StringRes int id);
+    method public String getString(@StringRes int id, java.lang.Object... args);
+    method public java.io.InputStream openRawResource(@RawRes int id);
+  }
+
+  public final class AppResourcesImpl implements com.urlaunched.android.common.resources.AppResources {
+    ctor public AppResourcesImpl(android.content.res.Resources resources);
+    method public String getString(int id);
+    method public String getString(int id, java.lang.Object... args);
+    method public java.io.InputStream openRawResource(int id);
+  }
+
+}
+
+package com.urlaunched.android.common.response {
+
+  public final class ErrorCodes {
+    field public static final com.urlaunched.android.common.response.ErrorCodes INSTANCE;
+    field public static final int INTERNET_CONNECTION_ERROR = 1025; // 0x401
+    field public static final int INVALID_PARAMS = 422; // 0x1a6
+    field public static final int JSON_VALIDATION_ERROR = 1026; // 0x402
+    field public static final int NO_AUTHORIZED = 401; // 0x191
+    field public static final int UNKNOWN_ERROR = 1024; // 0x400
+  }
+
+  public final class ErrorData {
+    ctor public ErrorData(Integer? code, String? message, optional java.util.List<java.lang.String> errorKeys);
+    method public Integer? component1();
+    method public String? component2();
+    method public java.util.List<java.lang.String> component3();
+    method public com.urlaunched.android.common.response.ErrorData copy(Integer? code, String? message, java.util.List<java.lang.String> errorKeys);
+    method public Integer? getCode();
+    method public java.util.List<java.lang.String> getErrorKeys();
+    method public String? getMessage();
+    property public final Integer? code;
+    property public final java.util.List<java.lang.String> errorKeys;
+    property public final String? message;
+  }
+
+  public abstract sealed class Response<T> {
+  }
+
+  public static final class Response.Error<T> extends com.urlaunched.android.common.response.Response<T> {
+    ctor public Response.Error(com.urlaunched.android.common.response.ErrorData error);
+    method public com.urlaunched.android.common.response.ErrorData component1();
+    method public com.urlaunched.android.common.response.Response.Error<T> copy(com.urlaunched.android.common.response.ErrorData error);
+    method public com.urlaunched.android.common.response.ErrorData getError();
+    property public final com.urlaunched.android.common.response.ErrorData error;
+  }
+
+  public static final class Response.Success<T> extends com.urlaunched.android.common.response.Response<T> {
+    ctor public Response.Success(T data);
+    method public T component1();
+    method public com.urlaunched.android.common.response.Response.Success<T> copy(T data);
+    method public T getData();
+    method public void setData(T);
+    property public final T data;
+  }
+
+  public final class ResponseKt {
+    method public static <T, R> com.urlaunched.android.common.response.Response<R> map(com.urlaunched.android.common.response.Response<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+  }
+
+}
+
+package com.urlaunched.android.common.scroll {
+
+  public final class CustomVerticalScrollKt {
+    method public static androidx.compose.ui.Modifier customFillMaxSize(androidx.compose.ui.Modifier, optional float height);
+    method public static androidx.compose.ui.Modifier customVerticalScroll(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState state);
+  }
+
+}
+
+package com.urlaunched.android.common.serializer {
+
+  public final class DataStoreSerializerKt {
+    method public static inline <reified T> androidx.datastore.core.Serializer<T>! creteDataStoreSerializer(T defaultValue);
+  }
+
+}
+
+package com.urlaunched.android.common.socket {
+
+  public abstract sealed class ActionCableSocketEventMessage<T> {
+  }
+
+  public static final class ActionCableSocketEventMessage.Connected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Connected();
+  }
+
+  public static final class ActionCableSocketEventMessage.Disconnected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Disconnected(String? reason);
+    method public String? component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Disconnected<T> copy(String? reason);
+    method public String? getReason();
+    property public final String? reason;
+  }
+
+  public static final class ActionCableSocketEventMessage.Error<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Error(Throwable? error);
+    method public Throwable? component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Error<T> copy(Throwable? error);
+    method public Throwable? getError();
+    property public final Throwable? error;
+  }
+
+  public static final class ActionCableSocketEventMessage.Message<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Message(String identifier, T? body);
+    method public String component1();
+    method public T? component2();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Message<T> copy(String identifier, T? body);
+    method public T? getBody();
+    method public String getIdentifier();
+    property public final T? body;
+    property public final String identifier;
+  }
+
+  public static final class ActionCableSocketEventMessage.Subscribed<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.Subscribed(String identifier);
+    method public String component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.Subscribed<T> copy(String identifier);
+    method public String getIdentifier();
+    property public final String identifier;
+  }
+
+  public static final class ActionCableSocketEventMessage.SubscriptionRejected<T> extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T> {
+    ctor public ActionCableSocketEventMessage.SubscriptionRejected(String identifier);
+    method public String component1();
+    method public com.urlaunched.android.common.socket.ActionCableSocketEventMessage.SubscriptionRejected<T> copy(String identifier);
+    method public String getIdentifier();
+    property public final String identifier;
+  }
+
+  public final class ActionCableSocketEventMessageKt {
+    method public static <T, R> com.urlaunched.android.common.socket.ActionCableSocketEventMessage<R> map(com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+  }
+
+}
+
+package com.urlaunched.android.common.string {
+
+  public final class OrNullKt {
+    method public static String? orNull(String?);
+  }
+
+}
+
+package com.urlaunched.android.common.viewmodel {
+
+  public final class ViewModelExtensionsKt {
+    method public static inline void loadingTask(androidx.lifecycle.ViewModel, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> setLoading, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static suspend <T> Object? performUseCase(androidx.lifecycle.ViewModel, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<T>>,?> useCase, kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> success, kotlin.jvm.functions.Function2<? super com.urlaunched.android.common.response.ErrorData,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> error, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  }
+
+}
+

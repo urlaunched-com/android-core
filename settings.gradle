@@ -16,9 +16,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 
 rootProject.name = "AndroidDevKit"
 include ':design'
 include ':sample'
+include ':common'
+include ':player'
+include ':ble'
+include ':network'
+include ':cdn'
+include ':tempattachment'
