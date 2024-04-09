@@ -19,13 +19,11 @@ fun Modifier.shimmer(
     backgroundColor: Color = Color(0xFFDADADA),
     highlightColor: Color = Color(0xFFFFFFFF),
     shape: Shape = RoundedCornerShape(Dimens.cornerRadiusLarge)
-) = then(
-    placeholder(
-        visible = true,
-        color = backgroundColor,
-        highlight = PlaceholderHighlight.linearGradientShimmer(highlightColor),
-        shape = shape
-    )
+) = placeholder(
+    visible = true,
+    color = backgroundColor,
+    highlight = PlaceholderHighlight.linearGradientShimmer(highlightColor),
+    shape = shape
 )
 
 private fun PlaceholderHighlight.Companion.linearGradientShimmer(
