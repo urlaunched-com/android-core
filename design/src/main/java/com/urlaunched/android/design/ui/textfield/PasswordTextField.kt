@@ -41,7 +41,7 @@ fun PasswordTextField(
     label: String,
     focusedBorderColor: Color = Color.Black,
     unfocusedBorderColor: Color = Color.Gray,
-    errorBorderColor: Color = Color.Red,
+    errorBorderColor: Color? = Color.Red,
     errorTextColor: Color = Color.Red,
     textColor: Color = Color.Black,
     selectionHandleColor: Color = Color.Black,
