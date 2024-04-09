@@ -1,22 +1,86 @@
 [versions]
-agp = "8.4.0-beta02"
-kotlin = "1.9.0"
-coreKtx = "1.12.0"
-junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-appcompat = "1.6.1"
-material = "1.11.0"
+# androidCoreDependencies
+androidAppCompatVersion = "1.6.1"
+androidxCoreVersion = "1.12.0"
+androidLifecycleVersion = "2.7.0"
+
+# kotlinDependencies
+kotlinCore = "1.9.23"
+coroutinesVersion = "1.8.0"
+kotlinSerializationVersion = "1.6.3"
+
+# composeDependencies
+composeActivity = "1.8.2"
+composeVersion = "1.6.4"
+composeNavigationVersion = "2.7.7"
+composeMaterial3Version = "1.2.1"
+composeMaterial2Version = "1.5.4"
+composeConstraintLayout = "1.0.1"
+composeCompilerVersion = "1.5.11"
+
+# composeCoil
+coilVersion = "2.6.0"
+
+# pagingDependencies
+pagingVersion = "3.2.1"
+pagingComposeVersion = "3.2.1"
+
+# testDependencies
+junitVersion = "4.13.2"
+junitKtxVersion = "1.1.5"
+
+# composePlaceholder
+composePlaceholderVersion = "1.0.7"
+
+# plugins
+# dependencies
+androidApplicationPluginVersion = "8.2.2"
+androidLibraryPluginVersion = "8.2.2"
+kotlinAndroidPluginVersion = "1.9.23"
+kotlinJvmPluginVersion = "1.9.23"
+kotlinSerializationPluginVersion = "1.9.23"
+ktlintPluginVersion = "12.1.0"
+metalava = "0.3.5"
+mavenPublish = "0.28.0"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
+androidCoreDependencies-core = { module = "androidx.core:core-ktx", version.ref = "androidxCoreVersion" }
+androidCoreDependencies-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidLifecycleVersion" }
+
+kotlinDependencies-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinCore" }
+kotlinDependencies-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
+kotlinDependencies-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationVersion" }
+
+composeDependencies-composeActivity = { module = "androidx.activity:activity-compose", version.ref = "composeActivity" }
+composeDependencies-composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeVersion" }
+composeDependencies-composePreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeVersion" }
+composeDependencies-composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3Version" }
+composeDependencies-composeMaterial2 = { module = "androidx.compose.material:material", version.ref = "composeMaterial2Version" }
+composeDependencies-composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigationVersion" }
+composeDependencies-composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraintLayout" }
+composeDependencies-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
+composeDependencies-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
+composeDependencies-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidLifecycleVersion" }
+
+composeCoil-core = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
+composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
+
+pagingDependencies-core = { module = "androidx.paging:paging-runtime", version.ref = "pagingVersion" }
+pagingDependencies-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
+
+testDependencies-junit = { module = "junit:junit", version.ref = "junitVersion" }
+testDependencies-junitExt = { module = "androidx.test.ext:junit-ktx", version.ref = "junitKtxVersion" }
+testDependencies-compose = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeVersion" }
+
+composePlaceholder-core = { module = "com.eygraber:compose-placeholder", version.ref = "composePlaceholderVersion" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
+android-library = { id = "com.android.library", version.ref = "androidLibraryPluginVersion" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPluginVersion" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPluginVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPluginVersion" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPluginVersion" }
+metalava = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

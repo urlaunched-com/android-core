@@ -1,0 +1,75 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
+}
+
+android {
+    namespace 'com.urlaunched.sample'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        applicationId "com.urlaunched.sample"
+        minSdk gradleDependencies.minSdk
+        targetSdk gradleDependencies.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // Android
+    implementation libs.androidCoreDependencies.core
+    implementation libs.androidCoreDependencies.appcompat
+    implementation libs.androidCoreDependencies.lifecycle
+
+    // Kotlin
+    implementation(platform(libs.kotlinDependencies.bom))
+    implementation libs.kotlinDependencies.coroutines
+
+    // Jetpack Compose
+    implementation libs.composeDependencies.composeActivity
+    implementation libs.composeDependencies.composeUi
+    implementation libs.composeDependencies.composePreview
+    implementation libs.composeDependencies.composeMaterial3
+    implementation libs.composeDependencies.composeNavigation
+    implementation libs.composeDependencies.composeConstraintLayout
+    implementation libs.composeDependencies.runtime
+    debugImplementation libs.composeDependencies.composeUiTooling
+    debugImplementation libs.composeDependencies.composeUiTestManifest
+
+    // Local modules
+    implementation project(":design")
+}
