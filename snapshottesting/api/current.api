@@ -1,0 +1,36 @@
+// Signature format: 4.0
+package com.urlaunched.android.snapshottesting {
+
+  public abstract class BaseSnapshotTest {
+    ctor public BaseSnapshotTest(optional com.android.ide.common.rendering.api.SessionParams.RenderingMode renderingMode, optional boolean supportsDarkMode);
+    method @org.junit.Rule public app.cash.paparazzi.Paparazzi getPaparazzi();
+    method public final void snapshot(optional com.urlaunched.android.design.ui.paging.LocalPagingModeEnum? pagingMode, kotlin.jvm.functions.Function0<kotlin.Unit> composable);
+    property @org.junit.Rule public app.cash.paparazzi.Paparazzi paparazzi;
+  }
+
+}
+
+package com.urlaunched.android.snapshottesting.utils.creators {
+
+  public interface ListModelCreator<T> {
+    method public T getModel();
+    method public java.util.List<T> list(optional int count);
+    method public default kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> paging(optional int count);
+    property public abstract T model;
+  }
+
+  public interface SingleModelCreator<T> {
+    method public T getModel();
+    property public abstract T model;
+  }
+
+}
+
+package com.urlaunched.android.snapshottesting.utils.paging {
+
+  public final class PagingErrorKt {
+    method public static <T> kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> pagingErrorFlow();
+  }
+
+}
+
