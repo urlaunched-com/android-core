@@ -13,13 +13,13 @@ package com.urlaunched.android.network.interceptors {
     method public static com.urlaunched.android.network.interceptors.AccessTokenInterceptor accessTokenInterceptor(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super java.lang.String>,?> getAuthToken);
   }
 
-  public final class AppLanguagesInterceptor implements okhttp3.Interceptor {
-    ctor public AppLanguagesInterceptor(android.content.Context context);
+  public final class PreferredLanguagesInterceptor implements okhttp3.Interceptor {
+    ctor public PreferredLanguagesInterceptor(android.content.Context context, boolean singleLanguage);
     method public okhttp3.Response intercept(okhttp3.Interceptor.Chain chain);
-    field public static final com.urlaunched.android.network.interceptors.AppLanguagesInterceptor.Companion Companion;
+    field public static final com.urlaunched.android.network.interceptors.PreferredLanguagesInterceptor.Companion Companion;
   }
 
-  public static final class AppLanguagesInterceptor.Companion {
+  public static final class PreferredLanguagesInterceptor.Companion {
   }
 
   public final class SignOutInterceptor implements okhttp3.Interceptor {
