@@ -5,7 +5,7 @@ import androidx.core.app.LocaleManagerCompat
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AppLanguagesInterceptor(private val context: Context) : Interceptor {
+class PreferredLanguagesInterceptor(private val context: Context, private val singleLanguage: Boolean) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val appLocale = (
             LocaleManagerCompat
@@ -16,8 +16,18 @@ class AppLanguagesInterceptor(private val context: Context) : Interceptor {
                     .getSystemLocales(context)
                     .toLanguageTags()
             )
-            .split(',')
-            .joinToString(separator = ", ") { localeTag -> localeTag.takeWhile { it != '-' } }
+            .split(LANGUAGES_DELIMITER)
+            .run {
+                if (singleLanguage) {
+                    firstOrNull()
+                        .orEmpty()
+                        .takeWhile { it != ISO_REGION_SEPARATOR }
+                } else {
+                    joinToString(
+                        separator = LANGUAGES_DELIMITER.toString().padEnd(1)
+                    ) { localeTag -> localeTag.takeWhile { it != ISO_REGION_SEPARATOR } }
+                }
+            }
 
         return chain.request().newBuilder().let { requestWithLanguagesBuilder ->
             requestWithLanguagesBuilder.addHeader(HEADER_LANGUAGES, appLocale)
@@ -27,5 +37,7 @@ class AppLanguagesInterceptor(private val context: Context) : Interceptor {
 
     companion object {
         private const val HEADER_LANGUAGES = "X-Language-Preferences"
+        private const val ISO_REGION_SEPARATOR = '-'
+        private const val LANGUAGES_DELIMITER = ','
     }
 }
