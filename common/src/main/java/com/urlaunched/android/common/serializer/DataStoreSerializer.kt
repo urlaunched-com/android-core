@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-inline fun <reified T> creteDataStoreSerializer(defaultValue: T) = object : Serializer<T> {
+inline fun <reified T> createDataStoreSerializer(defaultValue: T) = object : Serializer<T> {
     override val defaultValue: T = defaultValue
 
     override suspend fun readFrom(input: InputStream): T = try {
