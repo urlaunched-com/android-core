@@ -7,7 +7,17 @@ import com.urlaunched.android.tempattachment.models.remote.TempAttachmentsParams
 import com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel
 
 class TempAttachmentsRemoteDataSourceImpl(private val api: TempAttachmentsApi) : TempAttachmentsRemoteDataSource {
-    override suspend fun sendFile(fileName: String): Response<TempAttachmentsWrapperRemoteModel> = executeRequest {
-        api.sendFile(params = TempAttachmentsParamsRemoteModel(fileName))
+    override suspend fun sendFile(fileName: String, isPrivate: Boolean): Response<TempAttachmentsWrapperRemoteModel> =
+        executeRequest {
+            api.sendFile(
+                params = TempAttachmentsParamsRemoteModel(
+                    fileName = fileName,
+                    access = PRIVATE_ATTACHMENT_ACCESS_KEY.takeIf { isPrivate }
+                )
+            )
+        }
+
+    companion object {
+        private const val PRIVATE_ATTACHMENT_ACCESS_KEY = "private"
     }
 }

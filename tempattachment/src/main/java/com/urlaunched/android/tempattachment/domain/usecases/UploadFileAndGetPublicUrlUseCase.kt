@@ -8,12 +8,17 @@ import com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomain
 import java.io.File
 
 class UploadFileAndGetPublicUrlUseCase(private val tempAttachmentsRepository: TempAttachmentsRepository) {
-    suspend operator fun invoke(mediaType: MediaType, file: File): Response<String> {
+    suspend operator fun invoke(mediaType: MediaType, file: File, isPrivate: Boolean = false): Response<String> {
         var tempAttachment: TempAttachmentsDomainModel? = null
         var result: Response<String> = Response.Error(ErrorData(null, null))
 
         handleRequest(
-            request = { tempAttachmentsRepository.getPresignedAndPublicUrl(fileName = file.name) },
+            request = {
+                tempAttachmentsRepository.getPresignedAndPublicUrl(
+                    fileName = file.name,
+                    isPrivate = isPrivate
+                )
+            },
             success = { attachment ->
                 tempAttachment = attachment
             },

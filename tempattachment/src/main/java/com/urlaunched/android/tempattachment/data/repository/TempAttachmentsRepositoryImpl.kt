@@ -17,8 +17,10 @@ class TempAttachmentsRepositoryImpl(
     private val tempAttachmentsRemoteDataSource: TempAttachmentsRemoteDataSource,
     private val okHttpClient: OkHttpClient
 ) : TempAttachmentsRepository {
-    override suspend fun getPresignedAndPublicUrl(fileName: String) =
-        tempAttachmentsRemoteDataSource.sendFile(fileName).map { it.attachment.toDomainModel() }
+    override suspend fun getPresignedAndPublicUrl(fileName: String, isPrivate: Boolean) =
+        tempAttachmentsRemoteDataSource.sendFile(fileName = fileName, isPrivate = isPrivate).map {
+            it.attachment.toDomainModel()
+        }
 
     override suspend fun uploadFileToPresignedUrl(
         mediaType: MediaType,
