@@ -6,6 +6,6 @@ import com.urlaunched.android.tempattachment.models.domain.TempAttachmentsDomain
 import java.io.File
 
 interface TempAttachmentsRepository {
-    suspend fun getPresignedAndPublicUrl(fileName: String): Response<TempAttachmentsDomainModel>
+    suspend fun getPresignedAndPublicUrl(fileName: String, isPrivate: Boolean): Response<TempAttachmentsDomainModel>
     suspend fun uploadFileToPresignedUrl(mediaType: MediaType, file: File, presignedUrl: String): Response<Unit>
 }

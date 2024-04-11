@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TempAttachmentsParamsRemoteModel(
     @SerialName("filename")
-    val fileName: String
+    val fileName: String,
+    @SerialName("acl")
+    val access: String?
 )

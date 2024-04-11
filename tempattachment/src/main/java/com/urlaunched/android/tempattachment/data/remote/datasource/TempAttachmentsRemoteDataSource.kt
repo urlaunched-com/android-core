@@ -4,5 +4,5 @@ import com.urlaunched.android.common.response.Response
 import com.urlaunched.android.tempattachment.models.remote.TempAttachmentsWrapperRemoteModel
 
 interface TempAttachmentsRemoteDataSource {
-    suspend fun sendFile(fileName: String): Response<TempAttachmentsWrapperRemoteModel>
+    suspend fun sendFile(fileName: String, isPrivate: Boolean): Response<TempAttachmentsWrapperRemoteModel>
 }
