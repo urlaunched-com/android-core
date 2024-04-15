@@ -198,7 +198,7 @@ fun TextField(
                                 brush = SolidColor(borderColor),
                                 shape = borderShape
                             )
-                            .padding(Dimens.spacingNormal)
+                            .padding(horizontal = Dimens.spacingNormal)
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -208,7 +208,12 @@ fun TextField(
                             Spacer(modifier = Modifier.width(Dimens.spacingSmall))
                         }
 
-                        Box(modifier = Modifier.weight(1f).wrapContentHeight()) {
+                        Box(
+                            modifier = Modifier
+                                .padding(vertical = Dimens.spacingNormal)
+                                .weight(1f)
+                                .wrapContentHeight()
+                        ) {
                             innerTextField()
 
                             if (value.isEmpty()) {
