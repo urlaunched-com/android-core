@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AndroidDevKit"
+rootProject.name = "android-core"
 include ':design'
 include ':sample'
 include ':common'
