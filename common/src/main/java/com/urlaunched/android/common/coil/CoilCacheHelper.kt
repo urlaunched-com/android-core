@@ -9,6 +9,7 @@ import coil.decode.DecodeResult
 import coil.decode.Decoder
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import coil.request.ImageResult
 import java.io.File
 
 object CoilCacheHelper {
@@ -38,7 +39,7 @@ object CoilCacheHelper {
     }
 
     // https://coil-kt.github.io/coil/getting_started/#preloading
-    fun preloadImage(context: Context, imageUrl: String) {
+    fun scheduleImagePreload(context: Context, imageUrl: String) {
         val imageLoader = Coil.imageLoader(context)
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
@@ -50,5 +51,21 @@ object CoilCacheHelper {
             }
             .build()
         imageLoader.enqueue(request)
+    }
+
+    suspend fun preloadImage(context: Context, imageUrl: String): ImageResult {
+        val imageLoader = Coil.imageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(imageUrl)
+            .allowHardware(false)
+            // Disable reading from/writing to the memory cache.
+            .memoryCachePolicy(CachePolicy.DISABLED)
+            // Set a custom `Decoder.Factory` that skips the decoding step.
+            .decoderFactory { _, _, _ ->
+                Decoder { DecodeResult(ColorDrawable(Color.BLACK), false) }
+            }
+            .build()
+
+        return imageLoader.execute(request)
     }
 }
