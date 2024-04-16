@@ -6,6 +6,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.time.format.FormatStyle
@@ -14,21 +15,28 @@ import java.util.Locale
 object DateTimeFormatter {
     fun formatStringToLocalDate(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDate? {
         return try {
-            // Parses the input string as an Instant (UTC time)
-            val instant = Instant.parse(value)
-            // Converts Instant to LocalDateTime in system default time zone
-            val localDateTime = instant.atZone(zone).toLocalDateTime()
-            return localDateTime.toLocalDate()
+            return requireStringToLocalDate(value = value, zone = zone)
         } catch (exception: DateTimeParseException) {
             null
         }
     }
 
-    fun formatStringToLocalDateTime(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime? = try {
+    fun requireStringToLocalDate(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDate {
         val instant = Instant.parse(value)
-        instant.atZone(zone).toLocalDateTime()
+        // Converts Instant to LocalDateTime in system default time zone
+        val localDateTime = instant.atZone(zone).toLocalDateTime()
+        return localDateTime.toLocalDate()
+    }
+
+    fun formatStringToLocalDateTime(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime? = try {
+        requireStringToLocalDateTime(value = value, zone = zone)
     } catch (exception: DateTimeParseException) {
         null
+    }
+
+    fun requireStringToLocalDateTime(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime {
+        val instant = Instant.parse(value)
+        return instant.atZone(zone).toLocalDateTime()
     }
 
     fun formatInstantToLocalDateTime(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime {
@@ -90,6 +98,8 @@ object DateTimeFormatter {
 
     fun timestampToLocalDateTime(timestamp: Long, timezone: ZoneId = ZoneId.systemDefault()): LocalDateTime =
         LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), timezone)
+
+    fun LocalDateTime.toMillisUtc() = this.toInstant(ZoneOffset.UTC).toEpochMilli()
 
     const val DATE_TIME_PRESENTATION_VALUE_24_H = "yyyy-MM-dd HH:mm:ss"
     const val DATE_TIME_PRESENTATION_VALUE_12_H = "yyyy-MM-dd HH:mm:ss a"
