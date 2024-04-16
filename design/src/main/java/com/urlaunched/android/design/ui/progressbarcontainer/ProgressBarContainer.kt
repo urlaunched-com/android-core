@@ -16,12 +16,13 @@ import com.urlaunched.android.design.ui.progressbarcontainer.constants.ProgressB
 
 @Composable
 fun ProgressBarContainer(
+    modifier: Modifier = Modifier,
     isLoading: Boolean,
     indicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     indicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
     content: @Composable () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         content()
 
         if (isLoading) {

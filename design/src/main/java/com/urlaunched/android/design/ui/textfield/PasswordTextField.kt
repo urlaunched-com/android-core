@@ -2,9 +2,9 @@ package com.urlaunched.android.design.ui.textfield
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -20,11 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -32,38 +30,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.textfield.constants.TextFieldConstants
-import com.urlaunched.android.design.ui.textfield.constants.TextFieldDimens
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig
 
 @Composable
 fun PasswordTextField(
     modifier: Modifier = Modifier,
     value: String,
-    label: String,
-    focusedBorderColor: Color = Color.Black,
-    unfocusedBorderColor: Color = Color.Gray,
-    errorBorderColor: Color? = Color.Red,
-    errorTextColor: Color = Color.Red,
-    textColor: Color = Color.Black,
+    label: String? = null,
+    borderConfig: TextFieldBorderConfig = TextFieldBorderConfig(),
+    inputTextConfig: TextFieldInputTextConfig = TextFieldInputTextConfig(),
+    errorTextConfig: TextFieldErrorTextConfig = TextFieldErrorTextConfig(),
+    inputPlaceholderTextConfig: TextFieldInputPlaceholderTextConfig = TextFieldInputPlaceholderTextConfig(),
+    topLabelConfig: TextFieldTopLabelConfig = TextFieldTopLabelConfig(),
+    bottomLabelConfig: TextFieldBottomLabelConfig = TextFieldBottomLabelConfig(),
+    backgroundConfig: TextFieldBackgroundConfig = TextFieldBackgroundConfig(),
     selectionHandleColor: Color = Color.Black,
     selectionBackgroundColor: Color = Color.Black.copy(alpha = TextFieldConstants.TEXT_SELECTION_BACKGROUND_ALPHA),
     cursorBrush: Brush = SolidColor(Color.Black),
-    textStyle: TextStyle = TextStyle.Default,
-    labelStyle: TextStyle = TextStyle.Default,
-    labelColor: Color = Color.Black,
-    backgroundColor: Color = Color.Transparent,
-    backgroundShape: Shape = RoundedCornerShape(TextFieldDimens.cornersRadius),
-    borderWidth: Dp = TextFieldDimens.borderSize,
-    borderShape: Shape = RoundedCornerShape(TextFieldDimens.cornersRadius),
-    placeholderStyle: TextStyle = TextStyle.Default,
-    placeholderColor: Color = Color.Gray,
-    bottomLabelColor: Color = Color.Black,
-    errorTextStyle: TextStyle = TextStyle.Default,
-    bottomLabelTextStyle: TextStyle = TextStyle.Default,
     placeHolder: String? = null,
     bottomLabel: String? = null,
     error: String? = null,
     enabled: Boolean = true,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    textFieldHeight: Dp? = null,
+    readOnly: Boolean = false,
+    innerPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
+    leadingIcon: (@Composable () -> Unit)? = null,
     labelIcon: (@Composable () -> Unit)? = null,
     onValueChange: (value: String) -> Unit,
     passwordVisibleIcon: @Composable () -> Unit,
@@ -81,32 +79,24 @@ fun PasswordTextField(
         singleLine = true,
         trailingIconAlwaysShown = true,
         error = error,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password
-        ),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        focusedBorderColor = focusedBorderColor,
-        unfocusedBorderColor = unfocusedBorderColor,
-        errorBorderColor = errorBorderColor,
-        errorTextColor = errorTextColor,
-        textColor = textColor,
+        borderConfig = borderConfig,
+        errorTextConfig = errorTextConfig,
+        inputTextConfig = inputTextConfig,
+        inputPlaceholderTextConfig = inputPlaceholderTextConfig,
+        backgroundConfig = backgroundConfig,
+        topLabelConfig = topLabelConfig,
+        bottomLabel = bottomLabel,
+        bottomLabelConfig = bottomLabelConfig,
+        textFieldHeight = textFieldHeight,
+        readOnly = readOnly,
+        innerPadding = innerPadding,
+        leadingIcon = leadingIcon,
         selectionHandleColor = selectionHandleColor,
         selectionBackgroundColor = selectionBackgroundColor,
         cursorBrush = cursorBrush,
-        textStyle = textStyle,
         labelIcon = labelIcon,
-        labelStyle = labelStyle,
-        labelColor = labelColor,
-        backgroundColor = backgroundColor,
-        backgroundShape = backgroundShape,
-        borderShape = borderShape,
-        bottomLabel = bottomLabel,
-        borderWidth = borderWidth,
-        placeholderColor = placeholderColor,
-        placeholderStyle = placeholderStyle,
-        bottomLabelTextStyle = bottomLabelTextStyle,
-        bottomLabelColor = bottomLabelColor,
-        errorTextStyle = errorTextStyle,
         enabled = enabled,
         keyboardActions = keyboardActions,
         trailingIcon = {
