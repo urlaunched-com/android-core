@@ -4,23 +4,15 @@ import com.urlaunched.android.cdn.generators.utils.bucket
 import com.urlaunched.android.cdn.generators.utils.objectKey
 import com.urlaunched.android.cdn.generators.utils.toBase64
 import com.urlaunched.android.cdn.models.CdnConfig
-import com.urlaunched.android.cdn.models.domain.links.MediaLink
-import com.urlaunched.android.cdn.models.domain.media.MediaDomainModel
-import com.urlaunched.android.cdn.models.domain.transaform.Edits
-import com.urlaunched.android.cdn.models.domain.transaform.TransformData
+import com.urlaunched.android.cdnmodels.domain.links.MediaLink
+import com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel
+import com.urlaunched.android.cdnmodels.domain.transform.Edits
+import com.urlaunched.android.cdnmodels.domain.transform.TransformData
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 object MediaCDNGenerator {
-    fun generateImageLink(media: MediaDomainModel, cdnConfig: CdnConfig): MediaLink {
-        val rawLink = media.mediaRawLink
-        return when {
-            rawLink.startsWith(cdnConfig.privateBucket) -> generatePrivateLink(media = media, cdnConfig = cdnConfig)
-            else -> generatePublicLink(media = media, cdnConfig = cdnConfig)
-        }
-    }
-
-    fun generateNotImageLink(media: MediaDomainModel, cdnConfig: CdnConfig): MediaLink {
+    fun generateLink(media: MediaDomainModel, cdnConfig: CdnConfig): MediaLink {
         val rawLink = media.mediaRawLink
         return when {
             rawLink.startsWith(cdnConfig.privateBucket) -> generatePrivateLink(media = media, cdnConfig = cdnConfig)

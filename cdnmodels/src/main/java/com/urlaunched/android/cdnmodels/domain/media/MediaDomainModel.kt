@@ -1,4 +1,4 @@
-package com.urlaunched.android.cdn.models.domain.media
+package com.urlaunched.android.cdnmodels.domain.media
 
 import kotlinx.serialization.Serializable
 
@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class MediaDomainModel(
     val id: Int,
     val mediaRawLink: String,
-    val sizeKb: Int
+    val sizeKb: Int?
 )

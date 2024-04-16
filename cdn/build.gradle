@@ -69,4 +69,5 @@ dependencies {
     // Local modules
     implementation project(":common")
     implementation project(":network")
+    implementation project(":cdnmodels")
 }

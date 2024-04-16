@@ -1,4 +1,4 @@
-package com.urlaunched.android.cdn.models.domain.downloadstate
+package com.urlaunched.android.cdnmodels.domain.downloadstate
 
 sealed class DownloadState {
     data class Downloading(val progress: Long) : DownloadState()
