@@ -17,8 +17,13 @@ package com.urlaunched.android.common.coil {
 
   public final class CoilCacheHelper {
     method public suspend Object? extractImageFromCachesOrDownloadFile(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super java.io.File>);
-    method public void preloadImage(android.content.Context context, String imageUrl);
+    method public suspend Object? preloadImage(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super coil.request.ImageResult>);
+    method public void scheduleImagePreload(android.content.Context context, String imageUrl);
     field public static final com.urlaunched.android.common.coil.CoilCacheHelper INSTANCE;
+  }
+
+  public final class CoilExtensionsKt {
+    method public static void onSuccess(coil.request.ImageResult, kotlin.jvm.functions.Function0<kotlin.Unit> block);
   }
 
   public final class DownloadImageHelper {
@@ -99,7 +104,10 @@ package com.urlaunched.android.common.formatters {
     method public String formatLocalDateTime(java.time.LocalDateTime value, optional java.time.format.FormatStyle style, optional java.util.Locale locale);
     method public java.time.LocalDate? formatStringToLocalDate(String value, optional java.time.ZoneId zone);
     method public java.time.LocalDateTime? formatStringToLocalDateTime(String value, optional java.time.ZoneId zone);
+    method public java.time.LocalDate requireStringToLocalDate(String value, optional java.time.ZoneId zone);
+    method public java.time.LocalDateTime requireStringToLocalDateTime(String value, optional java.time.ZoneId zone);
     method public java.time.LocalDateTime timestampToLocalDateTime(long timestamp, optional java.time.ZoneId timezone);
+    method public long toMillisUtc(java.time.LocalDateTime);
     field public static final String DATE_PLACEHOLDER = "\u2014";
     field public static final String DATE_PRESENTATION_VALUE = "dd/MM/yyyy";
     field public static final String DATE_TIME_PRESENTATION_VALUE_12_H = "yyyy-MM-dd HH:mm:ss a";
