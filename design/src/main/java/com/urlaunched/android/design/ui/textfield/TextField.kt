@@ -9,14 +9,16 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,47 +39,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.textfield.constants.TextFieldConstants
-import com.urlaunched.android.design.ui.textfield.constants.TextFieldDimens
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig
 
 @Composable
 fun TextField(
     modifier: Modifier = Modifier,
     value: String,
-    label: String?,
-    focusedBorderColor: Color = Color.Black,
-    unfocusedBorderColor: Color = Color.Gray,
-    errorBorderColor: Color? = Color.Red,
-    errorTextColor: Color = Color.Red,
-    textColor: Color = Color.Black,
-    focusedTextColor: Color = textColor,
+    label: String? = null,
+    borderConfig: TextFieldBorderConfig = TextFieldBorderConfig(),
+    inputTextConfig: TextFieldInputTextConfig = TextFieldInputTextConfig(),
+    errorTextConfig: TextFieldErrorTextConfig = TextFieldErrorTextConfig(),
+    inputPlaceholderTextConfig: TextFieldInputPlaceholderTextConfig = TextFieldInputPlaceholderTextConfig(),
+    topLabelConfig: TextFieldTopLabelConfig = TextFieldTopLabelConfig(),
+    bottomLabelConfig: TextFieldBottomLabelConfig = TextFieldBottomLabelConfig(),
+    backgroundConfig: TextFieldBackgroundConfig = TextFieldBackgroundConfig(),
     selectionHandleColor: Color = Color.Black,
     selectionBackgroundColor: Color = Color.Black.copy(alpha = TextFieldConstants.TEXT_SELECTION_BACKGROUND_ALPHA),
     cursorBrush: Brush = SolidColor(Color.Black),
-    textStyle: TextStyle = TextStyle.Default,
-    labelStyle: TextStyle = TextStyle.Default,
-    labelColor: Color = Color.Black,
-    unfocusedLabelColor: Color = labelColor,
-    errorLabelColor: Color = labelColor,
-    backgroundColor: Color = Color.Transparent,
-    unfocusedBackgroundColor: Color = backgroundColor,
-    backgroundShape: Shape = RoundedCornerShape(TextFieldDimens.cornersRadius),
-    borderWidth: Dp = TextFieldDimens.borderSize,
-    borderShape: Shape = RoundedCornerShape(TextFieldDimens.cornersRadius),
-    placeholderStyle: TextStyle = TextStyle.Default,
-    placeholderColor: Color = Color.Gray,
-    bottomLabelColor: Color = Color.Black,
-    errorTextStyle: TextStyle = TextStyle.Default,
-    bottomLabelTextStyle: TextStyle = TextStyle.Default,
     placeHolder: String? = null,
     bottomLabel: String? = null,
     error: String? = null,
@@ -91,6 +84,7 @@ fun TextField(
     collapseLabel: Boolean = true,
     textFieldHeight: Dp? = null,
     readOnly: Boolean = false,
+    innerPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
     trailingIcon: (@Composable () -> Unit)? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
     labelIcon: (@Composable () -> Unit)? = null,
@@ -100,35 +94,49 @@ fun TextField(
     var isFocused by remember { mutableStateOf(false) }
     val borderColor by animateColorAsState(
         targetValue = when {
-            error != null && errorBorderColor != null -> errorBorderColor
-            isFocused -> focusedBorderColor
-            else -> unfocusedBorderColor
+            error != null && borderConfig.errorColor != null -> borderConfig.errorColor
+            isFocused -> borderConfig.focusedColor
+            else -> borderConfig.unfocusedColor
         },
         label = TextFieldConstants.LABEL_TEXT_COLOR_ANIMATION_LABEL
     )
     val animatedTextColor by animateColorAsState(
         targetValue = when {
-            error != null -> errorTextColor
-            isFocused -> focusedTextColor
-            else -> textColor
+            error != null && inputTextConfig.errorColor != null -> inputTextConfig.errorColor
+            isFocused -> inputTextConfig.focusedColor
+            else -> inputTextConfig.unfocusedColor
         },
         label = TextFieldConstants.BACKGROUND_COLOR_ANIMATION_LABEL
     )
     val animatedBackgroundColor by animateColorAsState(
         targetValue = when {
-            error != null -> backgroundColor
-            isFocused -> backgroundColor
-            else -> unfocusedBackgroundColor
+            error != null -> backgroundConfig.focusedColor
+            isFocused -> backgroundConfig.focusedColor
+            else -> backgroundConfig.unfocusedColor
         },
         label = TextFieldConstants.TEXT_COLOR_ANIMATION_LABEL
     )
     val animatedLabelColor by animateColorAsState(
         targetValue = when {
-            error != null -> errorLabelColor
-            isFocused -> labelColor
-            else -> unfocusedLabelColor
+            error != null && topLabelConfig.errorColor != null -> topLabelConfig.errorColor
+            isFocused -> topLabelConfig.focusedColor
+            else -> topLabelConfig.unfocusedColor
         },
         label = TextFieldConstants.LABEL_TEXT_COLOR_ANIMATION_LABEL
+    )
+    val animatedErrorTextColor by animateColorAsState(
+        targetValue = when {
+            isFocused -> errorTextConfig.focusedColor
+            else -> errorTextConfig.unfocusedColor
+        },
+        label = TextFieldConstants.ERROR_TEXT_COLOR_ANIMATION_LABEL
+    )
+    val animatedBottomLabelTextColor by animateColorAsState(
+        targetValue = when {
+            isFocused -> bottomLabelConfig.focusedColor
+            else -> bottomLabelConfig.unfocusedColor
+        },
+        label = TextFieldConstants.BOTTOM_LABEL_TEXT_COLOR_ANIMATION_LABEL
     )
 
     CompositionLocalProvider(
@@ -146,7 +154,7 @@ fun TextField(
             enabled = enabled,
             readOnly = readOnly,
             cursorBrush = cursorBrush,
-            textStyle = textStyle.copy(color = animatedTextColor),
+            textStyle = inputTextConfig.textStyle.copy(color = animatedTextColor),
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             singleLine = singleLine,
@@ -167,7 +175,7 @@ fun TextField(
                             ) {
                                 Text(
                                     text = label.orEmpty(),
-                                    style = labelStyle,
+                                    style = topLabelConfig.textStyle,
                                     color = animatedLabelColor,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
@@ -191,14 +199,17 @@ fun TextField(
                             }
                             .background(
                                 color = animatedBackgroundColor,
-                                shape = backgroundShape
+                                shape = backgroundConfig.shape
                             )
                             .border(
-                                width = borderWidth,
+                                width = borderConfig.width,
                                 brush = SolidColor(borderColor),
-                                shape = borderShape
+                                shape = borderConfig.shape
                             )
-                            .padding(horizontal = Dimens.spacingNormal)
+                            .padding(
+                                start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
+                                end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
+                            )
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -210,7 +221,10 @@ fun TextField(
 
                         Box(
                             modifier = Modifier
-                                .padding(vertical = Dimens.spacingNormal)
+                                .padding(
+                                    top = innerPadding.calculateTopPadding(),
+                                    bottom = innerPadding.calculateBottomPadding()
+                                )
                                 .weight(1f)
                                 .wrapContentHeight()
                         ) {
@@ -219,8 +233,8 @@ fun TextField(
                             if (value.isEmpty()) {
                                 Text(
                                     text = placeHolder ?: label.orEmpty(),
-                                    style = placeholderStyle,
-                                    color = placeholderColor,
+                                    style = inputPlaceholderTextConfig.textStyle,
+                                    color = inputPlaceholderTextConfig.color,
                                     maxLines = maxLines,
                                     overflow = TextOverflow.Ellipsis
                                 )
@@ -243,8 +257,8 @@ fun TextField(
                     ) {
                         Text(
                             text = error ?: bottomLabel.orEmpty(),
-                            style = if (error != null || bottomLabel.isNullOrEmpty()) errorTextStyle else bottomLabelTextStyle,
-                            color = if (error != null || bottomLabel.isNullOrEmpty()) errorTextColor else bottomLabelColor
+                            style = if (error != null || bottomLabel.isNullOrEmpty()) errorTextConfig.textStyle else bottomLabelConfig.textStyle,
+                            color = if (error != null || bottomLabel.isNullOrEmpty()) animatedErrorTextColor else animatedBottomLabelTextColor
                         )
                     }
                 }
