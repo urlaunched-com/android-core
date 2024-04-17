@@ -1,8 +1,8 @@
 package com.urlaunched.android.cdn.data.remote.source
 
 import com.urlaunched.android.cdn.data.remote.api.CdnMediaApi
-import com.urlaunched.android.cdn.models.domain.downloadstate.DownloadState
-import com.urlaunched.android.cdn.models.domain.links.MediaLink
+import com.urlaunched.android.cdnmodels.domain.downloadstate.DownloadState
+import com.urlaunched.android.cdnmodels.domain.links.MediaLink
 import com.urlaunched.android.common.response.Response
 import com.urlaunched.android.common.response.map
 import com.urlaunched.android.network.utils.executeRequest

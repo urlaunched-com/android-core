@@ -1,4 +1,4 @@
-package com.urlaunched.android.cdn.models.domain.transaform
+package com.urlaunched.android.cdnmodels.domain.transform
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

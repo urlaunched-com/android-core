@@ -1,4 +1,4 @@
-package com.urlaunched.android.cdn.models.remote
+package com.urlaunched.android.cdnmodels.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

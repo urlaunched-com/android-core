@@ -1,6 +1,6 @@
 package com.urlaunched.android.cdn.generators.utils
 
-import com.urlaunched.android.cdn.models.domain.media.MediaDomainModel
+import com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel
 
 internal val MediaDomainModel.bucket: String
     get() = mediaRawLink
