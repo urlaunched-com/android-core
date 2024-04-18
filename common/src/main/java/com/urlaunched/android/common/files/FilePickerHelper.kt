@@ -80,7 +80,7 @@ object FilePickerHelper {
         }
     }
 
-    private fun getFileName(context: Context, uri: Uri): String {
+    fun getFileName(context: Context, uri: Uri): String {
         context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
             if (cursor.moveToFirst()) {
                 val displayNameIndex = cursor.getColumnIndexOrThrow("_display_name")
