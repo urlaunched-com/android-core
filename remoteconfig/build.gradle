@@ -1,0 +1,66 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.metalava)
+    alias(libs.plugins.mavenPublish)
+}
+
+android {
+    namespace 'com.urlaunched.android.remoteconfig'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        minSdk gradleDependencies.minSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    mavenPublishing {
+        // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
+        // the first parameter represents whether to publish a sources jar
+        // the second whether to publish a javadoc jar
+        configure(new AndroidSingleVariantLibrary("release", true, false))
+    }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+}
+
+dependencies {
+    // Android
+    implementation libs.androidCoreDependencies.core
+    implementation libs.androidCoreDependencies.appcompat
+    implementation libs.androidCoreDependencies.lifecycle
+
+    // Kotlin
+    implementation(platform(libs.kotlinDependencies.bom))
+    implementation libs.kotlinDependencies.coroutines
+    implementation libs.kotlinDependencies.serialization
+
+    // Firebase
+    implementation platform(libs.firebaseDependencies.bom)
+    implementation libs.firebaseDependencies.remoteconfig
+}

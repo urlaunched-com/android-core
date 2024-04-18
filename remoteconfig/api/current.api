@@ -1,0 +1,23 @@
+// Signature format: 4.0
+package com.urlaunched.android.remoteconfig.basehandler {
+
+  public abstract class BaseRemoteConfigHandler {
+    ctor public BaseRemoteConfigHandler(boolean isDebug);
+    method public final void fetchAndActivate(kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, kotlin.jvm.functions.Function0<kotlin.Unit> onError);
+    method public final suspend Object? fetchAndActivateAsync(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
+    method protected final com.google.firebase.remoteconfig.FirebaseRemoteConfig getFirebaseRemoteConfig();
+    method public inline <reified T> T? read(com.urlaunched.android.remoteconfig.data.RemoteConfig param);
+    property protected final com.google.firebase.remoteconfig.FirebaseRemoteConfig firebaseRemoteConfig;
+  }
+
+}
+
+package com.urlaunched.android.remoteconfig.data {
+
+  public interface RemoteConfig {
+    method public String getKey();
+    property public abstract String key;
+  }
+
+}
+
