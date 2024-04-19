@@ -50,6 +50,7 @@ package com.urlaunched.android.common.files {
     method public java.io.File createTempCameraPickFile(android.content.Context context, String fileExtension);
     method public java.io.File createTempFile(android.content.Context context, String fileExtension);
     method public boolean deleteFileByName(android.content.Context context, String directory, String name);
+    method public boolean deleteFileByName(java.io.File filesDir, String directory, String name);
     method public void deleteTempFilesFromCache(android.content.Context context);
     method public java.io.File? getFileByName(android.content.Context context, String directory, String name);
     method public java.io.File? getFileByName(java.io.File filesDir, String directory, String name);
@@ -149,6 +150,7 @@ package com.urlaunched.android.common.intent {
   public final class IntentHelper {
     method public void openCustomTab(android.content.Context context, String url);
     method public void openEmail(android.content.Context context, String email);
+    method public void openEmail(android.content.Context context, String email, String subject, String text);
     method public void openLink(android.content.Context context, String url);
     method public void openSettings(android.content.Context context);
     method public void sharePlainText(android.content.Context context, String text);

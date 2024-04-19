@@ -38,6 +38,15 @@ object IntentHelper {
         }
     }
 
+    fun openEmail(context: Context, email: String, subject: String, text: String) {
+        runCatching {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("mailto:?subject=$subject&body=$text&to=$email")
+            }
+            context.startActivity(intent)
+        }
+    }
+
     fun sharePlainText(context: Context, text: String) {
         context.startActivity(
             ShareCompat

@@ -8,17 +8,8 @@ object FileHelper {
     private const val CAMERA_PICKER_CACHE_FOLDER = "image_pick"
     private const val VIDEO_DOWNLOAD_FOLDER = "video_download"
 
-    fun deleteFileByName(context: Context, directory: String, name: String): Boolean {
-        val files = File(context.filesDir, directory).listFiles()
-        if (files != null) {
-            for (file in files) {
-                if (file.nameWithoutExtension == name) {
-                    return file.delete()
-                }
-            }
-        }
-        return false
-    }
+    fun deleteFileByName(context: Context, directory: String, name: String): Boolean =
+        deleteFileByName(filesDir = context.filesDir, directory = directory, name = name)
 
     fun getFileByName(context: Context, directory: String, name: String): File? =
         getFileByName(filesDir = context.filesDir, directory = directory, name = name)
@@ -49,6 +40,18 @@ object FileHelper {
                     file.delete()
                 }
                 return true
+            }
+        }
+        return false
+    }
+
+    fun deleteFileByName(filesDir: File, directory: String, name: String): Boolean {
+        val files = File(filesDir, directory).listFiles()
+        if (files != null) {
+            for (file in files) {
+                if (file.nameWithoutExtension == name) {
+                    return file.delete()
+                }
             }
         }
         return false
