@@ -20,8 +20,16 @@ object FileHelper {
         return false
     }
 
-    fun getFileByName(context: Context, directory: String, name: String): File? {
-        val files = File(context.filesDir, directory).listFiles()
+    fun getFileByName(context: Context, directory: String, name: String): File? =
+        getFileByName(filesDir = context.filesDir, directory = directory, name = name)
+
+    fun clearDirectory(context: Context, directory: String): Boolean = clearDirectory(
+        filesDir = context.filesDir,
+        directory = directory
+    )
+
+    fun getFileByName(filesDir: File, directory: String, name: String): File? {
+        val files = File(filesDir, directory).listFiles()
         if (files != null) {
             for (file in files) {
                 if (file.nameWithoutExtension == name) {
@@ -32,8 +40,8 @@ object FileHelper {
         return null
     }
 
-    fun clearDirectory(context: Context, directory: String): Boolean {
-        val dir = File(context.filesDir, directory)
+    fun clearDirectory(filesDir: File, directory: String): Boolean {
+        val dir = File(filesDir, directory)
         if (dir.exists() && dir.isDirectory) {
             val files = dir.listFiles()
             if (files != null) {

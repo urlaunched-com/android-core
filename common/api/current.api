@@ -46,11 +46,13 @@ package com.urlaunched.android.common.files {
 
   public final class FileHelper {
     method public boolean clearDirectory(android.content.Context context, String directory);
+    method public boolean clearDirectory(java.io.File filesDir, String directory);
     method public java.io.File createTempCameraPickFile(android.content.Context context, String fileExtension);
     method public java.io.File createTempFile(android.content.Context context, String fileExtension);
     method public boolean deleteFileByName(android.content.Context context, String directory, String name);
     method public void deleteTempFilesFromCache(android.content.Context context);
     method public java.io.File? getFileByName(android.content.Context context, String directory, String name);
+    method public java.io.File? getFileByName(java.io.File filesDir, String directory, String name);
     method public String getVideDownloadFolderPath(android.content.Context context);
     field public static final com.urlaunched.android.common.files.FileHelper INSTANCE;
   }
