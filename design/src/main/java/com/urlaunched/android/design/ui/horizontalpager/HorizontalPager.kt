@@ -28,7 +28,7 @@ fun HorizontalPager(
     pageSize: PageSize = PageSize.Fill,
     beyondBoundsPageCount: Int = PagerDefaults.BeyondBoundsPageCount,
     pageSpacing: Dp = 0.dp,
-    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     flingBehavior: SnapFlingBehavior = PagerDefaults.flingBehavior(state = pagerState),
     userScrollEnabled: Boolean = true,
     reverseLayout: Boolean = false,
