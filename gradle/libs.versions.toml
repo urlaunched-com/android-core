@@ -132,6 +132,7 @@ networkDependencies-kotlinSerialization = { module = "com.squareup.retrofit2:con
 
 firebaseDependencies-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
 firebaseDependencies-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebaseDependencies-remoteconfig = { module = "com.google.firebase:firebase-config" }
 
 paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazziPluginVersion"}
 
