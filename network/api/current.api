@@ -44,7 +44,7 @@ package com.urlaunched.android.network.okhttp {
 package com.urlaunched.android.network.retorift {
 
   public final class RetrofitInitializer {
-    method public retrofit2.Retrofit createGeneralRetrofitClient(String baseUrl, boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor... interceptors);
+    method public retrofit2.Retrofit createGeneralRetrofitClient(String baseUrl, boolean enableLogging, optional boolean isNullsExplicit, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor... interceptors);
     field public static final com.urlaunched.android.network.retorift.RetrofitInitializer INSTANCE;
   }
 
