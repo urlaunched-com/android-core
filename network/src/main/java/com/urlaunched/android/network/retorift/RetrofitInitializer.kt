@@ -14,10 +14,11 @@ object RetrofitInitializer {
     fun createGeneralRetrofitClient(
         baseUrl: String,
         enableLogging: Boolean,
+        isNullsExplicit: Boolean = false,
         okHttpClient: OkHttpClient? = null,
         vararg interceptors: Interceptor
     ): Retrofit = Retrofit.Builder()
-        .addConverterFactory(createKotlinJsonConvertor())
+        .addConverterFactory(createKotlinJsonConvertor(isNullsExplicit))
         .client(
             OkHttpInitializer.createGeneralOkHttpClient(
                 enableLogging = enableLogging,
@@ -29,9 +30,9 @@ object RetrofitInitializer {
         .build()
 
     @OptIn(ExperimentalSerializationApi::class)
-    private fun createKotlinJsonConvertor(): Converter.Factory {
+    private fun createKotlinJsonConvertor(isNullsExplicit: Boolean): Converter.Factory {
         val json = Json {
-            explicitNulls = false
+            explicitNulls = isNullsExplicit
             ignoreUnknownKeys = true
             coerceInputValues = true
         }
