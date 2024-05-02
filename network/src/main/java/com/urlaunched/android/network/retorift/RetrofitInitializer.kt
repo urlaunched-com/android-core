@@ -14,9 +14,9 @@ object RetrofitInitializer {
     fun createGeneralRetrofitClient(
         baseUrl: String,
         enableLogging: Boolean,
-        isNullsExplicit: Boolean = false,
         okHttpClient: OkHttpClient? = null,
-        vararg interceptors: Interceptor
+        vararg interceptors: Interceptor,
+        isNullsExplicit: Boolean = false
     ): Retrofit = Retrofit.Builder()
         .addConverterFactory(createKotlinJsonConvertor(isNullsExplicit))
         .client(
