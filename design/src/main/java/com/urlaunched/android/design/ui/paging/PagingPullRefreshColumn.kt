@@ -26,6 +26,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import kotlinx.coroutines.delay
@@ -96,7 +98,6 @@ fun <T : Any> PagingPullRefreshColumn(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun <T : Any> PagingPullRefreshColumn(
     modifier: Modifier = Modifier,
@@ -129,8 +130,71 @@ fun <T : Any> PagingPullRefreshColumn(
         )
     }
 ) {
+    val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
+
+    PagingPullRefreshColumn(
+        modifier = modifier,
+        pagingItems = pagingItems,
+        contentPadding = contentPadding,
+        state = state,
+        reverseLayout = reverseLayout,
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+        flingBehavior = flingBehavior,
+        userScrollEnabled = userScrollEnabled,
+        placeholderItemsNum = placeholderItemsNum,
+        refreshIndicatorBackgroundColor = refreshIndicatorBackgroundColor,
+        refreshIndicatorContentColor = refreshIndicatorContentColor,
+        defaultIndicatorTrackColor = defaultIndicatorTrackColor,
+        defaultIndicatorColor = defaultIndicatorColor,
+        showSnackbar = showSnackbar,
+        itemKey = itemKey,
+        itemContentType = itemContentType,
+        placeholderItem = placeholderItem,
+        startItems = startItems,
+        noItemsPlaceholder = noItemsPlaceholder,
+        appendIndicator = appendIndicator,
+        endItems = endItems,
+        onLoadingError = onLoadingError,
+        item = item
+    )
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun <T : Any> PagingPullRefreshColumn(
+    modifier: Modifier = Modifier,
+    pagingItems: LazyPagingItems<T>,
+    contentPadding: PaddingValues = PaddingValues(),
+    state: LazyListState = rememberLazyListState(),
+    reverseLayout: Boolean = false,
+    verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
+    userScrollEnabled: Boolean = true,
+    placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
+    refreshIndicatorBackgroundColor: Color = Color.White,
+    refreshIndicatorContentColor: Color = Color.Black,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
+    showSnackbar: suspend (message: String) -> Unit,
+    placeholderItem: @Composable LazyItemScope.(index: Int) -> Unit,
+    item: @Composable LazyItemScope.(index: Int, itemCount: Int, item: T) -> Unit,
+    itemKey: ((item: T) -> Any)? = null,
+    itemContentType: ((item: T) -> Any)? = null,
+    endItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
+    startItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
+    noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
+    onLoadingError: @Composable LazyItemScope.(pagingState: PagingState<T>) -> Unit = {},
+    appendIndicator: (@Composable LazyItemScope.() -> Unit)? = {
+        CircularProgressIndicator(
+            color = defaultIndicatorColor,
+            trackColor = defaultIndicatorTrackColor
+        )
+    }
+) {
     PagingContainer(
-        pagingDataFlow = pagingDataFlow,
+        pagingItems = pagingItems,
         showSnackbar = showSnackbar
     ) { pagingState ->
         var isUserInitiatedRefresh by remember { mutableStateOf(false) }
