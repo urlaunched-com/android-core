@@ -21,7 +21,7 @@ import coil.imageLoader
 fun UrlImage(
     modifier: Modifier = Modifier,
     model: Any?,
-    placeholder: @Composable () -> Unit,
+    placeholder: @Composable () -> Unit = {},
     errorPlaceholder: @Composable () -> Unit = placeholder,
     scale: ContentScale = ContentScale.Crop,
     colorFilter: ColorFilter? = null,
