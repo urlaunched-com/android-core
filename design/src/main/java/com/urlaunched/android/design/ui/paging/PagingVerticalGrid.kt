@@ -18,6 +18,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import kotlinx.coroutines.flow.Flow
@@ -118,8 +120,70 @@ fun <T : Any> PagingVerticalGrid(
         )
     }
 ) {
+    val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
+
+    PagingVerticalGrid(
+        modifier = modifier,
+        pagingItems = pagingItems,
+        columns = columns,
+        contentPadding = contentPadding,
+        state = state,
+        reverseLayout = reverseLayout,
+        verticalArrangement = verticalArrangement,
+        horizontalArrangement = horizontalArrangement,
+        flingBehavior = flingBehavior,
+        userScrollEnabled = userScrollEnabled,
+        placeholderItemsNum = placeholderItemsNum,
+        defaultIndicatorTrackColor = defaultIndicatorTrackColor,
+        defaultIndicatorColor = defaultIndicatorColor,
+        showSnackbar = showSnackbar,
+        itemKey = itemKey,
+        itemContentType = itemContentType,
+        itemSpan = itemSpan,
+        placeholderItem = placeholderItem,
+        startItems = startItems,
+        noItemsPlaceholder = noItemsPlaceholder,
+        appendIndicator = appendIndicator,
+        endItems = endItems,
+        onLoadingError = onLoadingError,
+        item = item
+    )
+}
+
+@Composable
+fun <T : Any> PagingVerticalGrid(
+    modifier: Modifier = Modifier,
+    pagingItems: LazyPagingItems<T>,
+    columns: GridCells,
+    contentPadding: PaddingValues = PaddingValues(),
+    state: LazyGridState = rememberLazyGridState(),
+    reverseLayout: Boolean = false,
+    verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
+    userScrollEnabled: Boolean = true,
+    placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
+    showSnackbar: suspend (message: String) -> Unit,
+    placeholderItem: @Composable LazyGridItemScope.(index: Int) -> Unit,
+    item: @Composable LazyGridItemScope.(index: Int, itemCount: Int, item: T) -> Unit,
+    itemKey: ((item: T) -> Any)? = null,
+    itemContentType: ((item: T) -> Any)? = null,
+    itemSpan: ((item: T?) -> GridItemSpan)? = null,
+    startItems: (LazyGridScope.(pagingState: PagingState<T>) -> Unit)? = null,
+    endItems: (LazyGridScope.(pagingState: PagingState<T>) -> Unit)? = null,
+    noItemsPlaceholder: @Composable LazyGridItemScope.() -> Unit = {},
+    onLoadingError: @Composable LazyGridItemScope.(pagingState: PagingState<T>) -> Unit = {},
+    appendIndicator: (@Composable LazyGridItemScope.() -> Unit)? = {
+        CircularProgressIndicator(
+            color = defaultIndicatorColor,
+            trackColor = defaultIndicatorTrackColor
+        )
+    }
+) {
     PagingContainer(
-        pagingDataFlow = pagingDataFlow,
+        pagingItems = pagingItems,
         showSnackbar = showSnackbar
     ) { pagingState ->
         LazyVerticalGrid(

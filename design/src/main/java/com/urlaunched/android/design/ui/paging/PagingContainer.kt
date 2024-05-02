@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.paging.LoadState
 import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.Flow
 
@@ -18,6 +19,19 @@ fun <T : Any> PagingContainer(
 ) {
     val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
 
+    PagingContainer(
+        pagingItems = pagingItems,
+        showSnackbar = showSnackbar,
+        pagingContent = pagingContent
+    )
+}
+
+@Composable
+fun <T : Any> PagingContainer(
+    pagingItems: LazyPagingItems<T>,
+    showSnackbar: suspend (message: String) -> Unit,
+    pagingContent: @Composable (pagingState: PagingState<T>) -> Unit
+) {
     val localPagingMode = LocalPagingMode.current
 
     val isLoadingError by remember(pagingItems) {
