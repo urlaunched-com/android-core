@@ -1,6 +1,6 @@
 package com.urlaunched.android.cdn.data.remote.api
 
-import com.urlaunched.android.cdnmodels.remote.GenerateDownloadLinkRemoteModel
+import com.urlaunched.android.models.remote.download.GenerateDownloadLinkRemoteModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

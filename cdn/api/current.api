@@ -58,8 +58,8 @@ package com.urlaunched.android.cdn.domain.usecases {
 package com.urlaunched.android.cdn.generators {
 
   public final class MediaCDNGenerator {
-    method public com.urlaunched.android.cdnmodels.domain.links.MediaLink.Public generateBitmapLink(com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel media, com.urlaunched.android.cdnmodels.domain.transform.Edits edits, com.urlaunched.android.cdn.models.CdnConfig cdnConfig);
-    method public com.urlaunched.android.cdnmodels.domain.links.MediaLink generateLink(com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel media, com.urlaunched.android.cdn.models.CdnConfig cdnConfig);
+    method public com.urlaunched.android.cdnmodels.domain.links.MediaLink.Public generateBitmapLink(com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel media, com.urlaunched.android.cdnmodels.domain.transform.Edits edits, com.urlaunched.android.cdnmodels.CdnConfig cdnConfig);
+    method public com.urlaunched.android.cdnmodels.domain.links.MediaLink generateLink(com.urlaunched.android.cdnmodels.domain.media.MediaDomainModel media, com.urlaunched.android.cdnmodels.CdnConfig cdnConfig);
     field public static final com.urlaunched.android.cdn.generators.MediaCDNGenerator INSTANCE;
   }
 
@@ -76,7 +76,7 @@ package com.urlaunched.android.cdn.models {
     method public String component5();
     method public String component6();
     method public String component7();
-    method public com.urlaunched.android.cdn.models.CdnConfig copy(String publicImageCdn, String publicMediaCdn, String privateMediaCdn, String privateMediaEndpoint, String bucket, String tempBucket, String privateBucket);
+    method public com.urlaunched.android.cdnmodels.CdnConfig copy(String publicImageCdn, String publicMediaCdn, String privateMediaCdn, String privateMediaEndpoint, String bucket, String tempBucket, String privateBucket);
     method public String getBucket();
     method public String getPrivateBucket();
     method public String getPrivateMediaCdn();

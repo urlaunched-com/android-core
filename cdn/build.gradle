@@ -36,6 +36,14 @@ android {
         jvmTarget = '17'
     }
 
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
+    }
+
     mavenPublishing {
         // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
         // the first parameter represents whether to publish a sources jar
@@ -66,8 +74,19 @@ dependencies {
     implementation libs.networkDependencies.okHttpLogging
     implementation libs.networkDependencies.kotlinSerialization
 
+    // Jetpack Compose
+    implementation libs.composeDependencies.composeActivity
+    implementation libs.composeDependencies.composeUi
+    implementation libs.composeDependencies.composePreview
+    implementation libs.composeDependencies.composeMaterial3
+    implementation libs.composeDependencies.composeMaterial2
+    implementation libs.composeDependencies.composeNavigation
+    implementation libs.composeDependencies.composeConstraintLayout
+    implementation libs.composeDependencies.runtime
+    debugImplementation libs.composeDependencies.composeUiTooling
+    debugImplementation libs.composeDependencies.composeUiTestManifest
+
     // Local modules
     implementation project(":common")
     implementation project(":network")
-    implementation project(":cdnmodels")
 }
