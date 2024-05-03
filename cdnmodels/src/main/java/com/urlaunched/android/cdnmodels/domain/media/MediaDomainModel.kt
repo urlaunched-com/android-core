@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class MediaDomainModel(
     val id: Int,
     val mediaRawLink: String,
-    val sizeKb: Int?
+    val sizeKb: Int?,
+    val mediaType: String?
 )

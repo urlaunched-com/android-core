@@ -19,5 +19,6 @@ data class MediaRemoteModel(
 fun MediaRemoteModel.toCDNMedia() = MediaDomainModel(
     id = id,
     mediaRawLink = mediaUrl,
-    sizeKb = sizeKb
+    sizeKb = sizeKb,
+    mediaType = mediaType
 )
