@@ -87,4 +87,7 @@ dependencies {
 
     // Coil
     implementation libs.composeCoil.core
+
+    // Local modules
+    implementation project(":cdn:models:presentation")
 }

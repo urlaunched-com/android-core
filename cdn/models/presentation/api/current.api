@@ -99,11 +99,11 @@ package com.urlaunched.android.cdn.models.presentation.image {
   }
 
   public static final class CdnImagePresentationModel.Public extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
-    ctor public CdnImagePresentationModel.Public(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, String bucket, String objectKey, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    ctor public CdnImagePresentationModel.Public(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
     method public int component1();
     method public Integer? component2();
     method public String? component3();
-    method public com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public copy(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, String bucket, String objectKey, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public copy(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
     method public int getId();
     method public String? getMediaType();
     method public Integer? getSizeKb();
@@ -136,17 +136,17 @@ package com.urlaunched.android.cdn.models.presentation.image.transform {
   }
 
   @kotlinx.serialization.Serializable public final class Resize {
-    ctor public Resize(@kotlinx.serialization.SerialName("width") int width, @kotlinx.serialization.SerialName("height") int height, optional @kotlinx.serialization.SerialName("fit") com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode resizeMode);
-    method public int component1();
-    method public int component2();
-    method public com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode component3();
-    method public com.urlaunched.android.cdn.models.presentation.image.transform.Resize copy(int width, int height, com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode resizeMode);
-    method public int getHeight();
-    method public com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode getResizeMode();
-    method public int getWidth();
-    property public final int height;
-    property public final com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode resizeMode;
-    property public final int width;
+    ctor public Resize(@kotlinx.serialization.SerialName("width") Integer? width, @kotlinx.serialization.SerialName("height") Integer? height, optional @kotlinx.serialization.SerialName("fit") com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode? resizeMode);
+    method public Integer? component1();
+    method public Integer? component2();
+    method public com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode? component3();
+    method public com.urlaunched.android.cdn.models.presentation.image.transform.Resize copy(Integer? width, Integer? height, com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode? resizeMode);
+    method public Integer? getHeight();
+    method public com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode? getResizeMode();
+    method public Integer? getWidth();
+    property public final Integer? height;
+    property public final com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode? resizeMode;
+    property public final Integer? width;
   }
 
   @kotlinx.serialization.Serializable public enum ResizeMode {
