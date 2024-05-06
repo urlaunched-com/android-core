@@ -16,10 +16,16 @@ sealed class CdnImagePresentationModel {
         val sizeKb: Int?,
         val mediaType: String?,
         private val cdnRawLink: String,
-        private val bucket: String,
-        private val objectKey: String,
         private val cdnConfig: CdnConfig
     ) : CdnImagePresentationModel() {
+        private val bucket = cdnRawLink
+            .substringAfter("://")
+            .substringBefore('.')
+
+        private val objectKey = cdnRawLink
+            .substringAfter("://")
+            .substringAfter('/')
+
         @SensitiveApi
         fun originalLink(): String = "${cdnConfig.publicMediaCdn}/$objectKey"
 
@@ -56,8 +62,6 @@ fun CdnDomainModel.toCdnImagePresentationModel(cdnConfig: CdnConfig): CdnImagePr
             id = id,
             cdnRawLink = cdnRawLink,
             sizeKb = sizeKb,
-            bucket = bucket,
-            objectKey = objectKey,
             cdnConfig = cdnConfig,
             mediaType = mediaType
         )
