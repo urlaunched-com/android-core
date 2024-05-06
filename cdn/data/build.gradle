@@ -64,7 +64,7 @@ dependencies {
     // Local modules
     implementation project(":common")
     implementation project(":network")
-    implementation project(":cdn:models:domain")
+    implementation project(":cdn:models:domainn")
     implementation project(":cdn:models:remote")
     implementation project(":cdn:domain")
 }

@@ -69,5 +69,5 @@ dependencies {
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
     // Local modules
-    implementation project(":cdn:models:domain")
+    implementation project(":cdn:models:domainn")
 }

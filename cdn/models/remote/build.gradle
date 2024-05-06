@@ -23,5 +23,5 @@ dependencies {
     implementation libs.kotlinDependencies.serialization
 
     // Local modules
-    implementation project(":cdn:models:domain")
+    implementation project(":cdn:models:domainn")
 }
