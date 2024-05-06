@@ -3,13 +3,14 @@ import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.metalava)
     alias(libs.plugins.mavenPublish)
 }
 
 android {
-    namespace 'com.urlaunched.android.design'
+    namespace 'com.urlaunched.andorid.cdn.domain'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {
@@ -35,14 +36,6 @@ android {
         jvmTarget = '17'
     }
 
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
-    }
-
     mavenPublishing {
         // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
         // the first parameter represents whether to publish a sources jar
@@ -57,37 +50,12 @@ metalava {
 }
 
 dependencies {
-    // Android
-    implementation libs.androidCoreDependencies.core
-    implementation libs.androidCoreDependencies.appcompat
-    implementation libs.androidCoreDependencies.lifecycle
-
     // Kotlin
     implementation(platform(libs.kotlinDependencies.bom))
     implementation libs.kotlinDependencies.coroutines
-
-    // Jetpack Compose
-    implementation libs.composeDependencies.composeActivity
-    implementation libs.composeDependencies.composeUi
-    implementation libs.composeDependencies.composePreview
-    implementation libs.composeDependencies.composeMaterial3
-    implementation libs.composeDependencies.composeMaterial2
-    implementation libs.composeDependencies.composeNavigation
-    implementation libs.composeDependencies.composeConstraintLayout
-    implementation libs.composeDependencies.runtime
-    debugImplementation libs.composeDependencies.composeUiTooling
-    debugImplementation libs.composeDependencies.composeUiTestManifest
-
-    // Paging
-    implementation libs.pagingDependencies.core
-    implementation libs.pagingDependencies.compose
-
-    // Placeholder
-    implementation libs.composePlaceholder.core
-
-    // Coil
-    implementation libs.composeCoil.core
+    implementation libs.kotlinDependencies.serialization
 
     // Local modules
-    implementation project(":cdn:models:presentation")
+    implementation project(":common")
+    implementation project(":cdn:models:domain")
 }

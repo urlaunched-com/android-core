@@ -1,0 +1,34 @@
+// Signature format: 4.0
+package com.urlaunched.android.cdn.data.remote.api {
+
+  public interface CdnMediaApi {
+    method @retrofit2.http.GET("/api/v1/signed_downloads/{media_id}") public suspend Object? generateDownloadLink(@retrofit2.http.Path("media_id") int mediaId, kotlin.coroutines.Continuation<? super retrofit2.Response<com.urlaunched.android.cdn.models.remote.download.GenerateDownloadLinkRemoteModel>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.data.remote.source {
+
+  public interface DownloadCdnDataSource {
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel downloadableCdn, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.download.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private downloadableCdn, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+  public final class DownloadCdnDataSourceImpl implements com.urlaunched.android.cdn.data.remote.source.DownloadCdnDataSource {
+    ctor public DownloadCdnDataSourceImpl(com.urlaunched.android.cdn.data.remote.api.CdnMediaApi cdnMediaApi, okhttp3.OkHttpClient okHttpClient);
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel downloadableCdn, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.download.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private downloadableCdn, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.android.cdn.data.repository {
+
+  public final class DownloadCdnRepositoryImpl implements com.urlaunched.andorid.cdn.domain.repository.DownloadCdnRepository {
+    ctor public DownloadCdnRepositoryImpl(com.urlaunched.android.cdn.data.remote.source.DownloadCdnDataSource cdnDataSource);
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel downloadableCdn, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.download.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private downloadableCdn, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+

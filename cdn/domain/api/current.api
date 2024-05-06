@@ -1,0 +1,24 @@
+// Signature format: 4.0
+package com.urlaunched.andorid.cdn.domain.repository {
+
+  public interface DownloadCdnRepository {
+    method public suspend Object? downloadFile(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel downloadableCdn, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.download.DownloadState>>);
+    method public suspend Object? getPrivateFileLink(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private downloadableCdn, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
+package com.urlaunched.andorid.cdn.domain.usecases {
+
+  public final class DownloadCdnFileUseCase {
+    ctor public DownloadCdnFileUseCase(com.urlaunched.andorid.cdn.domain.repository.DownloadCdnRepository repository);
+    method public suspend operator Object? invoke(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel downloadableCdn, String path, kotlin.coroutines.Continuation<? super kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.cdn.models.domain.download.DownloadState>>);
+  }
+
+  public final class GetCdnFileLinkUseCase {
+    ctor public GetCdnFileLinkUseCase(com.urlaunched.andorid.cdn.domain.repository.DownloadCdnRepository repository);
+    method public suspend operator Object? invoke(com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private downloadableCdn, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.lang.String>>);
+  }
+
+}
+
