@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Resize(
     @SerialName("width")
-    val width: Int,
+    val width: Int?,
     @SerialName("height")
-    val height: Int,
+    val height: Int?,
     @SerialName("fit")
-    val resizeMode: ResizeMode = ResizeMode.COVER
+    val resizeMode: ResizeMode? = ResizeMode.COVER
 )
