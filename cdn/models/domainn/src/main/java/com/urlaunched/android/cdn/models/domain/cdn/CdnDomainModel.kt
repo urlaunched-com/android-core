@@ -1,8 +1,5 @@
 package com.urlaunched.android.cdn.models.domain.cdn
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class CdnDomainModel(
     val id: Int,
     val cdnRawLink: String,

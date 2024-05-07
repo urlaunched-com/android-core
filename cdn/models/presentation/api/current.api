@@ -34,37 +34,45 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
   public abstract sealed class CdnPresentationModel {
     method public abstract int getId();
     method public abstract String getLink();
+    method public abstract String? getMediaType();
     method public abstract Integer? getSizeKb();
     property public abstract int id;
     property public abstract String link;
+    property public abstract String? mediaType;
     property public abstract Integer? sizeKb;
   }
 
   public static final class CdnPresentationModel.Private extends com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel {
-    ctor public CdnPresentationModel.Private(int id, String link, Integer? sizeKb);
+    ctor public CdnPresentationModel.Private(int id, String link, Integer? sizeKb, String? mediaType);
     method public int component1();
     method public String component2();
     method public Integer? component3();
-    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private copy(int id, String link, Integer? sizeKb);
+    method public String? component4();
+    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private copy(int id, String link, Integer? sizeKb, String? mediaType);
     method public int getId();
     method public String getLink();
+    method public String? getMediaType();
     method public Integer? getSizeKb();
     property public int id;
     property public String link;
+    property public String? mediaType;
     property public Integer? sizeKb;
   }
 
   public static final class CdnPresentationModel.Public extends com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel {
-    ctor public CdnPresentationModel.Public(int id, String link, Integer? sizeKb);
+    ctor public CdnPresentationModel.Public(int id, String link, Integer? sizeKb, String? mediaType);
     method public int component1();
     method public String component2();
     method public Integer? component3();
-    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Public copy(int id, String link, Integer? sizeKb);
+    method public String? component4();
+    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Public copy(int id, String link, Integer? sizeKb, String? mediaType);
     method public int getId();
     method public String getLink();
+    method public String? getMediaType();
     method public Integer? getSizeKb();
     property public int id;
     property public String link;
+    property public String? mediaType;
     property public Integer? sizeKb;
   }
 
@@ -78,7 +86,7 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
 
 package com.urlaunched.android.cdn.models.presentation.image {
 
-  public abstract sealed class CdnImagePresentationModel {
+  @kotlinx.serialization.Serializable public abstract sealed class CdnImagePresentationModel {
   }
 
   public static final class CdnImagePresentationModel.Private extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
@@ -92,6 +100,7 @@ package com.urlaunched.android.cdn.models.presentation.image {
     method public String getLink();
     method public String? getMediaType();
     method public Integer? getSizeKb();
+    method public com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel toDomainModel();
     property public final int id;
     property public final String link;
     property public final String? mediaType;
@@ -109,13 +118,15 @@ package com.urlaunched.android.cdn.models.presentation.image {
     method public Integer? getSizeKb();
     method @com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi public String originalLink();
     method public String resizedLink(com.urlaunched.android.cdn.models.presentation.image.transform.Edits edits);
+    method public com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel toDomainModel();
     property public final int id;
     property public final String? mediaType;
     property public final Integer? sizeKb;
   }
 
   public final class CdnImagePresentationModelKt {
-    method public static com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel toCdnImagePresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public static com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Private toCdnPrivateImagesPresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public static com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public toCdnPublicImagesPresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
     method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Private);
     method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public, com.urlaunched.android.cdn.models.presentation.image.transform.Edits? edits);
   }
