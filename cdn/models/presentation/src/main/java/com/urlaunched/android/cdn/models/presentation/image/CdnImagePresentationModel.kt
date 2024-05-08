@@ -3,7 +3,6 @@ package com.urlaunched.android.cdn.models.presentation.image
 import com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel
 import com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel
 import com.urlaunched.android.cdn.models.presentation.CdnConfig
-import com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.TransformData
 import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
@@ -50,19 +49,18 @@ sealed class CdnImagePresentationModel {
                 mediaType = mediaType,
                 sizeKb = sizeKb
             )
-
     }
 
     data class Private(
         val id: Int,
         val sizeKb: Int?,
         val mediaType: String?,
-        val link: String
+        val cdnRawLink: String
     ) : CdnImagePresentationModel() {
         fun toDomainModel() =
             CdnDomainModel(
                 id = id,
-                cdnRawLink = link,
+                cdnRawLink = cdnRawLink,
                 mediaType = mediaType,
                 sizeKb = sizeKb
             )
@@ -82,7 +80,7 @@ fun CdnDomainModel.toCdnPrivateImagesPresentationModel(cdnConfig: CdnConfig): Cd
     CdnImagePresentationModel.Private(
         id = id,
         sizeKb = sizeKb,
-        link = "${cdnConfig.privateMediaEndpoint}/$id",
+        cdnRawLink = "${cdnConfig.privateMediaEndpoint}/$id",
         mediaType = mediaType
     )
 
@@ -95,6 +93,6 @@ fun CdnImagePresentationModel.Public.toDownloadableCdnModel(edits: Edits?) = Dow
 
 fun CdnImagePresentationModel.Private.toDownloadableCdnModel() = DownloadableCdnDomainModel.Public(
     id = id,
-    link = link,
+    link = cdnRawLink,
     sizeKb = sizeKb
 )
