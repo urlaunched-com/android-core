@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.urlaunched.android.cdn.models.presentation {
 
-  public final class CdnConfig {
+  @kotlinx.serialization.Serializable public final class CdnConfig {
     ctor public CdnConfig(String publicImageCdn, String publicMediaCdn, String privateMediaCdn, String privateMediaEndpoint, String bucket, String tempBucket, String privateBucket);
     method public String component1();
     method public String component2();
@@ -89,7 +89,7 @@ package com.urlaunched.android.cdn.models.presentation.image {
   @kotlinx.serialization.Serializable public abstract sealed class CdnImagePresentationModel {
   }
 
-  public static final class CdnImagePresentationModel.Private extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
+  @kotlinx.serialization.Serializable public static final class CdnImagePresentationModel.Private extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
     ctor public CdnImagePresentationModel.Private(int id, Integer? sizeKb, String? mediaType, String cdnRawLink);
     method public int component1();
     method public Integer? component2();
@@ -107,7 +107,7 @@ package com.urlaunched.android.cdn.models.presentation.image {
     property public final Integer? sizeKb;
   }
 
-  public static final class CdnImagePresentationModel.Public extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
+  @kotlinx.serialization.Serializable public static final class CdnImagePresentationModel.Public extends com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel {
     ctor public CdnImagePresentationModel.Public(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
     method public int component1();
     method public Integer? component2();

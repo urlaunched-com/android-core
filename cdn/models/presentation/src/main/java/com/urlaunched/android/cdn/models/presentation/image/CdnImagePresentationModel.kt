@@ -7,12 +7,15 @@ import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.TransformData
 import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
 import com.urlaunched.android.cdn.models.presentation.utils.toBase64
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
 sealed class CdnImagePresentationModel {
+    @Serializable
     data class Public(
         val id: Int,
         val sizeKb: Int?,
@@ -51,6 +54,7 @@ sealed class CdnImagePresentationModel {
             )
     }
 
+    @Serializable
     data class Private(
         val id: Int,
         val sizeKb: Int?,
