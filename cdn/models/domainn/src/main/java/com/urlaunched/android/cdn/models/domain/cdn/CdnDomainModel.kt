@@ -4,7 +4,8 @@ data class CdnDomainModel(
     val id: Int,
     val cdnRawLink: String,
     val sizeKb: Int?,
-    val mediaType: String?
+    val mediaType: String?,
+    val link: String
 ) {
     val bucket = cdnRawLink
         .substringAfter("://")
