@@ -7,9 +7,7 @@ import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.TransformData
 import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
 import com.urlaunched.android.cdn.models.presentation.utils.toBase64
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -45,13 +43,12 @@ sealed class CdnImagePresentationModel {
             return "${cdnConfig.publicImageCdn}/${rawJson.toBase64()}"
         }
 
-        fun toDomainModel() =
-            CdnDomainModel(
-                id = id,
-                cdnRawLink = cdnRawLink,
-                mediaType = mediaType,
-                sizeKb = sizeKb
-            )
+        fun toDomainModel() = CdnDomainModel(
+            id = id,
+            cdnRawLink = cdnRawLink,
+            mediaType = mediaType,
+            sizeKb = sizeKb
+        )
     }
 
     @Serializable
@@ -62,13 +59,12 @@ sealed class CdnImagePresentationModel {
         val link: String,
         val cdnRawLink: String
     ) : CdnImagePresentationModel() {
-        fun toDomainModel() =
-            CdnDomainModel(
-                id = id,
-                cdnRawLink = cdnRawLink,
-                mediaType = mediaType,
-                sizeKb = sizeKb
-            )
+        fun toDomainModel() = CdnDomainModel(
+            id = id,
+            cdnRawLink = cdnRawLink,
+            mediaType = mediaType,
+            sizeKb = sizeKb
+        )
     }
 }
 
