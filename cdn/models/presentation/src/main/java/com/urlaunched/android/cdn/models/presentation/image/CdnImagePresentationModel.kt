@@ -50,8 +50,7 @@ sealed class CdnImagePresentationModel {
                 id = id,
                 cdnRawLink = cdnRawLink,
                 mediaType = mediaType,
-                sizeKb = sizeKb,
-                link = originalLink()
+                sizeKb = sizeKb
             )
     }
 
@@ -68,8 +67,7 @@ sealed class CdnImagePresentationModel {
                 id = id,
                 cdnRawLink = cdnRawLink,
                 mediaType = mediaType,
-                sizeKb = sizeKb,
-                link = link
+                sizeKb = sizeKb
             )
     }
 }
@@ -89,7 +87,7 @@ fun CdnDomainModel.toCdnPrivateImagesPresentationModel(cdnConfig: CdnConfig): Cd
         sizeKb = sizeKb,
         cdnRawLink = "${cdnConfig.privateMediaEndpoint}/$id",
         mediaType = mediaType,
-        link = link
+        link = cdnRawLink
     )
 
 @OptIn(SensitiveApi::class)
