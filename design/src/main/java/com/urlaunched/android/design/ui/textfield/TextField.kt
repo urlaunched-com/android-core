@@ -62,6 +62,7 @@ fun TextField(
     value: String,
     label: String? = null,
     borderConfig: TextFieldBorderConfig = TextFieldBorderConfig(),
+    inputTextAlignment: Alignment.Vertical = Alignment.CenterVertically,
     inputTextConfig: TextFieldInputTextConfig = TextFieldInputTextConfig(),
     errorTextConfig: TextFieldErrorTextConfig = TextFieldErrorTextConfig(),
     inputPlaceholderTextConfig: TextFieldInputPlaceholderTextConfig = TextFieldInputPlaceholderTextConfig(),
@@ -211,7 +212,7 @@ fun TextField(
                                 end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
                             )
                             .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = inputTextAlignment
                     ) {
                         if (leadingIcon != null) {
                             leadingIcon.invoke()
