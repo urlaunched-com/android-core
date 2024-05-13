@@ -72,7 +72,7 @@ sealed class CdnImagePresentationModel {
     }
 }
 
-fun CdnDomainModel.toCdnPublicImagesPresentationModel(cdnConfig: CdnConfig): CdnImagePresentationModel.Public =
+fun CdnDomainModel.toCdnPublicImagePresentationModel(cdnConfig: CdnConfig): CdnImagePresentationModel.Public =
     CdnImagePresentationModel.Public(
         id = id,
         cdnRawLink = cdnRawLink,
@@ -81,13 +81,13 @@ fun CdnDomainModel.toCdnPublicImagesPresentationModel(cdnConfig: CdnConfig): Cdn
         mediaType = mediaType
     )
 
-fun CdnDomainModel.toCdnPrivateImagesPresentationModel(cdnConfig: CdnConfig): CdnImagePresentationModel.Private =
+fun CdnDomainModel.toCdnPrivateImagePresentationModel(cdnConfig: CdnConfig): CdnImagePresentationModel.Private =
     CdnImagePresentationModel.Private(
         id = id,
         sizeKb = sizeKb,
-        cdnRawLink = "${cdnConfig.privateMediaEndpoint}/$id",
+        cdnRawLink = cdnRawLink,
         mediaType = mediaType,
-        link = cdnRawLink
+        link = "${cdnConfig.privateMediaEndpoint}/$id"
     )
 
 @OptIn(SensitiveApi::class)
