@@ -99,6 +99,6 @@ fun CdnImagePresentationModel.Public.toDownloadableCdnModel(edits: Edits?) = Dow
 
 fun CdnImagePresentationModel.Private.toDownloadableCdnModel() = DownloadableCdnDomainModel.Public(
     id = id,
-    link = cdnRawLink,
+    link = link,
     sizeKb = sizeKb
 )
