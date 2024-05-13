@@ -51,6 +51,7 @@ import com.urlaunched.android.design.ui.textfield.constants.TextFieldConstants
 import com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldCounterConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig
@@ -68,6 +69,7 @@ fun TextField(
     inputPlaceholderTextConfig: TextFieldInputPlaceholderTextConfig = TextFieldInputPlaceholderTextConfig(),
     topLabelConfig: TextFieldTopLabelConfig = TextFieldTopLabelConfig(),
     bottomLabelConfig: TextFieldBottomLabelConfig = TextFieldBottomLabelConfig(),
+    counterConfig: TextFieldCounterConfig = TextFieldCounterConfig(),
     backgroundConfig: TextFieldBackgroundConfig = TextFieldBackgroundConfig(),
     selectionHandleColor: Color = Color.Black,
     selectionBackgroundColor: Color = Color.Black.copy(alpha = TextFieldConstants.TEXT_SELECTION_BACKGROUND_ALPHA),
@@ -90,6 +92,7 @@ fun TextField(
     leadingIcon: (@Composable () -> Unit)? = null,
     labelIcon: (@Composable () -> Unit)? = null,
     trailingIconAlwaysShown: Boolean = false,
+    maxSymbols: Int? = null,
     onValueChange: (value: String) -> Unit
 ) {
     var isFocused by remember { mutableStateOf(false) }
@@ -138,6 +141,13 @@ fun TextField(
             else -> bottomLabelConfig.unfocusedColor
         },
         label = TextFieldConstants.BOTTOM_LABEL_TEXT_COLOR_ANIMATION_LABEL
+    )
+    val animatedCounterTextColor by animateColorAsState(
+        targetValue = when {
+            isFocused -> counterConfig.focusedColor
+            else -> counterConfig.unfocusedColor
+        },
+        label = TextFieldConstants.COUNTER_TEXT_COLOR_ANIMATION_LABEL
     )
 
     CompositionLocalProvider(
@@ -252,15 +262,27 @@ fun TextField(
                     Spacer(modifier = Modifier.height(Dimens.spacingTinyHalf))
 
                     AnimatedVisibility(
-                        visible = !error.isNullOrEmpty() || bottomLabel != null,
+                        visible = !error.isNullOrEmpty() || bottomLabel != null || maxSymbols != null,
                         enter = expandVertically(),
                         exit = shrinkVertically()
                     ) {
-                        Text(
-                            text = error ?: bottomLabel.orEmpty(),
-                            style = if (error != null || bottomLabel.isNullOrEmpty()) errorTextConfig.textStyle else bottomLabelConfig.textStyle,
-                            color = if (error != null || bottomLabel.isNullOrEmpty()) animatedErrorTextColor else animatedBottomLabelTextColor
-                        )
+                        Row {
+                            Text(
+                                text = error ?: bottomLabel.orEmpty(),
+                                style = if (error != null || bottomLabel.isNullOrEmpty()) errorTextConfig.textStyle else bottomLabelConfig.textStyle,
+                                color = if (error != null || bottomLabel.isNullOrEmpty()) animatedErrorTextColor else animatedBottomLabelTextColor
+                            )
+
+                            maxSymbols?.let {
+                                Spacer(modifier = Modifier.weight(1f))
+
+                                Text(
+                                    text = "${value.length}/$maxSymbols",
+                                    style = counterConfig.textStyle,
+                                    color = if (error != null) animatedErrorTextColor else animatedCounterTextColor
+                                )
+                            }
+                        }
                     }
                 }
             }
