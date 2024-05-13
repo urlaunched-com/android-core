@@ -77,15 +77,15 @@ fun CdnDomainModel.toCdnPublicImagePresentationModel(cdnConfig: CdnConfig): CdnI
         id = id,
         cdnRawLink = cdnRawLink,
         sizeKb = sizeKb,
-        cdnConfig = cdnConfig,
-        mediaType = mediaType
+        mediaType = mediaType,
+        cdnConfig = cdnConfig
     )
 
 fun CdnDomainModel.toCdnPrivateImagePresentationModel(cdnConfig: CdnConfig): CdnImagePresentationModel.Private =
     CdnImagePresentationModel.Private(
         id = id,
-        sizeKb = sizeKb,
         cdnRawLink = cdnRawLink,
+        sizeKb = sizeKb,
         mediaType = mediaType,
         link = "${cdnConfig.privateMediaEndpoint}/$id"
     )
