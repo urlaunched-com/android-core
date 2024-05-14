@@ -7,7 +7,6 @@ import okhttp3.Response
 fun accessTokenInterceptor(getAuthToken: suspend () -> String?) = AccessTokenInterceptor(getAuthToken = getAuthToken)
 
 class AccessTokenInterceptor internal constructor(private val getAuthToken: suspend () -> String?) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = runBlocking { getAuthToken() }
 
