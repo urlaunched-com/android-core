@@ -11,18 +11,16 @@ data class CdnLocalModel(
     val mediaType: String?
 )
 
-fun CdnLocalModel.toDomainModel() =
-    CdnDomainModel(
-        id = id,
-        cdnRawLink = cdnRawLink,
-        sizeKb = sizeKb,
-        mediaType = mediaType
-    )
+fun CdnLocalModel.toDomainModel() = CdnDomainModel(
+    id = id,
+    cdnRawLink = cdnRawLink,
+    sizeKb = sizeKb,
+    mediaType = mediaType
+)
 
-fun CdnDomainModel.toLocalModel() =
-    CdnLocalModel(
-        id = id,
-        cdnRawLink = cdnRawLink,
-        sizeKb = sizeKb,
-        mediaType = mediaType
-    )
+fun CdnDomainModel.toLocalModel() = CdnLocalModel(
+    id = id,
+    cdnRawLink = cdnRawLink,
+    sizeKb = sizeKb,
+    mediaType = mediaType
+)
