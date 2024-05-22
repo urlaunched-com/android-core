@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.metalava)
+    alias(libs.plugins.mavenPublish)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+}
+
+dependencies {
+    implementation(platform(libs.kotlinDependencies.bom))
+    implementation libs.kotlinDependencies.serialization
+}

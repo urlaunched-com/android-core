@@ -1,0 +1,45 @@
+// Signature format: 4.0
+package com.urlaunched.android.purchase.domain.errors {
+
+  public final class UserCancelError extends java.lang.Exception {
+    field public static final com.urlaunched.android.purchase.domain.errors.UserCancelError INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.purchase.domain.repository {
+
+  public interface PurchaseRepository {
+    method public void billingSetup(android.app.Activity activity, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
+    method public suspend Object? getProductsInfo(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> getPurchaseCompleted();
+    method public void makePurchase(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId);
+    property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> purchaseCompleted;
+  }
+
+}
+
+package com.urlaunched.android.purchase.domain.usecase {
+
+  public final class BillingSetupUseCase {
+    ctor public BillingSetupUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
+    method public operator void invoke(android.app.Activity activity, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
+  }
+
+  public final class GetOnPurchaseCompletedUseCase {
+    ctor public GetOnPurchaseCompletedUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
+    method public operator kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> invoke();
+  }
+
+  public final class GetProductsInfoUseCase {
+    ctor public GetProductsInfoUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
+    method public suspend operator Object? invoke(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
+  }
+
+  public final class MakePurchaseUseCase {
+    ctor public MakePurchaseUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
+    method public operator void invoke(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId);
+  }
+
+}
+
