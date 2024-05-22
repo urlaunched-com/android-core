@@ -84,7 +84,7 @@ class PurchaseRepositoryImpl : PurchaseRepository {
                         } else {
                             BillingFlowParams.ProductDetailsParams.newBuilder()
                                 .setProductDetails(it)
-                                .setOfferToken(it.subscriptionOfferDetails?.first()?.offerToken ?: "")
+                                .setOfferToken(it.subscriptionOfferDetails?.first()?.offerToken.orEmpty())
                                 .build()
                         }
                     }
@@ -140,7 +140,6 @@ class PurchaseRepositoryImpl : PurchaseRepository {
             currencyIsoCode = oneTimeProduct.priceCurrencyCode
         )
     }
-
 
     private fun ProductDetails.toSubscriptionDomainModelModel(): ProductDomainModel? {
         return subscriptionOfferDetails?.firstOrNull()?.let { subscriptionOffer ->
