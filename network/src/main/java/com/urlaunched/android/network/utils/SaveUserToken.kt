@@ -17,7 +17,7 @@ suspend fun <T : Any> retrofit2.Response<T>.executeRequestAndTryGetAuthToken(
 
     return token?.let { acquiredToken -> response.map { Pair(it, acquiredToken) } } ?: Response.Error(
         ErrorData(
-            code = ErrorCodes.NO_AUTHORIZED,
+            code = (response as? Response.Error)?.error?.code ?: ErrorCodes.NO_AUTHORIZED,
             message = (response as? Response.Error)?.error?.message
         )
     )
