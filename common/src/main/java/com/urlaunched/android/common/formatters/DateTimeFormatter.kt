@@ -5,6 +5,7 @@ import android.text.format.DateFormat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -37,6 +38,11 @@ object DateTimeFormatter {
     fun requireStringToLocalDateTime(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime {
         val instant = Instant.parse(value)
         return instant.atZone(zone).toLocalDateTime()
+    }
+
+    fun requireStringToOffsetLocalDateTime(value: String, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime {
+        val offsetDateTime = OffsetDateTime.parse(value)
+        return offsetDateTime.atZoneSameInstant(zone).toLocalDateTime()
     }
 
     fun formatInstantToLocalDateTime(instant: Instant, zone: ZoneId = ZoneId.systemDefault()): LocalDateTime {
