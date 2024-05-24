@@ -11,12 +11,13 @@ kotlinSerializationVersion = "1.6.3"
 
 # composeDependencies
 composeActivity = "1.8.2"
-composeVersion = "1.6.5"
+composeVersion = "1.6.7"
 composeNavigationVersion = "2.7.7"
 composeMaterial3Version = "1.2.1"
 composeMaterial2Version = "1.6.5"
 composeConstraintLayout = "1.0.1"
-composeCompilerVersion = "1.5.11"
+composeCompilerVersion = "1.5.12"
+composeRuntimeVersion = "2.7.0"
 
 # composeCoil
 coilVersion = "2.6.0"
@@ -60,6 +61,9 @@ okHttpVersion = "4.12.0"
 # firebaseDependencies
 firebaseBomVersion = "32.8.0"
 
+# billingDependencies
+billingVersion = "6.1.0"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.2.2"
@@ -90,10 +94,13 @@ composeDependencies-composeNavigation = { module = "androidx.navigation:navigati
 composeDependencies-composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraintLayout" }
 composeDependencies-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
 composeDependencies-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
-composeDependencies-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidLifecycleVersion" }
+composeDependencies-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "composeRuntimeVersion" }
 
 composeCoil-core = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
 composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
+
+billingDependencies-billing = { module = "com.android.billingclient:billing", version.ref = "billingVersion" }
+billingDependencies-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billingVersion" }
 
 pagingDependencies-core = { module = "androidx.paging:paging-runtime", version.ref = "pagingVersion" }
 pagingDependencies-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
