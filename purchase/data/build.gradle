@@ -60,6 +60,6 @@ dependencies {
     implementation project(":common")
     implementation project(":network")
 
-    implementation project(":purchase:models:domain")
+    implementation project(":purchase:models:domainn")
     implementation project(":purchase:domain")
 }
