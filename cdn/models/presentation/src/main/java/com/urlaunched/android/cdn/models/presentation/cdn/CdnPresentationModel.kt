@@ -9,20 +9,37 @@ sealed class CdnPresentationModel {
     abstract val link: String
     abstract val sizeKb: Int?
     abstract val mediaType: String?
+    protected abstract val cdnRawLink: String
 
     data class Public(
         override val id: Int,
         override val link: String,
         override val sizeKb: Int?,
-        override val mediaType: String?
-    ) : CdnPresentationModel()
+        override val mediaType: String?,
+        override val cdnRawLink: String
+    ) : CdnPresentationModel() {
+        fun toDomainModel() = CdnDomainModel(
+            id = id,
+            cdnRawLink = cdnRawLink,
+            mediaType = mediaType,
+            sizeKb = sizeKb
+        )
+    }
 
     data class Private(
         override val id: Int,
         override val link: String,
         override val sizeKb: Int?,
-        override val mediaType: String?
-    ) : CdnPresentationModel()
+        override val mediaType: String?,
+        override val cdnRawLink: String
+    ) : CdnPresentationModel() {
+        fun toDomainModel() = CdnDomainModel(
+            id = id,
+            cdnRawLink = cdnRawLink,
+            mediaType = mediaType,
+            sizeKb = sizeKb
+        )
+    }
 }
 
 fun CdnDomainModel.toCdnPresentationModel(cdnConfig: CdnConfig): CdnPresentationModel =
@@ -31,14 +48,16 @@ fun CdnDomainModel.toCdnPresentationModel(cdnConfig: CdnConfig): CdnPresentation
             id = id,
             link = "${cdnConfig.privateMediaEndpoint}/$id",
             sizeKb = sizeKb,
-            mediaType = mediaType
+            mediaType = mediaType,
+            cdnRawLink = cdnRawLink
         )
     } else {
         CdnPresentationModel.Public(
             id = id,
             link = "${cdnConfig.publicMediaCdn}/$objectKey",
             sizeKb = sizeKb,
-            mediaType = mediaType
+            mediaType = mediaType,
+            cdnRawLink = cdnRawLink
         )
     }
 
