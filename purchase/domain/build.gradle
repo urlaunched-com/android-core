@@ -57,5 +57,5 @@ dependencies {
     // Local dependencies
     implementation project(":common")
 
-    implementation project(":purchase:models:domain")
+    implementation project(":purchase:models:domainn")
 }
