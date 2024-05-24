@@ -32,10 +32,12 @@ package com.urlaunched.android.cdn.models.presentation {
 package com.urlaunched.android.cdn.models.presentation.cdn {
 
   public abstract sealed class CdnPresentationModel {
+    method protected abstract String getCdnRawLink();
     method public abstract int getId();
     method public abstract String getLink();
     method public abstract String? getMediaType();
     method public abstract Integer? getSizeKb();
+    property protected abstract String cdnRawLink;
     property public abstract int id;
     property public abstract String link;
     property public abstract String? mediaType;
@@ -43,16 +45,20 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
   }
 
   public static final class CdnPresentationModel.Private extends com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel {
-    ctor public CdnPresentationModel.Private(int id, String link, Integer? sizeKb, String? mediaType);
+    ctor public CdnPresentationModel.Private(int id, String link, Integer? sizeKb, String? mediaType, String cdnRawLink);
     method public int component1();
     method public String component2();
     method public Integer? component3();
     method public String? component4();
-    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private copy(int id, String link, Integer? sizeKb, String? mediaType);
+    method protected String component5();
+    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private copy(int id, String link, Integer? sizeKb, String? mediaType, String cdnRawLink);
+    method public String getCdnRawLink();
     method public int getId();
     method public String getLink();
     method public String? getMediaType();
     method public Integer? getSizeKb();
+    method public com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel toDomainModel();
+    property public String cdnRawLink;
     property public int id;
     property public String link;
     property public String? mediaType;
@@ -60,16 +66,20 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
   }
 
   public static final class CdnPresentationModel.Public extends com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel {
-    ctor public CdnPresentationModel.Public(int id, String link, Integer? sizeKb, String? mediaType);
+    ctor public CdnPresentationModel.Public(int id, String link, Integer? sizeKb, String? mediaType, String cdnRawLink);
     method public int component1();
     method public String component2();
     method public Integer? component3();
     method public String? component4();
-    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Public copy(int id, String link, Integer? sizeKb, String? mediaType);
+    method protected String component5();
+    method public com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Public copy(int id, String link, Integer? sizeKb, String? mediaType, String cdnRawLink);
+    method public String getCdnRawLink();
     method public int getId();
     method public String getLink();
     method public String? getMediaType();
     method public Integer? getSizeKb();
+    method public com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel toDomainModel();
+    property public String cdnRawLink;
     property public int id;
     property public String link;
     property public String? mediaType;
