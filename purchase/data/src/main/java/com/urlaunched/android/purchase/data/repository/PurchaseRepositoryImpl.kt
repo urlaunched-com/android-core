@@ -51,6 +51,7 @@ class PurchaseRepositoryImpl : PurchaseRepository {
 
     override fun billingSetup(activity: Activity, onSuccess: () -> Unit, onError: () -> Unit) {
         if (billingClient?.isReady == true) {
+            onSuccess()
             return
         }
 
@@ -141,8 +142,8 @@ class PurchaseRepositoryImpl : PurchaseRepository {
         )
     }
 
-    private fun ProductDetails.toSubscriptionDomainModelModel(): ProductDomainModel? {
-        return subscriptionOfferDetails?.firstOrNull()?.let { subscriptionOffer ->
+    private fun ProductDetails.toSubscriptionDomainModelModel(): ProductDomainModel? =
+        subscriptionOfferDetails?.firstOrNull()?.let { subscriptionOffer ->
             subscriptionOffer.pricingPhases.pricingPhaseList.firstOrNull()?.let { pricingPhase ->
                 ProductDomainModel(
                     id = productId,
@@ -153,7 +154,6 @@ class PurchaseRepositoryImpl : PurchaseRepository {
                 )
             }
         }
-    }
 
     private fun completePurchase(item: Purchase) {
         if (item.purchaseState == Purchase.PurchaseState.PURCHASED) {
@@ -183,9 +183,8 @@ class PurchaseRepositoryImpl : PurchaseRepository {
         else -> Result.failure(Exception())
     }
 
-    private fun PurchaseTypeDomainModel.toBillingType(): String =
-        when (this) {
-            PurchaseTypeDomainModel.IN_APP_PURCHASE -> ProductType.INAPP
-            PurchaseTypeDomainModel.SUBSCRIPTION -> ProductType.SUBS
-        }
+    private fun PurchaseTypeDomainModel.toBillingType(): String = when (this) {
+        PurchaseTypeDomainModel.IN_APP_PURCHASE -> ProductType.INAPP
+        PurchaseTypeDomainModel.SUBSCRIPTION -> ProductType.SUBS
+    }
 }
