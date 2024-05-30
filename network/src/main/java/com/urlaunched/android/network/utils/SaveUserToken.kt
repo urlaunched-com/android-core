@@ -9,16 +9,21 @@ private const val DEFAULT_AUTH_HEADER_KEY = "authorization"
 
 suspend fun <T : Any> retrofit2.Response<T>.executeRequestAndTryGetAuthToken(
     header: String = DEFAULT_AUTH_HEADER_KEY
-): Response<Pair<T, String>> {
+): Response<Pair<T, AuthTokenWithResponseCode>> {
     var token: String? = null
+    var code: Int? = null
     val response = executeRequest {
-        this.also { token = it.headers()[header] }
+        this.also {
+            token = it.headers()[header]
+            code = it.code()
+        }
     }
 
-    return token?.let { acquiredToken -> response.map { Pair(it, acquiredToken) } } ?: Response.Error(
-        ErrorData(
-            code = (response as? Response.Error)?.error?.code ?: ErrorCodes.NO_AUTHORIZED,
-            message = (response as? Response.Error)?.error?.message
+    return token?.let { acquiredToken -> response.map { Pair(it, AuthTokenWithResponseCode(acquiredToken, code)) } }
+        ?: Response.Error(
+            ErrorData(
+                code = (response as? Response.Error)?.error?.code ?: ErrorCodes.NO_AUTHORIZED,
+                message = (response as? Response.Error)?.error?.message
+            )
         )
-    )
 }
