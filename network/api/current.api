@@ -73,9 +73,21 @@ package com.urlaunched.android.network.sockets {
 
 package com.urlaunched.android.network.utils {
 
+  public final class AuthTokenWithResponseCode {
+    ctor public AuthTokenWithResponseCode(String token, Integer? code);
+    method public String component1();
+    method public Integer? component2();
+    method public com.urlaunched.android.network.utils.AuthTokenWithResponseCode copy(String token, Integer? code);
+    method public Integer? getCode();
+    method public String getToken();
+    property public final Integer? code;
+    property public final String token;
+  }
+
   public final class ExecuteRequestKt {
     method public static suspend Object? executeOkhttpRequest(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super okhttp3.Call>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
     method public static suspend <T> Object? executeRequest(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super retrofit2.Response<T>>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<T>>);
+    method public static suspend <T> Object? executeRequestAndGetAuthToken(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super retrofit2.Response<T>>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Pair<? extends T,? extends com.urlaunched.android.network.utils.AuthTokenWithResponseCode>>>);
     method public static suspend Object? executeRequestNullable(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super retrofit2.Response<kotlin.Unit>>,?> request, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
     method public static inline <reified T> kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<T>> executeSocketCallback(optional kotlinx.serialization.json.Json json, kotlin.jvm.functions.Function0<? extends kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<kotlinx.serialization.json.JsonElement>>> request);
     method public static kotlinx.serialization.json.Json getNetworkJson();
@@ -83,7 +95,7 @@ package com.urlaunched.android.network.utils {
   }
 
   public final class SaveUserTokenKt {
-    method public static suspend <T> Object? executeRequestAndTryGetAuthToken(retrofit2.Response<T>, optional String header, optional kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Pair<? extends T,? extends java.lang.String>>>);
+    method public static suspend <T> Object? executeRequestAndTryGetAuthToken(retrofit2.Response<T>, optional String header, optional kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Pair<? extends T,? extends com.urlaunched.android.network.utils.AuthTokenWithResponseCode>>>);
   }
 
 }

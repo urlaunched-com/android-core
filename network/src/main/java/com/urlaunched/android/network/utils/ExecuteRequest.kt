@@ -39,6 +39,14 @@ inline fun <reified T : Any> executeSocketCallback(
     }
 }
 
+suspend fun <T : Any> executeRequestAndGetAuthToken(
+    request: suspend () -> Response<T>
+): CommonResponse<Pair<T, AuthTokenWithResponseCode>> = try {
+    request().executeRequestAndTryGetAuthToken()
+} catch (e: Exception) {
+    createErrorFromException(e)
+}
+
 suspend fun <T : Any> executeRequest(request: suspend () -> Response<T>): CommonResponse<T> = try {
     val response = request.invoke()
     when (response.isSuccessful) {
