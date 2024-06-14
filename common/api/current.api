@@ -110,6 +110,7 @@ package com.urlaunched.android.common.formatters {
     method public java.time.LocalDateTime? formatStringToLocalDateTime(String value, optional java.time.ZoneId zone);
     method public java.time.LocalDate requireStringToLocalDate(String value, optional java.time.ZoneId zone);
     method public java.time.LocalDateTime requireStringToLocalDateTime(String value, optional java.time.ZoneId zone);
+    method public java.time.LocalDateTime requireStringToOffsetLocalDateTime(String value, optional java.time.ZoneId zone);
     method public java.time.LocalDateTime timestampToLocalDateTime(long timestamp, optional java.time.ZoneId timezone);
     method public long toMillisUtc(java.time.LocalDateTime);
     field public static final String DATE_PLACEHOLDER = "\u2014";
