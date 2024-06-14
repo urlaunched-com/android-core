@@ -28,6 +28,7 @@ import com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentation
 import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.Resize
 import com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode
+import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
 import kotlin.math.roundToInt
 
 @Composable
@@ -37,27 +38,38 @@ fun UrlImage(
     placeholder: @Composable () -> Unit = {},
     errorPlaceholder: @Composable () -> Unit = placeholder,
     scale: ContentScale = ContentScale.Crop,
+    cdnScale: ContentScale = scale,
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
     alpha: Float = 1f,
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     cdnScaleFactor: Float = 1f,
-    onSuccess: (result: SuccessResult) -> Unit = {}
+    onSuccess: (result: SuccessResult) -> Unit = {},
+    onError: () -> Unit = {}
 ) {
     var imageSize by remember {
         mutableStateOf(IntSize.Zero)
     }
 
-    val link by remember(model, imageSize, cdnScaleFactor) {
+    val link by remember(model, imageSize, cdnScaleFactor, cdnScale) {
         derivedStateOf {
             when (model) {
                 is CdnImagePresentationModel.Public -> {
                     if (imageSize != IntSize.Zero) {
-                        model.resizedLink(
-                            edits = Edits(
-                                resize = getResizeMode(scale, imageSize, cdnScaleFactor.coerceAtLeast(0.1f))
+                        if (cdnScale != ContentScale.None) {
+                            model.resizedLink(
+                                edits = Edits(
+                                    resize = getResizeMode(
+                                        scale = cdnScale,
+                                        imageSize = imageSize,
+                                        cdnScaleFactor = cdnScaleFactor.coerceAtLeast(0.1f)
+                                    )
+                                )
                             )
-                        )
+                        } else {
+                            @OptIn(SensitiveApi::class)
+                            model.originalLink()
+                        }
                     } else {
                         null
                     }
@@ -83,8 +95,18 @@ fun UrlImage(
         val state = painter.state
 
         LaunchedEffect(state) {
-            if (state is AsyncImagePainter.State.Success) {
-                onSuccess(state.result)
+            when (state) {
+                is AsyncImagePainter.State.Success -> {
+                    onSuccess(state.result)
+                }
+
+                is AsyncImagePainter.State.Error -> {
+                    onError()
+                }
+
+                else -> {
+                    // Do nothing
+                }
             }
         }
 

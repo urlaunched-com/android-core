@@ -93,7 +93,7 @@ fun CdnImagePresentationModel.Public.toDownloadableCdnModel(edits: Edits?) = Dow
     sizeKb = sizeKb
 )
 
-fun CdnImagePresentationModel.Private.toDownloadableCdnModel() = DownloadableCdnDomainModel.Public(
+fun CdnImagePresentationModel.Private.toDownloadableCdnModel() = DownloadableCdnDomainModel.Private(
     id = id,
     link = link,
     sizeKb = sizeKb

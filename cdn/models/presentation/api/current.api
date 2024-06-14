@@ -88,7 +88,7 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
 
   public final class CdnPresentationModelKt {
     method public static com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel toCdnPresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
-    method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private);
+    method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Private);
     method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.cdn.CdnPresentationModel.Public);
   }
 
@@ -140,7 +140,7 @@ package com.urlaunched.android.cdn.models.presentation.image {
   public final class CdnImagePresentationModelKt {
     method public static com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Private toCdnPrivateImagePresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
     method public static com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public toCdnPublicImagePresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
-    method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Private);
+    method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Private toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Private);
     method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public, com.urlaunched.android.cdn.models.presentation.image.transform.Edits? edits);
   }
 
