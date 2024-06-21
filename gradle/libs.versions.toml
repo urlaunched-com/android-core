@@ -1,30 +1,30 @@
 [versions]
 # androidCoreDependencies
-androidAppCompatVersion = "1.6.1"
-androidxCoreVersion = "1.12.0"
-androidLifecycleVersion = "2.7.0"
+androidAppCompatVersion = "1.7.0"
+androidxCoreVersion = "1.13.1"
+androidLifecycleVersion = "2.8.2"
 
 # kotlinDependencies
-kotlinCore = "1.9.23"
-coroutinesVersion = "1.8.0"
+kotlinCore = "2.0.0"
+coroutinesVersion = "1.8.1"
 kotlinSerializationVersion = "1.6.3"
 
 # composeDependencies
-composeActivity = "1.8.2"
-composeVersion = "1.6.7"
+composeActivity = "1.9.0"
+composeVersion = "1.6.8"
 composeNavigationVersion = "2.7.7"
 composeMaterial3Version = "1.2.1"
-composeMaterial2Version = "1.6.5"
+composeMaterial2Version = "1.6.8"
 composeConstraintLayout = "1.0.1"
-composeCompilerVersion = "1.5.12"
-composeRuntimeVersion = "2.7.0"
+composeLifecycleRuntimeVersion = "2.8.2"
+composeRuntimeVersion = "1.6.8"
 
 # composeCoil
 coilVersion = "2.6.0"
 
 # pagingDependencies
-pagingVersion = "3.2.1"
-pagingComposeVersion = "3.2.1"
+pagingVersion = "3.3.0"
+pagingComposeVersion = "3.3.0"
 
 # testDependencies
 junitVersion = "4.13.2"
@@ -34,7 +34,7 @@ junitKtxVersion = "1.1.5"
 composePlaceholderVersion = "1.0.7"
 
 # datastoreDependencies
-datastoreVersion = "1.0.0"
+datastoreVersion = "1.1.1"
 
 # browserDependencies
 browserVersion = "1.8.0"
@@ -46,7 +46,7 @@ uCropVersion = '2.2.8'
 roomVersion = "2.6.1"
 
 # exoPlayerDependencies
-media3Version = "1.3.0"
+media3Version = "1.3.1"
 
 # androidXMediaDependencies
 androidXMediaVersion = "1.7.0"
@@ -59,22 +59,22 @@ retrofitVersion = "2.11.0"
 okHttpVersion = "4.12.0"
 
 # firebaseDependencies
-firebaseBomVersion = "32.8.0"
+firebaseBomVersion = "33.1.1"
 
 # billingDependencies
-billingVersion = "6.1.0"
+billingVersion = "7.0.0"
 
 # plugins
 # dependencies
-androidApplicationPluginVersion = "8.2.2"
-androidLibraryPluginVersion = "8.2.2"
-kotlinAndroidPluginVersion = "1.9.23"
-kotlinJvmPluginVersion = "1.9.23"
-kotlinSerializationPluginVersion = "1.9.23"
+androidApplicationPluginVersion = "8.4.2"
+androidLibraryPluginVersion = "8.4.2"
+kotlinAndroidPluginVersion = "2.0.0"
+kotlinJvmPluginVersion = "2.0.0"
+kotlinSerializationPluginVersion = "2.0.0"
 ktlintPluginVersion = "12.1.0"
 metalava = "0.3.5"
 mavenPublish = "0.28.0"
-paparazziPluginVersion = "1.3.1"
+paparazziPluginVersion = "1.3.4"
 
 [libraries]
 androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -94,7 +94,8 @@ composeDependencies-composeNavigation = { module = "androidx.navigation:navigati
 composeDependencies-composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraintLayout" }
 composeDependencies-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
 composeDependencies-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeVersion" }
-composeDependencies-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "composeRuntimeVersion" }
+composeDependencies-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "composeLifecycleRuntimeVersion" }
+composeDependencies-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "composeRuntimeVersion" }
 
 composeCoil-core = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
 composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
@@ -147,6 +148,7 @@ paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "papara
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
 android-library = { id = "com.android.library", version.ref = "androidLibraryPluginVersion" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPluginVersion" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinAndroidPluginVersion" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPluginVersion" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPluginVersion" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPluginVersion" }
