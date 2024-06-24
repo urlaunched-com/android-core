@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -38,10 +39,6 @@ android {
         compose true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
-    }
-
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -66,7 +63,7 @@ dependencies {
     implementation libs.composeDependencies.composeMaterial3
     implementation libs.composeDependencies.composeNavigation
     implementation libs.composeDependencies.composeConstraintLayout
-    implementation libs.composeDependencies.runtime
+    implementation libs.composeDependencies.lifecycleRuntime
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 

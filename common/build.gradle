@@ -1,6 +1,7 @@
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 
 plugins {
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
@@ -40,10 +41,6 @@ android {
         compose true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.composeCompilerVersion.get().toString()
-    }
-
     mavenPublishing {
         // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
         // the first parameter represents whether to publish a sources jar
@@ -76,7 +73,7 @@ dependencies {
     implementation libs.composeDependencies.composeMaterial2
     implementation libs.composeDependencies.composeNavigation
     implementation libs.composeDependencies.composeConstraintLayout
-    implementation libs.composeDependencies.runtime
+    implementation libs.composeDependencies.lifecycleRuntime
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
