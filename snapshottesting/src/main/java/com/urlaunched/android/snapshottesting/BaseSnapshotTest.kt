@@ -5,7 +5,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import app.cash.paparazzi.detectEnvironment
 import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.urlaunched.android.design.ui.paging.LocalPagingMode
@@ -27,10 +26,7 @@ abstract class BaseSnapshotTest(
             deviceConfig = DeviceConfig.PIXEL_5,
             renderingMode = renderingMode,
             showSystemUi = false,
-            maxPercentDifference = 0.1,
-            environment = detectEnvironment().run {
-                copy(compileSdkVersion = 33, platformDir = platformDir.replace("34", "33"))
-            }
+            maxPercentDifference = 0.1
         )
 
     fun snapshot(pagingMode: LocalPagingModeEnum? = null, composable: @Composable () -> Unit) {
