@@ -1,4 +1,4 @@
-package com.urlaunched.android.network.retorift
+package com.urlaunched.android.network.retrofit
 
 import com.urlaunched.android.network.okhttp.OkHttpInitializer
 import kotlinx.serialization.ExperimentalSerializationApi
