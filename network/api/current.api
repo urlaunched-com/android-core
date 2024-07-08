@@ -41,11 +41,11 @@ package com.urlaunched.android.network.okhttp {
 
 }
 
-package com.urlaunched.android.network.retorift {
+package com.urlaunched.android.network.retrofit {
 
   public final class RetrofitInitializer {
     method public retrofit2.Retrofit createGeneralRetrofitClient(String baseUrl, boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor![] interceptors, optional boolean isNullsExplicit);
-    field public static final com.urlaunched.android.network.retorift.RetrofitInitializer INSTANCE;
+    field public static final com.urlaunched.android.network.retrofit.RetrofitInitializer INSTANCE;
   }
 
 }

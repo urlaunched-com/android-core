@@ -93,6 +93,7 @@ fun TextField(
     labelIcon: (@Composable () -> Unit)? = null,
     trailingIconAlwaysShown: Boolean = false,
     maxSymbols: Int? = null,
+    counterFormat: String? = null,
     onValueChange: (value: String) -> Unit
 ) {
     var isFocused by remember { mutableStateOf(false) }
@@ -277,7 +278,7 @@ fun TextField(
                                 Spacer(modifier = Modifier.weight(1f))
 
                                 Text(
-                                    text = "${value.length}/$maxSymbols",
+                                    text = counterFormat ?: "${value.length}/$maxSymbols",
                                     style = counterConfig.textStyle,
                                     color = if (error != null) animatedErrorTextColor else animatedCounterTextColor
                                 )
