@@ -14,7 +14,11 @@ import java.io.File
 
 object CoilCacheHelper {
     @OptIn(ExperimentalCoilApi::class)
-    suspend fun extractImageFromCachesOrDownloadFile(context: Context, imageUrl: String): File? {
+    suspend fun extractImageFromCachesOrDownloadFile(
+        context: Context,
+        imageUrl: String,
+        extension: String? = null
+    ): File? {
         val imageLoader = Coil.imageLoader(context)
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
@@ -26,8 +30,8 @@ object CoilCacheHelper {
 
         return if (snapshot != null && snapshot.data.toFile().exists()) {
             val cachedFile = snapshot.data.toFile()
-            val extension = imageUrl.substringAfterLast(".", "")
-            val newCachedFile = File(cachedFile.parent, "${cacheKey.hashCode()}.$extension")
+            val newCachedFile =
+                File(cachedFile.parent, "${cacheKey.hashCode()}.${extension ?: imageUrl.substringAfterLast(".", "")}")
             cachedFile.renameTo(newCachedFile)
             newCachedFile
         } else {
