@@ -56,10 +56,12 @@ import com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfi
 import com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig
 import com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig
+import com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig
 
 @Composable
 fun TextField(
     modifier: Modifier = Modifier,
+    textFieldModifier: Modifier = Modifier,
     value: String,
     label: String? = null,
     borderConfig: TextFieldBorderConfig = TextFieldBorderConfig(),
@@ -71,6 +73,7 @@ fun TextField(
     bottomLabelConfig: TextFieldBottomLabelConfig = TextFieldBottomLabelConfig(),
     counterConfig: TextFieldCounterConfig = TextFieldCounterConfig(),
     backgroundConfig: TextFieldBackgroundConfig = TextFieldBackgroundConfig(),
+    textFieldsSpacerConfig: TextFieldsSpacerConfig = TextFieldsSpacerConfig(),
     selectionHandleColor: Color = Color.Black,
     selectionBackgroundColor: Color = Color.Black.copy(alpha = TextFieldConstants.TEXT_SELECTION_BACKGROUND_ALPHA),
     cursorBrush: Brush = SolidColor(Color.Black),
@@ -183,7 +186,7 @@ fun TextField(
                         Column {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(Dimens.spacingSmall)
+                                horizontalArrangement = Arrangement.spacedBy(textFieldsSpacerConfig.labelIconSpacer)
                             ) {
                                 Text(
                                     text = label.orEmpty(),
@@ -196,7 +199,7 @@ fun TextField(
                                 labelIcon?.invoke()
                             }
 
-                            Spacer(modifier = Modifier.height(Dimens.spacingSmallSpecial))
+                            Spacer(modifier = Modifier.height(textFieldsSpacerConfig.labelSpacer))
                         }
                     }
 
@@ -209,6 +212,7 @@ fun TextField(
                                     this
                                 }
                             }
+                            .then(textFieldModifier)
                             .background(
                                 color = animatedBackgroundColor,
                                 shape = backgroundConfig.shape
@@ -228,7 +232,7 @@ fun TextField(
                         if (leadingIcon != null) {
                             leadingIcon.invoke()
 
-                            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+                            Spacer(modifier = Modifier.width(textFieldsSpacerConfig.leadingIconSpacer))
                         }
 
                         Box(
@@ -254,13 +258,13 @@ fun TextField(
                         }
 
                         if ((value.isNotEmpty() || trailingIconAlwaysShown) && trailingIcon != null) {
-                            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+                            Spacer(modifier = Modifier.width(textFieldsSpacerConfig.trailingIconSpacer))
 
                             trailingIcon.invoke()
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(Dimens.spacingTinyHalf))
+                    Spacer(modifier = Modifier.height(textFieldsSpacerConfig.errorSpacer))
 
                     AnimatedVisibility(
                         visible = !error.isNullOrEmpty() || bottomLabel != null || maxSymbols != null,

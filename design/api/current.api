@@ -210,7 +210,7 @@ package com.urlaunched.android.design.ui.textfield {
   }
 
   public final class TextFieldKt {
-    method @androidx.compose.runtime.Composable public static void TextField(optional androidx.compose.ui.Modifier modifier, String value, optional String? label, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional androidx.compose.ui.Alignment.Vertical inputTextAlignment, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig errorTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig bottomLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldCounterConfig counterConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional String? placeHolder, optional String? bottomLabel, optional String? error, optional boolean enabled, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional boolean readOnly, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, optional Integer? maxSymbols, optional String? counterFormat, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange);
+    method @androidx.compose.runtime.Composable public static void TextField(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier textFieldModifier, String value, optional String? label, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional androidx.compose.ui.Alignment.Vertical inputTextAlignment, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig errorTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig bottomLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldCounterConfig counterConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig textFieldsSpacerConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional String? placeHolder, optional String? bottomLabel, optional String? error, optional boolean enabled, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional boolean readOnly, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, optional Integer? maxSymbols, optional String? counterFormat, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange);
   }
 
 }
@@ -336,6 +336,26 @@ package com.urlaunched.android.design.ui.textfield.models {
     property public final long focusedColor;
     property public final androidx.compose.ui.text.TextStyle textStyle;
     property public final long unfocusedColor;
+  }
+
+  public final class TextFieldsSpacerConfig {
+    ctor public TextFieldsSpacerConfig(optional float labelSpacer, optional float labelIconSpacer, optional float leadingIconSpacer, optional float trailingIconSpacer, optional float errorSpacer);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig copy-RyVG9vg(float labelSpacer, float labelIconSpacer, float leadingIconSpacer, float trailingIconSpacer, float errorSpacer);
+    method public float getErrorSpacer();
+    method public float getLabelIconSpacer();
+    method public float getLabelSpacer();
+    method public float getLeadingIconSpacer();
+    method public float getTrailingIconSpacer();
+    property public final float errorSpacer;
+    property public final float labelIconSpacer;
+    property public final float labelSpacer;
+    property public final float leadingIconSpacer;
+    property public final float trailingIconSpacer;
   }
 
 }
