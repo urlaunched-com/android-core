@@ -61,7 +61,7 @@ import com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig
 @Composable
 fun TextField(
     modifier: Modifier = Modifier,
-    textFieldModifier: Modifier = Modifier,
+    innerFieldModifier: Modifier = Modifier,
     value: String,
     label: String? = null,
     borderConfig: TextFieldBorderConfig = TextFieldBorderConfig(),
@@ -212,7 +212,7 @@ fun TextField(
                                     this
                                 }
                             }
-                            .then(textFieldModifier)
+                            .then(innerFieldModifier)
                             .background(
                                 color = animatedBackgroundColor,
                                 shape = backgroundConfig.shape
