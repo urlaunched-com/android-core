@@ -13,7 +13,8 @@ package com.urlaunched.android.purchase.domain.repository {
     method public void billingSetup(android.app.Activity activity, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
     method public suspend Object? getProductsInfo(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
     method public kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> getPurchaseCompleted();
-    method public void makePurchase(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId);
+    method public suspend Object? getUserPurchases(com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel purchaseType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.PurchaseDomainModel>>>);
+    method public void makePurchase(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
     property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> purchaseCompleted;
   }
 
@@ -36,9 +37,14 @@ package com.urlaunched.android.purchase.domain.usecase {
     method public suspend operator Object? invoke(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
   }
 
+  public final class GetUserPurchasesUseCase {
+    ctor public GetUserPurchasesUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
+    method public suspend operator Object? invoke(com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel purchaseType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.PurchaseDomainModel>>>);
+  }
+
   public final class MakePurchaseUseCase {
     ctor public MakePurchaseUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
-    method public operator void invoke(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId);
+    method public operator void invoke(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
   }
 
 }
