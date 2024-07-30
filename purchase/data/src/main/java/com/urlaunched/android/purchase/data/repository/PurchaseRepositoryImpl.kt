@@ -6,20 +6,26 @@ import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingClient.ProductType
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams.ReplacementMode
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.consumePurchase
 import com.android.billingclient.api.queryProductDetails
+import com.android.billingclient.api.queryPurchasesAsync
 import com.urlaunched.android.common.response.ErrorData
 import com.urlaunched.android.common.response.Response
 import com.urlaunched.android.purchase.domain.errors.UserCancelError
 import com.urlaunched.android.purchase.domain.repository.PurchaseRepository
 import com.urlaunched.android.purchase.models.domain.ProductDomainModel
+import com.urlaunched.android.purchase.models.domain.PurchaseDomainModel
 import com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel
+import com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel
+import com.urlaunched.android.purchase.models.domain.SubscriptionReplacementModeTypeDomainModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,7 +79,12 @@ class PurchaseRepositoryImpl : PurchaseRepository {
         })
     }
 
-    override fun makePurchase(activity: Activity, productType: PurchaseTypeDomainModel, productId: String) {
+    override fun makePurchase(
+        activity: Activity,
+        productType: PurchaseTypeDomainModel,
+        productId: String,
+        subscriptionReplacementMode: SubscriptionReplacementDomainModel?
+    ) {
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(
                 listOf(
@@ -90,7 +101,16 @@ class PurchaseRepositoryImpl : PurchaseRepository {
                         }
                     }
                 )
-            )
+            ).apply {
+                subscriptionReplacementMode?.let {
+                    setSubscriptionUpdateParams(
+                        BillingFlowParams.SubscriptionUpdateParams.newBuilder()
+                            .setOldPurchaseToken(it.oldPurchaseToken)
+                            .setSubscriptionReplacementMode(it.replacementMode.toBillingType())
+                            .build()
+                    )
+                }
+            }
             .build()
 
         billingClient?.launchBillingFlow(activity, billingFlowParams)
@@ -129,6 +149,29 @@ class PurchaseRepositoryImpl : PurchaseRepository {
             Response.Error(ErrorData(message = exception.message.toString(), code = null))
         }
     }
+
+    override suspend fun getUserPurchases(purchaseType: PurchaseTypeDomainModel): Response<List<PurchaseDomainModel>> =
+        try {
+            val params = QueryPurchasesParams.newBuilder()
+                .setProductType(purchaseType.toBillingType())
+                .build()
+
+            Response.Success(
+                billingClient?.queryPurchasesAsync(params)?.purchasesList?.map {
+                    PurchaseDomainModel(
+                        productId = it.products.firstOrNull(),
+                        purchaseToken = it.purchaseToken,
+                        orderId = it.orderId
+                    )
+                }.orEmpty()
+            )
+        } catch (exception: Exception) {
+            if (exception is CancellationException) {
+                throw exception
+            } else {
+                Response.Error(ErrorData(message = exception.message.toString(), code = null))
+            }
+        }
 
     private fun Long.toDoublePrice() = this / 1000000.0
 
@@ -186,5 +229,13 @@ class PurchaseRepositoryImpl : PurchaseRepository {
     private fun PurchaseTypeDomainModel.toBillingType(): String = when (this) {
         PurchaseTypeDomainModel.IN_APP_PURCHASE -> ProductType.INAPP
         PurchaseTypeDomainModel.SUBSCRIPTION -> ProductType.SUBS
+    }
+
+    private fun SubscriptionReplacementModeTypeDomainModel.toBillingType(): Int = when (this) {
+        SubscriptionReplacementModeTypeDomainModel.WITH_TIME_PRORATION -> ReplacementMode.WITH_TIME_PRORATION
+        SubscriptionReplacementModeTypeDomainModel.CHARGE_PRORATED_PRICE -> ReplacementMode.CHARGE_PRORATED_PRICE
+        SubscriptionReplacementModeTypeDomainModel.CHARGE_FULL_PRICE -> ReplacementMode.CHARGE_FULL_PRICE
+        SubscriptionReplacementModeTypeDomainModel.WITHOUT_PRORATION -> ReplacementMode.WITHOUT_PRORATION
+        SubscriptionReplacementModeTypeDomainModel.DEFERRED -> ReplacementMode.DEFERRED
     }
 }
