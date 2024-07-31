@@ -81,6 +81,16 @@ package com.urlaunched.android.design.ui.boxwithconstraints {
 
 }
 
+package com.urlaunched.android.design.ui.clickable {
+
+  public final class DebouncedClickableKt {
+    method @androidx.compose.runtime.Composable public static inline kotlin.jvm.functions.Function0<kotlin.Unit> debouncedAction(kotlin.jvm.functions.Function0<kotlin.Unit> block, optional long debounceTime);
+    method @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier debouncedClickable(androidx.compose.ui.Modifier, optional long debounceTime, optional androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, optional androidx.compose.foundation.Indication? indication, optional boolean enabled, optional String? onClickLabel, optional androidx.compose.ui.semantics.Role? role, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
+    field public static final long DEFAULT_ACTION_DEBOUNCE_TIME = 500L; // 0x1f4L
+  }
+
+}
+
 package com.urlaunched.android.design.ui.horizontalpager {
 
   public final class HorizontalPagerKt {
