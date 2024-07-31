@@ -25,4 +25,5 @@ interface PurchaseRepository {
     ): Response<List<ProductDomainModel>>
 
     suspend fun getUserPurchases(purchaseType: PurchaseTypeDomainModel): Response<List<PurchaseDomainModel>>
+    suspend fun acknowledgePurchase(purchaseToken: String): Response<Unit>
 }

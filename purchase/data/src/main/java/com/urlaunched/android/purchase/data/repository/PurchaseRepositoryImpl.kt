@@ -1,6 +1,7 @@
 package com.urlaunched.android.purchase.data.repository
 
 import android.app.Activity
+import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingClient.ProductType
@@ -14,6 +15,7 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
+import com.android.billingclient.api.acknowledgePurchase
 import com.android.billingclient.api.consumePurchase
 import com.android.billingclient.api.queryProductDetails
 import com.android.billingclient.api.queryPurchasesAsync
@@ -161,7 +163,8 @@ class PurchaseRepositoryImpl : PurchaseRepository {
                     PurchaseDomainModel(
                         productId = it.products.firstOrNull(),
                         purchaseToken = it.purchaseToken,
-                        orderId = it.orderId
+                        orderId = it.orderId,
+                        isAcknowledged = it.isAcknowledged
                     )
                 }.orEmpty()
             )
@@ -172,6 +175,26 @@ class PurchaseRepositoryImpl : PurchaseRepository {
                 Response.Error(ErrorData(message = exception.message.toString(), code = null))
             }
         }
+
+    override suspend fun acknowledgePurchase(purchaseToken: String): Response<Unit> = try {
+        val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+            .setPurchaseToken(purchaseToken)
+            .build()
+
+        billingClient?.acknowledgePurchase(acknowledgePurchaseParams).let {
+            if (it?.responseCode == BillingResponseCode.OK) {
+                Response.Success(Unit)
+            } else {
+                Response.Error(ErrorData(message = null, code = it?.responseCode))
+            }
+        }
+    } catch (exception: Exception) {
+        if (exception is CancellationException) {
+            throw exception
+        } else {
+            Response.Error(ErrorData(message = exception.message.toString(), code = null))
+        }
+    }
 
     private fun Long.toDoublePrice() = this / 1000000.0
 

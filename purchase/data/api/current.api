@@ -3,6 +3,7 @@ package com.urlaunched.android.purchase.data.repository {
 
   @javax.inject.Singleton public final class PurchaseRepositoryImpl implements com.urlaunched.android.purchase.domain.repository.PurchaseRepository {
     ctor public PurchaseRepositoryImpl();
+    method public suspend Object? acknowledgePurchase(String purchaseToken, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
     method public void billingSetup(android.app.Activity activity, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, kotlin.jvm.functions.Function0<kotlin.Unit> onError);
     method public suspend Object? getProductsInfo(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
     method public kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> getPurchaseCompleted();
