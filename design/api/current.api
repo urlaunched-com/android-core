@@ -41,6 +41,7 @@ package com.urlaunched.android.design.resources.dimens {
     method public float getSpacingSmallSpecial();
     method public float getSpacingTiny();
     method public float getSpacingTinyHalf();
+    method public float getZeroDp();
     property public final float cornerRadiusBig;
     property public final float cornerRadiusBigSpecial;
     property public final float cornerRadiusLarge;
@@ -60,6 +61,7 @@ package com.urlaunched.android.design.resources.dimens {
     property public final float spacingSmallSpecial;
     property public final float spacingTiny;
     property public final float spacingTinyHalf;
+    property public final float zeroDp;
     field public static final com.urlaunched.android.design.resources.dimens.Dimens INSTANCE;
   }
 
@@ -91,6 +93,22 @@ package com.urlaunched.android.design.ui.clickable {
 
 }
 
+package com.urlaunched.android.design.ui.exposedDropdown {
+
+  public final class BaseExposedDropdownMenuKt {
+    method @androidx.compose.runtime.Composable public static void BaseExposedDropdownMenu(optional androidx.compose.ui.Modifier modifier, boolean expanded, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, optional long offset, optional androidx.compose.ui.window.PopupProperties properties, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class CustomDropdownMenuTextFieldKt {
+    method @androidx.compose.runtime.Composable public static void CustomDropdownMenuTextField(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier menuModifier, String text, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange, boolean expanded, optional String? placeHolder, optional boolean readOnly, optional androidx.compose.ui.graphics.Shape menuShape, optional float maxMenuHeight, optional long menuBackground, optional androidx.compose.foundation.BorderStroke? menuBorder, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onExpandedChange, kotlin.jvm.functions.Function0<kotlin.Unit> onDismiss, kotlin.jvm.functions.Function0<kotlin.Unit> menuItems);
+  }
+
+  public final class PagingDropdownMenuTextFieldKt {
+    method @androidx.compose.runtime.Composable public static <T> void PagingDropdownMenuTextField(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier menuModifier, kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> pagingDataFlow, String text, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange, boolean expanded, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> onExpandedChange, kotlin.jvm.functions.Function0<kotlin.Unit> onDismiss, optional String? placeHolder, optional boolean readonly, optional androidx.compose.foundation.lazy.LazyListState lazyListState, optional float maxHeight, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.ui.graphics.Shape menuShape, optional float maxMenuHeight, optional long menuBackground, optional androidx.compose.foundation.BorderStroke? menuBorder, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, kotlin.jvm.functions.Function2<? super java.lang.String,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,?> showSnackbar, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.lazy.LazyItemScope,? super java.lang.Integer,kotlin.Unit> placeholderItem, kotlin.jvm.functions.Function1<? super T,?>? itemKey, kotlin.jvm.functions.Function4<? super androidx.compose.foundation.lazy.LazyItemScope,? super java.lang.Integer,? super java.lang.Integer,? super T,kotlin.Unit> item);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.horizontalpager {
 
   public final class HorizontalPagerKt {
@@ -102,7 +120,15 @@ package com.urlaunched.android.design.ui.horizontalpager {
 package com.urlaunched.android.design.ui.image {
 
   public final class UrlImageKt {
-    method @androidx.compose.runtime.Composable public static void UrlImage(optional androidx.compose.ui.Modifier modifier, Object? model, optional kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, optional kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder, optional androidx.compose.ui.layout.ContentScale scale, optional androidx.compose.ui.layout.ContentScale cdnScale, optional androidx.compose.ui.graphics.ColorFilter? colorFilter, optional String? contentDescription, optional float alpha, optional coil.ImageLoader imageLoader, optional float cdnScaleFactor, optional kotlin.jvm.functions.Function1<? super coil.request.SuccessResult,kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
+    method @androidx.compose.runtime.Composable public static void UrlImage(optional androidx.compose.ui.Modifier modifier, Object? model, optional kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, optional kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder, optional androidx.compose.ui.layout.ContentScale scale, optional androidx.compose.ui.layout.ContentScale cdnScale, optional androidx.compose.ui.graphics.ColorFilter? colorFilter, optional String? contentDescription, optional androidx.compose.ui.unit.IntSize? fixedImageSize, optional float alpha, optional coil.ImageLoader imageLoader, optional float cdnScaleFactor, optional kotlin.jvm.functions.Function1<? super coil.request.SuccessResult,kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.modifiers {
+
+  public final class IfNotNullKt {
+    method public static inline <T> androidx.compose.ui.Modifier ifNotNull(androidx.compose.ui.Modifier, T? value, kotlin.jvm.functions.Function1<? super T,? extends androidx.compose.ui.Modifier> builder);
   }
 
 }
@@ -197,6 +223,148 @@ package com.urlaunched.android.design.ui.progressbarcontainer {
 
 }
 
+package com.urlaunched.android.design.ui.pulltorefresh {
+
+  public final class PullToRefreshBoxKt {
+    method @androidx.compose.runtime.Composable public static void PullToRefreshBox(optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function0<kotlin.Unit> onRefresh, boolean isRefreshing, optional androidx.compose.material.pullrefresh.PullRefreshState state, optional long containerColor, optional kotlin.jvm.functions.Function0<kotlin.Unit> topBar, optional androidx.compose.material3.TopAppBarScrollBehavior? scrollBehavior, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.scrollbar {
+
+  public final class ColumnScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void ColumnScrollbar(androidx.compose.foundation.ScrollState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static void InternalColumnScrollbar(androidx.compose.foundation.ScrollState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, float visibleLengthDp);
+  }
+
+  public final class LazyColumnScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void InternalLazyColumnScrollbar(androidx.compose.foundation.lazy.LazyListState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent);
+    method @androidx.compose.runtime.Composable public static void LazyColumnScrollbar(androidx.compose.foundation.lazy.LazyListState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class LazyHorizontalGridScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void InternalLazyHorizontalGridScrollbar(androidx.compose.foundation.lazy.grid.LazyGridState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent);
+    method @androidx.compose.runtime.Composable public static void LazyHorizontalGridScrollbar(androidx.compose.foundation.lazy.grid.LazyGridState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class LazyRowScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void InternalLazyRowScrollbar(androidx.compose.foundation.lazy.LazyListState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent);
+    method @androidx.compose.runtime.Composable public static void LazyRowScrollbar(androidx.compose.foundation.lazy.LazyListState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class LazyVerticalGridScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void InternalLazyVerticalGridScrollbar(androidx.compose.foundation.lazy.grid.LazyGridState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent);
+    method @androidx.compose.runtime.Composable public static void LazyVerticalGridScrollbar(androidx.compose.foundation.lazy.grid.LazyGridState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Integer,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class RowScrollbarKt {
+    method @androidx.compose.runtime.Composable public static void InternalRowScrollbar(androidx.compose.foundation.ScrollState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, float visibleLengthDp);
+    method @androidx.compose.runtime.Composable public static void RowScrollbar(androidx.compose.foundation.ScrollState state, optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings settings, optional kotlin.jvm.functions.Function2<? super java.lang.Float,? super java.lang.Boolean,kotlin.Unit>? indicatorContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public enum ScrollbarLayoutSide {
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide End;
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide Start;
+  }
+
+  public enum ScrollbarSelectionActionable {
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable Always;
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable WhenVisible;
+  }
+
+  public enum ScrollbarSelectionMode {
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode Disabled;
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode Full;
+    enum_constant public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode Thumb;
+  }
+
+  @androidx.compose.runtime.Stable public final class ScrollbarSettings {
+    ctor public ScrollbarSettings(optional boolean enabled, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide side, optional boolean alwaysShowScrollbar, optional float scrollbarPadding, optional float thumbThickness, optional androidx.compose.ui.graphics.Shape thumbShape, optional float thumbMinLength, optional float thumbMaxLength, optional long thumbUnselectedColor, optional long thumbSelectedColor, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode selectionMode, optional com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable selectionActionable, optional int hideDelayMillis, optional float hideDisplacement, optional androidx.compose.animation.core.Easing hideEasingAnimation, optional int durationAnimationMillis);
+    method public boolean component1();
+    method public long component10-0d7_KjU();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode component11();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable component12();
+    method public int component13();
+    method public float component14-D9Ej5fM();
+    method public androidx.compose.animation.core.Easing component15();
+    method public int component16();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide component2();
+    method public boolean component3();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public androidx.compose.ui.graphics.Shape component6();
+    method public float component7();
+    method public float component8();
+    method public long component9-0d7_KjU();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings copy-tuVzt9c(boolean enabled, com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide side, boolean alwaysShowScrollbar, float scrollbarPadding, float thumbThickness, androidx.compose.ui.graphics.Shape thumbShape, float thumbMinLength, float thumbMaxLength, long thumbUnselectedColor, long thumbSelectedColor, com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode selectionMode, com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable selectionActionable, int hideDelayMillis, float hideDisplacement, androidx.compose.animation.core.Easing hideEasingAnimation, int durationAnimationMillis);
+    method public boolean getAlwaysShowScrollbar();
+    method public int getDurationAnimationMillis();
+    method public boolean getEnabled();
+    method public int getHideDelayMillis();
+    method public float getHideDisplacement();
+    method public androidx.compose.animation.core.Easing getHideEasingAnimation();
+    method public float getScrollbarPadding();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable getSelectionActionable();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode getSelectionMode();
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide getSide();
+    method public float getThumbMaxLength();
+    method public float getThumbMinLength();
+    method public long getThumbSelectedColor();
+    method public androidx.compose.ui.graphics.Shape getThumbShape();
+    method public float getThumbThickness();
+    method public long getThumbUnselectedColor();
+    property public final boolean alwaysShowScrollbar;
+    property public final int durationAnimationMillis;
+    property public final boolean enabled;
+    property public final int hideDelayMillis;
+    property public final float hideDisplacement;
+    property public final androidx.compose.animation.core.Easing hideEasingAnimation;
+    property public final float scrollbarPadding;
+    property public final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionActionable selectionActionable;
+    property public final com.urlaunched.android.design.ui.scrollbar.ScrollbarSelectionMode selectionMode;
+    property public final com.urlaunched.android.design.ui.scrollbar.ScrollbarLayoutSide side;
+    property public final float thumbMaxLength;
+    property public final float thumbMinLength;
+    property public final long thumbSelectedColor;
+    property public final androidx.compose.ui.graphics.Shape thumbShape;
+    property public final float thumbThickness;
+    property public final long thumbUnselectedColor;
+    field public static final com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings.Companion Companion;
+  }
+
+  public static final class ScrollbarSettings.Companion {
+    method public com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings getDefault();
+    property public final com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings Default;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.scrollbar.controller {
+
+  @androidx.compose.runtime.Stable public interface StateController<IndicatorValue> {
+    method public androidx.compose.runtime.State<java.lang.Boolean> getThumbIsInAction();
+    method public androidx.compose.runtime.State<java.lang.Float> getThumbOffsetNormalized();
+    method public androidx.compose.runtime.State<java.lang.Float> getThumbSizeNormalized();
+    method public IndicatorValue indicatorValue();
+    method public androidx.compose.runtime.State<java.lang.Boolean> isSelected();
+    method public void onDragStarted(float offsetPixels, float maxLengthPixels);
+    method public void onDragStopped();
+    method public void onDraggableState(float deltaPixels, float maxLengthPixels);
+    property public abstract androidx.compose.runtime.State<java.lang.Boolean> isSelected;
+    property public abstract androidx.compose.runtime.State<java.lang.Boolean> thumbIsInAction;
+    property public abstract androidx.compose.runtime.State<java.lang.Float> thumbOffsetNormalized;
+    property public abstract androidx.compose.runtime.State<java.lang.Float> thumbSizeNormalized;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.shadow {
 
   public final class ShadowKt {
@@ -214,6 +382,33 @@ package com.urlaunched.android.design.ui.shimmer {
 }
 
 package com.urlaunched.android.design.ui.textfield {
+
+  public final class LocalTextFieldConfigsKt {
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.SolidColor> getLocalCursorBrush();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.Color> getLocalSelectionBackgroundColor();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.Color> getLocalSelectionHandleColor();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig> getLocalTextFieldBackgroundConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig> getLocalTextFieldBorderConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig> getLocalTextFieldBottomLabelConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldCounterConfig> getLocalTextFieldCounterConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig> getLocalTextFieldErrorTextConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig> getLocalTextFieldInputPlaceholderTextConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig> getLocalTextFieldInputTextConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig> getLocalTextFieldTopLabelConfig();
+    method public static androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig> getLocalTextFieldsSpacerConfig();
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.SolidColor> LocalCursorBrush;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.Color> LocalSelectionBackgroundColor;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<androidx.compose.ui.graphics.Color> LocalSelectionHandleColor;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig> LocalTextFieldBackgroundConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig> LocalTextFieldBorderConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig> LocalTextFieldBottomLabelConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldCounterConfig> LocalTextFieldCounterConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig> LocalTextFieldErrorTextConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig> LocalTextFieldInputPlaceholderTextConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig> LocalTextFieldInputTextConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig> LocalTextFieldTopLabelConfig;
+    property public static final androidx.compose.runtime.ProvidableCompositionLocal<com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig> LocalTextFieldsSpacerConfig;
+  }
 
   public final class PasswordTextFieldKt {
     method @androidx.compose.runtime.Composable public static void PasswordTextField(optional androidx.compose.ui.Modifier modifier, String value, optional String? label, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldErrorTextConfig errorTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBottomLabelConfig bottomLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional String? placeHolder, optional String? bottomLabel, optional String? error, optional boolean enabled, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional boolean readOnly, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onValueChange, kotlin.jvm.functions.Function0<kotlin.Unit> passwordVisibleIcon, kotlin.jvm.functions.Function0<kotlin.Unit> passwordHiddenIcon);
