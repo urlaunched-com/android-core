@@ -41,14 +41,15 @@ fun UrlImage(
     cdnScale: ContentScale = scale,
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
+    fixedImageSize: IntSize? = null,
     alpha: Float = 1f,
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     cdnScaleFactor: Float = 1f,
     onSuccess: (result: SuccessResult) -> Unit = {},
     onError: () -> Unit = {}
 ) {
-    var imageSize by remember {
-        mutableStateOf(IntSize.Zero)
+    var imageSize by remember(fixedImageSize) {
+        mutableStateOf(fixedImageSize ?: IntSize.Zero)
     }
 
     val link by remember(model, imageSize, cdnScaleFactor, cdnScale) {
@@ -81,10 +82,15 @@ fun UrlImage(
     }
 
     SubcomposeAsyncImage(
-        modifier = modifier
-            .onSizeChanged { size ->
-                imageSize = size
-            },
+        modifier = modifier.then(
+            if (fixedImageSize == null) {
+                Modifier.onSizeChanged { size ->
+                    imageSize = size
+                }
+            } else {
+                Modifier
+            }
+        ),
         contentScale = scale,
         contentDescription = contentDescription,
         colorFilter = colorFilter,

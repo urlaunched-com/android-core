@@ -16,7 +16,7 @@ composeNavigationVersion = "2.7.7"
 composeMaterial3Version = "1.2.1"
 composeMaterial2Version = "1.6.8"
 composeConstraintLayout = "1.0.1"
-composeLifecycleRuntimeVersion = "2.8.2"
+composeLifecycleRuntimeVersion = "2.8.4"
 composeRuntimeVersion = "1.6.8"
 
 # composeCoil

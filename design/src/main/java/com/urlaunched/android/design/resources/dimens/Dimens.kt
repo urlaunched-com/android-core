@@ -3,6 +3,8 @@ package com.urlaunched.android.design.resources.dimens
 import androidx.compose.ui.unit.dp
 
 object Dimens {
+    val zeroDp = 0.dp
+
     val spacingTinyHalf = 2.dp
     val spacingTiny = 4.dp
     val spacingSmallSpecial = 6.dp
