@@ -93,6 +93,14 @@ package com.urlaunched.android.design.ui.clickable {
 
 }
 
+package com.urlaunched.android.design.ui.expandabletext {
+
+  public final class ExpandableTextKt {
+    method @androidx.compose.runtime.Composable public static void ExpandableText(optional androidx.compose.ui.Modifier modifier, String text, int maxLines, androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.text.TextStyle expandTextStyle, String expandText, String collapseText, String expandSuffix);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.exposedDropdown {
 
   public final class BaseExposedDropdownMenuKt {
