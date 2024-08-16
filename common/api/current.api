@@ -60,6 +60,7 @@ package com.urlaunched.android.common.files {
 
   public final class FilePickerHelper {
     method public java.io.File? createFileFromUri(android.content.Context context, android.net.Uri uri);
+    method public String getFileName(android.content.Context context, android.net.Uri uri);
     method public kotlin.time.Duration? getMediaDuration(java.io.File file);
     method public java.io.File? getVideoThumbnail(android.content.Context context, java.io.File file);
     field public static final com.urlaunched.android.common.files.FilePickerHelper INSTANCE;
