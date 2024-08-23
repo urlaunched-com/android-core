@@ -1,6 +1,7 @@
 package com.urlaunched.android.common.scroll
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.verticalScroll
@@ -16,4 +17,8 @@ fun Modifier.customVerticalScroll(state: ScrollState): Modifier = composed {
 
 fun Modifier.customFillMaxSize(height: Dp = 1100.dp): Modifier = composed {
     if (LocalInspectionMode.current) fillMaxSize().height(height) else fillMaxSize()
+}
+
+fun Modifier.customHeight(modifier: Modifier): Modifier = composed {
+    if (LocalInspectionMode.current) fillMaxHeight() else modifier
 }
