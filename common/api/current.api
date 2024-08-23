@@ -302,6 +302,7 @@ package com.urlaunched.android.common.scroll {
 
   public final class CustomVerticalScrollKt {
     method public static androidx.compose.ui.Modifier customFillMaxSize(androidx.compose.ui.Modifier, optional float height);
+    method public static androidx.compose.ui.Modifier customHeight(androidx.compose.ui.Modifier, androidx.compose.ui.Modifier modifier);
     method public static androidx.compose.ui.Modifier customVerticalScroll(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState state);
   }
 
