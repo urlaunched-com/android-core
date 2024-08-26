@@ -15,7 +15,7 @@ package com.urlaunched.android.purchase.domain.repository {
     method public suspend Object? getProductsInfo(java.util.List<java.lang.String> productIds, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.ProductDomainModel>>>);
     method public kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> getPurchaseCompleted();
     method public suspend Object? getUserPurchases(com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel purchaseType, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends com.urlaunched.android.purchase.models.domain.PurchaseDomainModel>>>);
-    method public void makePurchase(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
+    method public com.urlaunched.android.common.response.Response<kotlin.Unit> makePurchase(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
     property public abstract kotlinx.coroutines.flow.StateFlow<kotlin.Result<java.lang.String>> purchaseCompleted;
   }
 
@@ -50,7 +50,7 @@ package com.urlaunched.android.purchase.domain.usecase {
 
   public final class MakePurchaseUseCase {
     ctor public MakePurchaseUseCase(com.urlaunched.android.purchase.domain.repository.PurchaseRepository purchaseRepository);
-    method public operator void invoke(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
+    method public operator com.urlaunched.android.common.response.Response<kotlin.Unit> invoke(android.app.Activity activity, com.urlaunched.android.purchase.models.domain.PurchaseTypeDomainModel productType, String productId, optional com.urlaunched.android.purchase.models.domain.SubscriptionReplacementDomainModel? subscriptionReplacementMode);
   }
 
 }
