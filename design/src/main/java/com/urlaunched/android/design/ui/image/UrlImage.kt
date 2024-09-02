@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import coil.ImageLoader
 import coil.compose.AsyncImagePainter
@@ -41,15 +43,22 @@ fun UrlImage(
     cdnScale: ContentScale = scale,
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
-    fixedImageSize: IntSize? = null,
+    fixedImageSize: DpSize? = null,
     alpha: Float = 1f,
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     cdnScaleFactor: Float = 1f,
     onSuccess: (result: SuccessResult) -> Unit = {},
     onError: () -> Unit = {}
 ) {
+    val density = LocalDensity.current
     var imageSize by remember(fixedImageSize) {
-        mutableStateOf(fixedImageSize ?: IntSize.Zero)
+        mutableStateOf(
+            fixedImageSize?.let { size ->
+                with(density) {
+                    IntSize(size.width.roundToPx(), size.height.roundToPx())
+                }
+            } ?: IntSize.Zero
+        )
     }
 
     val link by remember(model, imageSize, cdnScaleFactor, cdnScale) {
