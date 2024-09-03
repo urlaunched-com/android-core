@@ -17,7 +17,7 @@ interface PurchaseRepository {
         productType: PurchaseTypeDomainModel,
         productId: String,
         subscriptionReplacementMode: SubscriptionReplacementDomainModel? = null
-    )
+    ): Response<Unit>
 
     suspend fun getProductsInfo(
         productIds: List<String>,

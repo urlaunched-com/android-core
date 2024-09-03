@@ -86,7 +86,7 @@ class PurchaseRepositoryImpl : PurchaseRepository {
         productType: PurchaseTypeDomainModel,
         productId: String,
         subscriptionReplacementMode: SubscriptionReplacementDomainModel?
-    ) {
+    ) = try {
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(
                 listOf(
@@ -116,6 +116,10 @@ class PurchaseRepositoryImpl : PurchaseRepository {
             .build()
 
         billingClient?.launchBillingFlow(activity, billingFlowParams)
+
+        Response.Success(Unit)
+    } catch (exception: Exception) {
+        Response.Error(ErrorData(message = exception.message.toString(), code = null))
     }
 
     override suspend fun getProductsInfo(productIds: List<String>, productType: PurchaseTypeDomainModel) = try {

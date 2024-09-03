@@ -62,7 +62,7 @@ package com.urlaunched.android.common.files {
     method public java.io.File? createFileFromUri(android.content.Context context, android.net.Uri uri);
     method public String getFileName(android.content.Context context, android.net.Uri uri);
     method public kotlin.time.Duration? getMediaDuration(java.io.File file);
-    method public java.io.File? getVideoThumbnail(android.content.Context context, java.io.File file);
+    method public java.io.File? getVideoThumbnail(android.content.Context context, java.io.File file, optional long timeUs);
     field public static final com.urlaunched.android.common.files.FilePickerHelper INSTANCE;
   }
 
@@ -302,6 +302,7 @@ package com.urlaunched.android.common.scroll {
 
   public final class CustomVerticalScrollKt {
     method public static androidx.compose.ui.Modifier customFillMaxSize(androidx.compose.ui.Modifier, optional float height);
+    method public static androidx.compose.ui.Modifier customHeight(androidx.compose.ui.Modifier, androidx.compose.ui.Modifier modifier);
     method public static androidx.compose.ui.Modifier customVerticalScroll(androidx.compose.ui.Modifier, androidx.compose.foundation.ScrollState state);
   }
 
