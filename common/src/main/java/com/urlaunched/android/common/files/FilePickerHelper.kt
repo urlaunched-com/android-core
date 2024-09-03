@@ -13,13 +13,13 @@ object FilePickerHelper {
     private const val THUMBNAIL_FILE_PREFIX = "thumbnail"
     private const val THUMBNAIL_FILE_SUFFIX = ".jpg"
 
-    fun getVideoThumbnail(context: Context, file: File): File? {
+    fun getVideoThumbnail(context: Context, file: File, timeUs: Long = 0): File? {
         val retriever = MediaMetadataRetriever()
         var thumbnailFile: File? = null
 
         try {
             retriever.setDataSource(file.absolutePath)
-            val frame = retriever.getFrameAtTime(0)
+            val frame = retriever.getFrameAtTime(timeUs)
 
             val cacheDir = context.cacheDir
             thumbnailFile =
