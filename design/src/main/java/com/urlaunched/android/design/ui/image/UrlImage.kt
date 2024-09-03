@@ -46,7 +46,7 @@ fun UrlImage(
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     cdnScaleFactor: Float = 1f,
     onSuccess: (result: SuccessResult) -> Unit = {},
-    onError: () -> Unit = {}
+    onError: (error: Throwable) -> Unit = {}
 ) {
     var imageSize by remember(fixedImageSize) {
         mutableStateOf(fixedImageSize ?: IntSize.Zero)
@@ -107,7 +107,7 @@ fun UrlImage(
                 }
 
                 is AsyncImagePainter.State.Error -> {
-                    onError()
+                    onError(state.result.throwable)
                 }
 
                 else -> {

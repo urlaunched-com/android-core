@@ -56,6 +56,7 @@ fun <T : Any> PagingDropdownMenuTextField(
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable (LazyItemScope.(index: Int) -> Unit),
     itemKey: ((item: T) -> Any)?,
+    textField: (@Composable (modifier: Modifier) -> Unit) = {},
     item: @Composable (LazyItemScope.(index: Int, itemCount: Int, item: T) -> Unit)
 ) {
     CustomDropdownMenuTextField(
@@ -72,7 +73,10 @@ fun <T : Any> PagingDropdownMenuTextField(
         maxMenuHeight = maxMenuHeight,
         menuBackground = menuBackground,
         menuBorder = menuBorder,
-        trailingIcon = trailingIcon
+        trailingIcon = trailingIcon,
+        textField = { textFieldModifier ->
+            textField(textFieldModifier)
+        }
     ) {
         LazyColumnScrollbar(
             modifier = Modifier.heightIn(max = maxHeight),

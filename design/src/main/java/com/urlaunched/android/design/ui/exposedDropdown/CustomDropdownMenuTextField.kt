@@ -45,6 +45,16 @@ fun CustomDropdownMenuTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     onExpandedChange: (onExpandedChange: Boolean) -> Unit,
     onDismiss: () -> Unit,
+    textField: @Composable (modifier: Modifier) -> Unit = { textFieldModifier ->
+        DefaultTextField(
+            modifier = textFieldModifier,
+            text = text,
+            onValueChange = onValueChange,
+            placeHolder = placeHolder,
+            readOnly = readOnly,
+            trailingIcon = trailingIcon
+        )
+    },
     menuItems: @Composable () -> Unit
 ) {
     ExposedDropdownMenuBox(
@@ -52,19 +62,8 @@ fun CustomDropdownMenuTextField(
         expanded = expanded,
         onExpandedChange = onExpandedChange
     ) {
-        TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(),
-            value = text,
-            onValueChange = onValueChange,
-            readOnly = readOnly,
-            placeHolder = placeHolder,
-            trailingIconAlwaysShown = true,
-            trailingIcon = trailingIcon,
-            singleLine = true,
-            maxLines = 1,
-            minLines = 1
+        textField(
+            Modifier.menuAnchor()
         )
 
         BaseExposedDropdownMenu(
@@ -87,6 +86,29 @@ fun CustomDropdownMenuTextField(
     }
 }
 
+@Composable
+private fun DefaultTextField(
+    modifier: Modifier = Modifier,
+    text: String,
+    onValueChange: (text: String) -> Unit,
+    placeHolder: String? = null,
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit)? = null
+) {
+    TextField(
+        modifier = modifier.fillMaxWidth(),
+        value = text,
+        onValueChange = onValueChange,
+        readOnly = readOnly,
+        placeHolder = placeHolder,
+        trailingIconAlwaysShown = true,
+        trailingIcon = trailingIcon,
+        singleLine = true,
+        maxLines = 1,
+        minLines = 1
+    )
+}
+
 @Preview
 @Composable
 private fun PagingDropdownMenuPreview() {
@@ -97,15 +119,16 @@ private fun PagingDropdownMenuPreview() {
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onValueChange = {},
-        onDismiss = { expanded = false }
-    ) {
-        Column {
-            repeat(2) {
-                Text(
-                    text = "Menu item",
-                    modifier = Modifier.padding(vertical = Dimens.spacingSmallSpecial)
-                )
+        onDismiss = { expanded = false },
+        menuItems = {
+            Column {
+                repeat(2) {
+                    Text(
+                        text = "Menu item",
+                        modifier = Modifier.padding(vertical = Dimens.spacingSmallSpecial)
+                    )
+                }
             }
         }
-    }
+    )
 }
