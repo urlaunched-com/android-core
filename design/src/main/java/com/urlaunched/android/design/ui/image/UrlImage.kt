@@ -48,7 +48,7 @@ fun UrlImage(
     imageLoader: ImageLoader = LocalContext.current.imageLoader,
     cdnScaleFactor: Float = 1f,
     onSuccess: (result: SuccessResult) -> Unit = {},
-    onError: (error: Throwable) -> Unit = {}
+    onError: () -> Unit = {}
 ) {
     val density = LocalDensity.current
     var imageSize by remember(fixedImageSize) {
@@ -116,7 +116,7 @@ fun UrlImage(
                 }
 
                 is AsyncImagePainter.State.Error -> {
-                    onError(state.result.throwable)
+                    onError()
                 }
 
                 else -> {
