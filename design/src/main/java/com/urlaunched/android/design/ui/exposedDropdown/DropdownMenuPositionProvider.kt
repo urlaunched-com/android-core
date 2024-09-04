@@ -19,7 +19,7 @@ import kotlin.math.min
 internal data class DropdownMenuPositionProvider(
     val contentOffset: DpOffset,
     val density: Density,
-    val verticalMargin: Int = with(density) { DropdownMenuDimens.dropdownMenuVerticalMargin.roundToPx() },
+    val verticalMargin: Int,
     val onPositionCalculated: (anchorBounds: IntRect, menuBounds: IntRect) -> Unit = { _, _ -> }
 ) : PopupPositionProvider {
     private val startToAnchorStart: MenuPosition.Horizontal

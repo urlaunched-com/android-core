@@ -1,8 +1,10 @@
 package com.urlaunched.android.design.ui.exposedDropdown
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.exposedDropdown.constants.DropdownMenuDimens
@@ -30,11 +33,7 @@ import com.urlaunched.android.design.ui.textfield.TextField
 fun CustomDropdownMenuTextField(
     modifier: Modifier = Modifier,
     menuModifier: Modifier = Modifier,
-    text: String,
-    onValueChange: (text: String) -> Unit,
     expanded: Boolean,
-    placeHolder: String? = null,
-    readOnly: Boolean = false,
     menuShape: Shape = RoundedCornerShape(Dimens.cornerRadiusNormalSpecial),
     maxMenuHeight: Dp = Dp.Unspecified,
     menuBackground: Color = Color.White,
@@ -42,9 +41,11 @@ fun CustomDropdownMenuTextField(
         width = DropdownMenuDimens.borderThickness,
         color = Color.Gray
     ),
-    trailingIcon: @Composable (() -> Unit)? = null,
     onExpandedChange: (onExpandedChange: Boolean) -> Unit,
     onDismiss: () -> Unit,
+    popUpProperties: PopupProperties,
+    verticalDropDownMargin: Dp,
+    textField: @Composable (modifier: Modifier) -> Unit,
     menuItems: @Composable () -> Unit
 ) {
     ExposedDropdownMenuBox(
@@ -52,36 +53,28 @@ fun CustomDropdownMenuTextField(
         expanded = expanded,
         onExpandedChange = onExpandedChange
     ) {
-        TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(),
-            value = text,
-            onValueChange = onValueChange,
-            readOnly = readOnly,
-            placeHolder = placeHolder,
-            trailingIconAlwaysShown = true,
-            trailingIcon = trailingIcon,
-            singleLine = true,
-            maxLines = 1,
-            minLines = 1
-        )
+        Column {
+            textField(
+                Modifier.menuAnchor()
+            )
 
-        BaseExposedDropdownMenu(
-            modifier = menuModifier.exposedDropdownSize(),
-            expanded = expanded,
-            onDismissRequest = onDismiss,
-            properties = PopupProperties(focusable = false)
-        ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(max = maxMenuHeight),
-                shape = menuShape,
-                color = menuBackground,
-                border = menuBorder
+            BaseExposedDropdownMenu(
+                modifier = menuModifier.exposedDropdownSize(),
+                expanded = expanded,
+                onDismissRequest = onDismiss,
+                properties = popUpProperties,
+                verticalDropDownMargin = verticalDropDownMargin
             ) {
-                menuItems()
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = maxMenuHeight),
+                    shape = menuShape,
+                    color = menuBackground,
+                    border = menuBorder
+                ) {
+                    menuItems()
+                }
             }
         }
     }
@@ -93,19 +86,26 @@ private fun PagingDropdownMenuPreview() {
     var expanded by remember { mutableStateOf(false) }
 
     CustomDropdownMenuTextField(
-        text = "Expanded menu",
         expanded = expanded,
         onExpandedChange = { expanded = it },
-        onValueChange = {},
-        onDismiss = { expanded = false }
-    ) {
-        Column {
-            repeat(2) {
-                Text(
-                    text = "Menu item",
-                    modifier = Modifier.padding(vertical = Dimens.spacingSmallSpecial)
-                )
+        onDismiss = { expanded = false },
+        menuItems = {
+            Column {
+                repeat(2) {
+                    Text(
+                        text = "Menu item",
+                        modifier = Modifier.padding(vertical = Dimens.spacingSmallSpecial)
+                    )
+                }
             }
-        }
-    }
+        },
+        textField = {
+            TextField(
+                value = "Value",
+                onValueChange = {}
+            )
+        },
+        popUpProperties = PopupProperties(),
+        verticalDropDownMargin = 0.dp
+    )
 }
