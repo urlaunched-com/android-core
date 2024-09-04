@@ -79,7 +79,7 @@ class DownloadCdnDataSourceImpl(
                             emit(DownloadState.Downloading(progressBytes / kb))
                         }
 
-                        emit(DownloadState.Finished(progressBytes / kb))
+                        emit(DownloadState.Finished(progress = progressBytes / kb, file = destinationFile))
                     }
                 }
             }
