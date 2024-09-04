@@ -2,6 +2,7 @@ package com.urlaunched.android.design.ui.exposedDropdown
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.window.PopupProperties
 import androidx.paging.PagingData
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.exposedDropdown.constants.DropdownMenuDimens
@@ -34,13 +37,9 @@ fun <T : Any> PagingDropdownMenuTextField(
     modifier: Modifier = Modifier,
     menuModifier: Modifier = Modifier,
     pagingDataFlow: Flow<PagingData<T>>,
-    text: String,
-    onValueChange: (text: String) -> Unit,
     expanded: Boolean,
-    onExpandedChange: (isExpanded: Boolean) -> Unit,
-    onDismiss: () -> Unit,
-    placeHolder: String? = null,
-    readonly: Boolean = false,
+    onExpandedChange: (isExpanded: Boolean) -> Unit = {},
+    onDismiss: () -> Unit = {},
     lazyListState: LazyListState = rememberLazyListState(),
     maxHeight: Dp = Dp.Unspecified,
     settings: ScrollbarSettings = ScrollbarSettings.Default,
@@ -52,28 +51,29 @@ fun <T : Any> PagingDropdownMenuTextField(
         width = DropdownMenuDimens.borderThickness,
         color = Color.Gray
     ),
-    trailingIcon: @Composable (() -> Unit)? = null,
+    verticalDropDownMargin: Dp = DropdownMenuDimens.dropdownMenuVerticalMargin,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable (LazyItemScope.(index: Int) -> Unit),
     itemKey: ((item: T) -> Any)?,
-    textField: (@Composable (modifier: Modifier) -> Unit) = {},
+    placeholderItemNum: Int = 10,
+    popupProperties: PopupProperties = PopupProperties(
+        focusable = false
+    ),
+    textField: (@Composable (modifier: Modifier) -> Unit),
     item: @Composable (LazyItemScope.(index: Int, itemCount: Int, item: T) -> Unit)
 ) {
     CustomDropdownMenuTextField(
         modifier = modifier,
         menuModifier = menuModifier,
-        text = text,
-        onValueChange = onValueChange,
         expanded = expanded,
-        placeHolder = placeHolder,
-        readOnly = readonly,
         onExpandedChange = onExpandedChange,
         onDismiss = onDismiss,
         menuShape = menuShape,
         maxMenuHeight = maxMenuHeight,
         menuBackground = menuBackground,
         menuBorder = menuBorder,
-        trailingIcon = trailingIcon,
+        popUpProperties = popupProperties,
+        verticalDropDownMargin = verticalDropDownMargin,
         textField = { textFieldModifier ->
             textField(textFieldModifier)
         }
@@ -90,6 +90,7 @@ fun <T : Any> PagingDropdownMenuTextField(
                 showSnackbar = showSnackbar,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 placeholderItem = placeholderItem,
+                placeholderItemsNum = placeholderItemNum,
                 contentPadding = contentPadding,
                 itemKey = itemKey,
                 item = item
@@ -104,15 +105,18 @@ private fun PagingDropdownMenuPreview() {
     var expanded by remember { mutableStateOf(false) }
 
     PagingDropdownMenuTextField(
-        text = "Expanded menu",
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onDismiss = { expanded = false },
         pagingDataFlow = flowOf(PagingData.from(listOf<Int>())),
         showSnackbar = {},
-        onValueChange = {},
         itemKey = {},
-        placeholderItem = {}
+        placeholderItem = {},
+        textField = {
+            TextField(value = "",
+                onValueChange = {}
+            )
+        }
     ) { index, _, _ ->
         Text(
             text = "Menu item $index",
