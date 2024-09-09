@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
@@ -12,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.ui.progressbarcontainer.constants.ProgressBarContainerConstants
 
 @Composable
@@ -45,11 +48,77 @@ fun ProgressBarContainer(
     }
 }
 
+@Composable
+fun ProgressBarContainer(
+    modifier: Modifier = Modifier,
+    isLoading: Boolean,
+    indicatorColor: Color = ProgressIndicatorDefaults.circularColor,
+    indicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    progress: Float = 0F,
+    progressSettings: ProgressSettings,
+    content: @Composable () -> Unit
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+        content()
+
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.75f))
+                    .clickable(enabled = false, onClick = {}),
+                contentAlignment = Alignment.Center
+            ) {
+                if (progress > 1) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(50.dp),
+                        color = indicatorColor,
+                        trackColor = indicatorTrackColor
+                    )
+                } else {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(50.dp),
+                        progress = { progress },
+                        color = indicatorColor,
+                        trackColor = indicatorTrackColor
+                    )
+                    Text(
+                        text = "${(progress * 100).toInt()}%",
+                        style = progressSettings.mainTextStyle,
+                        color = progressSettings.mainColor
+                    )
+                    if (progressSettings.description?.isNotEmpty() == true) {
+                        Text(
+                            text = progressSettings.description,
+                            modifier = Modifier.padding(top = 90.dp),
+                            style = progressSettings.descriptionTextStyle,
+                            color = progressSettings.descriptionColor
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun FullScreenProgressBarPreview() {
     ProgressBarContainer(
         isLoading = true,
+        content = {
+            Text(text = "Test text")
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FullScreenProgressBarWithPercentagePreview() {
+    ProgressBarContainer(
+        isLoading = true,
+        progress = 0.5F,
+        progressSettings = ProgressSettings(),
         content = {
             Text(text = "Test text")
         }
