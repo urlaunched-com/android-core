@@ -293,7 +293,12 @@ package com.urlaunched.android.common.response {
   }
 
   public final class ResponseKt {
-    method public static <T, R> com.urlaunched.android.common.response.Response<R> map(com.urlaunched.android.common.response.Response<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+    method public static <T> T? getOrNull(com.urlaunched.android.common.response.Response<T>);
+    method public static inline <T, R> com.urlaunched.android.common.response.Response<R> map(com.urlaunched.android.common.response.Response<T>, kotlin.jvm.functions.Function1<? super T,? extends R> convert);
+    method public static <T, R> com.urlaunched.android.common.response.Response<R> mapError(com.urlaunched.android.common.response.Response.Error<T>);
+    method public static inline <T> com.urlaunched.android.common.response.Response<T> onSuccess(com.urlaunched.android.common.response.Response<T>, kotlin.jvm.functions.Function1<? super T,kotlin.Unit> block);
+    method public static inline <T, R> com.urlaunched.android.common.response.Response<R> wrapResponse(T, kotlin.jvm.functions.Function1<? super T,? extends R> block);
+    method public static inline <T, R> com.urlaunched.android.common.response.Response<R> wrapResponseFlatten(T, kotlin.jvm.functions.Function1<? super T,? extends com.urlaunched.android.common.response.Response<R>> block);
   }
 
 }
