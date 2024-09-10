@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +56,7 @@ fun ProgressBarContainer(
     indicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     indicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
     progress: Float = 0F,
-    progressSettings: ProgressSettings,
+    progressContent: @Composable (Float) -> Unit,
     content: @Composable () -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -82,19 +83,7 @@ fun ProgressBarContainer(
                         color = indicatorColor,
                         trackColor = indicatorTrackColor
                     )
-                    Text(
-                        text = "${(progress * 100).toInt()}%",
-                        style = progressSettings.mainTextStyle,
-                        color = progressSettings.mainColor
-                    )
-                    if (progressSettings.description?.isNotEmpty() == true) {
-                        Text(
-                            text = progressSettings.description,
-                            modifier = Modifier.padding(top = 90.dp),
-                            style = progressSettings.descriptionTextStyle,
-                            color = progressSettings.descriptionColor
-                        )
-                    }
+                    progressContent(progress)
                 }
             }
         }
@@ -118,7 +107,19 @@ private fun FullScreenProgressBarWithPercentagePreview() {
     ProgressBarContainer(
         isLoading = true,
         progress = 0.5F,
-        progressSettings = ProgressSettings(),
+        progressContent = { progress ->
+            Text(
+                text = "${(progress * 100).toInt()}%",
+                style = Typography().labelMedium,
+                color = Color.White
+            )
+            Text(
+                text = "Loading, please wait...",
+                modifier = Modifier.padding(top = 90.dp),
+                style = Typography().labelLarge,
+                color = Color.White
+            )
+        },
         content = {
             Text(text = "Test text")
         }
