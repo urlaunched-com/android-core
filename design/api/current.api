@@ -93,6 +93,41 @@ package com.urlaunched.android.design.ui.clickable {
 
 }
 
+package com.urlaunched.android.design.ui.counter.models {
+
+  public final class CounterProperties {
+    ctor public CounterProperties(optional long incrementStepDelay, optional long longPressDelay);
+    method public long component1();
+    method public long component2();
+    method public com.urlaunched.android.design.ui.counter.models.CounterProperties copy(long incrementStepDelay, long longPressDelay);
+    method public long getIncrementStepDelay();
+    method public long getLongPressDelay();
+    property public final long incrementStepDelay;
+    property public final long longPressDelay;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.counter.ui {
+
+  public final class BaseCounterKt {
+    method @androidx.compose.runtime.Composable public static void BaseCounter(androidx.compose.ui.Modifier modifier, androidx.compose.ui.Modifier counterModifier, androidx.compose.ui.Modifier counterErrorModifier, optional float counterContainerSize, boolean increaseButtonEnabled, boolean reduceButtonEnabled, String value, androidx.compose.foundation.interaction.MutableInteractionSource increaseButtonInteractionSource, androidx.compose.foundation.interaction.MutableInteractionSource reduceButtonInteractionSource, optional boolean containerEnabled, optional String? error, optional kotlin.jvm.functions.Function0<kotlin.Unit>? errorContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? bottomLabelContainer, kotlin.jvm.functions.Function0<kotlin.Unit> counterIcon, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> counterValueContainer);
+  }
+
+  public final class CounterButtonKt {
+    method @androidx.compose.runtime.Composable public static void CounterButton(optional kotlin.jvm.functions.Function0<kotlin.Unit> icon, float counterContainerSize, androidx.compose.foundation.interaction.MutableInteractionSource interactionSource, boolean enabled);
+  }
+
+  public final class NumberCounterContainerKt {
+    method @androidx.compose.runtime.Composable public static void NumberCounterContainer(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier counterModifier, optional androidx.compose.ui.Modifier counterErrorModifier, int count, optional int step, optional Integer? onHoldStep, optional int minCount, optional int maxCount, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onValueChange, optional String? error, optional boolean enabled, optional com.urlaunched.android.design.ui.counter.models.CounterProperties counterProperties, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? bottomLabelContainer, kotlin.jvm.functions.Function0<kotlin.Unit> counterIcon, optional float counterContainerSize, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> counterValueContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? errorContainer);
+  }
+
+  public final class TimeCounterContainerKt {
+    method @androidx.compose.runtime.Composable public static void TimeCounterContainer(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier counterModifier, optional androidx.compose.ui.Modifier counterErrorModifier, optional boolean increaseButtonEnabled, optional boolean reduceButtonEnabled, String timeValue, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onTimeChange, optional boolean enabled, int timeChangeMinutes, optional String? error, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? bottomLabelContainer, kotlin.jvm.functions.Function0<kotlin.Unit> counterIcon, optional float counterContainerSize, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> counterValueContainer, optional kotlin.jvm.functions.Function0<kotlin.Unit>? errorContainer);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.expandabletext {
 
   public final class ExpandableTextKt {
