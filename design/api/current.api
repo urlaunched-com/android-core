@@ -226,6 +226,7 @@ package com.urlaunched.android.design.ui.paging {
 package com.urlaunched.android.design.ui.progressbarcontainer {
 
   public final class ProgressBarContainerKt {
+    method @androidx.compose.runtime.Composable public static void ProgressBarContainer(optional androidx.compose.ui.Modifier modifier, boolean isLoading, optional long indicatorColor, optional long indicatorTrackColor, optional float progress, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> progressContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method @androidx.compose.runtime.Composable public static void ProgressBarContainer(optional androidx.compose.ui.Modifier modifier, boolean isLoading, optional long indicatorColor, optional long indicatorTrackColor, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
