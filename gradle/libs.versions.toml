@@ -64,6 +64,10 @@ firebaseBomVersion = "33.1.1"
 # billingDependencies
 billingVersion = "7.0.0"
 
+# pdfDependencies
+pdfMultipagingVersion = "7.1.15"
+kotlinxHtmlVersion = "0.9.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
@@ -99,6 +103,9 @@ composeDependencies-runtime = { module = "androidx.compose.runtime:runtime", ver
 
 composeCoil-core = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
 composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
+
+prf-multipaging = { module = "com.itextpdf:itext7-core", version.ref = "pdfMultipagingVersion" }
+kotlinDependencies-html = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm", version.ref = "kotlinxHtmlVersion" }
 
 billingDependencies-billing = { module = "com.android.billingclient:billing", version.ref = "billingVersion" }
 billingDependencies-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billingVersion" }

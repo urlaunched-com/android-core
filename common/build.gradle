@@ -97,4 +97,10 @@ dependencies {
     // Room
     implementation libs.roomDependencies.room
     implementation libs.roomDependencies.ktx
+
+    // PDF
+    implementation libs.prf.multipaging
+
+    // Kotlinx html
+    implementation libs.kotlinDependencies.html
 }

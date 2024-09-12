@@ -574,3 +574,11 @@ package com.urlaunched.android.design.ui.textfield.models {
 
 }
 
+package com.urlaunched.android.design.ui.view {
+
+  public final class CreateBitmapFromViewKt {
+    method public static android.graphics.Bitmap createBitmapFromView(android.view.View view, int width, int height);
+  }
+
+}
+
