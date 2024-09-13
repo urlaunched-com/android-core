@@ -83,8 +83,8 @@ fun ProgressBarContainer(
                         color = indicatorColor,
                         trackColor = indicatorTrackColor
                     )
-                    progressContent(progress)
                 }
+                progressContent(progress)
             }
         }
     }
@@ -113,6 +113,26 @@ private fun FullScreenProgressBarWithPercentagePreview() {
                 style = Typography().labelMedium,
                 color = Color.White
             )
+            Text(
+                text = "Loading, please wait...",
+                modifier = Modifier.padding(top = 90.dp),
+                style = Typography().labelLarge,
+                color = Color.White
+            )
+        },
+        content = {
+            Text(text = "Test text")
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FullScreenProgressBarWithOnlyTextMessagePreview() {
+    ProgressBarContainer(
+        isLoading = true,
+        progress = 2F,
+        progressContent = { progress ->
             Text(
                 text = "Loading, please wait...",
                 modifier = Modifier.padding(top = 90.dp),
