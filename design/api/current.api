@@ -574,3 +574,99 @@ package com.urlaunched.android.design.ui.textfield.models {
 
 }
 
+package com.urlaunched.android.design.ui.tutorial.models {
+
+  public final class TutorialItem {
+    ctor public TutorialItem(com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates layoutCoordinates, kotlin.jvm.functions.Function2<? super androidx.compose.ui.Modifier,? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> content, optional com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition position, optional kotlin.jvm.functions.Function0<kotlin.Unit> onItemSwitch, optional int additionalOffsetX, optional int additionalOffsetY, optional float defaultCircleScale, optional boolean needToShowContentAnimation, optional long tutorialAnimationDelay);
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates component1();
+    method public kotlin.jvm.functions.Function2<androidx.compose.ui.Modifier,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> component2();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition component3();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component4();
+    method public int component5();
+    method public int component6();
+    method public float component7();
+    method public boolean component8();
+    method public long component9-UwyO8pc();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialItem copy-oluzAQE(com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates layoutCoordinates, kotlin.jvm.functions.Function2<? super androidx.compose.ui.Modifier,? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> content, com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition position, kotlin.jvm.functions.Function0<kotlin.Unit> onItemSwitch, int additionalOffsetX, int additionalOffsetY, float defaultCircleScale, boolean needToShowContentAnimation, long tutorialAnimationDelay);
+    method public int getAdditionalOffsetX();
+    method public int getAdditionalOffsetY();
+    method public kotlin.jvm.functions.Function2<androidx.compose.ui.Modifier,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> getContent();
+    method public float getDefaultCircleScale();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates getLayoutCoordinates();
+    method public boolean getNeedToShowContentAnimation();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getOnItemSwitch();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition getPosition();
+    method public long getTutorialAnimationDelay();
+    property public final int additionalOffsetX;
+    property public final int additionalOffsetY;
+    property public final kotlin.jvm.functions.Function2<androidx.compose.ui.Modifier,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> content;
+    property public final float defaultCircleScale;
+    property public final com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates layoutCoordinates;
+    property public final boolean needToShowContentAnimation;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> onItemSwitch;
+    property public final com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition position;
+    property public final long tutorialAnimationDelay;
+  }
+
+  public enum TutorialItemPosition {
+    method public static com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition BOTTOM;
+    enum_constant public static final com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition LEFT;
+    enum_constant public static final com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition RIGHT;
+    enum_constant public static final com.urlaunched.android.design.ui.tutorial.models.TutorialItemPosition TOP;
+  }
+
+  public final class TutorialLayoutCoordinates {
+    ctor public TutorialLayoutCoordinates(optional long center, optional float width, optional float height);
+    method public long component1-F1C5BW0();
+    method public float component2();
+    method public float component3();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates copy-9KIMszo(long center, float width, float height);
+    method public long getCenter();
+    method public float getHeight();
+    method public float getWidth();
+    property public final long center;
+    property public final float height;
+    property public final float width;
+  }
+
+  public final class TutorialProperties {
+    ctor public TutorialProperties(optional long defaultTutorialPreviewTime, optional int delayBeforeStartTutorial, optional int circleRadiusAnimationDuration, optional int contentAlphaAnimationDuration);
+    method public long component1();
+    method public int component2();
+    method public int component3();
+    method public int component4();
+    method public com.urlaunched.android.design.ui.tutorial.models.TutorialProperties copy(long defaultTutorialPreviewTime, int delayBeforeStartTutorial, int circleRadiusAnimationDuration, int contentAlphaAnimationDuration);
+    method public int getCircleRadiusAnimationDuration();
+    method public int getContentAlphaAnimationDuration();
+    method public long getDefaultTutorialPreviewTime();
+    method public int getDelayBeforeStartTutorial();
+    property public final int circleRadiusAnimationDuration;
+    property public final int contentAlphaAnimationDuration;
+    property public final long defaultTutorialPreviewTime;
+    property public final int delayBeforeStartTutorial;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.tutorial.ui {
+
+  public final class TutorialContainerKt {
+    method @androidx.compose.runtime.Composable public static void TutorialContainer(java.util.List<com.urlaunched.android.design.ui.tutorial.models.TutorialItem> tutorialItems, optional boolean showTutorialsAutomatically, optional long backgroundColor, optional com.urlaunched.android.design.ui.tutorial.models.TutorialProperties tutorialProperties, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> content);
+  }
+
+  public final class TutorialModifierKt {
+    method public static androidx.compose.ui.Modifier tutorial(androidx.compose.ui.Modifier, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.tutorial.models.TutorialLayoutCoordinates,kotlin.Unit> setTutorialLayoutCoordinates, optional int additionalOffsetX, optional int additionalOffsetY, optional int additionalSize);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.tutorial.utils {
+
+  public final class TutorialUtils {
+    field public static final com.urlaunched.android.design.ui.tutorial.utils.TutorialUtils INSTANCE;
+  }
+
+}
+
