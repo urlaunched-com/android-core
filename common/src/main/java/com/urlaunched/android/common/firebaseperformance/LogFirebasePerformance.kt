@@ -8,7 +8,7 @@ import com.google.firebase.perf.FirebasePerformance
 import com.google.firebase.perf.application.FrameMetricsRecorder
 
 @Composable
-fun LogScreenPerformanceAndTimeOnScreen(route: String) {
+fun LogFirebasePerformance(route: String) {
     val routeName = route.drop(1)
     val activity = LocalContext.current as Activity
     val trace = FirebasePerformance.getInstance().newTrace(routeName).apply { start() }
