@@ -10,8 +10,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -105,7 +105,7 @@ fun PasswordTextField(
                     value = isPasswordVisible,
                     onValueChange = { value -> isPasswordVisible = value },
                     interactionSource = remember { MutableInteractionSource() },
-                    indication = ripple(bounded = false),
+                    indication = rememberRipple(bounded = false),
                     role = Role.Switch
                 )
             ) {
