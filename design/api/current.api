@@ -705,3 +705,11 @@ package com.urlaunched.android.design.ui.tutorial.utils {
 
 }
 
+package com.urlaunched.android.design.ui.view {
+
+  public final class CreateBitmapFromViewKt {
+    method public static android.graphics.Bitmap createBitmapFromView(android.view.View view, int width, int height);
+  }
+
+}
+
