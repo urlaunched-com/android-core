@@ -77,6 +77,10 @@ dependencies {
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
+    // Firebase
+    implementation platform(libs.firebaseDependencies.bom)
+    implementation libs.firebaseDependencies.performance
+
     // Paging
     implementation libs.pagingDependencies.core
     implementation libs.pagingDependencies.compose
@@ -97,6 +101,9 @@ dependencies {
     // Room
     implementation libs.roomDependencies.room
     implementation libs.roomDependencies.ktx
+
+    // Accompanist
+    implementation libs.composeAccompanist.navigation
 
     // PDF
     implementation libs.prf.multipaging

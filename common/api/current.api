@@ -123,6 +123,24 @@ package com.urlaunched.android.common.files {
 
 }
 
+package com.urlaunched.android.common.firebaseperformance {
+
+  public final class BottomSheetKt {
+    method public static void bottomSheet(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class ComposableKt {
+    method public static void composable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class LogFirebasePerformanceKt {
+    field public static final String FROZEN_FRAMES_TAG = "frozen_frames";
+    field public static final String SLOW_FRAMES_TAG = "slow_frames";
+    field public static final String TOTAL_FRAMES_TAG = "total_frames";
+  }
+
+}
+
 package com.urlaunched.android.common.formatters {
 
   public final class DateTimeFormatter {
