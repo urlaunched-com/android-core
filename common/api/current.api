@@ -45,6 +45,20 @@ package com.urlaunched.android.common.coil {
 
 }
 
+package com.urlaunched.android.common.currency {
+
+  public final class CurrencyJsonKt {
+    method public static String getCurrencyJson();
+    property public static final String currencyJson;
+  }
+
+  public final class CurrencyUtil {
+    method public String getSymbolForIsoCode(String isoCode);
+    field public static final com.urlaunched.android.common.currency.CurrencyUtil INSTANCE;
+  }
+
+}
+
 package com.urlaunched.android.common.downloadhelper {
 
   public final class DownloadHelper {
