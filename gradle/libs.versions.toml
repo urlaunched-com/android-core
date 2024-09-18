@@ -64,6 +64,9 @@ firebaseBomVersion = "33.1.1"
 # billingDependencies
 billingVersion = "7.0.0"
 
+# libs.composeAccompanist
+accompanistVersion = "0.34.0"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
@@ -143,6 +146,8 @@ firebaseDependencies-bom = { module = "com.google.firebase:firebase-bom", versio
 firebaseDependencies-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 firebaseDependencies-remoteconfig = { module = "com.google.firebase:firebase-config" }
 firebaseDependencies-performance = { module = "com.google.firebase:firebase-perf" }
+
+composeAccompanist-navigation = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanistVersion" }
 
 paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazziPluginVersion"}
 

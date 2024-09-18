@@ -101,4 +101,7 @@ dependencies {
     // Room
     implementation libs.roomDependencies.room
     implementation libs.roomDependencies.ktx
+
+    // Accompanist
+    implementation libs.composeAccompanist.navigation
 }
