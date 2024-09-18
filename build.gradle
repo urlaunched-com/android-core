@@ -6,6 +6,10 @@ buildscript {
                 minSdk    : 26
         ]
     }
+
+    dependencies {
+        classpath libs.plugins.firebase.performance.get().toString()
+    }
 }
 
 plugins {
