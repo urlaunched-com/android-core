@@ -100,11 +100,11 @@ package com.urlaunched.android.common.files {
 package com.urlaunched.android.common.firebaseperformance {
 
   public final class BottomSheetKt {
-    method public static void bottomSheet(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public static void bottomSheet(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
   }
 
   public final class ComposableKt {
-    method public static void composable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method public static void composable(androidx.navigation.NavGraphBuilder, String route, optional java.util.List<androidx.navigation.NamedNavArgument>? arguments, kotlin.jvm.functions.Function1<? super androidx.navigation.NavBackStackEntry,kotlin.Unit> content);
   }
 
   public final class LogFirebasePerformanceKt {
