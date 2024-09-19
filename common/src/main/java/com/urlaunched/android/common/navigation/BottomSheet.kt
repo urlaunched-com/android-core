@@ -1,4 +1,4 @@
-package com.urlaunched.android.common.firebaseperformance
+package com.urlaunched.android.common.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
