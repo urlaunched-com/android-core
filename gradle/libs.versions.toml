@@ -71,6 +71,10 @@ accompanistVersion = "0.34.0"
 ktlintCoreVersion = "0.48.1"
 ktlintVersion = "1.3.1"
 
+# pdfDependencies
+pdfMultipagingVersion = "7.1.15"
+kotlinxHtmlVersion = "0.9.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
@@ -111,6 +115,9 @@ composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" 
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlintCoreVersion" }
 ktlint-ruleset = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlintVersion" }
 ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlintVersion" }
+
+prf-multipaging = { module = "com.itextpdf:itext7-core", version.ref = "pdfMultipagingVersion" }
+kotlinDependencies-html = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm", version.ref = "kotlinxHtmlVersion" }
 
 billingDependencies-billing = { module = "com.android.billingclient:billing", version.ref = "billingVersion" }
 billingDependencies-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "billingVersion" }
