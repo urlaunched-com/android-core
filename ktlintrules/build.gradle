@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.metalava)
+    alias(libs.plugins.mavenPublish)
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
+}
+
+dependencies {
+    // Local modules
+    implementation libs.ktlint.core
+    implementation libs.ktlint.cli
+    implementation libs.ktlint.ruleset
+}
