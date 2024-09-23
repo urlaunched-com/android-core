@@ -80,9 +80,7 @@ class ForbiddenImportsRule :
 
     private fun getModuleName(node: ASTNode): String? {
         val psiFile = node.psi.containingFile
-
         val filePath = psiFile.virtualFile?.path ?: return null
-
         val srcIndex = filePath.indexOf("/src/main/java/")
 
         if (srcIndex != -1) {
