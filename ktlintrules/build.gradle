@@ -1,15 +1,56 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+
 plugins {
-    id 'java-library'
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.metalava)
+    alias(libs.plugins.mavenPublish)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+android {
+    namespace 'com.urlaunched.android.ktlintrules'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        minSdk gradleDependencies.minSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    mavenPublishing {
+        // Disable javadoc generation until https://github.com/Kotlin/dokka/issues/2956 is fixed
+        // the first parameter represents whether to publish a sources jar
+        // the second whether to publish a javadoc jar
+        configure(new AndroidSingleVariantLibrary("release", true, false))
+    }
+}
+
+metalava {
+    sourcePaths.setFrom("src/main")
+    filename.set("api/current.api")
 }
 
 dependencies {
-    implementation("com.pinterest.ktlint:ktlint-core:0.49.1")
-    implementation("com.pinterest.ktlint:ktlint-ruleset-standard:1.3.1")
-    implementation("com.pinterest.ktlint:ktlint-cli:1.3.1")
+    // Local modules
+    implementation libs.ktlint.core
+    implementation libs.ktlint.cli
+    implementation libs.ktlint.ruleset
 }

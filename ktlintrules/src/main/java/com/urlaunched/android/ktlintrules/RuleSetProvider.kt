@@ -1,4 +1,4 @@
-package com.wain.ktlintrules
+package com.urlaunched.android.ktlintrules
 
 import com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3
 import com.pinterest.ktlint.rule.engine.core.api.RuleProvider
