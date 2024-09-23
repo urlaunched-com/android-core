@@ -11,19 +11,6 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtPsiFactory
 import org.jetbrains.kotlin.resolve.ImportPath
 
-internal const val CUSTOM_RULE_ID = "ktlintrules:forbidenimportsqwerty"
-
-private val restrictedNavGraphImports = listOf(
-    "androidx.navigation.compose.composable",
-    "com.google.accompanist.navigation.material.bottomSheet"
-)
-
-private val restrictedAppImports = listOf(
-    "com.urlaunched.android.common.navigation.bottomSheet",
-    "com.urlaunched.android.common.navigation.composable"
-)
-
-
 class ForbiddenImportsRule :
     Rule(
         RuleId(CUSTOM_RULE_ID),
@@ -46,7 +33,7 @@ class ForbiddenImportsRule :
                 if (childNode.elementType == ElementType.IMPORT_DIRECTIVE) {
                     val importText = childNode.text
                     if (restrictedImports.any { importText.contains(it) }) {
-                        emit(childNode.startOffset, "Forbidden import: $importText", false)
+                        emit(childNode.startOffset, "$ERROR_MESSAGE $importText", true)
 
                         replaceWrongImports(
                             isAppModule = moduleName == APP_MODULE_NAME,
@@ -62,23 +49,23 @@ class ForbiddenImportsRule :
         val ktPsiFactory = KtPsiFactory(node.psi.project)
         val importText = node.text
         val correctImport = when {
-            isAppModule && importText.contains("com.urlaunched.android.common.navigation.composable") -> {
-                "androidx.navigation.compose.composable"
+            isAppModule && importText.contains(URL_COMPOSABLE_IMPORT) -> {
+                ANDROID_X_COMPOSABLE_IMPORT
             }
 
-            isAppModule && importText.contains("com.urlaunched.android.common.navigation.composable") -> {
-                "com.google.accompanist.navigation.material.bottomSheet"
+            isAppModule && importText.contains(URL_BOTTOM_SHEET_IMPORT) -> {
+                ACCOMPANIST_BOTTOM_SHEET_IMPORT
             }
 
-            !isAppModule && importText.contains("androidx.navigation.compose.composable") -> {
-                "com.urlaunched.android.common.navigation.composable"
+            !isAppModule && importText.contains(ANDROID_X_COMPOSABLE_IMPORT) -> {
+                URL_COMPOSABLE_IMPORT
             }
 
-            !isAppModule && importText.contains("com.google.accompanist.navigation.material.bottomSheet") -> {
-                "com.urlaunched.android.common.navigation.composable"
+            !isAppModule && importText.contains(ACCOMPANIST_BOTTOM_SHEET_IMPORT) -> {
+                URL_BOTTOM_SHEET_IMPORT
             }
 
-            else -> "com.urlaunched.android.common.navigation.composable"
+            else -> ANDROID_X_COMPOSABLE_IMPORT
         }
 
         val newImportNode = ktPsiFactory.createImportDirective(
@@ -103,5 +90,21 @@ class ForbiddenImportsRule :
 
     companion object {
         private const val APP_MODULE_NAME = ":app"
+        private const val CUSTOM_RULE_ID = "ktlintrules:forbidennavigationimports"
+        private const val ERROR_MESSAGE = "Forbidden import found:"
+        private const val ANDROID_X_COMPOSABLE_IMPORT = "androidx.navigation.compose.composable"
+        private const val ACCOMPANIST_BOTTOM_SHEET_IMPORT = "com.google.accompanist.navigation.material.bottomSheet"
+        private const val URL_COMPOSABLE_IMPORT = "com.urlaunched.android.common.navigation.composable"
+        private const val URL_BOTTOM_SHEET_IMPORT = "com.urlaunched.android.common.navigation.bottomSheet"
+
+        private val restrictedNavGraphImports = listOf(
+            ANDROID_X_COMPOSABLE_IMPORT,
+            ACCOMPANIST_BOTTOM_SHEET_IMPORT
+        )
+
+        private val restrictedAppImports = listOf(
+            URL_BOTTOM_SHEET_IMPORT,
+            URL_COMPOSABLE_IMPORT
+        )
     }
 }
