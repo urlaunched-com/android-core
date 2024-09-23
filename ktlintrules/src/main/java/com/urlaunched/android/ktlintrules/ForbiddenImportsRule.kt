@@ -74,17 +74,22 @@ class ForbiddenImportsRule :
                 isAllUnder = false
             )
         )
+
         node.treeParent.replaceChild(node, newImportNode.node)
     }
 
     private fun getModuleName(node: ASTNode): String? {
         val psiFile = node.psi.containingFile
+
         val filePath = psiFile.virtualFile?.path ?: return null
+
         val srcIndex = filePath.indexOf("/src/main/java/")
+
         if (srcIndex != -1) {
             val modulePath = filePath.substring(0, srcIndex)
             return modulePath.split("/").lastOrNull()?.let { ":$it" }
         }
+
         return null
     }
 
