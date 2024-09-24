@@ -1,4 +1,4 @@
-package com.urlaunched.android.common.pdf.pdffromhtml.models
+package com.urlaunched.android.pdf.pdffromhtml.models
 
 import android.print.PageRange
 

@@ -1,4 +1,4 @@
-package com.urlaunched.android.common.pdf.pdffromhtml
+package com.urlaunched.android.pdf.pdffromhtml
 
 import android.content.Context
 import android.net.Uri
@@ -9,7 +9,7 @@ import android.print.PrintLayoutResultCallback
 import android.print.PrintWriteResultCallback
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.urlaunched.android.common.pdf.pdffromhtml.models.PdfProperties
+import com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties
 import com.urlaunched.android.common.response.ErrorData
 import com.urlaunched.android.common.response.Response
 import kotlinx.coroutines.Dispatchers
