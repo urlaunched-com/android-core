@@ -104,10 +104,4 @@ dependencies {
 
     // Accompanist
     implementation libs.composeAccompanist.navigation
-
-    // PDF
-    implementation libs.prf.multipaging
-
-    // Kotlinx html
-    implementation libs.kotlinDependencies.html
 }

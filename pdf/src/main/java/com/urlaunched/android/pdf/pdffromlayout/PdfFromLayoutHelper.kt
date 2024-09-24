@@ -1,4 +1,4 @@
-package com.urlaunched.android.common.pdf.pdffromlayout
+package com.urlaunched.android.pdf.pdffromlayout
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -1,0 +1,62 @@
+// Signature format: 4.0
+package android.print {
+
+  public final class PrintLayoutResultCallback extends android.print.PrintDocumentAdapter.LayoutResultCallback {
+    ctor public PrintLayoutResultCallback();
+  }
+
+  public abstract class PrintWriteResultCallback extends android.print.PrintDocumentAdapter.WriteResultCallback {
+    ctor public PrintWriteResultCallback();
+  }
+
+}
+
+package com.urlaunched.android.pdf.pdffromhtml {
+
+  public final class PdfFromHtmlHelper {
+    method public suspend Object? generatePdf(android.content.Context context, optional com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties pdfProperties, String htmlString, android.net.Uri outputUri, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+    field public static final com.urlaunched.android.pdf.pdffromhtml.PdfFromHtmlHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.pdf.pdffromhtml.models {
+
+  public final class PdfProperties {
+    ctor public PdfProperties(optional String baseUrl, optional String mimeType, optional String encoding, optional String documentName, optional String resolutionId, optional int printDpi, optional android.print.PageRange convertPageRange);
+    method public String component1();
+    method public String component2();
+    method public String component3();
+    method public String component4();
+    method public String component5();
+    method public int component6();
+    method public android.print.PageRange component7();
+    method public com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties copy(String baseUrl, String mimeType, String encoding, String documentName, String resolutionId, int printDpi, android.print.PageRange convertPageRange);
+    method public String getBaseUrl();
+    method public android.print.PageRange getConvertPageRange();
+    method public String getDocumentName();
+    method public String getEncoding();
+    method public String getMimeType();
+    method public int getPrintDpi();
+    method public String getResolutionId();
+    property public final String baseUrl;
+    property public final android.print.PageRange convertPageRange;
+    property public final String documentName;
+    property public final String encoding;
+    property public final String mimeType;
+    property public final int printDpi;
+    property public final String resolutionId;
+  }
+
+}
+
+package com.urlaunched.android.pdf.pdffromlayout {
+
+  public final class PdfFromLayoutHelper {
+    method public void mergePdfFiles(String filePrefix, String outputPath, java.util.List<java.lang.String> pdfPaths, android.content.Context context, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess);
+    method public void saveSinglePdfDocumentToFile(android.graphics.Bitmap bitmap, String path);
+    field public static final com.urlaunched.android.pdf.pdffromlayout.PdfFromLayoutHelper INSTANCE;
+  }
+
+}
+

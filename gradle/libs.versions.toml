@@ -87,6 +87,9 @@ metalava = "0.3.5"
 mavenPublish = "0.28.0"
 paparazziPluginVersion = "1.3.1"
 firebasePerfPluginVersion = "1.4.2"
+junit = "1.2.1"
+espressoCoreVersion = "3.6.1"
+materialVersion = "1.12.0"
 
 [libraries]
 androidCoreDependencies-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -165,6 +168,9 @@ firebaseDependencies-performance = { module = "com.google.firebase:firebase-perf
 composeAccompanist-navigation = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanistVersion" }
 
 paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazziPluginVersion"}
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
