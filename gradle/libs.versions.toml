@@ -2,33 +2,33 @@
 # androidCoreDependencies
 androidAppCompatVersion = "1.7.0"
 androidxCoreVersion = "1.13.1"
-androidLifecycleVersion = "2.8.2"
+androidLifecycleVersion = "2.8.6"
 
 # kotlinDependencies
-kotlinCore = "2.0.0"
-coroutinesVersion = "1.8.1"
-kotlinSerializationVersion = "1.6.3"
+kotlinCore = "2.0.20"
+coroutinesVersion = "1.9.0"
+kotlinSerializationVersion = "1.7.3"
 
 # composeDependencies
-composeActivity = "1.9.0"
-composeVersion = "1.6.8"
-composeNavigationVersion = "2.7.7"
-composeMaterial3Version = "1.2.1"
-composeMaterial2Version = "1.6.8"
+composeActivity = "1.9.2"
+composeVersion = "1.7.3"
+composeNavigationVersion = "2.8.2"
+composeMaterial3Version = "1.3.0"
+composeMaterial2Version = "1.7.3"
 composeConstraintLayout = "1.0.1"
-composeLifecycleRuntimeVersion = "2.8.4"
-composeRuntimeVersion = "1.6.8"
+composeLifecycleRuntimeVersion = "2.8.6"
+composeRuntimeVersion = "1.7.3"
 
 # composeCoil
-coilVersion = "2.6.0"
+coilVersion = "2.7.0"
 
 # pagingDependencies
-pagingVersion = "3.3.0"
-pagingComposeVersion = "3.3.0"
+pagingVersion = "3.3.2"
+pagingComposeVersion = "3.3.2"
 
 # testDependencies
 junitVersion = "4.13.2"
-junitKtxVersion = "1.1.5"
+junitKtxVersion = "1.2.1"
 
 # composePlaceholder
 composePlaceholderVersion = "1.0.7"
@@ -40,13 +40,13 @@ datastoreVersion = "1.1.1"
 browserVersion = "1.8.0"
 
 # uCropDependencies
-uCropVersion = '2.2.8'
+uCropVersion = '2.2.9'
 
 # roomDependencies
 roomVersion = "2.6.1"
 
 # exoPlayerDependencies
-media3Version = "1.3.1"
+media3Version = "1.4.1"
 
 # androidXMediaDependencies
 androidXMediaVersion = "1.7.0"
@@ -59,13 +59,13 @@ retrofitVersion = "2.11.0"
 okHttpVersion = "4.12.0"
 
 # firebaseDependencies
-firebaseBomVersion = "33.1.1"
+firebaseBomVersion = "33.4.0"
 
 # billingDependencies
-billingVersion = "7.0.0"
+billingVersion = "7.1.1"
 
 # libs.composeAccompanist
-accompanistVersion = "0.34.0"
+accompanistVersion = "0.36.0"
 
 # ktlint dependencies
 ktlintCoreVersion = "0.48.1"
@@ -79,9 +79,9 @@ kotlinxHtmlVersion = "0.9.1"
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
 androidLibraryPluginVersion = "8.4.2"
-kotlinAndroidPluginVersion = "2.0.0"
-kotlinJvmPluginVersion = "2.0.0"
-kotlinSerializationPluginVersion = "2.0.0"
+kotlinAndroidPluginVersion = "2.0.20"
+kotlinJvmPluginVersion = "2.0.20"
+kotlinSerializationPluginVersion = "2.0.20"
 ktlintPluginVersion = "12.1.0"
 metalava = "0.3.5"
 mavenPublish = "0.28.0"

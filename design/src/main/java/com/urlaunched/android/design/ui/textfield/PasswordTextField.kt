@@ -1,6 +1,5 @@
 package com.urlaunched.android.design.ui.textfield
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -10,8 +9,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -104,8 +103,8 @@ fun PasswordTextField(
                 modifier = Modifier.toggleable(
                     value = isPasswordVisible,
                     onValueChange = { value -> isPasswordVisible = value },
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(bounded = false),
+                    interactionSource = null,
+                    indication = ripple(bounded = false),
                     role = Role.Switch
                 )
             ) {

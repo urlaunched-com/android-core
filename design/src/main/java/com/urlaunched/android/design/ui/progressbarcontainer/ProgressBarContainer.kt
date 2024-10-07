@@ -23,7 +23,7 @@ fun ProgressBarContainer(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
     indicatorColor: Color = ProgressIndicatorDefaults.circularColor,
-    indicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    indicatorTrackColor: Color = ProgressIndicatorDefaults.circularDeterminateTrackColor,
     content: @Composable () -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -54,7 +54,7 @@ fun ProgressBarContainer(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
     indicatorColor: Color = ProgressIndicatorDefaults.circularColor,
-    indicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    indicatorTrackColor: Color = ProgressIndicatorDefaults.circularDeterminateTrackColor,
     progress: Float = 0F,
     progressContent: @Composable (Float) -> Unit,
     content: @Composable () -> Unit
