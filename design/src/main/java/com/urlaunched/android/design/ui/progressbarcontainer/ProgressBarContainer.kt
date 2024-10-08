@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.ui.progressbarcontainer.constants.ProgressBarContainerConstants
@@ -74,14 +75,17 @@ fun ProgressBarContainer(
                     CircularProgressIndicator(
                         modifier = Modifier.size(50.dp),
                         color = indicatorColor,
-                        trackColor = indicatorTrackColor
+                        trackColor = indicatorTrackColor,
+                        strokeCap = StrokeCap.Square
                     )
                 } else {
                     CircularProgressIndicator(
                         modifier = Modifier.size(50.dp),
                         progress = { progress },
                         color = indicatorColor,
-                        trackColor = indicatorTrackColor
+                        trackColor = indicatorTrackColor,
+                        strokeCap = StrokeCap.Square,
+                        gapSize = 0.dp
                     )
                 }
                 progressContent(progress)
