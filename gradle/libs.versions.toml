@@ -31,7 +31,7 @@ junitVersion = "4.13.2"
 junitKtxVersion = "1.2.1"
 
 # composePlaceholder
-composePlaceholderVersion = "1.0.7"
+composePlaceholderVersion = "1.0.8"
 
 # datastoreDependencies
 datastoreVersion = "1.1.1"
