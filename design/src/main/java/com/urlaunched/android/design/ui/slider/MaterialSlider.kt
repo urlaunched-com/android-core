@@ -17,13 +17,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults.colors
 import androidx.compose.material3.SliderState
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
@@ -126,7 +125,8 @@ fun Thumb(
     modifier: Modifier = Modifier,
     colors: SliderColors = colors(),
     enabled: Boolean = true,
-    thumbSize: DpSize = ThumbSize
+    thumbSize: DpSize = ThumbSize,
+    indicationColor: Color = Color.Unspecified
 ) {
     val interactions = remember { mutableStateListOf<Interaction>() }
     LaunchedEffect(interactionSource) {
@@ -149,23 +149,21 @@ fun Thumb(
     }
     val shape = CircleShape
 
-    @Suppress("DEPRECATION_ERROR")
-    (
-        Spacer(
-            modifier
-                .size(thumbSize)
-                .indication(
-                    interactionSource = interactionSource,
-                    indication = androidx.compose.material.ripple.rememberRipple(
-                        bounded = false,
-                        radius = StateLayerSize / 2
-                    )
+    Spacer(
+        modifier
+            .size(thumbSize)
+            .indication(
+                interactionSource = interactionSource,
+                indication = ripple(
+                    bounded = false,
+                    radius = StateLayerSize / 2,
+                    color = indicationColor
                 )
-                .hoverable(interactionSource = interactionSource)
-                .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
-                .background(colors.thumbColor(enabled), shape)
-        )
-        )
+            )
+            .hoverable(interactionSource = interactionSource)
+            .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
+            .background(colors.thumbColor(enabled), shape)
+    )
 }
 
 @Stable
