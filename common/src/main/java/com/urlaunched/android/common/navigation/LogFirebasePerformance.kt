@@ -11,9 +11,9 @@ import com.google.firebase.perf.application.FrameMetricsRecorder
 internal fun LogFirebasePerformance(route: String) {
     val routeName = route.split("/").first()
     val activity = LocalContext.current as Activity
-    val trace = FirebasePerformance.getInstance().newTrace(routeName).apply { start() }
 
     DisposableEffect(route) {
+        val trace = FirebasePerformance.getInstance().newTrace(routeName).apply { start() }
         val recorder = FrameMetricsRecorder(activity).apply { start() }
 
         onDispose {
