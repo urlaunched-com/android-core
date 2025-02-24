@@ -79,6 +79,9 @@ kotlinxHtmlVersion = "0.9.1"
 # aspectj
 aspectjweaverVersion = "1.9.22.1"
 
+# bottomSheet
+bottomSheetVersion = "1.19.1"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
@@ -99,6 +102,8 @@ androidCoreDependencies-core = { module = "androidx.core:core-ktx", version.ref 
 androidCoreDependencies-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidLifecycleVersion" }
 
 aspectjweaver = { module = "org.aspectj:aspectjweaver", version.ref = "aspectjweaverVersion" }
+
+bottomSheet = { module = "com.composables:core",  version.ref = "bottomSheetVersion" }
 
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflectVersion" }
 kotlinDependencies-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinCore" }

@@ -133,7 +133,7 @@ package com.urlaunched.android.common.formatters {
     method public long toMillisUtc(java.time.LocalDateTime);
     field public static final String DATE_PLACEHOLDER = "\u2014";
     field public static final String DATE_PRESENTATION_VALUE = "dd/MM/yyyy";
-    field public static final String DATE_TIME_PRESENTATION_VALUE_12_H = "yyyy-MM-dd HH:mm:ss a";
+    field public static final String DATE_TIME_PRESENTATION_VALUE_12_H = "yyyy-MM-dd hh:mm:ss a";
     field public static final String DATE_TIME_PRESENTATION_VALUE_24_H = "yyyy-MM-dd HH:mm:ss";
     field public static final com.urlaunched.android.common.formatters.DateTimeFormatter INSTANCE;
   }
