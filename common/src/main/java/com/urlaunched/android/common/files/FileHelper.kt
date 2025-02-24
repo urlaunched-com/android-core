@@ -92,24 +92,24 @@ object FileHelper {
         return file.absolutePath
     }
 
-    private fun moveFileToSystemDownloads(
+    private fun moveFileToDirectory(
         filePrefix: String,
         path: String,
         onSuccess: () -> Unit = {},
-        fileExtension: String
+        fileExtension: String,
+        outputDir: File
     ) {
-        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         val sourceFile = File(path)
 
         val timeStamp = System.currentTimeMillis()
         val fileName = "$filePrefix${"_"}$timeStamp$fileExtension"
-        val destinationFile = File(downloadsDir, fileName)
+        val destinationFile = File(outputDir, fileName)
 
         val inputStream = FileInputStream(sourceFile)
         val outputStream = FileOutputStream(destinationFile)
 
         try {
-            val buffer = ByteArray(1024 * 1000)
+            val buffer = ByteArray( 10 * 1024 * 1000)
             var length: Int
             while (inputStream.read(buffer).also { length = it } > 0) {
                 outputStream.write(buffer, 0, length)

@@ -14,6 +14,18 @@ import java.io.FileOutputStream
 import com.itextpdf.kernel.pdf.PdfDocument as MultiPdfDocument
 
 object PdfFromLayoutHelper {
+    /**
+     * Creates a PDF document with multiple pages generated from views.
+     *
+     * @param context The context used to access the file system and resources.
+     * @param pageCount The number of pages to create.
+     * @param outputPath The file path where the final PDF document will be saved.
+     * @param containerWidth The width of the container for rendering the view.
+     * @param containerHeight The height of the container for rendering the view.
+     * @param initView A lambda function that initializes and returns the view for a given page index.
+     * @param onPageCreate A callback triggered after each page is created (optional).
+     * @param onPdfDocCreate A callback triggered after the PDF document is successfully created (optional).
+     */
     fun createPdfDocument(
         context: Context,
         pageCount: Int,
@@ -60,7 +72,7 @@ object PdfFromLayoutHelper {
         return page
     }
 
-    fun mergePdfFiles(
+    private fun mergePdfFiles(
         outputPath: String,
         pdfPaths: List<String>,
         context: Context,
@@ -111,6 +123,4 @@ object PdfFromLayoutHelper {
 
         bitmap.recycle()
     }
-
-    private const val PDF_EXTENSION = ".pdf"
 }
