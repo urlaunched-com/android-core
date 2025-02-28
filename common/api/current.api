@@ -6,9 +6,9 @@ package com.urlaunched.android.common.basedao {
     method @androidx.room.Delete public suspend Object? delete(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super java.util.List<? extends java.lang.Long>>);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(T obj, kotlin.coroutines.Continuation<? super java.lang.Long>);
-    method public default suspend Object? insertOrUpdate(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Update public suspend Object? update(java.util.List<? extends T> objects, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Update public suspend Object? update(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method @androidx.room.Upsert public suspend Object? upsert(T obj, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
 }
