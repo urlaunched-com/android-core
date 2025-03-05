@@ -53,9 +53,16 @@ package com.urlaunched.android.pdf.pdffromhtml.models {
 package com.urlaunched.android.pdf.pdffromlayout {
 
   public final class PdfFromLayoutHelper {
-    method public void mergePdfFiles(String filePrefix, String outputPath, java.util.List<java.lang.String> pdfPaths, android.content.Context context, kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess);
-    method public void saveSinglePdfDocumentToFile(android.graphics.Bitmap bitmap, String path);
+    method public void createPdfDocument(android.content.Context context, int pageCount, String outputPath, int containerWidth, int containerHeight, kotlin.jvm.functions.Function1<? super java.lang.Integer,? extends android.view.View> initView, optional kotlin.jvm.functions.Function0<kotlin.Unit> onPageCreate, optional kotlin.jvm.functions.Function0<kotlin.Unit> onPdfDocCreate);
     field public static final com.urlaunched.android.pdf.pdffromlayout.PdfFromLayoutHelper INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.pdf.view {
+
+  public final class CreateBitmapFromViewKt {
+    method public static android.graphics.Bitmap createBitmapFromView(android.view.View view, int width, int height);
   }
 
 }
