@@ -24,12 +24,15 @@ object PdfFromHtmlHelper {
         context: Context,
         pdfProperties: PdfProperties = PdfProperties(),
         htmlString: String,
-        outputUri: Uri
+        outputUri: Uri,
+        onSuccess: (file: File) -> Unit,
+        onError: (message: String) -> Unit
     ) = try {
         val pdfTempFile = withContext(Dispatchers.Main) {
             createPdfFileFromHtml(
                 context = context,
-                htmlString = htmlString
+                htmlString = htmlString,
+                pdfProperties = pdfProperties
             )
         }
 
@@ -38,11 +41,10 @@ object PdfFromHtmlHelper {
                 inputStream.copyTo(outputStream)
             }
         }
-        pdfTempFile.delete()
 
-        Response.Success(Unit)
+        onSuccess(pdfTempFile)
     } catch (exception: Exception) {
-        Response.Error(ErrorData(code = null, message = exception.message))
+        onError(exception.message.toString())
     }
 }
 
