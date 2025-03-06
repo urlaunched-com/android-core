@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -41,6 +42,7 @@ fun UrlImage(
     errorPlaceholder: @Composable () -> Unit = placeholder,
     scale: ContentScale = ContentScale.Crop,
     cdnScale: ContentScale = scale,
+    alignment: Alignment = Alignment.Center,
     colorFilter: ColorFilter? = null,
     contentDescription: String? = null,
     fixedImageSize: DpSize? = null,
@@ -102,6 +104,7 @@ fun UrlImage(
         ),
         contentScale = scale,
         contentDescription = contentDescription,
+        alignment = alignment,
         colorFilter = colorFilter,
         model = link,
         alpha = alpha,
