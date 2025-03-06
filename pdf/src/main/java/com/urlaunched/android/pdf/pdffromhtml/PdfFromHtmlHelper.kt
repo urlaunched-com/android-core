@@ -20,124 +20,86 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 object PdfFromHtmlHelper {
-    suspend fun generatePdf(
+    fun createPdfFileFromHtml(
         context: Context,
-        pdfProperties: PdfProperties = PdfProperties(),
         htmlString: String,
-        outputUri: Uri,
+        pdfProperties: PdfProperties = PdfProperties(),
         onSuccess: (file: File) -> Unit,
         onError: (message: String) -> Unit
-    ) = try {
-        val pdfTempFile = withContext(Dispatchers.Main) {
-            createPdfFileFromHtml(
-                context = context,
-                htmlString = htmlString,
-                pdfProperties = pdfProperties
+    ) {
+        try {
+            val webView = WebView(context)
+            val pdfFile = File.createTempFile(
+                pdfProperties.documentName,
+                null,
+                context.cacheDir
+            ).apply {
+                createNewFile()
+            }
+
+            val fileDescriptor = ParcelFileDescriptor.open(
+                pdfFile,
+                ParcelFileDescriptor.MODE_TRUNCATE or ParcelFileDescriptor.MODE_READ_WRITE
             )
-        }
 
-        context.contentResolver.openOutputStream(outputUri)?.use { outputStream ->
-            pdfTempFile.inputStream().use { inputStream ->
-                inputStream.copyTo(outputStream)
-            }
-        }
-
-        onSuccess(pdfTempFile)
-    } catch (exception: Exception) {
-        onError(exception.message.toString())
-    }
-}
-
-private suspend fun createPdfFileFromHtml(
-    context: Context,
-    htmlString: String,
-    pdfProperties: PdfProperties = PdfProperties()
-) = suspendCancellableCoroutine<File> { continuation ->
-    val webView = WebView(context)
-
-    val outputPdfFile = File.createTempFile(
-        /* prefix = */
-        pdfProperties.documentName,
-        /* suffix = */
-        null,
-        /* directory = */
-        context.cacheDir
-    ).apply {
-        createNewFile()
-    }
-    val fileDescriptor = ParcelFileDescriptor.open(
-        /* file = */
-        outputPdfFile,
-        /* mode = */
-        ParcelFileDescriptor.MODE_TRUNCATE or ParcelFileDescriptor.MODE_READ_WRITE
-    )
-    webView.webViewClient = object : WebViewClient() {
-        override fun onPageFinished(view: WebView?, url: String?) {
-            try {
-                val documentAdapter = webView.createPrintDocumentAdapter(pdfProperties.documentName)
-                documentAdapter.onLayout(
-                    /* oldAttributes = */
-                    null,
-                    /* newAttributes = */
-                    PrintAttributes
-                        .Builder()
-                        .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-                        .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
-                        .setResolution(
-                            PrintAttributes.Resolution(
-                                pdfProperties.resolutionId,
-                                pdfProperties.resolutionId,
-                                pdfProperties.printDpi,
-                                pdfProperties.printDpi
-                            )
+            webView.webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    try {
+                        val documentAdapter = webView.createPrintDocumentAdapter(pdfProperties.documentName)
+                        documentAdapter.onLayout(
+                            null,
+                            PrintAttributes.Builder()
+                                .setMediaSize(pdfProperties.pdfSize)
+                                .setMinMargins(pdfProperties.margins)
+                                .setResolution(
+                                    PrintAttributes.Resolution(
+                                        pdfProperties.resolutionId,
+                                        pdfProperties.resolutionId,
+                                        pdfProperties.printDpi,
+                                        pdfProperties.printDpi
+                                    )
+                                )
+                                .build(),
+                            null,
+                            PrintLayoutResultCallback(),
+                            null
                         )
-                        .build(),
-                    /* cancellationSignal = */
-                    null,
-                    /* callback = */
-                    PrintLayoutResultCallback(),
-                    /* extras = */
-                    null
-                )
-                documentAdapter.onWrite(
-                    /* pages = */
-                    arrayOf(pdfProperties.convertPageRange),
-                    /* destination = */
-                    fileDescriptor,
-                    /* cancellationSignal = */
-                    null,
-                    /* callback = */
-                    object : PrintWriteResultCallback() {
-                        override fun onWriteFinished(pages: Array<out PageRange>?) {
-                            fileDescriptor.close()
-                            webView.destroy()
-                            continuation.resume(outputPdfFile)
-                        }
 
-                        override fun onWriteFailed(error: CharSequence?) {
-                            fileDescriptor.close()
-                            webView.destroy()
-                            continuation.resumeWithException(Exception(error.toString()))
-                        }
+                        documentAdapter.onWrite(
+                            arrayOf(pdfProperties.convertPageRange),
+                            fileDescriptor,
+                            null,
+                            object : PrintWriteResultCallback() {
+                                override fun onWriteFinished(pages: Array<out PageRange>?) {
+                                    fileDescriptor.close()
+                                    webView.destroy()
+
+                                    onSuccess(pdfFile)
+                                }
+
+                                override fun onWriteFailed(error: CharSequence?) {
+                                    fileDescriptor.close()
+                                    webView.destroy()
+                                    onError(error.toString())
+                                }
+                            }
+                        )
+                    } catch (exception: Exception) {
+                        onError(exception.message.toString())
                     }
-                )
-            } catch (exception: Exception) {
-                continuation.resumeWithException(exception)
+                }
             }
+
+            webView.settings.allowFileAccess = true
+            webView.loadDataWithBaseURL(
+                pdfProperties.baseUrl,
+                htmlString,
+                pdfProperties.mimeType,
+                pdfProperties.encoding,
+                null
+            )
+        } catch (exception: Exception) {
+            onError(exception.message.toString())
         }
     }
-
-    webView.settings.allowFileAccess = true
-    webView.loadDataWithBaseURL(
-        /* baseUrl = */
-        pdfProperties.baseUrl,
-        /* data = */
-        htmlString,
-        /* mimeType = */
-        pdfProperties.mimeType,
-        /* encoding = */
-        pdfProperties.encoding,
-        /* historyUrl = */
-        null
-    )
 }

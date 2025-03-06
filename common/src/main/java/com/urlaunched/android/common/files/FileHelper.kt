@@ -92,7 +92,7 @@ object FileHelper {
         return file.absolutePath
     }
 
-    private fun moveFileToDirectory(
+    fun moveFileToDirectory(
         filePrefix: String,
         path: String,
         onSuccess: () -> Unit = {},
