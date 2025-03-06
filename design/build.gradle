@@ -87,4 +87,7 @@ dependencies {
 
     // Local modules
     implementation project(":cdn:models:presentation")
+
+    // Bottom sheet
+    implementation libs.bottomSheet
 }
