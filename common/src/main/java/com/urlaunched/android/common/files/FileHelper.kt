@@ -1,7 +1,11 @@
 package com.urlaunched.android.common.files
 
 import android.content.Context
+import android.os.Environment
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 object FileHelper {
     private const val TEMP_FILE_PREFIX = "temp_"
@@ -86,5 +90,38 @@ object FileHelper {
             file.mkdir()
         }
         return file.absolutePath
+    }
+
+    fun moveFileToDirectory(
+        filePrefix: String,
+        path: String,
+        onSuccess: () -> Unit = {},
+        fileExtension: String,
+        outputDir: File
+    ) {
+        val sourceFile = File(path)
+
+        val timeStamp = System.currentTimeMillis()
+        val fileName = "$filePrefix${"_"}$timeStamp$fileExtension"
+        val destinationFile = File(outputDir, fileName)
+
+        val inputStream = FileInputStream(sourceFile)
+        val outputStream = FileOutputStream(destinationFile)
+
+        try {
+            val buffer = ByteArray( 10 * 1024 * 1000)
+            var length: Int
+            while (inputStream.read(buffer).also { length = it } > 0) {
+                outputStream.write(buffer, 0, length)
+            }
+
+            sourceFile.delete()
+            onSuccess()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            inputStream.close()
+            outputStream.close()
+        }
     }
 }

@@ -4,11 +4,11 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Update
+import androidx.room.Upsert
 
 interface BaseDao<T> {
-    suspend fun insertOrUpdate(obj: T) {
-        if (insert(obj) == -1L) update(obj)
-    }
+    @Upsert
+    suspend fun upsert(obj: T)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(obj: T): Long
