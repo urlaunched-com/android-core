@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.view
+package com.urlaunched.android.pdf.view
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

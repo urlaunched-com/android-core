@@ -3,18 +3,66 @@ package com.urlaunched.android.pdf.pdffromlayout
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfDocument
-import android.os.Environment
+import android.view.View
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.kernel.utils.PdfMerger
 import com.urlaunched.android.common.files.FileHelper
+import com.urlaunched.android.pdf.view.createBitmapFromView
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 import com.itextpdf.kernel.pdf.PdfDocument as MultiPdfDocument
 
 object PdfFromLayoutHelper {
+    /**
+     * Creates a PDF document with multiple pages generated from views.
+     *
+     * @param context The context used to access the file system and resources.
+     * @param pageCount The number of pages to create.
+     * @param outputPath The file path where the final PDF document will be saved.
+     * @param containerWidth The width of the container for rendering the view.
+     * @param containerHeight The height of the container for rendering the view.
+     * @param initView A lambda function that initializes and returns the view for a given page index.
+     * @param onPageCreate A callback triggered after each page is created (optional).
+     * @param onPdfDocCreate A callback triggered after the PDF document is successfully created (optional).
+     */
+    fun createPdfDocument(
+        context: Context,
+        pageCount: Int,
+        outputPath: String,
+        containerWidth: Int,
+        containerHeight: Int,
+        initView: (itemIndex: Int) -> View,
+        onPageCreate: () -> Unit = {},
+        onPdfDocCreate: () -> Unit = {}
+    ) {
+        val pdfPaths = mutableListOf<String>()
+
+        repeat(pageCount) { itemIndex ->
+            val view = initView(itemIndex)
+
+            val bitmap = createBitmapFromView(view, containerWidth, containerHeight)
+
+            val onePagePdfPath = context.cacheDir.path + "/pdf_page_%d.pdf".format(itemIndex)
+
+            saveSinglePdfDocumentToFile(
+                bitmap = bitmap,
+                path = onePagePdfPath
+            )
+
+            pdfPaths.add(onePagePdfPath)
+
+            onPageCreate()
+        }
+
+        mergePdfFiles(
+            outputPath = outputPath,
+            pdfPaths = pdfPaths,
+            context = context,
+            onSuccess = onPdfDocCreate
+        )
+    }
+
     private fun createPdfPage(bitmap: Bitmap, pdfDocument: PdfDocument): PdfDocument.Page {
         val pageInfo = PdfDocument.PageInfo.Builder(bitmap.width, bitmap.height, 1).create()
         val page = pdfDocument.startPage(pageInfo)
@@ -24,23 +72,16 @@ object PdfFromLayoutHelper {
         return page
     }
 
-    fun mergePdfFiles(
-        filePrefix: String,
+    private fun mergePdfFiles(
         outputPath: String,
         pdfPaths: List<String>,
         context: Context,
         onSuccess: () -> Unit
     ) {
         if (pdfPaths.size == 1) {
-            moveFileToSystemDownloads(
-                path = pdfPaths.first(),
-                filePrefix = filePrefix,
-                onSuccess = {
-                    onSuccess()
-                    FileHelper.deleteTempFilesFromCache(
-                        context = context
-                    )
-                }
+            onSuccess()
+            FileHelper.deleteTempFilesFromCache(
+                context = context
             )
         } else {
             val outputFile = File(outputPath)
@@ -57,52 +98,14 @@ object PdfFromLayoutHelper {
             merger.close()
             outputPdf.close()
 
-            moveFileToSystemDownloads(
-                path = outputPath,
-                filePrefix = filePrefix,
-                onSuccess = {
-                    onSuccess()
-                    FileHelper.deleteTempFilesFromCache(
-                        context = context
-                    )
-                }
+            onSuccess()
+            FileHelper.deleteTempFilesFromCache(
+                context = context
             )
         }
     }
 
-    private fun moveFileToSystemDownloads(
-        filePrefix: String,
-        path: String,
-        onSuccess: () -> Unit
-    ) {
-        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val sourceFile = File(path)
-
-        val timeStamp = System.currentTimeMillis()
-        val fileName = "$filePrefix${"_"}$timeStamp$PDF_EXTENSION"
-        val destinationFile = File(downloadsDir, fileName)
-
-        val inputStream = FileInputStream(sourceFile)
-        val outputStream = FileOutputStream(destinationFile)
-
-        try {
-            val buffer = ByteArray(1024 * 1000)
-            var length: Int
-            while (inputStream.read(buffer).also { length = it } > 0) {
-                outputStream.write(buffer, 0, length)
-            }
-
-            sourceFile.delete()
-            onSuccess()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            inputStream.close()
-            outputStream.close()
-        }
-    }
-
-    fun saveSinglePdfDocumentToFile(bitmap: Bitmap, path: String) {
+    private fun saveSinglePdfDocumentToFile(bitmap: Bitmap, path: String) {
         val pdfDocument = PdfDocument()
 
         val file = File(path)
@@ -120,6 +123,4 @@ object PdfFromLayoutHelper {
 
         bitmap.recycle()
     }
-
-    private const val PDF_EXTENSION = ".pdf"
 }

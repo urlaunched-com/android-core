@@ -79,6 +79,7 @@ package com.urlaunched.android.common.files {
     method public java.io.File? getFileByName(android.content.Context context, String directory, String name);
     method public java.io.File? getFileByName(java.io.File filesDir, String directory, String name);
     method public String getVideDownloadFolderPath(android.content.Context context);
+    method public void moveFileToDirectory(String filePrefix, String path, optional kotlin.jvm.functions.Function0<kotlin.Unit> onSuccess, String fileExtension, java.io.File outputDir);
     field public static final com.urlaunched.android.common.files.FileHelper INSTANCE;
   }
 
