@@ -12,11 +12,34 @@ import java.io.FileOutputStream
 import java.time.Instant
 
 object CompressImageUtil {
-    fun compressImage(input: File, context: Context, outDir: File = context.cacheDir): File? = compressImage(
-        input.toUri(), context, outDir
+    private const val DEFAULT_TARGET_SIZE_BYTES: Long = 5 * 1000 * 1000
+    private const val DEFAULT_MIN_HEIGHT = 1080
+    private const val DEFAULT_MIN_WIDTH = 1920
+
+    fun compressImage(
+        input: File,
+        context: Context,
+        outDir: File = context.cacheDir,
+        targetSize: Long = DEFAULT_TARGET_SIZE_BYTES,
+        minWidth: Int = DEFAULT_MIN_WIDTH,
+        minHeight: Int = DEFAULT_MIN_HEIGHT
+    ): File? = compressImage(
+        input = input.toUri(),
+        context = context,
+        outDir = outDir,
+        targetSize = targetSize,
+        minWidth = minWidth,
+        minHeight = minHeight
     )
 
-    fun compressImage(input: Uri, context: Context, outDir: File = context.cacheDir): File? {
+    fun compressImage(
+        input: Uri,
+        context: Context,
+        outDir: File = context.cacheDir,
+        targetSize: Long = DEFAULT_TARGET_SIZE_BYTES,
+        minWidth: Int = DEFAULT_MIN_WIDTH,
+        minHeight: Int = DEFAULT_MIN_HEIGHT
+    ): File? {
         val compressedFile = File(outDir, "compressed_${Instant.now().toEpochMilli()}.jpg")
         val originalBitmap = context.contentResolver.openInputStream(input).use { inputStream ->
             BitmapFactory.decodeStream(inputStream)
@@ -24,7 +47,6 @@ object CompressImageUtil {
 
         var targetWidth = originalBitmap.width
         var targetHeight = originalBitmap.height
-        val targetSize = 5 * 1000 * 1000
 
         var resizedBitmap = originalBitmap.scale(targetWidth, targetHeight)
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -41,7 +63,7 @@ object CompressImageUtil {
                 targetWidth = (targetWidth * 0.9).toInt()
                 targetHeight = (targetHeight * 0.9).toInt()
 
-                if (targetWidth * targetHeight < 1920 * 1080) {
+                if (targetWidth * targetHeight < minWidth * minHeight) {
                     break
                 }
 
