@@ -33,6 +33,16 @@ package com.urlaunched.android.common.coil {
 
 }
 
+package com.urlaunched.android.common.compression {
+
+  public final class CompressImageUtil {
+    method public java.io.File? compressImage(android.net.Uri input, android.content.Context context, optional java.io.File outDir);
+    method public java.io.File? compressImage(java.io.File input, android.content.Context context, optional java.io.File outDir);
+    field public static final com.urlaunched.android.common.compression.CompressImageUtil INSTANCE;
+  }
+
+}
+
 package com.urlaunched.android.common.currency {
 
   public final class CurrencyJsonKt {
