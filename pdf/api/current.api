@@ -14,7 +14,7 @@ package android.print {
 package com.urlaunched.android.pdf.pdffromhtml {
 
   public final class PdfFromHtmlHelper {
-    method public suspend Object? generatePdf(android.content.Context context, optional com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties pdfProperties, String htmlString, android.net.Uri outputUri, kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<kotlin.Unit>>);
+    method public void createPdfFileFromHtml(android.content.Context context, String htmlString, optional com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties pdfProperties, kotlin.jvm.functions.Function1<? super java.io.File,kotlin.Unit> onSuccess, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onError);
     field public static final com.urlaunched.android.pdf.pdffromhtml.PdfFromHtmlHelper INSTANCE;
   }
 
@@ -23,7 +23,7 @@ package com.urlaunched.android.pdf.pdffromhtml {
 package com.urlaunched.android.pdf.pdffromhtml.models {
 
   public final class PdfProperties {
-    ctor public PdfProperties(optional String baseUrl, optional String mimeType, optional String encoding, optional String documentName, optional String resolutionId, optional int printDpi, optional android.print.PageRange convertPageRange);
+    ctor public PdfProperties(optional String baseUrl, optional String mimeType, optional String encoding, optional String documentName, optional String resolutionId, optional int printDpi, optional android.print.PageRange convertPageRange, optional android.print.PrintAttributes.MediaSize pdfSize, optional android.print.PrintAttributes.Margins margins);
     method public String component1();
     method public String component2();
     method public String component3();
@@ -31,19 +31,25 @@ package com.urlaunched.android.pdf.pdffromhtml.models {
     method public String component5();
     method public int component6();
     method public android.print.PageRange component7();
-    method public com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties copy(String baseUrl, String mimeType, String encoding, String documentName, String resolutionId, int printDpi, android.print.PageRange convertPageRange);
+    method public android.print.PrintAttributes.MediaSize component8();
+    method public android.print.PrintAttributes.Margins component9();
+    method public com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties copy(String baseUrl, String mimeType, String encoding, String documentName, String resolutionId, int printDpi, android.print.PageRange convertPageRange, android.print.PrintAttributes.MediaSize pdfSize, android.print.PrintAttributes.Margins margins);
     method public String getBaseUrl();
     method public android.print.PageRange getConvertPageRange();
     method public String getDocumentName();
     method public String getEncoding();
+    method public android.print.PrintAttributes.Margins getMargins();
     method public String getMimeType();
+    method public android.print.PrintAttributes.MediaSize getPdfSize();
     method public int getPrintDpi();
     method public String getResolutionId();
     property public final String baseUrl;
     property public final android.print.PageRange convertPageRange;
     property public final String documentName;
     property public final String encoding;
+    property public final android.print.PrintAttributes.Margins margins;
     property public final String mimeType;
+    property public final android.print.PrintAttributes.MediaSize pdfSize;
     property public final int printDpi;
     property public final String resolutionId;
   }
