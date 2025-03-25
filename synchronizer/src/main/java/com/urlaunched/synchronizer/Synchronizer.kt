@@ -20,6 +20,7 @@ import kotlin.reflect.KClass
 abstract class BaseSynchronizer {
     val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
     val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
+    val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
 
     inline fun <reified T : Synchronizable<ID>, reified R : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
         viewModelScope: CoroutineScope,
@@ -97,6 +98,20 @@ abstract class BaseSynchronizer {
                         val deletedMap = currentData.toMutableMap()
 
                         deletedMap[deletedItem.id] = deletedItem as T
+                        deletedMap
+                    }
+                }
+            }
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            cancelDeleteModel.filter { it is T }.collectLatest { item ->
+                item.let { cancelDeleteItem ->
+                    cancelDeleteItem as Synchronizable<ID>
+
+                    deletedLocalMap.update { currentData ->
+                        val deletedMap = currentData.toMutableMap()
+                        deletedMap.remove(cancelDeleteItem.id)
                         deletedMap
                     }
                 }
@@ -224,5 +239,9 @@ abstract class BaseSynchronizer {
 
     suspend fun emitDelete(value: Synchronizable<*>) {
         deletedModel.emit(value)
+    }
+
+    suspend fun emitCancelDelete(value: Synchronizable<*>) {
+        cancelDeleteModel.emit(value)
     }
 }
