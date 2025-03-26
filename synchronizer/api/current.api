@@ -3,7 +3,6 @@ package com.urlaunched.synchronizer {
 
   public abstract class BaseSynchronizer {
     ctor public BaseSynchronizer();
-    method @Deprecated public final suspend Object? emit(com.urlaunched.synchronizer.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final suspend Object? emitCancelDelete(com.urlaunched.synchronizer.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final suspend Object? emitDelete(com.urlaunched.synchronizer.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public final suspend Object? emitUpdate(com.urlaunched.synchronizer.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);

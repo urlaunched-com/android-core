@@ -228,11 +228,6 @@ abstract class BaseSynchronizer {
             }
     }
 
-    @Deprecated("Use emitUpdate instead", ReplaceWith("emitUpdate(value)"))
-    suspend fun emit(value: Synchronizable<*>) {
-        emitUpdate(value)
-    }
-
     suspend fun emitUpdate(value: Synchronizable<*>) {
         updateModel.emit(value)
     }
