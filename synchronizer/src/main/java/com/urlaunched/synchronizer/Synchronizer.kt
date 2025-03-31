@@ -2,6 +2,7 @@ package com.urlaunched.synchronizer
 
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,8 @@ import kotlin.reflect.KClass
 
 abstract class BaseSynchronizer {
     val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
+    val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
+    val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
 
     inline fun <reified T : Synchronizable<ID>, reified R : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
         viewModelScope: CoroutineScope,
@@ -68,14 +71,15 @@ abstract class BaseSynchronizer {
     inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
         viewModelScope: CoroutineScope
     ): Flow<PagingData<T>> {
-        val localMap = MutableStateFlow<Map<ID, T>>(mapOf())
+        val updatedLocalMap = MutableStateFlow<Map<ID, T>>(mapOf())
+        val deletedLocalMap = MutableStateFlow<Map<ID, T>>(mapOf())
 
         viewModelScope.launch(Dispatchers.IO) {
             updateModel.filter { it is T }.collectLatest { item ->
                 item.let { updatedItem ->
                     updatedItem as Synchronizable<ID>
 
-                    localMap.update { currentData ->
+                    updatedLocalMap.update { currentData ->
                         val updatedMap = currentData.toMutableMap()
 
                         updatedMap[updatedItem.id] = updatedItem as T
@@ -85,15 +89,49 @@ abstract class BaseSynchronizer {
             }
         }
 
+        viewModelScope.launch(Dispatchers.IO) {
+            deletedModel.filter { it is T }.collectLatest { item ->
+                item.let { deletedItem ->
+                    deletedItem as Synchronizable<ID>
+
+                    deletedLocalMap.update { currentData ->
+                        val deletedMap = currentData.toMutableMap()
+
+                        deletedMap[deletedItem.id] = deletedItem as T
+                        deletedMap
+                    }
+                }
+            }
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            cancelDeleteModel.filter { it is T }.collectLatest { item ->
+                item.let { cancelDeleteItem ->
+                    cancelDeleteItem as Synchronizable<ID>
+
+                    deletedLocalMap.update { currentData ->
+                        val deletedMap = currentData.toMutableMap()
+                        deletedMap.remove(cancelDeleteItem.id)
+                        deletedMap
+                    }
+                }
+            }
+        }
+
         return combine(
             this.cachedIn(viewModelScope),
-            localMap
+            updatedLocalMap
         ) { pagingData, updatedData ->
-            pagingData.map { item ->
-                val updatedMap = localMap.value.toMutableMap()
-                updatedMap[item.id] = item
-                localMap.value = updatedMap
-                updatedData[item.id] ?: item
+            pagingData
+                .map { item ->
+                    val updatedMap = updatedLocalMap.value.toMutableMap()
+                    updatedMap[item.id] = item
+                    updatedLocalMap.value = updatedMap
+                    updatedData[item.id] ?: item
+                }
+        }.combine(deletedLocalMap) { pagingData, deletedData ->
+            pagingData.filter { item ->
+                deletedData.containsKey(item.id).not()
             }
         }.cachedIn(viewModelScope)
     }
@@ -134,9 +172,7 @@ abstract class BaseSynchronizer {
         return localMap.value.values.toList()
     }
 
-    inline fun <reified T : Synchronizable<ID>, ID> List<T>.synchronize(
-        viewModelScope: CoroutineScope
-    ): List<T> {
+    inline fun <reified T : Synchronizable<ID>, ID> List<T>.synchronize(viewModelScope: CoroutineScope): List<T> {
         val localMap = MutableStateFlow<Map<ID, T>>(mapOf())
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -192,7 +228,15 @@ abstract class BaseSynchronizer {
             }
     }
 
-    suspend fun emit(value: Synchronizable<*>) {
+    suspend fun emitUpdate(value: Synchronizable<*>) {
         updateModel.emit(value)
+    }
+
+    suspend fun emitDelete(value: Synchronizable<*>) {
+        deletedModel.emit(value)
+    }
+
+    suspend fun emitCancelDelete(value: Synchronizable<*>) {
+        cancelDeleteModel.emit(value)
     }
 }
