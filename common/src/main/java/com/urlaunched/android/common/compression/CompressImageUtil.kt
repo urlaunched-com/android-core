@@ -3,9 +3,12 @@ package com.urlaunched.android.common.compression
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import androidx.core.graphics.scale
 import androidx.core.net.toUri
+import okio.use
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -45,10 +48,17 @@ object CompressImageUtil {
             BitmapFactory.decodeStream(inputStream)
         }
 
-        var targetWidth = originalBitmap.width
-        var targetHeight = originalBitmap.height
+        val orientation = context.contentResolver.openInputStream(input)?.use { inputStream ->
+            val exif = ExifInterface(inputStream)
+            exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        } ?: ExifInterface.ORIENTATION_NORMAL
 
-        var resizedBitmap = originalBitmap.scale(targetWidth, targetHeight)
+        val rotatedBitmap = rotateBitmapIfNeeded(originalBitmap, orientation)
+
+        var targetWidth = rotatedBitmap.width
+        var targetHeight = rotatedBitmap.height
+
+        var resizedBitmap = rotatedBitmap.scale(targetWidth, targetHeight)
         val byteArrayOutputStream = ByteArrayOutputStream()
         var fileSize: Long
 
@@ -67,7 +77,7 @@ object CompressImageUtil {
                     break
                 }
 
-                resizedBitmap = originalBitmap.scale(targetWidth, targetHeight)
+                resizedBitmap = rotatedBitmap.scale(targetWidth, targetHeight)
             }
         } while (fileSize > targetSize)
 
@@ -83,5 +93,23 @@ object CompressImageUtil {
         resizedBitmap.recycle()
 
         return compressedFile
+    }
+
+    private fun rotateBitmapIfNeeded(bitmap: Bitmap, orientation: Int): Bitmap {
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.preScale(-1f, 1f)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> matrix.preScale(1f, -1f)
+            else -> return bitmap // orientation ok or not found
+        }
+
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        if (rotatedBitmap != bitmap) {
+            bitmap.recycle()
+        }
+        return rotatedBitmap
     }
 }
