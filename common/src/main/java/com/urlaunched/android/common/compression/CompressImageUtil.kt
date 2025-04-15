@@ -43,6 +43,10 @@ object CompressImageUtil {
         minWidth: Int = DEFAULT_MIN_WIDTH,
         minHeight: Int = DEFAULT_MIN_HEIGHT
     ): File? {
+        if (!outDir.exists()) {
+            outDir.mkdirs()
+        }
+
         val compressedFile = File(outDir, "compressed_${Instant.now().toEpochMilli()}.jpg")
         val originalBitmap = context.contentResolver.openInputStream(input).use { inputStream ->
             BitmapFactory.decodeStream(inputStream)
