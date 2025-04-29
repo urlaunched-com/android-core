@@ -10,13 +10,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun SetBottomBarVisibilityOnStartDestination(
     navController: NavController,
     startDestination: String,
+    routesWithBottomBar: List<String> = emptyList(),
     showBottomBar: (isVisible: Boolean) -> Unit
 ) {
     val currentEntry by navController.currentBackStackEntryAsState()
 
     LaunchedEffect(currentEntry) {
         currentEntry?.destination?.route?.let { route ->
-            showBottomBar(route == startDestination)
+            showBottomBar(route == startDestination || routesWithBottomBar.any { route.startsWith(it) })
         }
     }
 }
