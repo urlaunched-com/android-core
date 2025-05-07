@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtPsiFactory
 import org.jetbrains.kotlin.resolve.ImportPath
+import java.io.File
 
 class ForbiddenImportsRule :
     Rule(
@@ -81,11 +82,12 @@ class ForbiddenImportsRule :
     private fun getModuleName(node: ASTNode): String? {
         val psiFile = node.psi.containingFile
         val filePath = psiFile.virtualFile?.path ?: return null
-        val srcIndex = filePath.indexOf("/src/main/java/")
+        val srcIndex =
+            filePath.indexOf("${File.pathSeparator}src${File.pathSeparator}main${File.pathSeparator}java${File.pathSeparator}")
 
         if (srcIndex != -1) {
             val modulePath = filePath.substring(0, srcIndex)
-            return modulePath.split("/").lastOrNull()?.let { ":$it" }
+            return modulePath.split(File.pathSeparator).lastOrNull()?.let { ":$it" }
         }
 
         return null
