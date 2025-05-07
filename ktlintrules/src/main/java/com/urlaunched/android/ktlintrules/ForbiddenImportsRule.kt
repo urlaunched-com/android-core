@@ -83,11 +83,11 @@ class ForbiddenImportsRule :
         val psiFile = node.psi.containingFile
         val filePath = psiFile.virtualFile?.path ?: return null
         val srcIndex =
-            filePath.indexOf("${File.pathSeparator}src${File.pathSeparator}main${File.pathSeparator}java${File.pathSeparator}")
+            filePath.indexOf("${File.separator}src${File.separator}main${File.separator}java${File.separator}")
 
         if (srcIndex != -1) {
             val modulePath = filePath.substring(0, srcIndex)
-            return modulePath.split(File.pathSeparator).lastOrNull()?.let { ":$it" }
+            return modulePath.split(File.separator).lastOrNull()?.let { ":$it" }
         }
 
         return null
