@@ -28,6 +28,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import coil.imageLoader
 import coil.request.SuccessResult
 import com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel
+import com.urlaunched.android.cdn.models.presentation.image.CdnResizableImagePresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.Resize
 import com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode
@@ -77,6 +78,22 @@ fun UrlImage(
                                         cdnScaleFactor = cdnScaleFactor.coerceAtLeast(0.1f)
                                     )
                                 )
+                            )
+                        } else {
+                            @OptIn(SensitiveApi::class)
+                            model.originalLink()
+                        }
+                    } else {
+                        null
+                    }
+                }
+
+                is CdnResizableImagePresentationModel -> {
+                    if (imageSize != IntSize.Zero) {
+                        if (cdnScale != ContentScale.None) {
+                            model.resizedLink(
+                                widthPx = (imageSize.width * cdnScaleFactor.coerceAtLeast(0.1f)).roundToInt(),
+                                heightPx = (imageSize.height * cdnScaleFactor.coerceAtLeast(0.1f)).roundToInt()
                             )
                         } else {
                             @OptIn(SensitiveApi::class)
