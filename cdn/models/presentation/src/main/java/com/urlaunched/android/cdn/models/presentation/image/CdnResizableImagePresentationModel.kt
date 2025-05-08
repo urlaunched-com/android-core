@@ -1,6 +1,6 @@
 package com.urlaunched.android.cdn.models.presentation.image
 
-import androidx.core.net.toUri
+import android.net.Uri
 import com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel
 import com.urlaunched.android.cdn.models.presentation.CdnConfig
 import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
@@ -21,8 +21,7 @@ data class CdnResizableImagePresentationModel(
     @SensitiveApi
     fun originalLink(): String = "${cdnConfig.publicMediaCdn}/$objectKey"
 
-    fun resizedLink(widthPx: Int, heightPx: Int): String = cdnConfig.publicImageCdn
-        .toUri()
+    fun resizedLink(widthPx: Int, heightPx: Int): String = Uri.parse(cdnConfig.publicImageCdn)
         .buildUpon()
         .appendPath(objectKey)
         .appendQueryParameter(WIDTH_QUERY, widthPx.toString())

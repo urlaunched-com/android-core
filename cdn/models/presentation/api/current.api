@@ -144,6 +144,30 @@ package com.urlaunched.android.cdn.models.presentation.image {
     method public static com.urlaunched.android.cdn.models.domain.download.DownloadableCdnDomainModel.Public toDownloadableCdnModel(com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel.Public, com.urlaunched.android.cdn.models.presentation.image.transform.Edits? edits);
   }
 
+  @kotlinx.serialization.Serializable public final class CdnResizableImagePresentationModel {
+    ctor public CdnResizableImagePresentationModel(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public int component1();
+    method public Integer? component2();
+    method public String? component3();
+    method public com.urlaunched.android.cdn.models.presentation.image.CdnResizableImagePresentationModel copy(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public int getId();
+    method public String? getMediaType();
+    method public Integer? getSizeKb();
+    method @com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi public String originalLink();
+    method public String resizedLink(int widthPx, int heightPx);
+    property public final int id;
+    property public final String? mediaType;
+    property public final Integer? sizeKb;
+    field public static final com.urlaunched.android.cdn.models.presentation.image.CdnResizableImagePresentationModel.Companion Companion;
+  }
+
+  public static final class CdnResizableImagePresentationModel.Companion {
+  }
+
+  public final class CdnResizableImagePresentationModelKt {
+    method public static com.urlaunched.android.cdn.models.presentation.image.CdnResizableImagePresentationModel toCdnResizableImagePresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+  }
+
 }
 
 package com.urlaunched.android.cdn.models.presentation.image.transform {
