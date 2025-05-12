@@ -7,7 +7,7 @@ import com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CdnResizableImagePresentationModel(
+data class CdnImage2PresentationModel(
     val id: Int,
     val sizeKb: Int?,
     val mediaType: String?,
@@ -35,8 +35,8 @@ data class CdnResizableImagePresentationModel(
     }
 }
 
-fun CdnDomainModel.toCdnResizableImagePresentationModel(cdnConfig: CdnConfig): CdnResizableImagePresentationModel =
-    CdnResizableImagePresentationModel(
+fun CdnDomainModel.toCdnImage2PresentationModel(cdnConfig: CdnConfig): CdnImage2PresentationModel =
+    CdnImage2PresentationModel(
         id = id,
         cdnRawLink = cdnRawLink,
         sizeKb = sizeKb,

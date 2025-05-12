@@ -28,8 +28,8 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import coil3.imageLoader
 import coil3.request.SuccessResult
+import com.urlaunched.android.cdn.models.presentation.image.CdnImage2PresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel
-import com.urlaunched.android.cdn.models.presentation.image.CdnResizableImagePresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.Resize
 import com.urlaunched.android.cdn.models.presentation.image.transform.ResizeMode
@@ -89,7 +89,7 @@ fun UrlImage(
                     }
                 }
 
-                is CdnResizableImagePresentationModel -> {
+                is CdnImage2PresentationModel -> {
                     if (imageSize != IntSize.Zero) {
                         if (cdnScale != ContentScale.None) {
                             model.resizedLink(
