@@ -17,13 +17,13 @@ package com.urlaunched.android.common.coil {
 
   public final class CoilCacheHelper {
     method public suspend Object? extractImageFromCachesOrDownloadFile(android.content.Context context, String imageUrl, optional String? extension, optional kotlin.coroutines.Continuation<? super java.io.File>);
-    method public suspend Object? preloadImage(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super coil.request.ImageResult>);
+    method public suspend Object? preloadImage(android.content.Context context, String imageUrl, kotlin.coroutines.Continuation<? super coil3.request.ImageResult>);
     method public void scheduleImagePreload(android.content.Context context, String imageUrl);
     field public static final com.urlaunched.android.common.coil.CoilCacheHelper INSTANCE;
   }
 
   public final class CoilExtensionsKt {
-    method public static void onSuccess(coil.request.ImageResult, kotlin.jvm.functions.Function0<kotlin.Unit> block);
+    method public static void onSuccess(coil3.request.ImageResult, kotlin.jvm.functions.Function0<kotlin.Unit> block);
   }
 
   public final class DownloadImageHelper {
@@ -46,8 +46,8 @@ package com.urlaunched.android.common.compression {
 package com.urlaunched.android.common.currency {
 
   public final class CurrencyJsonKt {
-    method public static String getCurrencyJson();
-    property public static final String currencyJson;
+    method public static error.NonExistentClass! getCurrencyJson();
+    property public static final error.NonExistentClass! currencyJson;
   }
 
   public final class CurrencyUtil {

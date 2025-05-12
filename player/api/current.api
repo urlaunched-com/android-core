@@ -3,7 +3,7 @@ package com.urlaunched.android.player.mediacontroller {
 
   public final class MediaControllerManager {
     ctor public MediaControllerManager(android.content.Context context, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher, kotlinx.coroutines.CoroutineDispatcher mainImmediateDispatcher, Class<? extends androidx.media3.session.MediaSessionService> mediaSessionServiceClass);
-    method public kotlinx.coroutines.flow.SharedFlow<com.urlaunched.android.player.mediacontroller.models.MediaControllerUiState> getMediaControllerUiState();
+    method public error.NonExistentClass! getMediaControllerUiState();
     method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> getTimer();
     method public suspend Object? pause(kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? play(kotlin.coroutines.Continuation<? super kotlin.Unit>);
@@ -19,7 +19,7 @@ package com.urlaunched.android.player.mediacontroller {
     method public suspend Object? setPlaylist(java.util.List<? extends com.urlaunched.android.player.mediacontroller.models.Track> tracks, optional boolean autoplay, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public void setTimer(long timeMillis);
     method public void stopTimer();
-    property public final kotlinx.coroutines.flow.SharedFlow<com.urlaunched.android.player.mediacontroller.models.MediaControllerUiState> mediaControllerUiState;
+    property public final error.NonExistentClass! mediaControllerUiState;
     property public final kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration> timer;
     field public static final com.urlaunched.android.player.mediacontroller.MediaControllerManager.Companion Companion;
   }
