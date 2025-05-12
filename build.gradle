@@ -1,8 +1,7 @@
 buildscript {
     ext {
         gradleDependencies = [
-                compileSdk: 34,
-                targetSdk : 34,
+                compileSdk: 35,
                 minSdk    : 26
         ]
     }
