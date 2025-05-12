@@ -106,7 +106,7 @@ package com.urlaunched.android.ble.usecase {
 
   public final class ScanBleDevicesUseCase {
     ctor public ScanBleDevicesUseCase(com.urlaunched.android.ble.scanner.BleScanner bleScanner);
-    method public operator kotlinx.coroutines.flow.Flow<com.urlaunched.android.ble.models.ScanStatus> invoke(String uuidFilter);
+    method public operator error.NonExistentClass! invoke(String uuidFilter);
   }
 
 }
@@ -114,7 +114,7 @@ package com.urlaunched.android.ble.usecase {
 package com.urlaunched.android.ble.utils {
 
   public final class BlePermissionsUtil {
-    method public java.util.List<java.lang.String> getBlePermissionsForApi();
+    method public error.NonExistentClass! getBlePermissionsForApi();
     field public static final com.urlaunched.android.ble.utils.BlePermissionsUtil INSTANCE;
   }
 

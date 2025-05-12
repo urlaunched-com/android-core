@@ -21,12 +21,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
-import coil.ImageLoader
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
-import coil.imageLoader
-import coil.request.SuccessResult
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil3.ImageLoader
+import coil3.compose.AsyncImagePainter
+import coil3.compose.SubcomposeAsyncImage
+import coil3.compose.SubcomposeAsyncImageContent
+import coil3.imageLoader
+import coil3.request.SuccessResult
+import com.urlaunched.android.cdn.models.presentation.image.CdnImage2PresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.CdnImagePresentationModel
 import com.urlaunched.android.cdn.models.presentation.image.transform.Edits
 import com.urlaunched.android.cdn.models.presentation.image.transform.Resize
@@ -87,6 +89,22 @@ fun UrlImage(
                     }
                 }
 
+                is CdnImage2PresentationModel -> {
+                    if (imageSize != IntSize.Zero) {
+                        if (cdnScale != ContentScale.None) {
+                            model.resizedLink(
+                                widthPx = (imageSize.width * cdnScaleFactor.coerceAtLeast(0.1f)).roundToInt(),
+                                heightPx = (imageSize.height * cdnScaleFactor.coerceAtLeast(0.1f)).roundToInt()
+                            )
+                        } else {
+                            @OptIn(SensitiveApi::class)
+                            model.originalLink()
+                        }
+                    } else {
+                        null
+                    }
+                }
+
                 else -> model
             }
         }
@@ -110,12 +128,12 @@ fun UrlImage(
         alpha = alpha,
         imageLoader = imageLoader
     ) {
-        val state = painter.state
+        val state by painter.state.collectAsStateWithLifecycle()
 
         LaunchedEffect(state) {
             when (state) {
                 is AsyncImagePainter.State.Success -> {
-                    onSuccess(state.result)
+                    (state as? AsyncImagePainter.State.Success)?.result?.let(onSuccess)
                 }
 
                 is AsyncImagePainter.State.Error -> {

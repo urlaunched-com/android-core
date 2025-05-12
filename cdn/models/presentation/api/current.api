@@ -96,6 +96,30 @@ package com.urlaunched.android.cdn.models.presentation.cdn {
 
 package com.urlaunched.android.cdn.models.presentation.image {
 
+  @kotlinx.serialization.Serializable public final class CdnImage2PresentationModel {
+    ctor public CdnImage2PresentationModel(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public int component1();
+    method public Integer? component2();
+    method public String? component3();
+    method public com.urlaunched.android.cdn.models.presentation.image.CdnImage2PresentationModel copy(int id, Integer? sizeKb, String? mediaType, String cdnRawLink, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+    method public int getId();
+    method public String? getMediaType();
+    method public Integer? getSizeKb();
+    method @com.urlaunched.android.cdn.models.presentation.utils.SensitiveApi public String originalLink();
+    method public String resizedLink(int widthPx, int heightPx);
+    property public final int id;
+    property public final String? mediaType;
+    property public final Integer? sizeKb;
+    field public static final com.urlaunched.android.cdn.models.presentation.image.CdnImage2PresentationModel.Companion Companion;
+  }
+
+  public static final class CdnImage2PresentationModel.Companion {
+  }
+
+  public final class CdnImage2PresentationModelKt {
+    method public static com.urlaunched.android.cdn.models.presentation.image.CdnImage2PresentationModel toCdnImage2PresentationModel(com.urlaunched.android.cdn.models.domain.cdn.CdnDomainModel, com.urlaunched.android.cdn.models.presentation.CdnConfig cdnConfig);
+  }
+
   @kotlinx.serialization.Serializable public abstract sealed class CdnImagePresentationModel {
   }
 

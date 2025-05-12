@@ -35,7 +35,7 @@ package com.urlaunched.android.snapshottesting.utils.creators {
 package com.urlaunched.android.snapshottesting.utils.paging {
 
   public final class PagingErrorKt {
-    method public static <T> kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> pagingErrorFlow();
+    method public static <T> error.NonExistentClass! pagingErrorFlow();
   }
 
 }

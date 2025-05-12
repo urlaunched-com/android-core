@@ -2,24 +2,24 @@ package com.urlaunched.android.common.coil
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import coil.Coil
-import coil.annotation.ExperimentalCoilApi
-import coil.decode.DecodeResult
-import coil.decode.Decoder
-import coil.request.CachePolicy
-import coil.request.ImageRequest
-import coil.request.ImageResult
+import androidx.core.graphics.drawable.toDrawable
+import coil3.asImage
+import coil3.decode.DecodeResult
+import coil3.decode.Decoder
+import coil3.imageLoader
+import coil3.request.CachePolicy
+import coil3.request.ImageRequest
+import coil3.request.ImageResult
+import coil3.request.allowHardware
 import java.io.File
 
 object CoilCacheHelper {
-    @OptIn(ExperimentalCoilApi::class)
     suspend fun extractImageFromCachesOrDownloadFile(
         context: Context,
         imageUrl: String,
         extension: String? = null
     ): File? {
-        val imageLoader = Coil.imageLoader(context)
+        val imageLoader = context.applicationContext.imageLoader
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
             .build()
@@ -44,21 +44,21 @@ object CoilCacheHelper {
 
     // https://coil-kt.github.io/coil/getting_started/#preloading
     fun scheduleImagePreload(context: Context, imageUrl: String) {
-        val imageLoader = Coil.imageLoader(context)
+        val imageLoader = context.applicationContext.imageLoader
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
             // Disable reading from/writing to the memory cache.
             .memoryCachePolicy(CachePolicy.DISABLED)
             // Set a custom `Decoder.Factory` that skips the decoding step.
             .decoderFactory { _, _, _ ->
-                Decoder { DecodeResult(ColorDrawable(Color.BLACK), false) }
+                Decoder { DecodeResult(Color.BLACK.toDrawable().asImage(), false) }
             }
             .build()
         imageLoader.enqueue(request)
     }
 
     suspend fun preloadImage(context: Context, imageUrl: String): ImageResult {
-        val imageLoader = Coil.imageLoader(context)
+        val imageLoader = context.applicationContext.imageLoader
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
             .allowHardware(false)
@@ -66,7 +66,7 @@ object CoilCacheHelper {
             .memoryCachePolicy(CachePolicy.DISABLED)
             // Set a custom `Decoder.Factory` that skips the decoding step.
             .decoderFactory { _, _, _ ->
-                Decoder { DecodeResult(ColorDrawable(Color.BLACK), false) }
+                Decoder { DecodeResult(Color.BLACK.toDrawable().asImage(), false) }
             }
             .build()
 

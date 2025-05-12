@@ -5,10 +5,10 @@ androidxCoreVersion = "1.13.1"
 androidLifecycleVersion = "2.8.6"
 
 # kotlinDependencies
-kotlinCore = "2.0.20"
-coroutinesVersion = "1.9.0"
-kotlinReflectVersion = "2.0.20"
-kotlinSerializationVersion = "1.7.3"
+kotlinCore = "2.1.20"
+coroutinesVersion = "1.10.2"
+kotlinReflectVersion = "2.1.20"
+kotlinSerializationVersion = "1.8.1"
 
 # composeDependencies
 composeActivity = "1.9.2"
@@ -21,7 +21,7 @@ composeLifecycleRuntimeVersion = "2.8.6"
 composeRuntimeVersion = "1.7.3"
 
 # composeCoil
-coilVersion = "2.7.0"
+coilVersion = "3.1.0"
 
 # pagingDependencies
 pagingVersion = "3.3.2"
@@ -86,9 +86,9 @@ bottomSheetVersion = "1.19.1"
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
 androidLibraryPluginVersion = "8.4.2"
-kotlinAndroidPluginVersion = "2.0.20"
-kotlinJvmPluginVersion = "2.0.20"
-kotlinSerializationPluginVersion = "2.0.20"
+kotlinAndroidPluginVersion = "2.1.20"
+kotlinJvmPluginVersion = "2.1.20"
+kotlinSerializationPluginVersion = "2.1.20"
 ktlintPluginVersion = "12.1.0"
 metalava = "0.3.5"
 mavenPublish = "0.28.0"
@@ -125,8 +125,8 @@ composeDependencies-composeUiTestManifest = { module = "androidx.compose.ui:ui-t
 composeDependencies-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "composeLifecycleRuntimeVersion" }
 composeDependencies-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "composeRuntimeVersion" }
 
-composeCoil-core = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
-composeCoil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
+composeCoil-core = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilVersion" }
+composeCoil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coilVersion" }
 
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlintCoreVersion" }
 ktlint-ruleset = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlintVersion" }
