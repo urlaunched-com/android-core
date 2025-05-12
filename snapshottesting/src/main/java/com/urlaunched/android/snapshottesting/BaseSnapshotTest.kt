@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
+import app.cash.paparazzi.detectEnvironment
 import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.android.resources.ScreenOrientation
@@ -28,7 +29,10 @@ abstract class BaseSnapshotTest(
             deviceConfig = deviceConfig,
             renderingMode = renderingMode,
             showSystemUi = false,
-            maxPercentDifference = 0.1
+            maxPercentDifference = 0.1,
+            environment = detectEnvironment().copy(
+                compileSdkVersion = 34
+            )
         )
 
     fun snapshot(composable: @Composable () -> Unit) {
