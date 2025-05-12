@@ -23,7 +23,7 @@ data class CdnResizableImagePresentationModel(
 
     fun resizedLink(widthPx: Int, heightPx: Int): String = Uri.parse(cdnConfig.publicImageCdn)
         .buildUpon()
-        .appendPath(objectKey)
+        .appendEncodedPath(objectKey)
         .appendQueryParameter(WIDTH_QUERY, widthPx.toString())
         .appendQueryParameter(HEIGHT_QUERY, heightPx.toString())
         .build()
