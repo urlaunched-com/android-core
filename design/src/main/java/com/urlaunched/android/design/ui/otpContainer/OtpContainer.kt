@@ -113,13 +113,19 @@ private fun OtpCellView(
         style.unfocusedBorderWidth
     }
 
+    val backgroundColor = if(char.isNotBlank()){
+        style.backgroundColor
+    }else{
+        style.emptyBackgroundColor
+    }
+
     Box(
         Modifier
             .size(width = style.width, height = style.height)
             .border(borderWidth, currentBorderColor, style.shape)
             .clip(style.shape)
             .padding(borderWidth)
-            .background(style.backgroundColor),
+            .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
         Text(

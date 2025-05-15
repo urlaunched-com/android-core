@@ -207,7 +207,6 @@ package com.urlaunched.android.design.ui.otpContainer {
 
   public final class OtpContainerKt {
     method @androidx.compose.runtime.Composable public static void OtpTextField(androidx.compose.ui.Modifier modifier, optional int otpLength, boolean hasError, androidx.compose.ui.text.input.TextFieldValue otpTextFieldValue, kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.input.TextFieldValue,kotlin.Unit> onOtpTextFieldValueChange, optional float elementsSpacing, optional boolean useSpaceBetween, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle cellsStyle);
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(showBackground=true) public static void OtpTextFieldPreview();
   }
 
 }
@@ -215,20 +214,22 @@ package com.urlaunched.android.design.ui.otpContainer {
 package com.urlaunched.android.design.ui.otpContainer.models {
 
   public final class OtpCellStyle {
-    ctor public OtpCellStyle(optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional long backgroundColor, optional long filledBorderColor, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional long focusedBorderColor, optional long errorBorderColor, optional long emptyBorderColor);
+    ctor public OtpCellStyle(optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional long backgroundColor, optional long emptyBackgroundColor, optional long filledBorderColor, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional long focusedBorderColor, optional long errorBorderColor, optional long emptyBorderColor);
     method public androidx.compose.ui.text.TextStyle component1();
     method public long component10-0d7_KjU();
     method public long component11-0d7_KjU();
+    method public long component12-0d7_KjU();
     method public androidx.compose.ui.graphics.Shape component2();
     method public float component3-D9Ej5fM();
     method public float component4-D9Ej5fM();
     method public long component5-0d7_KjU();
     method public long component6-0d7_KjU();
-    method public float component7-D9Ej5fM();
+    method public long component7-0d7_KjU();
     method public float component8-D9Ej5fM();
-    method public long component9-0d7_KjU();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle copy-fxvIEpE(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, long backgroundColor, long filledBorderColor, float focusedBorderWidth, float unfocusedBorderWidth, long focusedBorderColor, long errorBorderColor, long emptyBorderColor);
+    method public float component9-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle copy-d4pJHjE(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, long backgroundColor, long emptyBackgroundColor, long filledBorderColor, float focusedBorderWidth, float unfocusedBorderWidth, long focusedBorderColor, long errorBorderColor, long emptyBorderColor);
     method public long getBackgroundColor();
+    method public long getEmptyBackgroundColor();
     method public long getEmptyBorderColor();
     method public long getErrorBorderColor();
     method public long getFilledBorderColor();
@@ -240,6 +241,7 @@ package com.urlaunched.android.design.ui.otpContainer.models {
     method public float getUnfocusedBorderWidth();
     method public float getWidth();
     property public final long backgroundColor;
+    property public final long emptyBackgroundColor;
     property public final long emptyBorderColor;
     property public final long errorBorderColor;
     property public final long filledBorderColor;

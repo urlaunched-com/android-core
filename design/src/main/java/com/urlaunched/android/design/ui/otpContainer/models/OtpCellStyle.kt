@@ -15,6 +15,7 @@ data class OtpCellStyle(
     val width: Dp = 40.dp,
     val height: Dp = 56.dp,
     val backgroundColor: Color = Color.White,
+    val emptyBackgroundColor: Color = Color.White,
     val filledBorderColor: Color = Color.LightGray,
     val focusedBorderWidth: Dp = 1.dp,
     val unfocusedBorderWidth: Dp = 1.dp,
