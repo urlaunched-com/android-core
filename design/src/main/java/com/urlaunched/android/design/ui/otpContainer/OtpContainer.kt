@@ -39,12 +39,13 @@ private const val DEFAULT_OTP_LENGTH = 6
  *
  * @param modifier Modifier applied to the root of the text field.
  * @param otpLength The total number of characters expected in the OTP code. Default is 6.
- * @param hasError If true, the OTP boxes will show an error state (e.g., red border).
- * @param otpTextFieldValue The current text input as a [TextFieldValue], including cursor position.
- * @param onOtpTextFieldValueChange Callback invoked when the OTP value changes.
- * @param elementsSpacing The spacing between individual character boxes. Ignored if [useSpaceBetween] is true.
- * @param useSpaceBetween If true, distributes the boxes evenly across the available width using [Arrangement.SpaceBetween].
- * @param cellsStyle Visual configuration for the individual character boxes, defined by [OtpCellStyle].
+ * @param hasError If true, the OTP boxes will show an error state (e.g., red border color).
+ * @param otpText The current OTP input as a plain [String]. The cursor will automatically be placed at the end.
+ * @param onOtpTextChange Callback invoked when the OTP value changes.
+ * @param cellsArrangement Defines how the OTP boxes are arranged horizontally. Use [OtpCellsArrangement.SpaceBetween]
+ * for evenly distributed boxes, or [OtpCellsArrangement.Spaced] to specify exact spacing between them.
+ * @param cellsStyle Configuration of the visual properties for each OTP cell, such as size, shape, text style, and border widths.
+ * @param cellsColors Configuration of the color states (focused, error, empty, filled) and backgrounds for OTP cells.
  */
 
 @Composable
@@ -52,8 +53,8 @@ fun OtpTextField(
     modifier: Modifier,
     otpLength: Int = DEFAULT_OTP_LENGTH,
     hasError: Boolean,
-    otpTextFieldValue: TextFieldValue,
-    onOtpTextFieldValueChange: (textFiledValue: TextFieldValue) -> Unit,
+    otpText: String,
+    onOtpTextChange: (text: String) -> Unit,
     cellsArrangement: OtpCellsArrangement = OtpCellsArrangement.Spaced(Dimens.spacingSmall),
     cellsStyle: OtpCellStyle = OtpCellStyle(),
     cellsColors: OtpCellColors = OtpCellColors()
@@ -65,10 +66,10 @@ fun OtpTextField(
 
     BasicTextField(
         modifier = modifier,
-        value = otpTextFieldValue,
+        value = TextFieldValue(otpText, selection = TextRange(otpText.length)),
         onValueChange = {
             if (it.text.length <= otpLength) {
-                onOtpTextFieldValueChange(it)
+                onOtpTextChange(it.text)
             }
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -81,9 +82,9 @@ fun OtpTextField(
                 repeat(otpLength) { index ->
                     OtpCellView(
                         index = index,
-                        text = otpTextFieldValue.text,
+                        text = otpText,
                         isError = hasError,
-                        isFocused = otpTextFieldValue.selection.start == index,
+                        isFocused = otpText.length == index,
                         style = cellsStyle,
                         colors = cellsColors
                     )
@@ -145,7 +146,7 @@ private fun OtpCellView(
 @Composable
 private fun OtpTextFieldPreview() {
     var textFieldValue by remember {
-        mutableStateOf(TextFieldValue("45", selection = TextRange(2)))
+        mutableStateOf("")
     }
     Box(
         Modifier
@@ -157,8 +158,8 @@ private fun OtpTextFieldPreview() {
             modifier = Modifier
                 .padding(vertical = 12.dp, horizontal = 16.dp)
                 .fillMaxWidth(),
-            otpTextFieldValue = textFieldValue,
-            onOtpTextFieldValueChange = { textFieldValue = it },
+            otpText = textFieldValue,
+            onOtpTextChange = { textFieldValue = it },
             cellsArrangement = OtpCellsArrangement.SpaceBetween,
             hasError = false
         )
