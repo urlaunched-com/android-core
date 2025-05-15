@@ -56,7 +56,7 @@ fun OtpTextField(
     onOtpTextFieldValueChange: (TextFieldValue) -> Unit,
     elementsSpacing: Dp = 8.dp,
     useSpaceBetween: Boolean = false,
-    cellsStyle: OtpCellStyle = OtpCellStyle()
+    cellsStyle: OtpCellStyle = OtpCellStyle(),
 ) {
 
     BasicTextField(
@@ -71,7 +71,9 @@ fun OtpTextField(
         decorationBox = {
             Row(
                 modifier = Modifier,
-                horizontalArrangement = if (useSpaceBetween) Arrangement.SpaceBetween else Arrangement.spacedBy(elementsSpacing),
+                horizontalArrangement = if (useSpaceBetween) Arrangement.SpaceBetween else Arrangement.spacedBy(
+                    elementsSpacing
+                ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 repeat(otpLength) { index ->
@@ -94,16 +96,16 @@ private fun OtpCellView(
     text: String,
     isError: Boolean,
     isFocused: Boolean,
-    style: OtpCellStyle
+    style: OtpCellStyle,
 ) {
     val char = text.getOrNull(index)?.toString().orEmpty()
+
     val currentBorderColor = when {
         isError -> style.errorBorderColor
         isFocused -> style.focusedBorderColor
         char.isNotBlank() -> style.filledBorderColor
         else -> style.emptyBorderColor
     }
-
 
     val borderWidth = if (isFocused) {
         style.focusedBorderWidth
@@ -129,16 +131,19 @@ private fun OtpCellView(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun OtpTextFieldPreview() {
+private fun OtpTextFieldPreview() {
     var textFieldValue by remember {
         mutableStateOf(TextFieldValue("45", selection = TextRange(2)))
     }
-    Box(Modifier.fillMaxSize().background(Color.Gray), contentAlignment = Alignment.TopCenter) {
+    Box(Modifier
+        .fillMaxSize()
+        .background(Color.Gray), contentAlignment = Alignment.TopCenter) {
         OtpTextField(
-            modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(vertical = 12.dp, horizontal = 16.dp)
+                .fillMaxWidth(),
             otpTextFieldValue = textFieldValue,
             onOtpTextFieldValueChange = { textFieldValue = it },
             useSpaceBetween = true,
