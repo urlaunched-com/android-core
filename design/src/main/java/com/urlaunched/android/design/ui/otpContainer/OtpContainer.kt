@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
@@ -23,16 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.urlaunched.android.design.resources.dimens.Dimens
+import com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors
 import com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle
+import com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement
+
+private const val DEFAULT_OTP_LENGTH = 6
 
 /**
  * A composable OTP container input field where each character is shown in an individual box.
@@ -50,14 +50,18 @@ import com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle
 @Composable
 fun OtpTextField(
     modifier: Modifier,
-    otpLength: Int = 6,
+    otpLength: Int = DEFAULT_OTP_LENGTH,
     hasError: Boolean,
     otpTextFieldValue: TextFieldValue,
-    onOtpTextFieldValueChange: (TextFieldValue) -> Unit,
-    elementsSpacing: Dp = 8.dp,
-    useSpaceBetween: Boolean = false,
+    onOtpTextFieldValueChange: (textFiledValue: TextFieldValue) -> Unit,
+    cellsArrangement: OtpCellsArrangement = OtpCellsArrangement.Spaced(Dimens.spacingSmall),
     cellsStyle: OtpCellStyle = OtpCellStyle(),
+    cellsColors: OtpCellColors = OtpCellColors()
 ) {
+    val horizontalArrangement = when (cellsArrangement) {
+        is OtpCellsArrangement.SpaceBetween -> Arrangement.SpaceBetween
+        is OtpCellsArrangement.Spaced -> Arrangement.spacedBy(cellsArrangement.spacing)
+    }
 
     BasicTextField(
         modifier = modifier,
@@ -71,9 +75,7 @@ fun OtpTextField(
         decorationBox = {
             Row(
                 modifier = Modifier,
-                horizontalArrangement = if (useSpaceBetween) Arrangement.SpaceBetween else Arrangement.spacedBy(
-                    elementsSpacing
-                ),
+                horizontalArrangement = horizontalArrangement,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 repeat(otpLength) { index ->
@@ -82,7 +84,8 @@ fun OtpTextField(
                         text = otpTextFieldValue.text,
                         isError = hasError,
                         isFocused = otpTextFieldValue.selection.start == index,
-                        style = cellsStyle
+                        style = cellsStyle,
+                        colors = cellsColors
                     )
                 }
             }
@@ -97,14 +100,15 @@ private fun OtpCellView(
     isError: Boolean,
     isFocused: Boolean,
     style: OtpCellStyle,
+    colors: OtpCellColors
 ) {
     val char = text.getOrNull(index)?.toString().orEmpty()
 
     val currentBorderColor = when {
-        isError -> style.errorBorderColor
-        isFocused -> style.focusedBorderColor
-        char.isNotBlank() -> style.filledBorderColor
-        else -> style.emptyBorderColor
+        isError -> colors.errorBorderColor
+        isFocused -> colors.focusedBorderColor
+        char.isNotBlank() -> colors.filledBorderColor
+        else -> colors.emptyBorderColor
     }
 
     val borderWidth = if (isFocused) {
@@ -113,10 +117,10 @@ private fun OtpCellView(
         style.unfocusedBorderWidth
     }
 
-    val backgroundColor = if(char.isNotBlank()){
-        style.backgroundColor
-    }else{
-        style.emptyBackgroundColor
+    val backgroundColor = if (char.isNotBlank() || isFocused) {
+        colors.backgroundColor
+    } else {
+        colors.emptyBackgroundColor
     }
 
     Box(
@@ -143,32 +147,20 @@ private fun OtpTextFieldPreview() {
     var textFieldValue by remember {
         mutableStateOf(TextFieldValue("45", selection = TextRange(2)))
     }
-    Box(Modifier
-        .fillMaxSize()
-        .background(Color.Gray), contentAlignment = Alignment.TopCenter) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color.Gray),
+        contentAlignment = Alignment.TopCenter
+    ) {
         OtpTextField(
             modifier = Modifier
                 .padding(vertical = 12.dp, horizontal = 16.dp)
                 .fillMaxWidth(),
             otpTextFieldValue = textFieldValue,
             onOtpTextFieldValueChange = { textFieldValue = it },
-            useSpaceBetween = true,
-            hasError = false,
-            cellsStyle = OtpCellStyle().copy(
-                backgroundColor = Color.White,
-                shape = RoundedCornerShape(12.dp),
-                focusedBorderColor = Color(0xFF1e7e9c),
-                filledBorderColor = Color(0xFFD8D9DF),
-                textStyle = TextStyle(
-                    fontWeight = FontWeight(700),
-                    fontSize = 22.sp, color = Color.Black
-                ),
-                focusedBorderWidth = 1.5.dp,
-                unfocusedBorderWidth = 1.5.dp
-
-            )
+            cellsArrangement = OtpCellsArrangement.SpaceBetween,
+            hasError = false
         )
     }
 }
-
-
