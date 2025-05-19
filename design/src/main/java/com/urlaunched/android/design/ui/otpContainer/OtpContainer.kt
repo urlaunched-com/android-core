@@ -4,9 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
@@ -54,6 +57,7 @@ fun OtpTextField(
     otpLength: Int = DEFAULT_OTP_LENGTH,
     hasError: Boolean,
     otpText: String,
+    errorText: String,
     onOtpTextChange: (text: String) -> Unit,
     cellsArrangement: OtpCellsArrangement = OtpCellsArrangement.Spaced(Dimens.spacingSmall),
     cellsStyle: OtpCellStyle = OtpCellStyle(),
@@ -63,35 +67,41 @@ fun OtpTextField(
         is OtpCellsArrangement.SpaceBetween -> Arrangement.SpaceBetween
         is OtpCellsArrangement.Spaced -> Arrangement.spacedBy(cellsArrangement.spacing)
     }
-
-    BasicTextField(
-        modifier = modifier,
-        value = TextFieldValue(otpText, selection = TextRange(otpText.length)),
-        onValueChange = {
-            if (it.text.length <= otpLength) {
-                onOtpTextChange(it.text)
-            }
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        decorationBox = {
-            Row(
-                modifier = Modifier,
-                horizontalArrangement = horizontalArrangement,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                repeat(otpLength) { index ->
-                    OtpCellView(
-                        index = index,
-                        text = otpText,
-                        isError = hasError,
-                        isFocused = otpText.length == index,
-                        style = cellsStyle,
-                        colors = cellsColors
-                    )
+    Column(modifier) {
+        BasicTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = TextFieldValue(otpText, selection = TextRange(otpText.length)),
+            onValueChange = {
+                if (it.text.length <= otpLength) {
+                    onOtpTextChange(it.text)
+                }
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            decorationBox = {
+                Row(
+                    modifier = Modifier,
+                    horizontalArrangement = horizontalArrangement,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    repeat(otpLength) { index ->
+                        OtpCellView(
+                            index = index,
+                            text = otpText,
+                            isError = hasError,
+                            isFocused = otpText.length == index,
+                            style = cellsStyle,
+                            colors = cellsColors
+                        )
+                    }
                 }
             }
+
+        )
+        Spacer(Modifier.height(cellsStyle.errorTextTopPadding))
+        if (hasError) {
+            Text(text = errorText, style = cellsStyle.errorTextStyle, color = cellsColors.errorBorderColor)
         }
-    )
+    }
 }
 
 @Composable
@@ -160,6 +170,7 @@ private fun OtpTextFieldPreview() {
                 .fillMaxWidth(),
             otpText = textFieldValue,
             onOtpTextChange = { textFieldValue = it },
+            errorText = "ERROR",
             cellsArrangement = OtpCellsArrangement.SpaceBetween,
             hasError = false
         )

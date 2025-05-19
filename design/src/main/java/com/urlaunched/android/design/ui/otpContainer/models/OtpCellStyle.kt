@@ -14,5 +14,6 @@ data class OtpCellStyle(
     val height: Dp = OtpContainerDimens.defaultOtpCellHeight,
     val focusedBorderWidth: Dp = OtpContainerDimens.defaultBorderWidth,
     val unfocusedBorderWidth: Dp = OtpContainerDimens.defaultBorderWidth,
-    val colors: OtpCellColors = OtpCellColors()
+    val errorTextTopPadding: Dp = Dimens.spacingTiny,
+    val errorTextStyle: TextStyle = TextStyle()
 )

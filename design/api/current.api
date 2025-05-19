@@ -206,7 +206,7 @@ package com.urlaunched.android.design.ui.modifiers {
 package com.urlaunched.android.design.ui.otpContainer {
 
   public final class OtpContainerKt {
-    method @androidx.compose.runtime.Composable public static void OtpTextField(androidx.compose.ui.Modifier modifier, optional int otpLength, boolean hasError, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement cellsArrangement, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle cellsStyle, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors cellsColors);
+    method @androidx.compose.runtime.Composable public static void OtpTextField(androidx.compose.ui.Modifier modifier, optional int otpLength, boolean hasError, String otpText, String errorText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement cellsArrangement, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle cellsStyle, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors cellsColors);
   }
 
 }
@@ -237,23 +237,26 @@ package com.urlaunched.android.design.ui.otpContainer.models {
   }
 
   public final class OtpCellStyle {
-    ctor public OtpCellStyle(optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors colors);
+    ctor public OtpCellStyle(optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional float errorTextTopPadding, optional androidx.compose.ui.text.TextStyle errorTextStyle);
     method public androidx.compose.ui.text.TextStyle component1();
     method public androidx.compose.ui.graphics.Shape component2();
     method public float component3-D9Ej5fM();
     method public float component4-D9Ej5fM();
     method public float component5-D9Ej5fM();
     method public float component6-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors component7();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle copy-8ZKsbrE(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors colors);
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors getColors();
+    method public float component7-D9Ej5fM();
+    method public androidx.compose.ui.text.TextStyle component8();
+    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle copy-F0d9qfw(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, float errorTextTopPadding, androidx.compose.ui.text.TextStyle errorTextStyle);
+    method public androidx.compose.ui.text.TextStyle getErrorTextStyle();
+    method public float getErrorTextTopPadding();
     method public float getFocusedBorderWidth();
     method public float getHeight();
     method public androidx.compose.ui.graphics.Shape getShape();
     method public androidx.compose.ui.text.TextStyle getTextStyle();
     method public float getUnfocusedBorderWidth();
     method public float getWidth();
-    property public final com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors colors;
+    property public final androidx.compose.ui.text.TextStyle errorTextStyle;
+    property public final float errorTextTopPadding;
     property public final float focusedBorderWidth;
     property public final float height;
     property public final androidx.compose.ui.graphics.Shape shape;
