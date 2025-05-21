@@ -1,7 +1,6 @@
 package com.urlaunched.android.pdf.pdffromhtml
 
 import android.content.Context
-import android.net.Uri
 import android.os.ParcelFileDescriptor
 import android.print.PageRange
 import android.print.PrintAttributes
@@ -10,14 +9,7 @@ import android.print.PrintWriteResultCallback
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.urlaunched.android.pdf.pdffromhtml.models.PdfProperties
-import com.urlaunched.android.common.response.ErrorData
-import com.urlaunched.android.common.response.Response
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
 import java.io.File
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 object PdfFromHtmlHelper {
     fun createPdfFileFromHtml(

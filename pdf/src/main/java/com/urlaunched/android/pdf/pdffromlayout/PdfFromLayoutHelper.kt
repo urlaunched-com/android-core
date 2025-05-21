@@ -72,12 +72,7 @@ object PdfFromLayoutHelper {
         return page
     }
 
-    private fun mergePdfFiles(
-        outputPath: String,
-        pdfPaths: List<String>,
-        context: Context,
-        onSuccess: () -> Unit
-    ) {
+    private fun mergePdfFiles(outputPath: String, pdfPaths: List<String>, context: Context, onSuccess: () -> Unit) {
         if (pdfPaths.size == 1) {
             onSuccess()
             FileHelper.deleteTempFilesFromCache(

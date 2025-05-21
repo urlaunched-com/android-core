@@ -57,7 +57,7 @@ import kotlinx.coroutines.launch
 
 data class ImageGalleryStyle(
     val imageToThumbnailSpacing: Dp = ImageGalleryDimens.spacingExtraLarge,
-    val thumbnailItemsSpacing: Dp =ImageGalleryDimens.zero,
+    val thumbnailItemsSpacing: Dp = ImageGalleryDimens.zero
 )
 
 @Composable
@@ -68,7 +68,7 @@ fun ImageGallery(
     onLoadMore: () -> Unit,
     onPageChanged: (pageIndex: Int) -> Unit = {},
     thumbnailItem: @Composable (index: Int, image: Any, isSelected: Boolean, onClick: () -> Unit) -> Unit
-){
+) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -85,9 +85,8 @@ fun ImageGallery(
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
-            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                return if (scaleStates[pagerState.currentPage].value > 1f) available else Offset.Zero
-            }
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset =
+                if (scaleStates[pagerState.currentPage].value > 1f) available else Offset.Zero
         }
     }
 
@@ -98,10 +97,14 @@ fun ImageGallery(
             scaleStates,
             offsetStates,
             coroutineScope,
-            images,
+            images
         )
 
-        Spacer(modifier = Modifier.fillMaxWidth().height(style.imageToThumbnailSpacing))
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(style.imageToThumbnailSpacing)
+        )
         LazyRow(
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(style.thumbnailItemsSpacing),
@@ -146,7 +149,7 @@ fun ColumnScope.GalleryHorizontalPager(
     scaleStates: List<Animatable<Float, AnimationVector1D>>,
     offsetStates: List<MutableState<Offset>>,
     coroutineScope: CoroutineScope,
-    images: List<Any>,
+    images: List<Any>
 ) {
     HorizontalPager(
         state = pagerState,
@@ -160,7 +163,7 @@ fun ColumnScope.GalleryHorizontalPager(
             scale = scaleStates[page],
             offset = offsetStates[page],
             coroutineScope = coroutineScope,
-            image = images[page],
+            image = images[page]
         )
     }
 }
@@ -171,7 +174,7 @@ private fun GalleryPage(
     scale: Animatable<Float, AnimationVector1D>,
     offset: MutableState<Offset>,
     coroutineScope: CoroutineScope,
-    image: Any,
+    image: Any
 ) {
     val containerSize = remember { mutableStateOf(IntSize.Zero) }
 
@@ -198,7 +201,7 @@ private fun GalleryPage(
                                 if (it.positionChanged()) it.consume()
                             }
                         }
-                    },
+                    }
                 )
             }
             .pointerInput(page) {
@@ -218,28 +221,22 @@ private fun GalleryPage(
         ZoomableImage(
             scale = scale,
             offset = offset,
-            image = image,
+            image = image
         )
     }
 }
 
 @Composable
-private fun ZoomableImage(
-    scale: Animatable<Float, AnimationVector1D>,
-    offset: MutableState<Offset>,
-    image: Any,
-) {
+private fun ZoomableImage(scale: Animatable<Float, AnimationVector1D>, offset: MutableState<Offset>, image: Any) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-
     ) {
         UrlImage(
             model = image,
             scale = ContentScale.FillWidth,
             modifier = Modifier
-
                 .graphicsLayer(
                     scaleX = scale.value,
                     scaleY = scale.value,
@@ -256,7 +253,6 @@ private fun ZoomableImage(
             }
         )
     }
-
 }
 
 @Preview(showBackground = true)
@@ -273,10 +269,12 @@ fun ImageGalleryCustomThumbnailPreview() {
     )
 
     ImageGallery(
-        modifier = Modifier.padding(bottom = 40.dp).fillMaxSize(),
+        modifier = Modifier
+            .padding(bottom = 40.dp)
+            .fillMaxSize(),
         images = sampleImages,
         onLoadMore = {},
-        onPageChanged = { Log.d("IMAGE_CHANGED", it.toString())},
+        onPageChanged = { Log.d("IMAGE_CHANGED", it.toString()) },
         style = ImageGalleryStyle(
             imageToThumbnailSpacing = 50.dp
         ),
@@ -292,7 +290,9 @@ fun ImageGalleryCustomThumbnailPreview() {
                                     color = Color.LightGray,
                                     shape = RoundedCornerShape(ImageGalleryDimens.cornerRadiusSmall)
                                 )
-                        } else Modifier
+                        } else {
+                            Modifier
+                        }
                     )
                     .size(ImageGalleryDimens.defaultThumbnailSize)
             ) {
@@ -302,9 +302,13 @@ fun ImageGalleryCustomThumbnailPreview() {
                         .fillMaxSize()
                         .clip(RoundedCornerShape(6.dp))
                         .background(Color.DarkGray),
-                    placeholder = { Box(Modifier
-                        .fillMaxSize()
-                        .background(Color.Gray)) }
+                    placeholder = {
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .background(Color.Gray)
+                        )
+                    }
                 )
             }
         }

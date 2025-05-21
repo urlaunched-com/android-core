@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.Dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 import kotlinx.coroutines.flow.collectLatest
 
-
 @Composable
 fun TimeCounterContainer(
     modifier: Modifier = Modifier,

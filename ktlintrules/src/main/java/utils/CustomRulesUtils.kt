@@ -46,8 +46,7 @@ object CustomRulesUtils {
         return modifiers.firstOrNull { it.name == "modifier" } ?: modifiers.firstOrNull()
     }
 
-    private fun KtCallableDeclaration.isModifier(): Boolean =
-        typeReference?.text?.contains("Modifier") ?: false
+    private fun KtCallableDeclaration.isModifier(): Boolean = typeReference?.text?.contains("Modifier") ?: false
 
     fun KtFunction.getPackageName(): String? {
         val containingFile = this.containingKtFile

@@ -32,7 +32,7 @@ fun BaseCounter(
     labelContainer: @Composable (() -> Unit)? = null,
     bottomLabelContainer: @Composable (() -> Unit)? = null,
     counterIcon: @Composable () -> Unit,
-    counterValueContainer: @Composable (value: String) -> Unit,
+    counterValueContainer: @Composable (value: String) -> Unit
 ) {
     Column(modifier = modifier) {
         labelContainer?.let { label ->

@@ -23,13 +23,7 @@ import kotlin.coroutines.Continuation
 @Aspect
 class KotlinAspect {
     @Before(
-        "execution(public * *..*ViewModel.*(..)) && " +
-                "!execution(* *..*ViewModel.access$*(..)) && " +
-                "!execution(* *..*ViewModel.getUiState(..)) && " +
-                "!execution(* *..*ViewModel.getSideEffect(..)) && " +
-                "!execution(* *..*ViewModel.*showSnackbar*(..)) && " +
-                "!execution(* *..*ViewModel.*showSnackBar*(..)) && " +
-                "!execution(* *..*ViewModel.*onPassword*(..)) && !@annotation(com.urlaunched.android.logger.annotations.NotLoggable)"
+        "execution(public * *..*ViewModel.*(..)) && " + "!execution(* *..*ViewModel.access$*(..)) && " + "!execution(* *..*ViewModel.getUiState(..)) && " + "!execution(* *..*ViewModel.getSideEffect(..)) && " + "!execution(* *..*ViewModel.*showSnackbar*(..)) && " + "!execution(* *..*ViewModel.*showSnackBar*(..)) && " + "!execution(* *..*ViewModel.*onPassword*(..)) && !@annotation(com.urlaunched.android.logger.annotations.NotLoggable)"
     )
     fun log(joinPoint: JoinPoint?) {
         val methodName = joinPoint?.signature?.name

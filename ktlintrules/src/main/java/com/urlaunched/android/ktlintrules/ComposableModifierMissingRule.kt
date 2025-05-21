@@ -58,7 +58,8 @@ class ComposableModifierMissingRule :
         private const val MODIFIER_MISSING_ERROR =
             "This @Composable function emits content but doesn't have a modifier parameter."
         private const val DESIGN_RESOURCES_PACKAGE = "core.designsystem.resources"
-        private val modifierMissingExceptions = listOf("Screen", "Route", "SideEffects", "DeepLink", "remember", "Theme")
+        private val modifierMissingExceptions =
+            listOf("Screen", "Route", "SideEffects", "DeepLink", "remember", "Theme")
         private const val MODIFIER_TYPE_REFERENCE = "Modifier"
     }
 }

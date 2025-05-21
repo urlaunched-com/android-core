@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.util.fastFirstOrNull
 import androidx.compose.ui.util.fastMap
 import androidx.compose.ui.window.PopupPositionProvider
-import com.urlaunched.android.design.ui.exposedDropdown.constants.DropdownMenuDimens
 import kotlin.math.max
 import kotlin.math.min
 
