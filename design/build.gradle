@@ -84,6 +84,7 @@ dependencies {
 
     // Coil
     implementation libs.composeCoil.core
+    implementation libs.composeCoil.network.okhttp
 
     // Local modules
     implementation project(":cdn:models:presentation")
