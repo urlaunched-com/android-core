@@ -14,9 +14,19 @@ data class CdnImage2PresentationModel(
     private val cdnRawLink: String,
     private val cdnConfig: CdnConfig
 ) {
-    private val objectKey = cdnRawLink
-        .substringAfter("://")
-        .substringAfter('/')
+    private val objectKey = when {
+        cdnRawLink.contains(R2_HOST) ->
+            cdnRawLink
+                .substringAfter("://")
+                .substringAfter('/')
+                .substringAfter('/')
+
+        else -> {
+            cdnRawLink
+                .substringAfter("://")
+                .substringAfter('/')
+        }
+    }
 
     @SensitiveApi
     fun originalLink(): String = "${cdnConfig.publicMediaCdn}/$objectKey"
@@ -32,6 +42,7 @@ data class CdnImage2PresentationModel(
     companion object {
         private const val WIDTH_QUERY = "width"
         private const val HEIGHT_QUERY = "height"
+        private const val R2_HOST = "r2.cloudflarestorage.com"
     }
 }
 

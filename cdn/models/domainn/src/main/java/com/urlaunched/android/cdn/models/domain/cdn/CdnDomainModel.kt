@@ -6,11 +6,35 @@ data class CdnDomainModel(
     val sizeKb: Int?,
     val mediaType: String?
 ) {
-    val bucket = cdnRawLink
-        .substringAfter("://")
-        .substringBefore('.')
+    val bucket = when {
+        cdnRawLink.contains(R2_HOST) ->
+            cdnRawLink
+                .substringAfter("://")
+                .substringAfter('/')
+                .substringBefore('.')
 
-    val objectKey = cdnRawLink
-        .substringAfter("://")
-        .substringAfter('/')
+        else -> {
+            cdnRawLink
+                .substringAfter("://")
+                .substringBefore('.')
+        }
+    }
+
+    val objectKey = when {
+        cdnRawLink.contains(R2_HOST) ->
+            cdnRawLink
+                .substringAfter("://")
+                .substringAfter('/')
+                .substringAfter('/')
+
+        else -> {
+            cdnRawLink
+                .substringAfter("://")
+                .substringAfter('/')
+        }
+    }
+
+    companion object {
+        private const val R2_HOST = "r2.cloudflarestorage.com"
+    }
 }
