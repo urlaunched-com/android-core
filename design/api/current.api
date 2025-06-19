@@ -239,7 +239,10 @@ package com.urlaunched.android.design.ui.paging {
 package com.urlaunched.android.design.ui.player.models {
 
   public final class AudioPlayButtonColor {
-    ctor public AudioPlayButtonColor();
+    ctor public AudioPlayButtonColor(optional long buttonColor, optional long circularProgressColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor copy--OWjLjI(long buttonColor, long circularProgressColor);
     method public long getButtonColor();
     method public long getCircularProgressColor();
     property public final long buttonColor;
@@ -247,14 +250,14 @@ package com.urlaunched.android.design.ui.player.models {
   }
 
   public final class AudioPlayButtonConstants {
-    ctor public AudioPlayButtonConstants(optional float PLAY_BUTTON_PROGRESS_SIZE_FRACTION, optional String AUDIO_PLAY_BUTTON_ICON_ANIMATION_LABEL);
+    ctor public AudioPlayButtonConstants(optional float playButtonProgressSizeFraction, optional String audioPlayButtonIconAnimationLabel);
     method public float component1();
     method public String component2();
-    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonConstants copy(float PLAY_BUTTON_PROGRESS_SIZE_FRACTION, String AUDIO_PLAY_BUTTON_ICON_ANIMATION_LABEL);
-    method public String getAUDIO_PLAY_BUTTON_ICON_ANIMATION_LABEL();
-    method public float getPLAY_BUTTON_PROGRESS_SIZE_FRACTION();
-    property public final String AUDIO_PLAY_BUTTON_ICON_ANIMATION_LABEL;
-    property public final float PLAY_BUTTON_PROGRESS_SIZE_FRACTION;
+    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonConstants copy(float playButtonProgressSizeFraction, String audioPlayButtonIconAnimationLabel);
+    method public String getAudioPlayButtonIconAnimationLabel();
+    method public float getPlayButtonProgressSizeFraction();
+    property public final String audioPlayButtonIconAnimationLabel;
+    property public final float playButtonProgressSizeFraction;
   }
 
   public final class AudioPlayButtonDimens {
@@ -312,12 +315,35 @@ package com.urlaunched.android.design.ui.player.models {
     property public final float verticalDimens;
   }
 
+  public final class PlayerWrapperBottomColor {
+    ctor public PlayerWrapperBottomColor(optional long backGround);
+    method public long component1-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomColor copy-8_81llA(long backGround);
+    method public long getBackGround();
+    property public final long backGround;
+  }
+
+  public final class PlayerWrapperBottomDimens {
+    ctor public PlayerWrapperBottomDimens(optional float topStartShape, optional float topEndShape);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomDimens copy-YgX7TsA(float topStartShape, float topEndShape);
+    method public float getTopEndShape();
+    method public float getTopStartShape();
+    property public final float topEndShape;
+    property public final float topStartShape;
+  }
+
 }
 
 package com.urlaunched.android.design.ui.player.ui {
 
   public final class AudioPlayButtonKt {
-    method @androidx.compose.runtime.Composable public static void AudioPlayButton(optional androidx.compose.ui.Modifier modifier, com.urlaunched.android.design.ui.player.models.AudioStateType audioState, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonDimens audioPlayButtonDimens, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonConstants audioPlayButtonConstants, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton);
+    method @androidx.compose.runtime.Composable public static void AudioPlayButton(optional androidx.compose.ui.Modifier modifier, Object audioState, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonDimens audioPlayButtonDimens, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonConstants audioPlayButtonConstants, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton);
+  }
+
+  public final class AudioPlayerTrackDetailsKt {
+    method @androidx.compose.runtime.Composable public static void AudioPlayerTrackDetails(optional androidx.compose.ui.Modifier modifier, kotlin.jvm.functions.Function0<kotlin.Unit> audioTrackDetails);
   }
 
   public final class AudioSliderKt {
@@ -325,11 +351,11 @@ package com.urlaunched.android.design.ui.player.ui {
   }
 
   public final class PlayerKt {
-    method @androidx.compose.runtime.Composable public static void Player(com.urlaunched.android.design.ui.player.models.AudioStateType audioState, optional com.urlaunched.android.design.ui.player.models.PlayerDimens playerDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, kotlin.jvm.functions.Function0<kotlin.Unit> nextTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotatePlusButton, kotlin.jvm.functions.Function0<kotlin.Unit> previousTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton);
+    method @androidx.compose.runtime.Composable public static void Player(Object audioState, optional com.urlaunched.android.design.ui.player.models.PlayerDimens playerDimens, com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, kotlin.jvm.functions.Function0<kotlin.Unit> nextTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotatePlusButton, kotlin.jvm.functions.Function0<kotlin.Unit> previousTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton);
   }
 
   public final class PlayerWrapperKt {
-    method @androidx.compose.runtime.Composable public static void PlayerWrapper(optional androidx.compose.ui.Modifier modifier, optional long backGround, float audioProgress, optional com.urlaunched.android.design.ui.player.models.AudioSliderDimens audioSliderDimens, optional com.urlaunched.android.design.ui.player.models.AudioSliderColor audioSliderColor, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> audioSliderOnValueChange, kotlin.jvm.functions.Function0<kotlin.Unit> thumb, kotlin.jvm.functions.Function0<kotlin.Unit> currentPositionText, kotlin.jvm.functions.Function0<kotlin.Unit> timeLeftText, com.urlaunched.android.design.ui.player.models.AudioStateType audioState, optional com.urlaunched.android.design.ui.player.models.PlayerDimens playerDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, kotlin.jvm.functions.Function0<kotlin.Unit> nextTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotatePlusButton, kotlin.jvm.functions.Function0<kotlin.Unit> previousTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton);
+    method @androidx.compose.runtime.Composable public static void PlayerWrapper(optional androidx.compose.ui.Modifier modifier, optional boolean isRtlEnabled, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, optional com.urlaunched.android.design.ui.player.models.AudioSliderColor audioSliderColor, optional com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomColor playerWrapperBottomColor, optional com.urlaunched.android.design.ui.player.models.AudioSliderDimens audioSliderDimens, optional com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomDimens playerWrapperBottomDimens, optional com.urlaunched.android.design.ui.player.models.PlayerDimens playerDimens, float audioProgress, Object audioState, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> audioSliderOnValueChange, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, kotlin.jvm.functions.Function0<kotlin.Unit> nextTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> previousTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotatePlusButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton, kotlin.jvm.functions.Function0<kotlin.Unit> thumb, kotlin.jvm.functions.Function0<kotlin.Unit> currentPositionText, kotlin.jvm.functions.Function0<kotlin.Unit> timeLeftText, kotlin.jvm.functions.Function0<kotlin.Unit> chapterDetails, kotlin.jvm.functions.Function0<kotlin.Unit> bottomPanel, kotlin.jvm.functions.Function0<kotlin.Unit> audioTrackDetails);
   }
 
 }
