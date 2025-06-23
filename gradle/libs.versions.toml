@@ -80,7 +80,7 @@ kotlinxHtmlVersion = "0.9.1"
 aspectjweaverVersion = "1.9.22.1"
 
 # bottomSheet
-bottomSheetVersion = "1.19.1"
+bottomSheetVersion = "1.33.0"
 
 # plugins
 # dependencies
