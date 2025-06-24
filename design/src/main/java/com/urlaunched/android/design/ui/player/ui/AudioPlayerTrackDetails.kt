@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.urlaunched.android.design.resources.dimens.Dimens
 
 @Composable
-fun AudioPlayerTrackDetails(
+internal fun AudioPlayerTrackDetails(
     modifier: Modifier = Modifier,
     audioTrackDetails: @Composable () -> Unit,
 ) {

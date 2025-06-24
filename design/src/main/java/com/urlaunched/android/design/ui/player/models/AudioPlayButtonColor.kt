@@ -6,4 +6,3 @@ data class AudioPlayButtonColor(
     val buttonColor: Color = Color.White,
     val circularProgressColor: Color = Color.White
 )
-

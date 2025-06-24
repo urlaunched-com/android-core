@@ -10,7 +10,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.LayoutDirection
+import com.urlaunched.android.design.ui.player.models.BottomItemColors
+import com.urlaunched.android.design.ui.player.models.BottomBarItem
 import com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor
 import com.urlaunched.android.design.ui.player.models.AudioSliderColor
 import com.urlaunched.android.design.ui.player.models.AudioSliderDimens
@@ -24,46 +27,46 @@ fun PlayerWrapper(
     modifier: Modifier = Modifier,
     isRtlEnabled: Boolean = false,
 
+    // 📊 Стан / значення
+    audioProgress: Float,
+    audioState: Any,
+
+    // 🔁 Колбеки
+    audioSliderOnValueChange: (Float) -> Unit,
+    onPlayAudioClick: () -> Unit,
+
     // 🎨 Кольори
     audioPlayButtonColor: AudioPlayButtonColor = AudioPlayButtonColor(),
     audioSliderColor: AudioSliderColor = AudioSliderColor(),
     playerWrapperBottomColor: PlayerWrapperBottomColor = PlayerWrapperBottomColor(),
+    bottomItemColors: BottomItemColors = BottomItemColors(),
 
     // 📐 Розміри
     audioSliderDimens: AudioSliderDimens = AudioSliderDimens(),
     playerWrapperBottomDimens: PlayerWrapperBottomDimens = PlayerWrapperBottomDimens(),
     playerDimens: PlayerDimens = PlayerDimens(),
 
-    // 📊 Стан / значення
-    audioProgress: Float,
-    audioState: Any,
+    // 🎨 Стилі
+    bottomTextStyle: TextStyle,
 
-    // 🔁 Колбеки (взаємодія)
-    audioSliderOnValueChange: (Float) -> Unit,
-    onPlayAudioClick: () -> Unit,
+    // 📦 Дані
+    bottomBarItems: List<BottomBarItem>,
 
-    // 🧩 Компоненти UI (Composable блоки)
-    // — елементи управління треком
     nextTrackButton: @Composable () -> Unit,
     previousTrackButton: @Composable () -> Unit,
     rotatePlusButton: @Composable () -> Unit,
     rotateMinusButton: @Composable () -> Unit,
 
-    // — кнопки відтворення
     playingButton: @Composable () -> Unit,
     pauseButton: @Composable () -> Unit,
-
-    // — прогрес
     thumb: @Composable () -> Unit,
     currentPositionText: @Composable () -> Unit,
     timeLeftText: @Composable () -> Unit,
 
     // — додатковий контент
     chapterDetails: @Composable () -> Unit,
-    bottomPanel: @Composable () -> Unit,
     audioTrackDetails: @Composable () -> Unit
-){
-
+) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         AudioPlayerTrackDetails(
@@ -96,6 +99,7 @@ fun PlayerWrapper(
                     thumb = thumb,
                     currentPositionText = currentPositionText,
                     timeLeftText = timeLeftText
+
                 )
 
                 Player(
@@ -113,8 +117,11 @@ fun PlayerWrapper(
                 )
             }
 
-            bottomPanel()
+            BottomPanel(
+                bottomBarItems = bottomBarItems,
+                bottomTextStyle = bottomTextStyle,
+                bottomItemColors = bottomItemColors
+            )
         }
     }
 }
-

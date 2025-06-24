@@ -19,7 +19,7 @@ import com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor
 import com.urlaunched.android.design.ui.player.models.AudioStateType
 
 @Composable
-fun AudioPlayButton(
+internal fun AudioPlayButton(
     modifier: Modifier = Modifier,
     audioState: Any,
     audioPlayButtonDimens: AudioPlayButtonDimens = AudioPlayButtonDimens(),

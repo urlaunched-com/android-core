@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AudioSlider(
+internal fun AudioSlider(
     audioProgress: Float,
     audioSliderDimens: AudioSliderDimens = AudioSliderDimens(),
     audioSliderColor: AudioSliderColor = AudioSliderColor(),

@@ -11,7 +11,7 @@ import com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor
 import com.urlaunched.android.design.ui.player.models.PlayerDimens
 
 @Composable
-fun Player(
+internal fun Player(
     audioState: Any,
     playerDimens: PlayerDimens = PlayerDimens(),
     audioPlayButtonColor: AudioPlayButtonColor,
@@ -45,6 +45,5 @@ fun Player(
         rotatePlusButton()
 
         previousTrackButton()
-
     }
 }
