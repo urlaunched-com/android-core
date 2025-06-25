@@ -78,7 +78,7 @@ package com.urlaunched.android.design.ui.backhandler {
 package com.urlaunched.android.design.ui.bottomsheet {
 
   public final class BaseBottomSheetKt {
-    method @androidx.compose.runtime.Composable public static void BaseBottomSheet(boolean isShow, kotlin.jvm.functions.Function0<kotlin.Unit> onDismiss, optional boolean skipPartiallyExpanded, optional float swipeToDismissFraction, optional long background, optional androidx.compose.foundation.shape.RoundedCornerShape shape, optional float partiallyExpandedFraction, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static void BaseBottomSheet(optional androidx.compose.ui.Modifier modifier, boolean isShow, kotlin.jvm.functions.Function0<kotlin.Unit> onDismiss, optional boolean skipPartiallyExpanded, optional float swipeToDismissFraction, optional long background, optional androidx.compose.foundation.shape.RoundedCornerShape shape, optional float partiallyExpandedFraction, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
 }

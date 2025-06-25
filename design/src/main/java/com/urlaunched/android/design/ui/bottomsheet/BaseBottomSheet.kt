@@ -25,6 +25,7 @@ import com.urlaunched.android.design.resources.dimens.Dimens
 
 @Composable
 fun BaseBottomSheet(
+    modifier: Modifier = Modifier,
     isShow: Boolean,
     onDismiss: () -> Unit,
     skipPartiallyExpanded: Boolean = true,
@@ -60,7 +61,7 @@ fun BaseBottomSheet(
         Scrim()
 
         Sheet(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .clip(shape)
                 .background(background)
@@ -76,10 +77,10 @@ fun BaseBottomSheet(
     }
 
     LaunchedEffect(isShow) {
-        if (isShow) {
-            sheetState.currentDetent = SheetDetent.FullyExpanded
+        sheetState.currentDetent = if (isShow) {
+            SheetDetent.FullyExpanded
         } else {
-            sheetState.currentDetent = SheetDetent.Hidden
+            SheetDetent.Hidden
         }
     }
 }
