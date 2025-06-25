@@ -46,6 +46,7 @@ internal fun AudioPlayButton(
             label = audioPlayButtonConstants.audioPlayButtonIconAnimationLabel
         ) { state ->
             val name = (state as? Enum<*>)?.name
+
             when (name) {
                 AudioStateType.PAUSE.name -> playingButton()
 

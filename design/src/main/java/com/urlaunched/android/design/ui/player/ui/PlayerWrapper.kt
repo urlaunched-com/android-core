@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.ui.player.models.BottomItemColors
 import com.urlaunched.android.design.ui.player.models.BottomBarItem
 import com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor
@@ -63,7 +65,7 @@ fun PlayerWrapper(
     currentPositionText: @Composable () -> Unit,
     timeLeftText: @Composable () -> Unit,
 
-    // — додатковий контент
+    // додатковий контент
     chapterDetails: @Composable () -> Unit,
     audioTrackDetails: @Composable () -> Unit
 ) {
@@ -92,6 +94,7 @@ fun PlayerWrapper(
 
             CompositionLocalProvider(LocalLayoutDirection provides if (isRtlEnabled) LayoutDirection.Rtl else LayoutDirection.Ltr) {
                 AudioSlider(
+                    modifier = Modifier.padding(horizontal = audioSliderDimens.sliderTrackHorizontalPadding),
                     audioProgress = audioProgress,
                     audioSliderDimens = audioSliderDimens,
                     audioSliderColor = audioSliderColor,
@@ -99,7 +102,6 @@ fun PlayerWrapper(
                     thumb = thumb,
                     currentPositionText = currentPositionText,
                     timeLeftText = timeLeftText
-
                 )
 
                 Player(
@@ -113,7 +115,6 @@ fun PlayerWrapper(
                     playingButton = playingButton,
                     pauseButton = pauseButton,
                     audioPlayButtonColor = audioPlayButtonColor
-
                 )
             }
 

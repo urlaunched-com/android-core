@@ -19,6 +19,7 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AudioSlider(
+    modifier: Modifier = Modifier,
     audioProgress: Float,
     audioSliderDimens: AudioSliderDimens = AudioSliderDimens(),
     audioSliderColor: AudioSliderColor = AudioSliderColor(),
@@ -28,7 +29,7 @@ internal fun AudioSlider(
     timeLeftText: @Composable () -> Unit
 ) {
     Slider(
-        modifier = Modifier.padding(horizontal = Dimens.spacingSmall),
+        modifier = modifier,
         value = audioProgress,
         onValueChange = audioSliderOnValueChange,
         colors = SliderDefaults.colors(

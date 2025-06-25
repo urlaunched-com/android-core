@@ -7,4 +7,5 @@ data class AudioSliderDimens(
     val sliderThumbTrackGapSize: Dp = Dimens.zeroDp,
     val sliderTrackInsideCornerSize: Dp = Dimens.zeroDp,
     val sliderTrackHeight: Dp = Dimens.spacingTiny,
+    val sliderTrackHorizontalPadding: Dp = Dimens.spacingSmall
 )
