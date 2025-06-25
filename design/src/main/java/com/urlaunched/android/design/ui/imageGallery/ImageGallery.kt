@@ -66,7 +66,7 @@ fun ImageGallery(
     images: List<Any>,
     style: ImageGalleryStyle = ImageGalleryStyle(),
     onLoadMore: () -> Unit,
-    onPageChanged: (pageIndex: Int) -> Unit = {},
+    onPageChange: (pageIndex: Int) -> Unit = {},
     thumbnailItem: @Composable (index: Int, image: Any, isSelected: Boolean, onClick: () -> Unit) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -139,7 +139,7 @@ fun ImageGallery(
     LaunchedEffect(pagerState.currentPage) {
         scaleStates[pagerState.currentPage].snapTo(1f)
         offsetStates[pagerState.currentPage].value = Offset.Zero
-        onPageChanged(pagerState.currentPage)
+        onPageChange(pagerState.currentPage)
     }
 }
 
@@ -275,7 +275,7 @@ fun ImageGalleryCustomThumbnailPreview() {
             .fillMaxSize(),
         images = sampleImages,
         onLoadMore = {},
-        onPageChanged = { Log.d("IMAGE_CHANGED", it.toString()) },
+        onPageChange = { Log.d("IMAGE_CHANGED", it.toString()) },
         style = ImageGalleryStyle(
             imageToThumbnailSpacing = 50.dp
         ),
