@@ -105,6 +105,7 @@ fun ImageGallery(
                 .fillMaxWidth()
                 .height(style.imageToThumbnailSpacing)
         )
+
         LazyRow(
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(style.thumbnailItemsSpacing),

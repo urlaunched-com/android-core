@@ -44,9 +44,11 @@ internal fun handleDoubleTap(
                 x = containerSize.width / 2f,
                 y = containerSize.height / 2f
             )
+
             val newOffset = (containerCenter - tapOffset) * (targetScale - 1f)
 
             launch { scale.animateTo(targetScale) }
+
             launch {
                 Animatable(offset.value, Offset.VectorConverter)
                     .animateTo(clampOffset(newOffset, targetScale, containerSize)) {
@@ -118,6 +120,7 @@ internal suspend fun PointerInputScope.detectCustomTransformGestures(
             requireUnconsumed = false,
             pass = pass
         )
+
         onGestureStart(down)
 
         var pointer = down
