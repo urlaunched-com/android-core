@@ -25,4 +25,6 @@ object Dimens {
     val cornerRadiusBigSpecial = 20.dp
     val cornerRadiusBig = 24.dp
     val cornerRadiusLarge = 32.dp
+
+    val borderWidth = 1.dp
 }

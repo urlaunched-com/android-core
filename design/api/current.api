@@ -22,6 +22,7 @@ package com.urlaunched.android.design.extensions {
 package com.urlaunched.android.design.resources.dimens {
 
   public final class Dimens {
+    method public float getBorderWidth();
     method public float getCornerRadiusBig();
     method public float getCornerRadiusBigSpecial();
     method public float getCornerRadiusLarge();
@@ -42,6 +43,7 @@ package com.urlaunched.android.design.resources.dimens {
     method public float getSpacingTiny();
     method public float getSpacingTinyHalf();
     method public float getZeroDp();
+    property public final float borderWidth;
     property public final float cornerRadiusBig;
     property public final float cornerRadiusBigSpecial;
     property public final float cornerRadiusLarge;
@@ -153,6 +155,14 @@ package com.urlaunched.android.design.ui.exposedDropdown {
 }
 
 package com.urlaunched.android.design.ui.image {
+
+  public final class FixedSubcomposeAsyncImageKt {
+    method @androidx.compose.runtime.Composable public static void FixedSubcomposeAsyncImage(optional androidx.compose.ui.Modifier modifier, Object? model, long imageSize, kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder, optional androidx.compose.ui.layout.ContentScale scale, optional androidx.compose.ui.graphics.ColorFilter? colorFilter, optional String? contentDescription, optional float alpha, optional coil3.ImageLoader imageLoader, optional float cdnScaleFactor, optional kotlin.jvm.functions.Function1<? super coil3.request.SuccessResult,kotlin.Unit> onSuccess);
+  }
+
+  public final class SubcomposeAsyncImageScopeKt {
+    method @androidx.compose.runtime.Composable public static void SubcomposeAsyncImageScope(optional androidx.compose.ui.Modifier modifier, Object? model, String contentDescription, optional androidx.compose.ui.layout.ContentScale contentScale, optional androidx.compose.ui.graphics.Shape shape, optional androidx.compose.ui.graphics.ColorFilter? colorFilter, optional float alpha, optional kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, optional kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder, optional kotlin.jvm.functions.Function1<? super coil3.request.SuccessResult,kotlin.Unit> onSuccess);
+  }
 
   public final class UrlImageKt {
     method @androidx.compose.runtime.Composable public static void UrlImage(optional androidx.compose.ui.Modifier modifier, Object? model, optional kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, optional kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder, optional androidx.compose.ui.layout.ContentScale scale, optional androidx.compose.ui.layout.ContentScale cdnScale, optional androidx.compose.ui.Alignment alignment, optional androidx.compose.ui.graphics.ColorFilter? colorFilter, optional String? contentDescription, optional androidx.compose.ui.unit.DpSize? fixedImageSize, optional float alpha, optional coil3.ImageLoader imageLoader, optional float cdnScaleFactor, optional kotlin.jvm.functions.Function1<? super coil3.request.SuccessResult,kotlin.Unit> onSuccess, optional kotlin.jvm.functions.Function0<kotlin.Unit> onError);
@@ -450,6 +460,75 @@ package com.urlaunched.android.design.ui.slider {
 
 }
 
+package com.urlaunched.android.design.ui.stories {
+
+  public final class MiniStoriesKt {
+    method @androidx.compose.runtime.Composable public static void MiniStories(optional androidx.compose.ui.Modifier modifier, java.util.List<?> stories, float miniStoriesMaxHeight, int showMiniStoriesCount, optional float borderWidth, optional long borderColor, long hiddenStoriesItemColor, androidx.compose.ui.text.TextStyle hiddenStoriesTextStyle, int maxHiddenMiniStoriesCount, kotlin.jvm.functions.Function0<kotlin.Unit> onStoriesClick);
+  }
+
+  public final class PromoStoryItemKt {
+    method @androidx.compose.runtime.Composable public static void PromoStoryItem(androidx.compose.ui.Modifier modifier, Object storyImage, float maxHeight, kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder);
+  }
+
+  public final class StoriesListConfig {
+    ctor public StoriesListConfig(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier storyItemModifier, boolean isLoading, java.util.List<?> stories, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional float storiesOverlapFraction, optional float miniStoryMaxHeight, optional float storyMaxHeight, optional long storyBackgroundColor, optional int storiesCollapsingCoefficient, optional kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, optional kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder);
+    method public androidx.compose.ui.Modifier component1();
+    method public int component10();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component11();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component12();
+    method public androidx.compose.ui.Modifier component2();
+    method public boolean component3();
+    method public java.util.List<java.lang.Object> component4();
+    method public androidx.compose.foundation.layout.PaddingValues component5();
+    method public float component6();
+    method public float component7-D9Ej5fM();
+    method public float component8-D9Ej5fM();
+    method public long component9-0d7_KjU();
+    method public com.urlaunched.android.design.ui.stories.StoriesListConfig copy-loW_3II(androidx.compose.ui.Modifier modifier, androidx.compose.ui.Modifier storyItemModifier, boolean isLoading, java.util.List<?> stories, androidx.compose.foundation.layout.PaddingValues contentPadding, float storiesOverlapFraction, float miniStoryMaxHeight, float storyMaxHeight, long storyBackgroundColor, int storiesCollapsingCoefficient, kotlin.jvm.functions.Function0<kotlin.Unit> placeholder, kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder);
+    method public androidx.compose.foundation.layout.PaddingValues getContentPadding();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getErrorPlaceholder();
+    method public float getMiniStoryMaxHeight();
+    method public androidx.compose.ui.Modifier getModifier();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getPlaceholder();
+    method public java.util.List<java.lang.Object> getStories();
+    method public int getStoriesCollapsingCoefficient();
+    method public float getStoriesOverlapFraction();
+    method public long getStoryBackgroundColor();
+    method public androidx.compose.ui.Modifier getStoryItemModifier();
+    method public float getStoryMaxHeight();
+    method public boolean isLoading();
+    property public final androidx.compose.foundation.layout.PaddingValues contentPadding;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> errorPlaceholder;
+    property public final boolean isLoading;
+    property public final float miniStoryMaxHeight;
+    property public final androidx.compose.ui.Modifier modifier;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> placeholder;
+    property public final java.util.List<java.lang.Object> stories;
+    property public final int storiesCollapsingCoefficient;
+    property public final float storiesOverlapFraction;
+    property public final long storyBackgroundColor;
+    property public final androidx.compose.ui.Modifier storyItemModifier;
+    property public final float storyMaxHeight;
+  }
+
+  public final class StoriesListKt {
+    method @androidx.compose.runtime.Composable public static void StoriesList(com.urlaunched.android.design.ui.topbar.CollapsingTopBarState? topBarState, com.urlaunched.android.design.ui.stories.StoriesListConfig storiesListConfig, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onStoryClick);
+  }
+
+  public final class StoryDimens {
+    method public float getBorder();
+    method public float getBorderPadding();
+    method public float getMaxHeight();
+    method public float getMiniStoriesMaxHeight();
+    property public final float border;
+    property public final float borderPadding;
+    property public final float maxHeight;
+    property public final float miniStoriesMaxHeight;
+    field public static final com.urlaunched.android.design.ui.stories.StoryDimens INSTANCE;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.textfield {
 
   public final class LocalTextFieldConfigsKt {
@@ -631,6 +710,72 @@ package com.urlaunched.android.design.ui.textfield.models {
     property public final float labelSpacer;
     property public final float leadingIconSpacer;
     property public final float trailingIconSpacer;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.topbar {
+
+  public enum CollapsingStrategy {
+    method public static com.urlaunched.android.design.ui.topbar.CollapsingStrategy valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.topbar.CollapsingStrategy[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.topbar.CollapsingStrategy ShowAtTheEnd;
+    enum_constant public static final com.urlaunched.android.design.ui.topbar.CollapsingStrategy ShowOnScroll;
+  }
+
+  public final class CollapsingTopBarKt {
+    method @androidx.compose.runtime.Composable public static void CollapsingTopBar(optional androidx.compose.ui.Modifier modifier, com.urlaunched.android.design.ui.topbar.CollapsingTopBarState state, optional long topBarContainerColor, optional long contentContainerColor, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> topBar, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content);
+  }
+
+  public final class CollapsingTopBarState {
+    ctor public CollapsingTopBarState(float minHeightPx, float maxHeightPx, androidx.compose.ui.unit.Density density, com.urlaunched.android.design.ui.topbar.CollapsingStrategy strategy);
+    method public float getFraction();
+    method public float getHeightDp();
+    method public float getHeightPx();
+    method public float getMaxHeightPx();
+    method public float getMinHeightPx();
+    method public androidx.compose.ui.input.nestedscroll.NestedScrollConnection getScrollConnection();
+    method public void setHeightPx(float);
+    property public final float fraction;
+    property public final float heightDp;
+    property public final float heightPx;
+    property public final float maxHeightPx;
+    property public final float minHeightPx;
+    property public final androidx.compose.ui.input.nestedscroll.NestedScrollConnection scrollConnection;
+  }
+
+  public final class CollapsingTopBarStateKt {
+    method @androidx.compose.runtime.Composable public static com.urlaunched.android.design.ui.topbar.CollapsingTopBarState rememberCollapsingTopBarState(float minHeight, float maxHeight, optional com.urlaunched.android.design.ui.topbar.CollapsingStrategy collapsingStrategy);
+  }
+
+  public final class CollapsingTopBarStoriesKt {
+    method @androidx.compose.runtime.Composable public static void CollapsingTopBarStories(optional androidx.compose.ui.Modifier modifier, optional long topBarContainerColor, optional long contentContainerColor, optional float hideBigStoryFraction, optional float showMiniStoryFraction, com.urlaunched.android.design.ui.stories.StoriesListConfig storiesListConfig, com.urlaunched.android.design.ui.topbar.MiniStoriesConfig miniStoriesConfig, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> topBar, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> content, kotlin.jvm.functions.Function1<java.lang.Object,kotlin.Unit> onStoryClick, optional kotlin.jvm.functions.Function0<kotlin.Unit> onMiniStoriesClick);
+  }
+
+  public final class MiniStoriesConfig {
+    ctor public MiniStoriesConfig(float borderWidth, long borderColor, long hiddenStoriesItemColor, androidx.compose.ui.text.TextStyle hiddenStoriesTextStyle, optional int showMiniStoriesCount, optional int maxHiddenMiniStoriesCount, optional float miniStoriesVerticalPadding);
+    method public float component1-D9Ej5fM();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public androidx.compose.ui.text.TextStyle component4();
+    method public int component5();
+    method public int component6();
+    method public float component7-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.topbar.MiniStoriesConfig copy-kdiBdJs(float borderWidth, long borderColor, long hiddenStoriesItemColor, androidx.compose.ui.text.TextStyle hiddenStoriesTextStyle, int showMiniStoriesCount, int maxHiddenMiniStoriesCount, float miniStoriesVerticalPadding);
+    method public long getBorderColor();
+    method public float getBorderWidth();
+    method public long getHiddenStoriesItemColor();
+    method public androidx.compose.ui.text.TextStyle getHiddenStoriesTextStyle();
+    method public int getMaxHiddenMiniStoriesCount();
+    method public float getMiniStoriesVerticalPadding();
+    method public int getShowMiniStoriesCount();
+    property public final long borderColor;
+    property public final float borderWidth;
+    property public final long hiddenStoriesItemColor;
+    property public final androidx.compose.ui.text.TextStyle hiddenStoriesTextStyle;
+    property public final int maxHiddenMiniStoriesCount;
+    property public final float miniStoriesVerticalPadding;
+    property public final int showMiniStoriesCount;
   }
 
 }
