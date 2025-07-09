@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import androidx.core.net.toUri
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.time.Duration
@@ -13,15 +14,27 @@ object FilePickerHelper {
     private const val THUMBNAIL_FILE_PREFIX = "thumbnail"
     private const val THUMBNAIL_FILE_SUFFIX = ".jpg"
 
-    fun getVideoThumbnail(context: Context, file: File, timeUs: Long = 0): File? {
+    fun getVideoThumbnail(context: Context, file: File, timeUs: Long = 0, outDir: File = context.cacheDir): File? =
+        getVideoThumbnail(
+            context = context,
+            uri = file.toUri(),
+            timeUs = timeUs,
+            outDir = outDir
+        )
+
+    fun getVideoThumbnail(context: Context, uri: Uri, timeUs: Long = 0, outDir: File = context.cacheDir): File? {
         val retriever = MediaMetadataRetriever()
         var thumbnailFile: File? = null
 
         try {
-            retriever.setDataSource(file.absolutePath)
+            if (!outDir.exists()) {
+                outDir.mkdirs()
+            }
+
+            retriever.setDataSource(context, uri)
             val frame = retriever.getFrameAtTime(timeUs)
 
-            val cacheDir = context.cacheDir
+            val cacheDir = outDir
             thumbnailFile =
                 File.createTempFile(THUMBNAIL_FILE_PREFIX, THUMBNAIL_FILE_SUFFIX, cacheDir)
 
