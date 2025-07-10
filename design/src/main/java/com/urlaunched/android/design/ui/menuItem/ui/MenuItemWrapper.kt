@@ -34,6 +34,7 @@ fun MenuItemWrapper(
                 menuItemColors = menuItemColors,
                 menuItemDimens = menuItemDimens
             )
+
             Spacer(modifier = Modifier.height(menuItemDimens.spacerHeight))
         }
     }
