@@ -160,6 +160,66 @@ package com.urlaunched.android.design.ui.image {
 
 }
 
+package com.urlaunched.android.design.ui.menuItem.models {
+
+  public final class MenuItem {
+    ctor public MenuItem(int textResources, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
+    method public int component1();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component2();
+    method public com.urlaunched.android.design.ui.menuItem.models.MenuItem copy(int textResources, kotlin.jvm.functions.Function0<kotlin.Unit> onClick);
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getOnClick();
+    method public int getTextResources();
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> onClick;
+    property public final int textResources;
+  }
+
+  public final class MenuItemColors {
+    ctor public MenuItemColors(optional long textColor, optional long backgroundColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public com.urlaunched.android.design.ui.menuItem.models.MenuItemColors copy--OWjLjI(long textColor, long backgroundColor);
+    method public long getBackgroundColor();
+    method public long getTextColor();
+    property public final long backgroundColor;
+    property public final long textColor;
+  }
+
+  public final class MenuItemDimens {
+    ctor public MenuItemDimens(optional float containerHeight, optional float cornerRadiusShape, optional float startPadding, optional float endPadding, optional float topPadding, optional float bottomPadding, optional float spacerHeight);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public float component6-D9Ej5fM();
+    method public float component7-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.menuItem.models.MenuItemDimens copy-oRJhP44(float containerHeight, float cornerRadiusShape, float startPadding, float endPadding, float topPadding, float bottomPadding, float spacerHeight);
+    method public float getBottomPadding();
+    method public float getContainerHeight();
+    method public float getCornerRadiusShape();
+    method public float getEndPadding();
+    method public float getSpacerHeight();
+    method public float getStartPadding();
+    method public float getTopPadding();
+    property public final float bottomPadding;
+    property public final float containerHeight;
+    property public final float cornerRadiusShape;
+    property public final float endPadding;
+    property public final float spacerHeight;
+    property public final float startPadding;
+    property public final float topPadding;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.menuItem.ui {
+
+  public final class MenuItemWrapperKt {
+    method @androidx.compose.runtime.Composable public static void MenuItemWrapper(optional androidx.compose.ui.Modifier modifier, java.util.List<com.urlaunched.android.design.ui.menuItem.models.MenuItem> menuItem, androidx.compose.ui.text.TextStyle textStyle, kotlin.jvm.functions.Function0<kotlin.Unit> trailingIcon, optional com.urlaunched.android.design.ui.menuItem.models.MenuItemColors menuItemColors, optional com.urlaunched.android.design.ui.menuItem.models.MenuItemDimens menuItemDimens);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.modifiers {
 
   public final class IfNotNullKt {
