@@ -184,6 +184,7 @@ firebaseDependencies-remoteconfig = { module = "com.google.firebase:firebase-con
 firebaseDependencies-performance = { module = "com.google.firebase:firebase-perf" }
 
 composeAccompanist-navigation = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanistVersion" }
+composeAccompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistVersion" }
 
 paparazi-core = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazziPluginVersion"}
 junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
