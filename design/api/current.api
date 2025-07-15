@@ -67,6 +67,58 @@ package com.urlaunched.android.design.resources.dimens {
 
 }
 
+package com.urlaunched.android.design.ui.accountbinding.models {
+
+  public final class EmailAccountColors {
+    ctor public EmailAccountColors(optional long driverColor);
+    method public long component1-0d7_KjU();
+    method public com.urlaunched.android.design.ui.accountbinding.models.EmailAccountColors copy-8_81llA(long driverColor);
+    method public long getDriverColor();
+    property public final long driverColor;
+  }
+
+  public final class EmailAccountDimens {
+    ctor public EmailAccountDimens(optional float dividerHeight);
+    method public float component1-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.accountbinding.models.EmailAccountDimens copy-0680j_4(float dividerHeight);
+    method public float getDividerHeight();
+    property public final float dividerHeight;
+  }
+
+  public final class SocialAccountDimens {
+    ctor public SocialAccountDimens(optional float paddingEnd, optional float paddingStart, optional float paddingTop, optional float paddingBottom, optional float paddingHorizontal);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.accountbinding.models.SocialAccountDimens copy-RyVG9vg(float paddingEnd, float paddingStart, float paddingTop, float paddingBottom, float paddingHorizontal);
+    method public float getPaddingBottom();
+    method public float getPaddingEnd();
+    method public float getPaddingHorizontal();
+    method public float getPaddingStart();
+    method public float getPaddingTop();
+    property public final float paddingBottom;
+    property public final float paddingEnd;
+    property public final float paddingHorizontal;
+    property public final float paddingStart;
+    property public final float paddingTop;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.accountbinding.ui {
+
+  public final class EmailAccountKt {
+    method @androidx.compose.runtime.Composable public static void EmailAccount(optional androidx.compose.ui.Modifier modifier, boolean hasAccount, boolean isCurrentAccount, boolean hasEmail, com.urlaunched.android.design.ui.accountbinding.models.EmailAccountColors emailAccountColors, optional com.urlaunched.android.design.ui.accountbinding.models.EmailAccountDimens emailAccountDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onEditEmailClick, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> onEditPasswordClick, kotlin.jvm.functions.Function0<kotlin.Unit> emailProviderText, kotlin.jvm.functions.Function0<kotlin.Unit> accountEmailText, kotlin.jvm.functions.Function0<kotlin.Unit> passwordText, kotlin.jvm.functions.Function0<kotlin.Unit> trailingIcon, kotlin.jvm.functions.Function0<kotlin.Unit> addAccountText, kotlin.jvm.functions.Function0<kotlin.Unit> currentAccountContainer, kotlin.jvm.functions.Function0<kotlin.Unit> deleteAccountContainer);
+  }
+
+  public final class SocialAccountKt {
+    method @androidx.compose.runtime.Composable public static void SocialAccount(optional androidx.compose.ui.Modifier modifier, boolean hasAccount, boolean isCurrentAccount, boolean hasEmail, optional com.urlaunched.android.design.ui.accountbinding.models.SocialAccountDimens socialAccountDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> leadingIcon, kotlin.jvm.functions.Function0<kotlin.Unit> providerText, kotlin.jvm.functions.Function0<kotlin.Unit> accountEmailText, kotlin.jvm.functions.Function0<kotlin.Unit> addAccountText, kotlin.jvm.functions.Function0<kotlin.Unit> currentAccountContainer, kotlin.jvm.functions.Function0<kotlin.Unit> deleteAccountContainer);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.backhandler {
 
   public final class DisableBackButtonKt {
