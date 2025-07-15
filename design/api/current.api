@@ -168,6 +168,54 @@ package com.urlaunched.android.design.ui.modifiers {
 
 }
 
+package com.urlaunched.android.design.ui.overlay {
+
+  public final class OverlayConfig {
+    ctor public OverlayConfig(optional long offset, optional float backgroundAlpha, optional boolean usePlatformDefaultWidth, optional boolean dismissOnClickOutside, optional boolean dismissOnBackPress, optional Integer? windowAnimationsRes, optional Integer? widthOverride, optional androidx.compose.ui.unit.IntSize? overlaySize);
+    method public long component1-RKDOV3M();
+    method public float component2();
+    method public boolean component3();
+    method public boolean component4();
+    method public boolean component5();
+    method public Integer? component6();
+    method public Integer? component7();
+    method public androidx.compose.ui.unit.IntSize? component8-bOM6tXw();
+    method public com.urlaunched.android.design.ui.overlay.OverlayConfig copy-xcVtckk(long offset, float backgroundAlpha, boolean usePlatformDefaultWidth, boolean dismissOnClickOutside, boolean dismissOnBackPress, Integer? windowAnimationsRes, Integer? widthOverride, androidx.compose.ui.unit.IntSize? overlaySize);
+    method public float getBackgroundAlpha();
+    method public boolean getDismissOnBackPress();
+    method public boolean getDismissOnClickOutside();
+    method public long getOffset();
+    method public androidx.compose.ui.unit.IntSize? getOverlaySize();
+    method public boolean getUsePlatformDefaultWidth();
+    method public Integer? getWidthOverride();
+    method public Integer? getWindowAnimationsRes();
+    property public final float backgroundAlpha;
+    property public final boolean dismissOnBackPress;
+    property public final boolean dismissOnClickOutside;
+    property public final long offset;
+    property public final androidx.compose.ui.unit.IntSize? overlaySize;
+    property public final boolean usePlatformDefaultWidth;
+    property public final Integer? widthOverride;
+    property public final Integer? windowAnimationsRes;
+  }
+
+  public final class OverlayIdKt {
+    method @androidx.compose.runtime.Composable public static void CustomOverlay(com.urlaunched.android.design.ui.overlay.OverlayPositionInfo positionInfo, optional com.urlaunched.android.design.ui.overlay.OverlayConfig config, kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class OverlayPositionInfo {
+    ctor public OverlayPositionInfo(long position, long size);
+    method public long component1-F1C5BW0();
+    method public long component2-YbymL2g();
+    method public com.urlaunched.android.design.ui.overlay.OverlayPositionInfo copy-CowoxoA(long position, long size);
+    method public long getPosition();
+    method public long getSize();
+    property public final long position;
+    property public final long size;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.paging {
 
   public final class PagingColumnKt {
