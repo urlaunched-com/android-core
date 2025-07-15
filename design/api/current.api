@@ -203,6 +203,69 @@ package com.urlaunched.android.design.ui.modifiers {
 
 }
 
+package com.urlaunched.android.design.ui.onboardingcontainer.models {
+
+  public final class OnboardingContainerColor {
+    ctor public OnboardingContainerColor(optional long backgroundColor);
+    method public long component1-0d7_KjU();
+    method public com.urlaunched.android.design.ui.onboardingcontainer.models.OnboardingContainerColor copy-8_81llA(long backgroundColor);
+    method public long getBackgroundColor();
+    property public final long backgroundColor;
+  }
+
+  public final class OnboardingContainerDimens {
+    ctor public OnboardingContainerDimens(optional float verticalSpacing);
+    method public float component1-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.onboardingcontainer.models.OnboardingContainerDimens copy-0680j_4(float verticalSpacing);
+    method public float getVerticalSpacing();
+    property public final float verticalSpacing;
+  }
+
+  public final class StepProgressColors {
+    ctor public StepProgressColors(optional long selectedStepColor, optional long unselectedStepColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressColors copy--OWjLjI(long selectedStepColor, long unselectedStepColor);
+    method public long getSelectedStepColor();
+    method public long getUnselectedStepColor();
+    property public final long selectedStepColor;
+    property public final long unselectedStepColor;
+  }
+
+  public final class StepProgressDimens {
+    ctor public StepProgressDimens(optional float containerHeight, optional float containerWidth, optional float containerShape, optional float horizontalSpacer, optional float progressBarTopSpacing);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressDimens copy-RyVG9vg(float containerHeight, float containerWidth, float containerShape, float horizontalSpacer, float progressBarTopSpacing);
+    method public float getContainerHeight();
+    method public float getContainerShape();
+    method public float getContainerWidth();
+    method public float getHorizontalSpacer();
+    method public float getProgressBarTopSpacing();
+    property public final float containerHeight;
+    property public final float containerShape;
+    property public final float containerWidth;
+    property public final float horizontalSpacer;
+    property public final float progressBarTopSpacing;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.onboardingcontainer.ui {
+
+  public final class OnboardingContainerKt {
+    method @androidx.compose.runtime.Composable public static void OnboardingContainer(int activeStepIndex, int countOfSteps, androidx.compose.foundation.pager.PagerState pagerState, com.urlaunched.android.design.ui.onboardingcontainer.models.OnboardingContainerColor onboardingContainerColor, optional com.urlaunched.android.design.ui.onboardingcontainer.models.OnboardingContainerDimens onboardingContainerDimens, com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressColors stepProgressColors, optional com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressDimens stepProgressDimens, kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> imageContent, kotlin.jvm.functions.Function0<kotlin.Unit> titleContent, kotlin.jvm.functions.Function0<kotlin.Unit> descriptionContent, kotlin.jvm.functions.Function0<kotlin.Unit> nextButtonContent, kotlin.jvm.functions.Function0<kotlin.Unit> skipButtonContent, optional kotlin.jvm.functions.Function0<kotlin.Unit> additionalContent);
+  }
+
+  public final class StepProgressBarKt {
+    method @androidx.compose.runtime.Composable public static void StepProgressBar(optional androidx.compose.ui.Modifier modifier, int activeStepIndex, int countOfSteps, com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressColors stepProgressColors, com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressDimens stepProgressDimens);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.paging {
 
   public final class PagingColumnKt {
