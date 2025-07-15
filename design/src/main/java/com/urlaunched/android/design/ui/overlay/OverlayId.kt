@@ -20,6 +20,45 @@ private enum class OverlayId {
     CONTENT
 }
 
+/**
+ * To use this correctly:
+ *
+ * 1. Track the position and size of the component you want to attach the overlay to using `Modifier.onGloballyPositioned { ... }`
+ * 2. From that callback, capture `positionInWindow()` and `size` into a `OverlayPositionInfo`
+ * 3. Pass that info to [CustomOverlay] when triggering it (e.g. on long press or tap)
+ *
+ * Example:
+ *
+ * ```kotlin
+ * var overlayInfo: OverlayPositionInfo? by remember { mutableStateOf(null) }
+ * var isOverlayVisible by remember { mutableStateOf(false) }
+ *
+ * Box(modifier = Modifier.onGloballyPositioned { coords ->
+ *     overlayInfo = OverlayPositionInfo(
+ *         position = coords.positionInWindow(),
+ *         size = coords.size
+ *     )
+ * }) {
+ *     // item
+ * }
+ *
+ * if (isOverlayVisible && overlayInfo != null) {
+ *     CustomOverlay(
+ *         positionInfo = overlayInfo!!,
+ *         config = OverlayConfig(...),
+ *         onDismissRequest = { isOverlayVisible = false }
+ *     ) {
+ *         // your overlay content here
+ *     }
+ * }
+ * ```
+ *
+ * @param positionInfo The position and size of the anchor element to align overlay content
+ * @param config OverlayConfig with customization options
+ * @param onDismissRequest Called when overlay should be dismissed (e.g. outside click)
+ * @param content The content to display in the overlay
+ */
+
 @Composable
 fun CustomOverlay(
     positionInfo: OverlayPositionInfo,
