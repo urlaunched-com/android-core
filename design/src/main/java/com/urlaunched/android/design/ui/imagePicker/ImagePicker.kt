@@ -41,6 +41,11 @@ fun ImagePicker(
     deleteTempFilesWhenOnDispose: Boolean = true,
     maxFiles: Int = ImagePickerConstants.MAX_PHOTOS_AMOUNT,
     needToPickMultipleFiles: Boolean = false,
+    compressionTargetSize: Long = 5 * 1000 * 1000,
+    compressionMinWidth: Int = 1920,
+    compressionMinHeight: Int = 1080,
+    photoTooLargeMessage: String = "Photo must be less than 15 MB",
+    compressionFailedMessage: String = "Something went wrong",
     showSnackbar: suspend (message: String) -> Unit,
     setIsCompressionProceed: (isCompressionProceed: Boolean) -> Unit = {},
     content: @Composable (onClick: () -> Unit) -> Unit
@@ -63,8 +68,14 @@ fun ImagePicker(
                         coroutineScope = coroutineScope,
                         onFileChanges = onFilesChanges,
                         showSnackbar = showSnackbar,
-                        setIsCompressionProceed = setIsCompressionProceed
+                        setIsCompressionProceed = setIsCompressionProceed,
+                        compressionTargetSize = compressionTargetSize,
+                        compressionMinWidth = compressionMinWidth,
+                        compressionMinHeight = compressionMinHeight,
+                        photoTooLargeMessage = photoTooLargeMessage,
+                        compressionFailedMessage = compressionFailedMessage
                     )
+
                 }
             }
         )
@@ -80,7 +91,12 @@ fun ImagePicker(
                             coroutineScope = coroutineScope,
                             onFileChanges = onFilesChanges,
                             showSnackbar = showSnackbar,
-                            setIsCompressionProceed = setIsCompressionProceed
+                            setIsCompressionProceed = setIsCompressionProceed,
+                            compressionTargetSize = compressionTargetSize,
+                            compressionMinWidth = compressionMinWidth,
+                            compressionMinHeight = compressionMinHeight,
+                            photoTooLargeMessage = photoTooLargeMessage,
+                            compressionFailedMessage = compressionFailedMessage
                         )
                     }
                 }
@@ -103,7 +119,12 @@ fun ImagePicker(
                         coroutineScope = coroutineScope,
                         onFileChanges = onFilesChanges,
                         showSnackbar = showSnackbar,
-                        setIsCompressionProceed = setIsCompressionProceed
+                        setIsCompressionProceed = setIsCompressionProceed,
+                        compressionTargetSize = compressionTargetSize,
+                        compressionMinWidth = compressionMinWidth,
+                        compressionMinHeight = compressionMinHeight,
+                        photoTooLargeMessage = photoTooLargeMessage,
+                        compressionFailedMessage = compressionFailedMessage
                     )
                 }
             )
@@ -166,7 +187,12 @@ private fun validateFilesAndCompress(
     context: Context,
     coroutineScope: CoroutineScope,
     showSnackbar: suspend (message: String) -> Unit,
-    setIsCompressionProceed: (isUnderCompression: Boolean) -> Unit
+    setIsCompressionProceed: (isUnderCompression: Boolean) -> Unit,
+    compressionTargetSize: Long,
+    compressionMinWidth: Int,
+    compressionMinHeight: Int,
+    photoTooLargeMessage: String,
+    compressionFailedMessage: String
 ) {
     val maxImageSize = 15 * 1024 * 1024
     val targetImageSize = 5 * 1000 * 1000
@@ -179,16 +205,22 @@ private fun validateFilesAndCompress(
 
         files.forEach { file ->
             if (file.length() > maxImageSize) {
-                showSnackbar("Photo must be less 15 mb")
+                showSnackbar(photoTooLargeMessage)
             } else if (file.length() < targetImageSize) {
                 validFiles.add(file)
             } else {
                 try {
-                    val compressedFile = CompressImageUtil.compressImage(file, context)
+                    val compressedFile = CompressImageUtil.compressImage(
+                        input = file,
+                        context = context,
+                        targetSize = compressionTargetSize,
+                        minWidth = compressionMinWidth,
+                        minHeight = compressionMinHeight
+                    )
                     compressedFile?.let { compressedFiles.add(it) }
-                        ?: showSnackbar("Something went wrong")
+                        ?: showSnackbar(compressionFailedMessage)
                 } catch (e: Exception) {
-                    showSnackbar("Something went wrong")
+                    showSnackbar(compressionFailedMessage)
                     return@launch
                 }
             }
