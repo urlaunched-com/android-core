@@ -48,11 +48,11 @@ internal fun RecordMediaButton(
     progressBrush: Brush,
     recordingButtonColor: Color = Color.Black,
     defaultButtonColor: Color  = Color.Red,
-    backgroundWhite: Color  = Color.White,
-    backgroundWhiteAlpha: Color  = backgroundWhite.copy(alpha = backgroundColorAlpha),
-    transparentWhite: Color  = backgroundWhite.copy(alpha = 0f),
     onClick: () -> Unit
 ) {
+    val backgroundWhite: Color  = Color.White
+    val backgroundWhiteAlpha: Color  = backgroundWhite.copy(alpha = backgroundColorAlpha)
+    val transparentWhite: Color  = backgroundWhite.copy(alpha = 0f)
     val recordingTransition = updateTransition(isRecording, label = recordLabel)
 
     val cornerRadius by recordingTransition.animateInt { recordingState ->

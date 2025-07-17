@@ -226,85 +226,57 @@ package com.urlaunched.android.design.ui.camera.model {
 
 package com.urlaunched.android.design.ui.camera.ui {
 
-  public final class CameraContainerConfig {
-    ctor public CameraContainerConfig(optional long backgroundColor, optional long surfaceColor, optional float surfaceCornerRadius, optional float surfacePaddingBottom, optional long closeButtonBackground, optional long closeButtonIconTint, optional kotlin.jvm.functions.Function0<kotlin.Unit> closeButtonIcon, optional long flashButtonBackground, optional long flashButtonIconTint, optional float flashIconSize, optional float flashIconInnerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOnIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOffIcon, optional float topButtonsSpacing, optional float controlPaddingHorizontal, optional float controlPaddingBottom, optional androidx.compose.ui.graphics.Brush progressBrush, optional long selectedOptionBackground, optional long selectedOptionTextColor, optional long unselectedOptionBackground, optional long unselectedOptionTextColor, optional long controlButtonBackground, optional long controlButtonBorderColor, optional long controlIconTint);
+  public final class CameraContainerColors {
+    ctor public CameraContainerColors(optional long backgroundColor, optional long surfaceColor, optional androidx.compose.ui.graphics.Brush progressBrush, optional long startRecordButtonColor, optional long recordingButtonColor);
     method public long component1-0d7_KjU();
-    method public float component10-D9Ej5fM();
-    method public float component11-D9Ej5fM();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> component12();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> component13();
-    method public float component14-D9Ej5fM();
-    method public float component15-D9Ej5fM();
-    method public float component16-D9Ej5fM();
-    method public androidx.compose.ui.graphics.Brush component17();
-    method public long component18-0d7_KjU();
-    method public long component19-0d7_KjU();
     method public long component2-0d7_KjU();
-    method public long component20-0d7_KjU();
-    method public long component21-0d7_KjU();
-    method public long component22-0d7_KjU();
-    method public long component23-0d7_KjU();
-    method public long component24-0d7_KjU();
+    method public androidx.compose.ui.graphics.Brush component3();
+    method public long component4-0d7_KjU();
+    method public long component5-0d7_KjU();
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors copy-w8f9n5g(long backgroundColor, long surfaceColor, androidx.compose.ui.graphics.Brush progressBrush, long startRecordButtonColor, long recordingButtonColor);
+    method public long getBackgroundColor();
+    method public androidx.compose.ui.graphics.Brush getProgressBrush();
+    method public long getRecordingButtonColor();
+    method public long getStartRecordButtonColor();
+    method public long getSurfaceColor();
+    property public final long backgroundColor;
+    property public final androidx.compose.ui.graphics.Brush progressBrush;
+    property public final long recordingButtonColor;
+    property public final long startRecordButtonColor;
+    property public final long surfaceColor;
+  }
+
+  public final class CameraContainerConfig {
+    ctor public CameraContainerConfig(optional com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors, optional float surfaceCornerRadius, optional float surfacePaddingBottom, optional float flashIconSize, optional float flashIconInnerPadding, optional float topButtonsSpacing, optional float controlPaddingHorizontal, optional float controlPaddingBottom);
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors component1();
+    method public float component2-D9Ej5fM();
     method public float component3-D9Ej5fM();
     method public float component4-D9Ej5fM();
-    method public long component5-0d7_KjU();
-    method public long component6-0d7_KjU();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> component7();
-    method public long component8-0d7_KjU();
-    method public long component9-0d7_KjU();
-    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig copy-ZR-Z7PU(long backgroundColor, long surfaceColor, float surfaceCornerRadius, float surfacePaddingBottom, long closeButtonBackground, long closeButtonIconTint, kotlin.jvm.functions.Function0<kotlin.Unit> closeButtonIcon, long flashButtonBackground, long flashButtonIconTint, float flashIconSize, float flashIconInnerPadding, kotlin.jvm.functions.Function0<kotlin.Unit> flashOnIcon, kotlin.jvm.functions.Function0<kotlin.Unit> flashOffIcon, float topButtonsSpacing, float controlPaddingHorizontal, float controlPaddingBottom, androidx.compose.ui.graphics.Brush progressBrush, long selectedOptionBackground, long selectedOptionTextColor, long unselectedOptionBackground, long unselectedOptionTextColor, long controlButtonBackground, long controlButtonBorderColor, long controlIconTint);
-    method public long getBackgroundColor();
-    method public long getCloseButtonBackground();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> getCloseButtonIcon();
-    method public long getCloseButtonIconTint();
-    method public long getControlButtonBackground();
-    method public long getControlButtonBorderColor();
-    method public long getControlIconTint();
+    method public float component5-D9Ej5fM();
+    method public float component6-D9Ej5fM();
+    method public float component7-D9Ej5fM();
+    method public float component8-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig copy-a145CXI(com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors, float surfaceCornerRadius, float surfacePaddingBottom, float flashIconSize, float flashIconInnerPadding, float topButtonsSpacing, float controlPaddingHorizontal, float controlPaddingBottom);
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors getColors();
     method public float getControlPaddingBottom();
     method public float getControlPaddingHorizontal();
-    method public long getFlashButtonBackground();
-    method public long getFlashButtonIconTint();
     method public float getFlashIconInnerPadding();
     method public float getFlashIconSize();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> getFlashOffIcon();
-    method public kotlin.jvm.functions.Function0<kotlin.Unit> getFlashOnIcon();
-    method public androidx.compose.ui.graphics.Brush getProgressBrush();
-    method public long getSelectedOptionBackground();
-    method public long getSelectedOptionTextColor();
-    method public long getSurfaceColor();
     method public float getSurfaceCornerRadius();
     method public float getSurfacePaddingBottom();
     method public float getTopButtonsSpacing();
-    method public long getUnselectedOptionBackground();
-    method public long getUnselectedOptionTextColor();
-    property public final long backgroundColor;
-    property public final long closeButtonBackground;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit> closeButtonIcon;
-    property public final long closeButtonIconTint;
-    property public final long controlButtonBackground;
-    property public final long controlButtonBorderColor;
-    property public final long controlIconTint;
+    property public final com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors;
     property public final float controlPaddingBottom;
     property public final float controlPaddingHorizontal;
-    property public final long flashButtonBackground;
-    property public final long flashButtonIconTint;
     property public final float flashIconInnerPadding;
     property public final float flashIconSize;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit> flashOffIcon;
-    property public final kotlin.jvm.functions.Function0<kotlin.Unit> flashOnIcon;
-    property public final androidx.compose.ui.graphics.Brush progressBrush;
-    property public final long selectedOptionBackground;
-    property public final long selectedOptionTextColor;
-    property public final long surfaceColor;
     property public final float surfaceCornerRadius;
     property public final float surfacePaddingBottom;
     property public final float topButtonsSpacing;
-    property public final long unselectedOptionBackground;
-    property public final long unselectedOptionTextColor;
   }
 
   public final class CameraContainerKt {
-    method @androidx.compose.runtime.Composable public static void CameraContainer(optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig config, com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState, com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode, boolean isFlashEnabled, boolean isGalleryEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> selectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> unselectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> galleryButton, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> cameraToggleButton, kotlin.jvm.functions.Function0<kotlin.Unit> onShutterClick, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> recordMediaButton, kotlin.jvm.functions.Function1<? super androidx.camera.view.PreviewView,kotlin.Unit> onCameraPreviewViewAvailable, kotlin.jvm.functions.Function0<kotlin.Unit> onVideoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPhotoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleFlashClick, kotlin.jvm.functions.Function0<kotlin.Unit> onGalleryClick, kotlin.jvm.functions.Function0<kotlin.Unit> goBack);
+    method @androidx.compose.runtime.Composable public static void CameraContainer(optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig config, com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState, com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode, boolean isFlashEnabled, boolean isGalleryEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onShutterClick, kotlin.jvm.functions.Function1<? super androidx.camera.view.PreviewView,kotlin.Unit> onCameraPreviewViewAvailable, kotlin.jvm.functions.Function0<kotlin.Unit> onVideoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPhotoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleFlashClick, kotlin.jvm.functions.Function0<kotlin.Unit> onGalleryClick, kotlin.jvm.functions.Function0<kotlin.Unit> goBack, kotlin.jvm.functions.Function0<kotlin.Unit> selectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> unselectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> galleryButton, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> cameraToggleButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> closeButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOnButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOffButton, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> recordMediaButton);
   }
 
   public final class CircleButtonKt {

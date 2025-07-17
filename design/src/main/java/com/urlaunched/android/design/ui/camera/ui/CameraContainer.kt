@@ -1,5 +1,6 @@
 package com.urlaunched.android.design.ui.camera.ui
 
+import androidx.camera.view.PreviewView
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -32,18 +33,9 @@ import com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationM
 data class CameraContainerColors(
     val backgroundColor: Color = Color.Black,
     val surfaceColor: Color = Color.White,
-    val closeButtonBackground: Color = Color.Black,
-    val closeButtonIconTint: Color = Color.White,
-    val flashButtonBackground: Color = Color.Black,
-    val flashButtonIconTint: Color = Color.White,
     val progressBrush: Brush = SolidColor(Color.Black),
-    val selectedOptionBackground: Color = Color.White,
-    val selectedOptionTextColor: Color = Color.Black,
-    val unselectedOptionBackground: Color = Color.DarkGray,
-    val unselectedOptionTextColor: Color = Color.White,
-    val controlButtonBackground: Color = Color.Black,
-    val controlButtonBorderColor: Color = Color.DarkGray,
-    val controlIconTint: Color = Color.White,
+    val startRecordButtonColor: Color = Color.Red,
+    val recordingButtonColor: Color = Color.Red,
 )
 
 data class CameraContainerConfig(
@@ -66,7 +58,7 @@ fun CameraContainer(
     isFlashEnabled: Boolean,
     isGalleryEnabled: Boolean,
     onShutterClick: () -> Unit,
-    onCameraPreviewViewAvailable: (androidx.camera.view.PreviewView) -> Unit,
+    onCameraPreviewViewAvailable: (PreviewView) -> Unit,
     onVideoCameraClick: () -> Unit,
     onPhotoCameraClick: () -> Unit,
     onToggleCameraClick: () -> Unit,
@@ -88,7 +80,9 @@ fun CameraContainer(
             isRecording = recordingState is RecordingStatePresentationModel.Recording,
             progress = (recordingState as? RecordingStatePresentationModel.Recording)?.progress ?: 0f,
             progressBrush = config.colors.progressBrush,
-            onClick = onShutterClick
+            defaultButtonColor = config.colors.startRecordButtonColor,
+            onClick = onShutterClick,
+            recordingButtonColor = config.colors.recordingButtonColor,
         )
     }
 ) {
