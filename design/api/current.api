@@ -30,6 +30,8 @@ package com.urlaunched.android.design.resources.dimens {
     method public float getCornerRadiusNormalSpecial();
     method public float getCornerRadiusSmall();
     method public float getCornerRadiusTiny();
+    method public float getIconSizeNormal();
+    method public float getIconSizeNormalSpecial();
     method public float getSpacingBig();
     method public float getSpacingBigSpecial();
     method public float getSpacingExtraLarge();
@@ -50,6 +52,8 @@ package com.urlaunched.android.design.resources.dimens {
     property public final float cornerRadiusNormalSpecial;
     property public final float cornerRadiusSmall;
     property public final float cornerRadiusTiny;
+    property public final float iconSizeNormal;
+    property public final float iconSizeNormalSpecial;
     property public final float spacingBig;
     property public final float spacingBigSpecial;
     property public final float spacingExtraLarge;
@@ -79,6 +83,236 @@ package com.urlaunched.android.design.ui.bottomsheet {
 
   public final class BaseBottomSheetKt {
     method @androidx.compose.runtime.Composable public static void BaseBottomSheet(optional androidx.compose.ui.Modifier modifier, boolean isShow, kotlin.jvm.functions.Function0<kotlin.Unit> onDismiss, optional boolean skipPartiallyExpanded, optional float swipeToDismissFraction, optional long background, optional androidx.compose.foundation.shape.RoundedCornerShape shape, optional float partiallyExpandedFraction, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.camera.delegate {
+
+  public interface CameraDelegate {
+    method public void bindLifecycle(androidx.lifecycle.LifecycleOwner lifecycleOwner);
+    method public void bindPreviewView(androidx.camera.view.PreviewView previewView);
+    method public kotlinx.coroutines.flow.Flow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect> getCameraSideEffect();
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateState> getUiCameraState();
+    method public void onGalleryClick();
+    method public void onMediaPick(java.util.List<? extends android.net.Uri> uris, kotlin.jvm.functions.Function1<? super java.util.List<? extends android.net.Uri>,kotlin.Unit> onHandleUris);
+    method public void onPause();
+    method public void onPhotoCameraClick();
+    method public void onShutterClick(kotlin.jvm.functions.Function1<? super android.net.Uri,kotlin.Unit> onCaptureMedia);
+    method public void onVideoCameraClick();
+    method public void toggleCameraType();
+    method public void toggleFlash();
+    method public void unbindLifecycle();
+    property public abstract kotlinx.coroutines.flow.Flow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect> cameraSideEffect;
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateState> uiCameraState;
+  }
+
+  public final class CameraDelegateImpl extends com.urlaunched.android.design.ui.textfield.hashtags.Delegate implements com.urlaunched.android.design.ui.camera.delegate.CameraDelegate {
+    ctor public CameraDelegateImpl(kotlinx.coroutines.CoroutineDispatcher ioDispatcher, kotlinx.coroutines.CoroutineDispatcher mainDispatcher, androidx.camera.view.LifecycleCameraController lifecycleCameraController, com.urlaunched.android.design.ui.camera.util.VideoRecordingTempFileProvider videoRecordingTempFileProvider, com.urlaunched.android.design.ui.camera.util.PhotoTempFileProvider photoTempFileProvider, kotlinx.coroutines.CoroutineScope viewModelScope);
+    method public void bindLifecycle(androidx.lifecycle.LifecycleOwner lifecycleOwner);
+    method public void bindPreviewView(androidx.camera.view.PreviewView previewView);
+    method public kotlinx.coroutines.flow.Flow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect> getCameraSideEffect();
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateState> getUiCameraState();
+    method public void onGalleryClick();
+    method public void onMediaPick(java.util.List<? extends android.net.Uri> uris, kotlin.jvm.functions.Function1<? super java.util.List<? extends android.net.Uri>,kotlin.Unit> onHandleUris);
+    method public void onPause();
+    method public void onPhotoCameraClick();
+    method @RequiresPermission(android.Manifest.permission.RECORD_AUDIO) public void onShutterClick(kotlin.jvm.functions.Function1<? super android.net.Uri,kotlin.Unit> onCaptureMedia);
+    method public void onVideoCameraClick();
+    method public void toggleCameraType();
+    method public void toggleFlash();
+    method public void unbindLifecycle();
+    property public kotlinx.coroutines.flow.Flow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect> cameraSideEffect;
+    property public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.camera.delegate.CameraDelegateState> uiCameraState;
+  }
+
+  public abstract static sealed class CameraDelegateImpl.CameraSideEffect {
+  }
+
+  public static final class CameraDelegateImpl.CameraSideEffect.PickGalleryMedia extends com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect {
+    field public static final com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect.PickGalleryMedia INSTANCE;
+  }
+
+  public static final class CameraDelegateImpl.CameraSideEffect.ShowCameraInitErrorSnackbar extends com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect {
+    field public static final com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect.ShowCameraInitErrorSnackbar INSTANCE;
+  }
+
+  public static final class CameraDelegateImpl.CameraSideEffect.ShowSnackbar extends com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect {
+    ctor public CameraDelegateImpl.CameraSideEffect.ShowSnackbar(String message);
+    method public String component1();
+    method public com.urlaunched.android.design.ui.camera.delegate.CameraDelegateImpl.CameraSideEffect.ShowSnackbar copy(String message);
+    method public String getMessage();
+    property public final String message;
+  }
+
+  public final class CameraDelegateState {
+    ctor public CameraDelegateState(com.urlaunched.android.design.ui.camera.delegate.CameraType cameraType, com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState, com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode, boolean isFlashEnabled, boolean shouldRestoreStatusBarColors);
+    method public com.urlaunched.android.design.ui.camera.delegate.CameraType component1();
+    method public com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel component2();
+    method public com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel component3();
+    method public boolean component4();
+    method public boolean component5();
+    method public com.urlaunched.android.design.ui.camera.delegate.CameraDelegateState copy(com.urlaunched.android.design.ui.camera.delegate.CameraType cameraType, com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState, com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode, boolean isFlashEnabled, boolean shouldRestoreStatusBarColors);
+    method public com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel getCameraMode();
+    method public com.urlaunched.android.design.ui.camera.delegate.CameraType getCameraType();
+    method public com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel getRecordingState();
+    method public boolean getShouldRestoreStatusBarColors();
+    method public boolean isFlashEnabled();
+    property public final com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode;
+    property public final com.urlaunched.android.design.ui.camera.delegate.CameraType cameraType;
+    property public final boolean isFlashEnabled;
+    property public final com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState;
+    property public final boolean shouldRestoreStatusBarColors;
+  }
+
+  public enum CameraType {
+    method public final androidx.camera.core.CameraSelector! getSelector();
+    method public static com.urlaunched.android.design.ui.camera.delegate.CameraType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.camera.delegate.CameraType[] values();
+    property public final androidx.camera.core.CameraSelector! selector;
+    enum_constant public static final com.urlaunched.android.design.ui.camera.delegate.CameraType BACK;
+    enum_constant public static final com.urlaunched.android.design.ui.camera.delegate.CameraType FRONT;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.camera.model {
+
+  public enum AppMediaType implements com.urlaunched.android.common.files.MediaType {
+    method public final java.util.List<java.lang.String>! getExtensions();
+    method public java.util.List<java.lang.String>! getExtraMimeTypes();
+    method public String! getMimeType();
+    method public static com.urlaunched.android.design.ui.camera.model.AppMediaType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.camera.model.AppMediaType[] values();
+    property public final java.util.List<java.lang.String>! extensions;
+    property public java.util.List<java.lang.String>! extraMimeTypes;
+    property public String! mimeType;
+    enum_constant public static final com.urlaunched.android.design.ui.camera.model.AppMediaType IMAGE_PREVIEW;
+    enum_constant public static final com.urlaunched.android.design.ui.camera.model.AppMediaType VIDEO;
+  }
+
+  public final class AppMediaTypeKt {
+    method public static com.urlaunched.android.design.ui.camera.model.AppMediaType? getMediaTypeForUri(android.net.Uri, android.content.Context context);
+  }
+
+  public enum CameraModeTypePresentationModel {
+    method public static com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel PHOTO;
+    enum_constant public static final com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel VIDEO;
+  }
+
+  public abstract sealed class RecordingStatePresentationModel {
+  }
+
+  public static final class RecordingStatePresentationModel.Recording extends com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel {
+    ctor public RecordingStatePresentationModel.Recording(long duration, long durationLimit);
+    method public long component1-UwyO8pc();
+    method public long component2-UwyO8pc();
+    method public com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel.Recording copy-QTBD994(long duration, long durationLimit);
+    method public long getDuration();
+    method public long getDurationLimit();
+    method public float getProgress();
+    property public final long duration;
+    property public final long durationLimit;
+    property public final float progress;
+  }
+
+  public static final class RecordingStatePresentationModel.Stopped extends com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel {
+    field public static final com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel.Stopped INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.camera.ui {
+
+  public final class CameraContainerColors {
+    ctor public CameraContainerColors(optional long backgroundColor, optional long surfaceColor, optional androidx.compose.ui.graphics.Brush progressBrush, optional long startRecordButtonColor, optional long recordingButtonColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public androidx.compose.ui.graphics.Brush component3();
+    method public long component4-0d7_KjU();
+    method public long component5-0d7_KjU();
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors copy-w8f9n5g(long backgroundColor, long surfaceColor, androidx.compose.ui.graphics.Brush progressBrush, long startRecordButtonColor, long recordingButtonColor);
+    method public long getBackgroundColor();
+    method public androidx.compose.ui.graphics.Brush getProgressBrush();
+    method public long getRecordingButtonColor();
+    method public long getStartRecordButtonColor();
+    method public long getSurfaceColor();
+    property public final long backgroundColor;
+    property public final androidx.compose.ui.graphics.Brush progressBrush;
+    property public final long recordingButtonColor;
+    property public final long startRecordButtonColor;
+    property public final long surfaceColor;
+  }
+
+  public final class CameraContainerConfig {
+    ctor public CameraContainerConfig(optional com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors, optional float surfaceCornerRadius, optional float surfacePaddingBottom, optional float flashIconSize, optional float flashIconInnerPadding, optional float topButtonsSpacing, optional float controlPaddingHorizontal, optional float controlPaddingBottom);
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors component1();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public float component6-D9Ej5fM();
+    method public float component7-D9Ej5fM();
+    method public float component8-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig copy-a145CXI(com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors, float surfaceCornerRadius, float surfacePaddingBottom, float flashIconSize, float flashIconInnerPadding, float topButtonsSpacing, float controlPaddingHorizontal, float controlPaddingBottom);
+    method public com.urlaunched.android.design.ui.camera.ui.CameraContainerColors getColors();
+    method public float getControlPaddingBottom();
+    method public float getControlPaddingHorizontal();
+    method public float getFlashIconInnerPadding();
+    method public float getFlashIconSize();
+    method public float getSurfaceCornerRadius();
+    method public float getSurfacePaddingBottom();
+    method public float getTopButtonsSpacing();
+    property public final com.urlaunched.android.design.ui.camera.ui.CameraContainerColors colors;
+    property public final float controlPaddingBottom;
+    property public final float controlPaddingHorizontal;
+    property public final float flashIconInnerPadding;
+    property public final float flashIconSize;
+    property public final float surfaceCornerRadius;
+    property public final float surfacePaddingBottom;
+    property public final float topButtonsSpacing;
+  }
+
+  public final class CameraContainerKt {
+    method @androidx.compose.runtime.Composable public static void CameraContainer(optional androidx.compose.ui.Modifier modifier, optional com.urlaunched.android.design.ui.camera.ui.CameraContainerConfig config, com.urlaunched.android.design.ui.camera.model.RecordingStatePresentationModel recordingState, com.urlaunched.android.design.ui.camera.model.CameraModeTypePresentationModel cameraMode, boolean isFlashEnabled, boolean isGalleryEnabled, kotlin.jvm.functions.Function0<kotlin.Unit> onShutterClick, kotlin.jvm.functions.Function1<? super androidx.camera.view.PreviewView,kotlin.Unit> onCameraPreviewViewAvailable, kotlin.jvm.functions.Function0<kotlin.Unit> onVideoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPhotoCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleCameraClick, kotlin.jvm.functions.Function0<kotlin.Unit> onToggleFlashClick, kotlin.jvm.functions.Function0<kotlin.Unit> onGalleryClick, kotlin.jvm.functions.Function0<kotlin.Unit> goBack, kotlin.jvm.functions.Function0<kotlin.Unit> selectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> unselectedCameraOption, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> galleryButton, kotlin.jvm.functions.Function1<? super kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.Unit> cameraToggleButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> closeButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOnButton, optional kotlin.jvm.functions.Function0<kotlin.Unit> flashOffButton, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit> recordMediaButton);
+  }
+
+  public final class CircleButtonKt {
+    method @androidx.compose.runtime.Composable public static void CircleButton(optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional long backgroundColor, optional float iconSize, optional float innerPadding, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> icon);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.camera.util {
+
+  public final class CacheFoldersConstants {
+    field public static final com.urlaunched.android.design.ui.camera.util.CacheFoldersConstants INSTANCE;
+    field public static final String PHOTOS = "photos";
+    field public static final String VIDEO_RECORDINGS = "video_recordings";
+  }
+
+  public final class MediaTypeExtensionsKt {
+    method public static com.urlaunched.android.design.ui.camera.model.AppMediaType? mimeToMediaType(String);
+  }
+
+  public final class PhotoTempFileProvider {
+    ctor public PhotoTempFileProvider(android.content.Context context);
+    method public operator java.io.File invoke();
+    field public static final com.urlaunched.android.design.ui.camera.util.PhotoTempFileProvider.Companion Companion;
+  }
+
+  public static final class PhotoTempFileProvider.Companion {
+  }
+
+  public final class VideoRecordingTempFileProvider {
+    ctor public VideoRecordingTempFileProvider(android.content.Context context);
+    method public operator java.io.File invoke();
+    field public static final com.urlaunched.android.design.ui.camera.util.VideoRecordingTempFileProvider.Companion Companion;
+  }
+
+  public static final class VideoRecordingTempFileProvider.Companion {
   }
 
 }
@@ -456,12 +690,6 @@ package com.urlaunched.android.design.ui.textfield.hashtags {
   public abstract class Delegate implements java.io.Closeable {
     ctor public Delegate(kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
     method public void close();
-    method public final error.NonExistentClass! getDelegateScope();
-    property public final error.NonExistentClass! delegateScope;
-  }
-
-  public final class HashtagsContainerKt {
-    method @androidx.compose.runtime.Composable public static void HashtagsContainer(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier innerFieldModifier, optional androidx.compose.ui.text.input.TextFieldValue value, optional String? label, String? placeHolder, optional String? error, optional boolean enabled, optional boolean readOnly, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig textFieldsSpacerConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.input.TextFieldValue,kotlin.Unit> onValueChange);
   }
 
   public interface HashtagsDelegate {
@@ -483,6 +711,10 @@ package com.urlaunched.android.design.ui.textfield.hashtags {
     method public com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState copy(androidx.compose.ui.text.input.TextFieldValue currentHashtagsText);
     method public androidx.compose.ui.text.input.TextFieldValue getCurrentHashtagsText();
     property public final androidx.compose.ui.text.input.TextFieldValue currentHashtagsText;
+  }
+
+  public final class HashtagsTextFieldKt {
+    method @androidx.compose.runtime.Composable public static void HashtagsTextField(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier innerFieldModifier, optional androidx.compose.ui.text.input.TextFieldValue value, optional String? label, String? placeHolder, optional String? error, optional boolean enabled, optional boolean readOnly, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig textFieldsSpacerConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.input.TextFieldValue,kotlin.Unit> onValueChange);
   }
 
 }

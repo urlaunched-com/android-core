@@ -25,4 +25,7 @@ object Dimens {
     val cornerRadiusBigSpecial = 20.dp
     val cornerRadiusBig = 24.dp
     val cornerRadiusLarge = 32.dp
+
+    val iconSizeNormalSpecial = 20.dp
+    val iconSizeNormal = 16.dp
 }

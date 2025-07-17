@@ -82,6 +82,13 @@ aspectjweaverVersion = "1.9.22.1"
 # bottomSheet
 bottomSheetVersion = "1.33.0"
 
+# cameraxDependencies
+cameraxVersion = "1.4.2"
+
+# guavaDependencies
+guavaVersion = "33.4.0-android"
+guavaAndroidxVersion = "1.2.0"
+
 # plugins
 # dependencies
 androidApplicationPluginVersion = "8.4.2"
@@ -185,6 +192,13 @@ junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
+camerax-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }
+camerax-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
+camerax-video = { module = "androidx.camera:camera-video", version.ref = "cameraxVersion" }
+camerax-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
+
+guava-core = { module = "com.google.guava:guava", version.ref = "guavaVersion" }
+guava-androidExt = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "guavaAndroidxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplicationPluginVersion" }
