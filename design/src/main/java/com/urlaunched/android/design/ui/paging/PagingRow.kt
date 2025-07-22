@@ -54,7 +54,8 @@ fun <T : Any> PagingRow(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingRow(
         modifier = modifier,
@@ -75,6 +76,7 @@ fun <T : Any> PagingRow(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -113,7 +115,8 @@ fun <T : Any> PagingRow(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
 
@@ -136,6 +139,7 @@ fun <T : Any> PagingRow(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -172,7 +176,8 @@ fun <T : Any> PagingRow(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingContainer(
         pagingItems = pagingItems,
@@ -210,6 +215,12 @@ fun <T : Any> PagingRow(
                 }
 
                 else -> {
+                    if (pagingState.isPrependLoading && prependIndicator != null) {
+                        item {
+                            prependIndicator()
+                        }
+                    }
+
                     items(
                         count = pagingState.pagingItems.itemCount,
                         key = itemKey?.let {

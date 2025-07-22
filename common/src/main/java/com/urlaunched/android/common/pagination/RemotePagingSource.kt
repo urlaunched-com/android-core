@@ -8,18 +8,20 @@ import com.urlaunched.android.common.response.ErrorData
 import com.urlaunched.android.common.response.Response
 
 fun <T : Any> remotePagingSource(
+    initialPage: Int? = null,
     refreshKey: (state: PagingState<Int, T>) -> Int? = { null },
     loadItems: suspend (page: Int, pageSize: Int) -> Response<List<T>>
-) = RemotePagingSource(refreshKey = refreshKey, loadItems = loadItems)
+) = RemotePagingSource(refreshKey = refreshKey, loadItems = loadItems, initialPage = initialPage)
 
 class RemotePagingSource<T : Any> internal constructor(
+    private val initialPage: Int? = null,
     private val refreshKey: (state: PagingState<Int, T>) -> Int? = { null },
     private val loadItems: suspend (page: Int, pageSize: Int) -> Response<List<T>>
 ) : PagingSource<Int, T>() {
     override fun getRefreshKey(state: PagingState<Int, T>): Int? = refreshKey(state)
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
-        val page = params.key ?: 1
+        val page = params.key ?: initialPage ?: 1
 
         return handleResponse(
             response = {

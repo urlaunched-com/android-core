@@ -43,6 +43,11 @@ fun <T : Any> PagingContainer(
             pagingItems.loadState.refresh is LoadState.Loading && pagingItems.itemSnapshotList.isEmpty()
         }
     }
+    val isPrependLoading by remember(pagingItems) {
+        derivedStateOf {
+            pagingItems.loadState.prepend is LoadState.Loading
+        }
+    }
     val isAppendLoading by remember(pagingItems) {
         derivedStateOf {
             pagingItems.loadState.append is LoadState.Loading
@@ -76,6 +81,7 @@ fun <T : Any> PagingContainer(
             pagingItems = pagingItems,
             isLoading = isLoading,
             isAppendError = isAppendError,
+            isPrependLoading = isPrependLoading,
             isAppendLoading = isAppendLoading,
             isLoadingError = isLoadingError,
             isNoItems = isNoItems

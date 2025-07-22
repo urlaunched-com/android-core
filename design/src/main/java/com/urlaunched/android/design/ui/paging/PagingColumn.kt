@@ -53,7 +53,8 @@ fun <T : Any> PagingColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingColumn(
         modifier = modifier,
@@ -76,6 +77,7 @@ fun <T : Any> PagingColumn(
         endItems = endItems,
         noItemsPlaceholder = noItemsPlaceholder,
         onLoadingError = onLoadingError,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         item = { _, _, itemModel ->
             item(itemModel)
@@ -111,7 +113,8 @@ fun <T : Any> PagingColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
 
@@ -137,6 +140,7 @@ fun <T : Any> PagingColumn(
         noItemsPlaceholder = noItemsPlaceholder,
         onLoadingError = onLoadingError,
         appendIndicator = appendIndicator,
+        prependIndicator = prependIndicator,
         item = item
     )
 }
@@ -169,7 +173,8 @@ fun <T : Any> PagingColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingContainer(
         pagingItems = pagingItems,
@@ -207,6 +212,12 @@ fun <T : Any> PagingColumn(
                 }
 
                 else -> {
+                    if (pagingState.isPrependLoading && prependIndicator != null) {
+                        item {
+                            prependIndicator()
+                        }
+                    }
+
                     items(
                         count = pagingState.pagingItems.itemCount,
                         key = itemKey?.let {

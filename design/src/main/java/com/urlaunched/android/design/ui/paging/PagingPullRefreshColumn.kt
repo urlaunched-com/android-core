@@ -66,7 +66,8 @@ fun <T : Any> PagingPullRefreshColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingPullRefreshColumn(
         modifier = modifier,
@@ -89,6 +90,7 @@ fun <T : Any> PagingPullRefreshColumn(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -128,7 +130,8 @@ fun <T : Any> PagingPullRefreshColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
 
@@ -153,6 +156,7 @@ fun <T : Any> PagingPullRefreshColumn(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -191,7 +195,8 @@ fun <T : Any> PagingPullRefreshColumn(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingContainer(
         pagingItems = pagingItems,
@@ -247,6 +252,12 @@ fun <T : Any> PagingPullRefreshColumn(
                     }
 
                     else -> {
+                        if (pagingState.isPrependLoading && prependIndicator != null) {
+                            item {
+                                prependIndicator()
+                            }
+                        }
+
                         items(
                             count = pagingState.pagingItems.itemCount,
                             key = itemKey?.let {

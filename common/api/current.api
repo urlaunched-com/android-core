@@ -282,7 +282,7 @@ package com.urlaunched.android.common.pagination {
   }
 
   public final class RemotePagingSourceKt {
-    method public static <T> com.urlaunched.android.common.pagination.RemotePagingSource<T> remotePagingSource(optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
+    method public static <T> com.urlaunched.android.common.pagination.RemotePagingSource<T> remotePagingSource(optional Integer? initialPage, optional kotlin.jvm.functions.Function1<? super androidx.paging.PagingState<java.lang.Integer,T>,java.lang.Integer> refreshKey, kotlin.jvm.functions.Function3<? super java.lang.Integer,? super java.lang.Integer,? super kotlin.coroutines.Continuation<? super com.urlaunched.android.common.response.Response<java.util.List<? extends T>>>,?> loadItems);
   }
 
 }
