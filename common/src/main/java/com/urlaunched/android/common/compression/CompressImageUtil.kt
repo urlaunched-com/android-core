@@ -63,40 +63,42 @@ object CompressImageUtil {
         var targetHeight = rotatedBitmap.height
 
         var resizedBitmap = rotatedBitmap.scale(targetWidth, targetHeight)
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        var fileSize: Long
 
-        do {
-            byteArrayOutputStream.reset()
-            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        return ByteArrayOutputStream().use { byteArrayOutputStream ->
+            var fileSize: Long
 
-            val byteArray = byteArrayOutputStream.toByteArray()
-            fileSize = byteArray.size.toLong()
+            do {
+                byteArrayOutputStream.reset()
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+
+                val byteArray = byteArrayOutputStream.toByteArray()
+                fileSize = byteArray.size.toLong()
+
+                if (fileSize > targetSize) {
+                    targetWidth = (targetWidth * 0.9).toInt()
+                    targetHeight = (targetHeight * 0.9).toInt()
+
+                    if (targetWidth * targetHeight < minWidth * minHeight) {
+                        break
+                    }
+
+                    resizedBitmap = rotatedBitmap.scale(targetWidth, targetHeight)
+                }
+            } while (fileSize > targetSize)
 
             if (fileSize > targetSize) {
-                targetWidth = (targetWidth * 0.9).toInt()
-                targetHeight = (targetHeight * 0.9).toInt()
-
-                if (targetWidth * targetHeight < minWidth * minHeight) {
-                    break
-                }
-
-                resizedBitmap = rotatedBitmap.scale(targetWidth, targetHeight)
+                resizedBitmap.recycle()
+                return null
             }
-        } while (fileSize > targetSize)
 
-        if (fileSize > targetSize) {
+            FileOutputStream(compressedFile).use { fos ->
+                fos.write(byteArrayOutputStream.toByteArray())
+            }
+
             resizedBitmap.recycle()
-            return null
+
+            compressedFile
         }
-
-        FileOutputStream(compressedFile).use { fos ->
-            fos.write(byteArrayOutputStream.toByteArray())
-        }
-
-        resizedBitmap.recycle()
-
-        return compressedFile
     }
 
     private fun rotateBitmapIfNeeded(bitmap: Bitmap, orientation: Int): Bitmap {
