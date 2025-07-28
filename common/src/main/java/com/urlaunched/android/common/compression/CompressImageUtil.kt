@@ -12,7 +12,7 @@ import okio.use
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.time.Instant
+import java.util.UUID
 
 object CompressImageUtil {
     private const val DEFAULT_TARGET_SIZE_BYTES: Long = 5 * 1000 * 1000
@@ -47,7 +47,7 @@ object CompressImageUtil {
             outDir.mkdirs()
         }
 
-        val compressedFile = File(outDir, "compressed_${Instant.now().toEpochMilli()}.jpg")
+        val compressedFile = File(outDir, "compressed_${UUID.randomUUID()}.jpg")
         val originalBitmap = context.contentResolver.openInputStream(input).use { inputStream ->
             BitmapFactory.decodeStream(inputStream)
         }
