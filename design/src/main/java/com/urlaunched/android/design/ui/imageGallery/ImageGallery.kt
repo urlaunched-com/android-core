@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -171,14 +172,22 @@ private fun GalleryPage(
     doubleTapZoomFactor: Float = IMAGE_DOUBLE_TAP_ZOOM_FACTOR,
     contentScale: ContentScale = ContentScale.Fit
 ) {
-    ZoomableAsyncImage(
-        modifier = Modifier.fillMaxSize(),
-        model = image,
-        state = rememberZoomableImageState(zoomableState),
-        onDoubleClick = DoubleClickToZoomListener.cycle(doubleTapZoomFactor),
-        contentDescription = null,
-        contentScale = contentScale
-    )
+    if (LocalInspectionMode.current) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF4CAF50))
+        )
+    } else {
+        ZoomableAsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = image,
+            state = rememberZoomableImageState(zoomableState),
+            onDoubleClick = DoubleClickToZoomListener.cycle(doubleTapZoomFactor),
+            contentDescription = null,
+            contentScale = contentScale
+        )
+    }
 }
 
 @Preview(showBackground = true)
