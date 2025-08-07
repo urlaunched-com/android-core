@@ -23,6 +23,9 @@ composeRuntimeVersion = "1.7.3"
 # composeCoil
 coilVersion = "3.1.0"
 
+# telephoto
+telephotoVersion = "0.16.0"
+
 # pagingDependencies
 pagingVersion = "3.3.2"
 pagingComposeVersion = "3.3.2"
@@ -128,6 +131,7 @@ composeDependencies-runtime = { module = "androidx.compose.runtime:runtime", ver
 composeCoil-core = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilVersion" }
 composeCoil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coilVersion" }
 composeCoil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilVersion" }
+telephoto-core = { module = "me.saket.telephoto:zoomable-image-coil3", version.ref = "telephotoVersion" }
 
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlintCoreVersion" }
 ktlint-ruleset = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlintVersion" }

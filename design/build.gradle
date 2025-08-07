@@ -86,6 +86,9 @@ dependencies {
     implementation libs.composeCoil.core
     implementation libs.composeCoil.network.okhttp
 
+    // Telephoto
+    implementation libs.telephoto.core
+
     // Local modules
     implementation project(":cdn:models:presentation")
 

@@ -1,12 +1,9 @@
 package com.urlaunched.android.design.ui.imageGallery
 
 import android.util.Log
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,34 +23,29 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.input.pointer.positionChanged
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.ui.image.UrlImage
-import com.urlaunched.android.design.ui.imageGallery.utils.detectCustomTransformGestures
-import com.urlaunched.android.design.ui.imageGallery.utils.handleDoubleTap
-import com.urlaunched.android.design.ui.imageGallery.utils.handleTransformGesture
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import me.saket.telephoto.zoomable.DoubleClickToZoomListener
+import me.saket.telephoto.zoomable.ZoomSpec
+import me.saket.telephoto.zoomable.ZoomableState
+import me.saket.telephoto.zoomable.coil3.ZoomableAsyncImage
+import me.saket.telephoto.zoomable.rememberZoomableImageState
+import me.saket.telephoto.zoomable.rememberZoomableState
+
+private const val IMAGE_DOUBLE_TAP_ZOOM_FACTOR = 4f
+private const val IMAGE_ZOOM_FACTOR = 20f
+private val DEFAULT_THUMBNAIL_ROW_HEIGHT: Dp = 80.dp
 
 data class ImageGalleryStyle(
     val imageToThumbnailSpacing: Dp = ImageGalleryDimens.spacingExtraLarge,
@@ -65,9 +57,13 @@ fun ImageGallery(
     modifier: Modifier = Modifier,
     images: List<Any>,
     style: ImageGalleryStyle = ImageGalleryStyle(),
-    onLoadMore: () -> Unit,
     onPageChange: (pageIndex: Int) -> Unit = {},
-    thumbnailItem: @Composable (index: Int, image: Any, isSelected: Boolean, onClick: () -> Unit) -> Unit
+    onLastIndex: (() -> Unit)? = null,
+    zoomFactor: Float = IMAGE_ZOOM_FACTOR,
+    doubleTapZoomFactor: Float = IMAGE_DOUBLE_TAP_ZOOM_FACTOR,
+    contentScale: ContentScale = ContentScale.Fit,
+    thumbnailItem: @Composable ((index: Int, image: Any, isSelected: Boolean, onClick: () -> Unit) -> Unit)? = null,
+    thumbnailRowHeight: Dp = DEFAULT_THUMBNAIL_ROW_HEIGHT
 ) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
@@ -76,81 +72,73 @@ fun ImageGallery(
     )
     val listState = rememberLazyListState()
 
-    val scaleStates = remember(images) { List(images.size) { Animatable(1f) } }
-    val offsetStates = remember(images) { List(images.size) { mutableStateOf(Offset.Zero) } }
-
     LaunchedEffect(pagerState.currentPage) {
         listState.animateScrollToItem(pagerState.currentPage)
     }
 
-    val nestedScrollConnection = remember {
-        object : NestedScrollConnection {
-            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset =
-                if (scaleStates[pagerState.currentPage].value > 1f) available else Offset.Zero
-        }
-    }
+    val nestedScrollConnection = rememberNestedScrollInteropConnection()
 
     Column(modifier = modifier) {
         GalleryHorizontalPager(
-            pagerState,
-            nestedScrollConnection,
-            scaleStates,
-            offsetStates,
-            coroutineScope,
-            images
+            pagerState = pagerState,
+            images = images,
+            nestedScrollConnection = nestedScrollConnection,
+            zoomFactor = zoomFactor,
+            doubleTapZoomFactor = doubleTapZoomFactor,
+            contentScale = contentScale
         )
 
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(style.imageToThumbnailSpacing)
-        )
+        thumbnailItem?.let {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(style.imageToThumbnailSpacing)
+            )
 
-        LazyRow(
-            state = listState,
-            horizontalArrangement = Arrangement.spacedBy(style.thumbnailItemsSpacing),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(80.dp)
-        ) {
-            itemsIndexed(images) { index, image ->
-                if (index == images.lastIndex) {
-                    LaunchedEffect(Unit) {
-                        onLoadMore()
-                    }
-                }
-
-                thumbnailItem(
-                    index,
-                    image,
-                    index == pagerState.currentPage,
-                    {
-                        coroutineScope.launch {
-                            scaleStates[index].snapTo(1f)
-                            offsetStates[index].value = Offset.Zero
-                            pagerState.animateScrollToPage(index)
+            LazyRow(
+                state = listState,
+                horizontalArrangement = Arrangement.spacedBy(style.thumbnailItemsSpacing),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(thumbnailRowHeight)
+            ) {
+                itemsIndexed(images) { index, image ->
+                    onLastIndex?.let {
+                        if (index == images.lastIndex) {
+                            LaunchedEffect(Unit) {
+                                onLastIndex()
+                            }
                         }
                     }
-                )
+
+                    thumbnailItem(
+                        index,
+                        image,
+                        index == pagerState.currentPage,
+                        {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
+                        }
+                    )
+                }
             }
         }
     }
 
     LaunchedEffect(pagerState.currentPage) {
-        scaleStates[pagerState.currentPage].snapTo(1f)
-        offsetStates[pagerState.currentPage].value = Offset.Zero
         onPageChange(pagerState.currentPage)
     }
 }
 
 @Composable
 fun ColumnScope.GalleryHorizontalPager(
+    images: List<Any>,
     pagerState: PagerState,
     nestedScrollConnection: NestedScrollConnection,
-    scaleStates: List<Animatable<Float, AnimationVector1D>>,
-    offsetStates: List<MutableState<Offset>>,
-    coroutineScope: CoroutineScope,
-    images: List<Any>
+    zoomFactor: Float = IMAGE_ZOOM_FACTOR,
+    doubleTapZoomFactor: Float = IMAGE_DOUBLE_TAP_ZOOM_FACTOR,
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     HorizontalPager(
         state = pagerState,
@@ -159,101 +147,38 @@ fun ColumnScope.GalleryHorizontalPager(
             .fillMaxWidth()
             .nestedScroll(nestedScrollConnection)
     ) { page ->
+        val zoomableState = rememberZoomableState(
+            zoomSpec = ZoomSpec(zoomFactor)
+        )
+
+        LaunchedEffect(pagerState.currentPage) {
+            zoomableState.resetZoom()
+        }
+
         GalleryPage(
-            page = page,
-            scale = scaleStates[page],
-            offset = offsetStates[page],
-            coroutineScope = coroutineScope,
-            image = images[page]
+            image = images[page],
+            zoomableState = zoomableState,
+            doubleTapZoomFactor = doubleTapZoomFactor,
+            contentScale = contentScale
         )
     }
 }
 
 @Composable
 private fun GalleryPage(
-    page: Int,
-    scale: Animatable<Float, AnimationVector1D>,
-    offset: MutableState<Offset>,
-    coroutineScope: CoroutineScope,
-    image: Any
+    image: Any,
+    zoomableState: ZoomableState,
+    doubleTapZoomFactor: Float = IMAGE_DOUBLE_TAP_ZOOM_FACTOR,
+    contentScale: ContentScale = ContentScale.Fit
 ) {
-    val containerSize = remember { mutableStateOf(IntSize.Zero) }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .clipToBounds()
-            .onSizeChanged { containerSize.value = it }
-            .pointerInput(page) {
-                detectCustomTransformGestures(
-                    consume = scale.value > 1f,
-                    onGesture = { _, pan, zoom, _, _, changes ->
-                        handleTransformGesture(
-                            scale = scale,
-                            offset = offset,
-                            containerSize = containerSize.value,
-                            pan = pan,
-                            zoom = zoom,
-                            coroutineScope = coroutineScope
-                        )
-
-                        if (changes.size > 1) {
-                            changes.forEach {
-                                if (it.positionChanged()) it.consume()
-                            }
-                        }
-                    }
-                )
-            }
-            .pointerInput(page) {
-                detectTapGestures(
-                    onDoubleTap = { tapOffset ->
-                        handleDoubleTap(
-                            scale = scale,
-                            offset = offset,
-                            containerSize = containerSize.value,
-                            tapOffset = tapOffset,
-                            coroutineScope = coroutineScope
-                        )
-                    }
-                )
-            }
-    ) {
-        ZoomableImage(
-            scale = scale,
-            offset = offset,
-            image = image
-        )
-    }
-}
-
-@Composable
-private fun ZoomableImage(scale: Animatable<Float, AnimationVector1D>, offset: MutableState<Offset>, image: Any) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        UrlImage(
-            model = image,
-            scale = ContentScale.FillWidth,
-            modifier = Modifier
-                .graphicsLayer(
-                    scaleX = scale.value,
-                    scaleY = scale.value,
-                    translationX = offset.value.x,
-                    translationY = offset.value.y
-                )
-                .fillMaxWidth(),
-            placeholder = {
-                Box(
-                    Modifier
-                        .fillMaxSize()
-                        .background(Color.Transparent)
-                )
-            }
-        )
-    }
+    ZoomableAsyncImage(
+        modifier = Modifier.fillMaxSize(),
+        model = image,
+        state = rememberZoomableImageState(zoomableState),
+        onDoubleClick = DoubleClickToZoomListener.cycle(doubleTapZoomFactor),
+        contentDescription = null,
+        contentScale = contentScale
+    )
 }
 
 @Preview(showBackground = true)
@@ -274,7 +199,7 @@ fun ImageGalleryCustomThumbnailPreview() {
             .padding(bottom = 40.dp)
             .fillMaxSize(),
         images = sampleImages,
-        onLoadMore = {},
+        onLastIndex = {},
         onPageChange = { Log.d("IMAGE_CHANGED", it.toString()) },
         style = ImageGalleryStyle(
             imageToThumbnailSpacing = 50.dp
