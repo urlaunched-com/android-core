@@ -35,7 +35,6 @@ class ComposableAccessModifiersRule :
             when {
                 function.isPreview -> {
                     if (!function.isPrivate) {
-
                         emit(
                             node.startOffset,
                             createMessage(

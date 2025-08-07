@@ -1,7 +1,6 @@
 package com.urlaunched.android.common.files
 
 import android.content.Context
-import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -109,7 +108,7 @@ object FileHelper {
         val outputStream = FileOutputStream(destinationFile)
 
         try {
-            val buffer = ByteArray( 10 * 1024 * 1000)
+            val buffer = ByteArray(10 * 1024 * 1000)
             var length: Int
             while (inputStream.read(buffer).also { length = it } > 0) {
                 outputStream.write(buffer, 0, length)

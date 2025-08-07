@@ -2,7 +2,6 @@ package com.urlaunched.android.design.ui.exposedDropdown
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -113,7 +112,8 @@ private fun PagingDropdownMenuPreview() {
         itemKey = {},
         placeholderItem = {},
         textField = {
-            TextField(value = "",
+            TextField(
+                value = "",
                 onValueChange = {}
             )
         }
