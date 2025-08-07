@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import com.composables.core.ModalBottomSheet
 import com.composables.core.Scrim
@@ -45,7 +46,7 @@ fun BaseBottomSheet(
     val density = LocalDensity.current
 
     val sheetState = rememberModalBottomSheetState(
-        initialDetent = SheetDetent.Hidden,
+        initialDetent = if (LocalInspectionMode.current) SheetDetent.FullyExpanded else SheetDetent.Hidden,
         detents = if (skipPartiallyExpanded) {
             listOf(SheetDetent.Hidden, SheetDetent.FullyExpanded)
         } else {
