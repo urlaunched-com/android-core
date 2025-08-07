@@ -46,7 +46,7 @@ fun BaseBottomSheet(
     val density = LocalDensity.current
 
     val sheetState = rememberModalBottomSheetState(
-        initialDetent = if (LocalInspectionMode.current) SheetDetent.FullyExpanded else SheetDetent.Hidden,
+        initialDetent = if (LocalInspectionMode.current && isShow) SheetDetent.FullyExpanded else SheetDetent.Hidden,
         detents = if (skipPartiallyExpanded) {
             listOf(SheetDetent.Hidden, SheetDetent.FullyExpanded)
         } else {

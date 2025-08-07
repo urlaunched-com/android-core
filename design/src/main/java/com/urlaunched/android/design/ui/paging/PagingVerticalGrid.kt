@@ -56,7 +56,8 @@ fun <T : Any> PagingVerticalGrid(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingVerticalGrid(
         modifier = modifier,
@@ -79,6 +80,7 @@ fun <T : Any> PagingVerticalGrid(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -118,7 +120,8 @@ fun <T : Any> PagingVerticalGrid(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
     val pagingItems = pagingDataFlow.collectAsLazyPagingItems()
 
@@ -143,6 +146,7 @@ fun <T : Any> PagingVerticalGrid(
         placeholderItem = placeholderItem,
         startItems = startItems,
         noItemsPlaceholder = noItemsPlaceholder,
+        prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
         onLoadingError = onLoadingError,
@@ -180,7 +184,8 @@ fun <T : Any> PagingVerticalGrid(
             color = defaultIndicatorColor,
             trackColor = defaultIndicatorTrackColor
         )
-    }
+    },
+    prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
     PagingContainer(
         pagingItems = pagingItems,
@@ -219,6 +224,12 @@ fun <T : Any> PagingVerticalGrid(
                 }
 
                 else -> {
+                    if (pagingState.isPrependLoading && prependIndicator != null) {
+                        item(span = { GridItemSpan(maxLineSpan) }) {
+                            prependIndicator()
+                        }
+                    }
+
                     items(
                         count = pagingState.pagingItems.itemCount,
                         key = itemKey?.let {
