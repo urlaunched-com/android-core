@@ -242,8 +242,14 @@ fun TextField(
                                     bottom = innerPadding.calculateBottomPadding()
                                 )
                                 .weight(1f)
-                                .wrapContentHeight()
+                                .wrapContentHeight(),
+                            contentAlignment = Alignment.CenterStart
                         ) {
+                            // Need to prevent text field height from bouncing,
+                            // it should occupy the required height before the first symbol is entered.
+                            // https://issuetracker.google.com/issues/236615813
+                            Text("", style = inputTextConfig.textStyle)
+
                             innerTextField()
 
                             if (value.isEmpty()) {
