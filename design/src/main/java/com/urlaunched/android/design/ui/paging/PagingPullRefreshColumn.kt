@@ -57,6 +57,7 @@ fun <T : Any> PagingPullRefreshColumn(
     item: @Composable LazyItemScope.(item: T) -> Unit,
     itemKey: ((item: T) -> Any)? = null,
     itemContentType: ((item: T) -> Any)? = null,
+    onRefresh: (() -> Unit)? = null,
     onLoadingError: @Composable LazyItemScope.(pagingState: PagingState<T>) -> Unit = {},
     startItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     endItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
@@ -93,6 +94,7 @@ fun <T : Any> PagingPullRefreshColumn(
         prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
+        onRefresh = onRefresh,
         onLoadingError = onLoadingError,
         item = { _, _, itemModel ->
             item(itemModel)
@@ -124,6 +126,7 @@ fun <T : Any> PagingPullRefreshColumn(
     endItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     startItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
+    onRefresh: (() -> Unit)? = null,
     onLoadingError: @Composable LazyItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyItemScope.() -> Unit)? = {
         CircularProgressIndicator(
@@ -159,6 +162,7 @@ fun <T : Any> PagingPullRefreshColumn(
         prependIndicator = prependIndicator,
         appendIndicator = appendIndicator,
         endItems = endItems,
+        onRefresh = onRefresh,
         onLoadingError = onLoadingError,
         item = item
     )
@@ -189,6 +193,7 @@ fun <T : Any> PagingPullRefreshColumn(
     endItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     startItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
+    onRefresh: (() -> Unit)? = null,
     onLoadingError: @Composable LazyItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyItemScope.() -> Unit)? = {
         CircularProgressIndicator(
@@ -208,6 +213,7 @@ fun <T : Any> PagingPullRefreshColumn(
             onRefresh = {
                 isUserInitiatedRefresh = true
                 pagingState.pagingItems.refresh()
+                onRefresh?.invoke()
             },
             refreshing = isUserInitiatedRefresh
         )
