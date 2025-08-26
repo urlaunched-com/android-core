@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -241,8 +240,7 @@ fun TextField(
                                     top = innerPadding.calculateTopPadding(),
                                     bottom = innerPadding.calculateBottomPadding()
                                 )
-                                .weight(1f)
-                                .wrapContentHeight(),
+                                .weight(1f),
                             contentAlignment = Alignment.CenterStart
                         ) {
                             // Need to prevent text field height from bouncing,
@@ -257,6 +255,7 @@ fun TextField(
                                     text = placeHolder ?: label.orEmpty(),
                                     style = inputPlaceholderTextConfig.textStyle,
                                     color = inputPlaceholderTextConfig.color,
+                                    minLines = minLines,
                                     maxLines = maxLines,
                                     overflow = TextOverflow.Ellipsis
                                 )

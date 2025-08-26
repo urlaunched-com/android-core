@@ -488,21 +488,21 @@ package com.urlaunched.android.common.socket.socketmanager {
     property public abstract T data;
   }
 
-  public final class SocketManager<T, I> {
-    ctor public SocketManager(kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> pagingDataFlow, kotlin.jvm.functions.Function1<? super T,? extends I> mapper, kotlin.jvm.functions.Function1<? super I,java.lang.Long> itemId, kotlin.jvm.functions.Function1<? super I,java.time.Instant> itemCreatedAt, kotlinx.coroutines.CoroutineScope scope, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+  public final class SocketManager<I, T> {
+    ctor public SocketManager(kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<I>> pagingDataFlow, kotlin.jvm.functions.Function1<? super I,? extends T> mapper, kotlin.jvm.functions.Function1<? super T,java.lang.Long> itemId, kotlin.jvm.functions.Function1<? super T,java.time.Instant> itemCreatedAt, kotlinx.coroutines.CoroutineScope scope, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
     method public void cancel();
     method public void cancelDelete(long id);
-    method public void delete(long id, I data);
-    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<I>> getFlow();
-    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> getFlow(kotlin.jvm.functions.Function2<? super com.urlaunched.android.common.socket.socketmanager.SocketManager<T,I>,? super androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType.Data<I>>,androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> separators, kotlin.jvm.functions.Function1<? super I,java.time.Instant> createdAt);
-    method public void handleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<I> data);
+    method public void delete(long id, T data);
+    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> getFlow();
+    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> getFlow(kotlin.jvm.functions.Function2<? super com.urlaunched.android.common.socket.socketmanager.SocketManager<I,T>,? super androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>>,androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> separators, kotlin.jvm.functions.Function1<? super T,java.time.Instant> createdAt);
+    method public void handleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> data);
     method public <T> androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType> insertDateSeparators(androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>>, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,java.time.Instant> createdAt);
     method public <T> androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType> insertTimeSeparators(androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,java.lang.Boolean> isAuthor, optional java.time.Duration? maxDurationBetweenData);
-    method public void mapHandleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> data);
-    method public void mapUpdate(long id, T data);
+    method public void mapHandleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<I> data);
+    method public void mapUpdate(long id, I data);
     method public void refresh();
     method public <S> void subscribeUpdatesFromRemote(kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<S>> flow, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.ActionCableSocketEventMessage<S>,kotlin.Unit> onEvent);
-    method public void update(long id, I data);
+    method public void update(long id, T data);
   }
 
 }
