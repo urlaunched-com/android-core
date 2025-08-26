@@ -240,7 +240,8 @@ fun TextField(
                                     top = innerPadding.calculateTopPadding(),
                                     bottom = innerPadding.calculateBottomPadding()
                                 )
-                                .weight(1f)
+                                .weight(1f),
+                            contentAlignment = Alignment.CenterStart
                         ) {
                             // Need to prevent text field height from bouncing,
                             // it should occupy the required height before the first symbol is entered.
@@ -254,6 +255,7 @@ fun TextField(
                                     text = placeHolder ?: label.orEmpty(),
                                     style = inputPlaceholderTextConfig.textStyle,
                                     color = inputPlaceholderTextConfig.color,
+                                    minLines = minLines,
                                     maxLines = maxLines,
                                     overflow = TextOverflow.Ellipsis
                                 )
