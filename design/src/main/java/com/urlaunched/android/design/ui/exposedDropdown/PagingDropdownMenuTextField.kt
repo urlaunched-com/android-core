@@ -11,7 +11,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,6 +28,7 @@ import androidx.paging.PagingData
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.exposedDropdown.constants.DropdownMenuDimens
 import com.urlaunched.android.design.ui.paging.PagingColumn
+import com.urlaunched.android.design.ui.paging.PagingContainer
 import com.urlaunched.android.design.ui.scrollbar.LazyColumnScrollbar
 import com.urlaunched.android.design.ui.scrollbar.ScrollbarSettings
 import kotlinx.coroutines.flow.Flow
@@ -53,6 +56,7 @@ fun <T : Any> PagingDropdownMenuTextField(
     verticalDropDownMargin: Dp = DropdownMenuDimens.dropdownMenuVerticalMargin,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable (LazyItemScope.(index: Int) -> Unit),
+    noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
     itemKey: ((item: T) -> Any)?,
     placeholderItemNum: Int = 10,
     popupProperties: PopupProperties = PopupProperties(
@@ -61,39 +65,55 @@ fun <T : Any> PagingDropdownMenuTextField(
     textField: (@Composable (modifier: Modifier) -> Unit),
     item: @Composable (LazyItemScope.(index: Int, itemCount: Int, item: T) -> Unit)
 ) {
-    CustomDropdownMenuTextField(
-        modifier = modifier,
-        menuModifier = menuModifier,
-        expanded = expanded,
-        onExpandedChange = onExpandedChange,
-        onDismiss = onDismiss,
-        menuShape = menuShape,
-        maxMenuHeight = maxMenuHeight,
-        menuBackground = menuBackground,
-        menuBorder = menuBorder,
-        popUpProperties = popupProperties,
-        verticalDropDownMargin = verticalDropDownMargin,
-        textField = { textFieldModifier ->
-            textField(textFieldModifier)
+    PagingContainer(pagingDataFlow = pagingDataFlow, showSnackbar = showSnackbar) { pagingState ->
+        var shimmersCount by remember { mutableIntStateOf(placeholderItemNum) }
+
+        LaunchedEffect(pagingState.pagingItems.itemCount) {
+            if (pagingState.pagingItems.itemCount > 0) {
+                shimmersCount = pagingState.pagingItems.itemCount.coerceIn(
+                    minimumValue = 1,
+                    maximumValue = placeholderItemNum
+                )
+            } else if (pagingState.isLoading.not() && pagingState.isAppendLoading.not()) {
+                shimmersCount = 1
+            }
         }
-    ) {
-        LazyColumnScrollbar(
-            modifier = Modifier.heightIn(max = maxHeight),
-            state = lazyListState,
-            settings = settings
+
+        CustomDropdownMenuTextField(
+            modifier = modifier,
+            menuModifier = menuModifier,
+            expanded = expanded,
+            onExpandedChange = onExpandedChange,
+            onDismiss = onDismiss,
+            menuShape = menuShape,
+            maxMenuHeight = maxMenuHeight,
+            menuBackground = menuBackground,
+            menuBorder = menuBorder,
+            popUpProperties = popupProperties,
+            verticalDropDownMargin = verticalDropDownMargin,
+            textField = { textFieldModifier ->
+                textField(textFieldModifier)
+            }
         ) {
-            PagingColumn(
+            LazyColumnScrollbar(
                 modifier = Modifier.heightIn(max = maxHeight),
                 state = lazyListState,
-                pagingDataFlow = pagingDataFlow,
-                showSnackbar = showSnackbar,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                placeholderItem = placeholderItem,
-                placeholderItemsNum = placeholderItemNum,
-                contentPadding = contentPadding,
-                itemKey = itemKey,
-                item = item
-            )
+                settings = settings
+            ) {
+                PagingColumn(
+                    modifier = Modifier.heightIn(max = maxHeight),
+                    state = lazyListState,
+                    pagingDataFlow = pagingDataFlow,
+                    showSnackbar = showSnackbar,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    placeholderItem = placeholderItem,
+                    placeholderItemsNum = shimmersCount,
+                    contentPadding = contentPadding,
+                    itemKey = itemKey,
+                    item = item,
+                    noItemsPlaceholder = noItemsPlaceholder
+                )
+            }
         }
     }
 }
