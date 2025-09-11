@@ -205,15 +205,15 @@ fun <T : Any> PagingVerticalGrid(
             startItems?.invoke(this, pagingState)
 
             when {
-                pagingState.isLoading -> {
-                    items(placeholderItemsNum) { index ->
-                        placeholderItem(index)
-                    }
-                }
-
                 pagingState.isNoItems -> {
                     item(span = { GridItemSpan(maxLineSpan) }) {
                         noItemsPlaceholder()
+                    }
+                }
+
+                pagingState.isLoading -> {
+                    items(placeholderItemsNum) { index ->
+                        placeholderItem(index)
                     }
                 }
 

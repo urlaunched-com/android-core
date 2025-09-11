@@ -239,15 +239,15 @@ fun <T : Any> PagingPullRefreshColumn(
                 startItems?.invoke(this, pagingState)
 
                 when {
-                    pagingState.isLoading -> {
-                        items(placeholderItemsNum) { index ->
-                            placeholderItem(index)
-                        }
-                    }
-
                     pagingState.isNoItems -> {
                         item {
                             noItemsPlaceholder()
+                        }
+                    }
+
+                    pagingState.isLoading -> {
+                        items(placeholderItemsNum) { index ->
+                            placeholderItem(index)
                         }
                     }
 

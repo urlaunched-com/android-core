@@ -4,7 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -58,9 +61,21 @@ fun <T : Any> PagingContainer(
             pagingItems.loadState.append is LoadState.Error
         }
     }
-    val isNoItems by remember(pagingItems) {
+
+    val actualNoItems by remember(pagingItems) {
         derivedStateOf {
             pagingItems.loadState.refresh is LoadState.NotLoading && pagingItems.loadState.append.endOfPaginationReached && pagingItems.itemSnapshotList.isEmpty()
+        }
+    }
+
+    val loadState = pagingItems.loadState
+    var isNoItems by remember { mutableStateOf(actualNoItems) }
+
+    LaunchedEffect(loadState.refresh) {
+        if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && pagingItems.itemSnapshotList.isEmpty()) {
+            isNoItems = true
+        } else if (pagingItems.itemSnapshotList.isNotEmpty()) {
+            isNoItems = false
         }
     }
 
@@ -84,7 +99,7 @@ fun <T : Any> PagingContainer(
             isPrependLoading = isPrependLoading,
             isAppendLoading = isAppendLoading,
             isLoadingError = isLoadingError,
-            isNoItems = isNoItems
+            isNoItems = if (LocalInspectionMode.current) actualNoItems else isNoItems
         )
     )
 }
