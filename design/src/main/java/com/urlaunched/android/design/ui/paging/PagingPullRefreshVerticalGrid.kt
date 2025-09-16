@@ -233,7 +233,9 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
 
         Box(modifier = modifier) {
             LazyVerticalGrid(
-                modifier = Modifier.pullRefresh(state = pullRefreshState),
+                modifier = Modifier
+                    .matchParentSize()
+                    .pullRefresh(state = pullRefreshState),
                 columns = columns,
                 contentPadding = contentPadding,
                 state = if (pagingState.isLoading) rememberLazyGridState() else state,

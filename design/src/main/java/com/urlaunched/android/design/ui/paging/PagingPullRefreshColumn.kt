@@ -227,7 +227,9 @@ fun <T : Any> PagingPullRefreshColumn(
 
         Box(modifier = modifier) {
             LazyColumn(
-                modifier = Modifier.pullRefresh(state = pullRefreshState),
+                modifier = Modifier
+                    .matchParentSize()
+                    .pullRefresh(state = pullRefreshState),
                 contentPadding = contentPadding,
                 state = if (pagingState.isLoading) rememberLazyListState() else state,
                 reverseLayout = reverseLayout,
