@@ -3,7 +3,9 @@ package com.urlaunched.android.design.ui.paging
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
@@ -37,7 +39,7 @@ fun <T : Any> PagingColumn(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyItemScope.(index: Int) -> Unit,
@@ -49,10 +51,15 @@ fun <T : Any> PagingColumn(
     endItems: (LazyListScope.(pagingState: PagingState<T>) -> Unit)? = null,
     noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
     appendIndicator: (@Composable LazyItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorColor,
-            trackColor = defaultIndicatorTrackColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
@@ -97,7 +104,7 @@ fun <T : Any> PagingColumn(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyItemScope.(index: Int) -> Unit,
@@ -109,10 +116,15 @@ fun <T : Any> PagingColumn(
     noItemsPlaceholder: @Composable LazyItemScope.() -> Unit = {},
     onLoadingError: @Composable LazyItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorColor,
-            trackColor = defaultIndicatorTrackColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyItemScope.() -> Unit)? = appendIndicator
 ) {
