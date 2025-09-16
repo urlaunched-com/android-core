@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemScope
@@ -121,7 +122,7 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
     refreshIndicatorBackgroundColor: Color = Color.White,
     refreshIndicatorContentColor: Color = Color.Black,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyGridItemScope.(index: Int) -> Unit,
@@ -134,10 +135,15 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
     noItemsPlaceholder: @Composable LazyGridItemScope.() -> Unit = {},
     onLoadingError: @Composable LazyGridItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyGridItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorTrackColor,
-            trackColor = defaultIndicatorColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
@@ -190,7 +196,7 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
     refreshIndicatorBackgroundColor: Color = Color.White,
     refreshIndicatorContentColor: Color = Color.Black,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyGridItemScope.(index: Int) -> Unit,
@@ -203,10 +209,15 @@ fun <T : Any> PagingPullRefreshVerticalGrid(
     noItemsPlaceholder: @Composable LazyGridItemScope.() -> Unit = {},
     onLoadingError: @Composable LazyGridItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyGridItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorTrackColor,
-            trackColor = defaultIndicatorColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {

@@ -3,7 +3,9 @@ package com.urlaunched.android.design.ui.paging
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemScope
@@ -15,6 +17,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.paging.PagingData
@@ -103,7 +106,7 @@ fun <T : Any> PagingHorizontalGrid(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyGridItemScope.(index: Int) -> Unit,
@@ -116,10 +119,15 @@ fun <T : Any> PagingHorizontalGrid(
     noItemsPlaceholder: @Composable LazyGridItemScope.() -> Unit = {},
     onLoadingError: @Composable LazyGridItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyGridItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorColor,
-            trackColor = defaultIndicatorTrackColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
@@ -167,7 +175,7 @@ fun <T : Any> PagingHorizontalGrid(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     placeholderItemsNum: Int = DEFAULT_PLACEHOLDER_ITEMS_NUM,
-    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularTrackColor,
+    defaultIndicatorTrackColor: Color = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
     defaultIndicatorColor: Color = ProgressIndicatorDefaults.circularColor,
     showSnackbar: suspend (message: String) -> Unit,
     placeholderItem: @Composable LazyGridItemScope.(index: Int) -> Unit,
@@ -180,10 +188,15 @@ fun <T : Any> PagingHorizontalGrid(
     noItemsPlaceholder: @Composable LazyGridItemScope.() -> Unit = {},
     onLoadingError: @Composable LazyGridItemScope.(pagingState: PagingState<T>) -> Unit = {},
     appendIndicator: (@Composable LazyGridItemScope.() -> Unit)? = {
-        CircularProgressIndicator(
-            color = defaultIndicatorColor,
-            trackColor = defaultIndicatorTrackColor
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = defaultIndicatorColor,
+                trackColor = defaultIndicatorTrackColor
+            )
+        }
     },
     prependIndicator: (@Composable LazyGridItemScope.() -> Unit)? = appendIndicator
 ) {
