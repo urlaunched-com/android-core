@@ -21,7 +21,7 @@ data class ProgressBarStyle(
         progressColor: Color = Color.Blue,
         trackShape: Shape = CircleShape,
         progressShape: Shape = trackShape
-    ): this(
+    ) : this(
         progressBarHeight = progressBarHeight,
         trackBrush = SolidColor(trackColor),
         progressBrush = SolidColor(progressColor),

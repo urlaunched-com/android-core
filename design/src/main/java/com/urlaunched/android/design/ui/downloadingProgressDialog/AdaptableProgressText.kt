@@ -45,20 +45,16 @@ fun AdaptableProgressText(
     )
 }
 
-private fun Modifier.blendMode(
-    blendMode: BlendMode
-): Modifier {
-    return this.drawWithCache {
-        val graphicsLayer = obtainGraphicsLayer()
-        graphicsLayer.apply {
-            record {
-                drawContent()
-            }
-            this.blendMode = blendMode
+private fun Modifier.blendMode(blendMode: BlendMode): Modifier = this.drawWithCache {
+    val graphicsLayer = obtainGraphicsLayer()
+    graphicsLayer.apply {
+        record {
+            drawContent()
         }
-        onDrawWithContent {
-            drawLayer(graphicsLayer)
-        }
+        this.blendMode = blendMode
+    }
+    onDrawWithContent {
+        drawLayer(graphicsLayer)
     }
 }
 

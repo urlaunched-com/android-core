@@ -185,7 +185,7 @@ private fun DownloadingProgressBar(
     trackShape: Shape,
     progressShape: Shape,
     trackBrush: Brush,
-    progressBrush: Brush,
+    progressBrush: Brush
 ) {
     Canvas(
         modifier = modifier
