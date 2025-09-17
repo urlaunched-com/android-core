@@ -130,55 +130,38 @@ package com.urlaunched.android.design.ui.counter.ui {
 
 package com.urlaunched.android.design.ui.downloadingProgressDialog {
 
+  public final class AdaptableProgressTextKt {
+    method @androidx.compose.runtime.Composable public static void AdaptableProgressText(String text, optional androidx.compose.ui.Modifier modifier, optional int overflow, optional boolean softWrap, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.TextStyle style, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.TextLayoutResult,kotlin.Unit>? onTextLayout);
+  }
+
   public final class DownloadingProgressDialogKt {
-    method @androidx.compose.runtime.Composable public static void DownloadingProgressDialog(optional androidx.compose.ui.Modifier modifier, optional float progress, optional com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarColors progressBarColors, optional com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle progressBarStyle, optional com.urlaunched.android.design.ui.downloadingProgressDialog.models.DialogStyle dialogStyle, optional kotlin.jvm.functions.Function0<kotlin.Unit> progressText, optional kotlin.jvm.functions.Function0<kotlin.Unit> title, optional kotlin.jvm.functions.Function0<kotlin.Unit> description, optional kotlin.jvm.functions.Function0<kotlin.Unit> definitionText, optional kotlin.jvm.functions.Function0<kotlin.Unit> button);
-    method @androidx.compose.runtime.Composable @androidx.compose.ui.tooling.preview.Preview(showBackground=true) public static void DownloadingProgressDialogPreview();
+    method @androidx.compose.runtime.Composable public static void BaseDownloadingProgressDialog(@com.composables.core.androidx.annotation.FloatRange(from=0.0, to=1.0) float progress, optional float downloaded, optional float total, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, optional com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle progressBarStyle, optional long dialogContainerColor, optional androidx.compose.ui.graphics.Shape dialogContainerShape, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.ui.window.DialogProperties dialogProperties, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? title, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? description, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? progressText, optional kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit>? supportingText, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? button);
+    method @androidx.compose.runtime.Composable public static void DownloadingProgressDialog(@com.composables.core.androidx.annotation.FloatRange(from=0.0, to=1.0) float progress, optional float downloaded, optional float total, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> onDismissRequest, optional com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle progressBarStyle, optional long dialogContainerColor, optional androidx.compose.ui.graphics.Shape dialogContainerShape, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.ui.window.DialogProperties dialogProperties, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? title, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? description, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.BoxScope,kotlin.Unit>? progressText, optional kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit>? supportingText, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit>? button);
   }
 
 }
 
 package com.urlaunched.android.design.ui.downloadingProgressDialog.models {
 
-  public final class DialogStyle {
-    ctor public DialogStyle(optional float contentPadding);
-    method public float component1-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.downloadingProgressDialog.models.DialogStyle copy-0680j_4(float contentPadding);
-    method public float getContentPadding();
-    property public final float contentPadding;
-  }
-
-  public final class ProgressBarColors {
-    ctor public ProgressBarColors(optional java.util.List<androidx.compose.ui.graphics.Color> progressColors, optional long progressBackgroundColor, optional long backgroundDialogColor);
-    method public java.util.List<androidx.compose.ui.graphics.Color> component1();
-    method public long component2-0d7_KjU();
-    method public long component3-0d7_KjU();
-    method public com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarColors copy-WkMS-hQ(java.util.List<androidx.compose.ui.graphics.Color> progressColors, long progressBackgroundColor, long backgroundDialogColor);
-    method public long getBackgroundDialogColor();
-    method public long getProgressBackgroundColor();
-    method public java.util.List<androidx.compose.ui.graphics.Color> getProgressColors();
-    property public final long backgroundDialogColor;
-    property public final long progressBackgroundColor;
-    property public final java.util.List<androidx.compose.ui.graphics.Color> progressColors;
-  }
-
   public final class ProgressBarStyle {
-    ctor public ProgressBarStyle(optional float progressBarMinWidth, optional float progressBarHeight, optional float progressBoxCornerRadius, optional float progressCornerRadius, optional float dialogCornerRadius);
+    ctor public ProgressBarStyle(optional float progressBarHeight, androidx.compose.ui.graphics.Brush trackBrush, androidx.compose.ui.graphics.Brush progressBrush, optional androidx.compose.ui.graphics.Shape trackShape, optional androidx.compose.ui.graphics.Shape progressShape);
+    ctor public ProgressBarStyle(optional float progressBarHeight, optional long trackColor, optional long progressColor, optional androidx.compose.ui.graphics.Shape trackShape, optional androidx.compose.ui.graphics.Shape progressShape);
     method public float component1-D9Ej5fM();
-    method public float component2-D9Ej5fM();
-    method public float component3-D9Ej5fM();
-    method public float component4-D9Ej5fM();
-    method public float component5-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle copy-RyVG9vg(float progressBarMinWidth, float progressBarHeight, float progressBoxCornerRadius, float progressCornerRadius, float dialogCornerRadius);
-    method public float getDialogCornerRadius();
+    method public androidx.compose.ui.graphics.Brush component2();
+    method public androidx.compose.ui.graphics.Brush component3();
+    method public androidx.compose.ui.graphics.Shape component4();
+    method public androidx.compose.ui.graphics.Shape component5();
+    method public com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle copy--orJrPs(float progressBarHeight, androidx.compose.ui.graphics.Brush trackBrush, androidx.compose.ui.graphics.Brush progressBrush, androidx.compose.ui.graphics.Shape trackShape, androidx.compose.ui.graphics.Shape progressShape);
     method public float getProgressBarHeight();
-    method public float getProgressBarMinWidth();
-    method public float getProgressBoxCornerRadius();
-    method public float getProgressCornerRadius();
-    property public final float dialogCornerRadius;
+    method public androidx.compose.ui.graphics.Brush getProgressBrush();
+    method public androidx.compose.ui.graphics.Shape getProgressShape();
+    method public androidx.compose.ui.graphics.Brush getTrackBrush();
+    method public androidx.compose.ui.graphics.Shape getTrackShape();
     property public final float progressBarHeight;
-    property public final float progressBarMinWidth;
-    property public final float progressBoxCornerRadius;
-    property public final float progressCornerRadius;
+    property public final androidx.compose.ui.graphics.Brush progressBrush;
+    property public final androidx.compose.ui.graphics.Shape progressShape;
+    property public final androidx.compose.ui.graphics.Brush trackBrush;
+    property public final androidx.compose.ui.graphics.Shape trackShape;
   }
 
 }
