@@ -1,12 +1,31 @@
 package com.urlaunched.android.design.ui.downloadingProgressDialog.models
 
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class ProgressBarStyle(
-    val progressBarMinWidth: Dp = 32.dp,
     val progressBarHeight: Dp = 36.dp,
-    val progressBoxCornerRadius: Dp = 32.dp,
-    val progressCornerRadius: Dp = 32.dp,
-    val dialogCornerRadius: Dp = 24.dp
-)
+    val trackBrush: Brush,
+    val progressBrush: Brush,
+    val trackShape: Shape = CircleShape,
+    val progressShape: Shape = trackShape
+) {
+    constructor(
+        progressBarHeight: Dp = 36.dp,
+        trackColor: Color = Color.LightGray,
+        progressColor: Color = Color.Blue,
+        trackShape: Shape = CircleShape,
+        progressShape: Shape = trackShape
+    ): this(
+        progressBarHeight = progressBarHeight,
+        trackBrush = SolidColor(trackColor),
+        progressBrush = SolidColor(progressColor),
+        trackShape = trackShape,
+        progressShape = progressShape
+    )
+}
