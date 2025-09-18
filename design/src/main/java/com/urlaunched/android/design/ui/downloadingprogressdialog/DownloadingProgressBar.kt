@@ -43,10 +43,10 @@ import kotlinx.coroutines.isActive
 
 @Composable
 fun AnimatedDownloadingProgressBar(
+    modifier: Modifier = Modifier,
     progress: Float,
     trackColor: Color,
     progressColor: Color,
-    modifier: Modifier = Modifier,
     downloaded: Float = progress,
     total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
@@ -74,10 +74,10 @@ fun AnimatedDownloadingProgressBar(
 
 @Composable
 fun AnimatedDownloadingProgressBar(
+    modifier: Modifier = Modifier,
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
-    modifier: Modifier = Modifier,
     downloaded: Float = progress,
     total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
@@ -113,10 +113,10 @@ fun AnimatedDownloadingProgressBar(
 
 @Composable
 fun DownloadingProgressBar(
+    modifier: Modifier = Modifier,
     progress: Float,
     trackColor: Color,
     progressColor: Color,
-    modifier: Modifier = Modifier,
     downloaded: Float = progress,
     total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
@@ -142,10 +142,10 @@ fun DownloadingProgressBar(
 
 @Composable
 fun DownloadingProgressBar(
+    modifier: Modifier = Modifier,
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
-    modifier: Modifier = Modifier,
     downloaded: Float = progress,
     total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
@@ -155,6 +155,7 @@ fun DownloadingProgressBar(
     supportingText: (@Composable RowScope.(Float) -> Unit)? = null
 ) {
     val safeProgress = progress.coerceIn(0f, 1f)
+
     Column(modifier = modifier) {
         Box(
             contentAlignment = Alignment.Center
@@ -172,11 +173,13 @@ fun DownloadingProgressBar(
 
             progressText?.invoke(this@Box, safeProgress)
         }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             supportingText?.invoke(this@Row, downloaded)
+
             supportingText?.invoke(this@Row, total)
         }
     }
@@ -193,6 +196,7 @@ private fun ProgressBar(
 ) {
     Canvas(modifier = modifier) {
         val trackOutline = trackShape.createOutline(size, layoutDirection, this)
+
         drawOutline(
             brush = trackBrush,
             outline = trackOutline
@@ -217,6 +221,7 @@ private fun ProgressBar(
 @Composable
 private fun GradientProgressBarPreview() {
     val progress = remember { 0.6f }
+
     DownloadingProgressBar(
         progress = progress,
         progressBarHeight = 50.dp,

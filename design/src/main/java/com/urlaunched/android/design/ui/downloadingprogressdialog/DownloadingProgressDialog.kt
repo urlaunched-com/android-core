@@ -35,12 +35,12 @@ import com.urlaunched.android.design.ui.progresstext.ProgressText
  */
 @Composable
 fun DownloadingProgressDialog(
+    modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
     downloaded: Float = progress,
     total: Float = 1f,
-    modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit = DoNothing,
+    onDismissRequest: () -> Unit = {},
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
     dialogContainerColor: Color = Color.White,
     dialogContainerShape: Shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
@@ -66,12 +66,14 @@ fun DownloadingProgressDialog(
         title = title?.let { titleContent ->
             @Composable {
                 titleContent()
+
                 Spacer(modifier = Modifier.height(Dimens.spacingSmall))
             }
         },
         description = description?.let { descriptionContent ->
             @Composable {
                 descriptionContent()
+
                 Spacer(modifier = Modifier.height(Dimens.spacingBigSpecial))
             }
         },
@@ -84,6 +86,7 @@ fun DownloadingProgressDialog(
                     horizontalAlignment = Alignment.End
                 ) {
                     Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
                     buttonContent()
                 }
             }
@@ -97,12 +100,12 @@ fun DownloadingProgressDialog(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BaseDownloadingProgressDialog(
+    modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
     downloaded: Float = progress,
     total: Float = 1f,
-    modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit = DoNothing,
+    onDismissRequest: () -> Unit = {},
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
     dialogContainerColor: Color = Color.White,
     dialogContainerShape: Shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
@@ -150,8 +153,6 @@ fun BaseDownloadingProgressDialog(
         }
     )
 }
-
-private val DoNothing = {}
 
 @Preview(showBackground = true)
 @Composable

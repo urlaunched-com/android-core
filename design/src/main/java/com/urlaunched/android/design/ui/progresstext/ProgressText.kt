@@ -32,13 +32,13 @@ import com.urlaunched.android.design.ui.progresstext.models.ProgressDirection
 
 @Composable
 fun ProgressText(
+    modifier: Modifier = Modifier,
     text: String,
     @FloatRange(0.0, 1.0)
     progress: Float,
     startColor: Color,
     endColor: Color,
     progressDirection: ProgressDirection = ProgressDirection.Horizontal,
-    modifier: Modifier = Modifier,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontStyle: FontStyle? = null,
     fontWeight: FontWeight? = null,
@@ -89,6 +89,7 @@ fun ProgressText(
 @Composable
 private fun ProgressTextPreview() {
     val progress = remember { 0.59f }
+
     Box(
         modifier = Modifier
             .size(200.dp, 50.dp)
@@ -101,6 +102,7 @@ private fun ProgressTextPreview() {
                 .fillMaxHeight()
                 .background(Color.Yellow)
         )
+
         ProgressText(
             text = "PROGRESS TEXT",
             progress = progress,
