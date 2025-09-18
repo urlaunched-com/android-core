@@ -31,14 +31,16 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.addOutline
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 import com.composables.core.androidx.annotation.FloatRange
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle
+import com.urlaunched.android.design.ui.progresstext.ProgressText
 
 /**
- * @see AdaptableProgressText
+ * @see ProgressText
  */
 @Composable
 fun DownloadingProgressDialog(
@@ -108,7 +110,7 @@ fun DownloadingProgressDialog(
 }
 
 /**
- * @see AdaptableProgressText
+ * @see ProgressText
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -253,8 +255,15 @@ private fun BaseDownloadingProgressDialogPreview() {
             )
         },
         progressText = {
-            AdaptableProgressText(
-                text = "${progress * 100f}%"
+            ProgressText(
+                text = "${progress * 100f}%",
+                progress = progress,
+                startColor = Color.Yellow,
+                endColor = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
             )
         },
         supportingText = { value ->
@@ -297,8 +306,15 @@ private fun DownloadingProgressDialogPreview() {
             )
         },
         progressText = {
-            AdaptableProgressText(
-                text = "${progress * 100f}%"
+            ProgressText(
+                text = "${progress * 100f}%",
+                progress = progress,
+                startColor = Color.Yellow,
+                endColor = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
             )
         },
         supportingText = { value ->
