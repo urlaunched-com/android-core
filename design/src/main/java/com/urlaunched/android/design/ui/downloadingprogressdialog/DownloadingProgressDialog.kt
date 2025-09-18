@@ -1,14 +1,11 @@
 package com.urlaunched.android.design.ui.downloadingprogressdialog
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,14 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.addOutline
-import androidx.compose.ui.graphics.drawOutline
-import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
@@ -57,8 +48,8 @@ fun DownloadingProgressDialog(
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
-    supportingText: (@Composable (Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    supportingText: (@Composable RowScope.(Float) -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BaseDownloadingProgressDialog(
@@ -85,16 +76,7 @@ fun DownloadingProgressDialog(
             }
         },
         progressText = progressText,
-        supportingText = if (supportingText != null) {
-            @Composable { value ->
-                Column {
-                    Spacer(modifier = Modifier.height(Dimens.spacingTiny))
-                    supportingText(value)
-                }
-            }
-        } else {
-            null
-        },
+        supportingText = supportingText,
         button = button?.let { buttonContent ->
             @Composable {
                 Column(
@@ -128,8 +110,8 @@ fun BaseDownloadingProgressDialog(
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
-    supportingText: (@Composable (Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    supportingText: (@Composable RowScope.(Float) -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BasicAlertDialog(
@@ -149,30 +131,19 @@ fun BaseDownloadingProgressDialog(
 
                 description?.invoke(this@Column)
 
-                Box(
-                    contentAlignment = Alignment.Center
-                ) {
-                    DownloadingProgressBar(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(progressBarStyle.progressBarHeight),
-                        progress = progress,
-                        trackShape = progressBarStyle.trackShape,
-                        progressShape = progressBarStyle.progressShape,
-                        progressBrush = progressBarStyle.progressBrush,
-                        trackBrush = progressBarStyle.trackBrush
-                    )
-
-                    progressText?.invoke(this@Box)
-                }
-
-                Row(
+                DownloadingProgressBar(
+                    progress = progress,
+                    downloaded = downloaded,
+                    total = total,
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    supportingText?.invoke(downloaded)
-                    supportingText?.invoke(total)
-                }
+                    progressBarHeight = progressBarStyle.progressBarHeight,
+                    trackShape = progressBarStyle.trackShape,
+                    progressShape = progressBarStyle.progressShape,
+                    progressBrush = progressBarStyle.progressBrush,
+                    trackBrush = progressBarStyle.trackBrush,
+                    progressText = progressText,
+                    supportingText = supportingText
+                )
 
                 button?.invoke(this@Column)
             }
@@ -180,57 +151,7 @@ fun BaseDownloadingProgressDialog(
     )
 }
 
-@Composable
-private fun DownloadingProgressBar(
-    progress: Float,
-    modifier: Modifier = Modifier,
-    trackShape: Shape,
-    progressShape: Shape,
-    trackBrush: Brush,
-    progressBrush: Brush
-) {
-    Canvas(
-        modifier = modifier
-    ) {
-        val trackOutline = trackShape.createOutline(size, layoutDirection, this)
-        drawOutline(
-            brush = trackBrush,
-            outline = trackOutline
-        )
-
-        val progressWidth = size.width * progress.coerceIn(0f, 1f)
-        val progressSize = size.copy(width = progressWidth)
-        val progressOutline = progressShape.createOutline(progressSize, layoutDirection, this)
-
-        clipPath(
-            path = Path().apply { addOutline(trackOutline) }
-        ) {
-            drawOutline(
-                brush = progressBrush,
-                outline = progressOutline
-            )
-        }
-    }
-}
-
 private val DoNothing = {}
-
-@Preview(showBackground = true)
-@Composable
-private fun DownloadingProgressDialogGradientPreview() {
-    val progress = remember { 0.74f }
-
-    DownloadingProgressDialog(
-        progress = progress,
-        progressBarStyle = ProgressBarStyle(
-            progressBrush = Brush.horizontalGradient(
-                0f to Color.Yellow,
-                progress to Color.Blue
-            ),
-            trackBrush = SolidColor(Color.LightGray)
-        )
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
