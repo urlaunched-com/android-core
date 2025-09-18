@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.downloadingProgressDialog.models
+package com.urlaunched.android.design.ui.downloadingprogressdialog.models
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Brush
@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
-import com.urlaunched.android.design.ui.downloadingProgressDialog.constants.DownloadingProgressDialogDimens
+import com.urlaunched.android.design.ui.downloadingprogressdialog.constants.DownloadingProgressDialogDimens
 
 data class ProgressBarStyle(
     val progressBarHeight: Dp = DownloadingProgressDialogDimens.defaultProgressBarHeight,

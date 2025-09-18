@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.downloadingProgressDialog.constants
+package com.urlaunched.android.design.ui.downloadingprogressdialog.constants
 
 import androidx.compose.ui.unit.dp
 

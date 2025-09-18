@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.downloadingProgressDialog
+package com.urlaunched.android.design.ui.downloadingprogressdialog
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 import com.composables.core.androidx.annotation.FloatRange
 import com.urlaunched.android.design.resources.dimens.Dimens
-import com.urlaunched.android.design.ui.downloadingProgressDialog.models.ProgressBarStyle
+import com.urlaunched.android.design.ui.downloadingprogressdialog.models.ProgressBarStyle
 import com.urlaunched.android.design.ui.progresstext.ProgressText
 
 /**
