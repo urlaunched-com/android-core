@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace 'com.urlaunched.synchronizer'
+    namespace 'com.urlaunched.synchronizer.core'
     compileSdk gradleDependencies.compileSdk
 
     defaultConfig {
@@ -49,6 +49,9 @@ metalava {
 }
 
 dependencies {
+    // Models
+    api project(":synchronizer:model")
+
     // Android
     implementation libs.androidCoreDependencies.core
     implementation libs.androidCoreDependencies.appcompat
@@ -57,7 +60,6 @@ dependencies {
     // Kotlin
     implementation(platform(libs.kotlinDependencies.bom))
     implementation libs.kotlinDependencies.coroutines
-    implementation libs.kotlinDependencies.serialization
 
     // Paging
     implementation libs.pagingDependencies.core

@@ -1,9 +1,10 @@
-package com.urlaunched.synchronizer
+package com.urlaunched.synchronizer.core
 
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
+import com.urlaunched.android.synchonizer.model.Synchronizable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
