@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import com.urlaunched.android.synchonizer.model.Synchronizable
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -28,12 +29,13 @@ object DataSynchronizer {
     inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelatedModel(
         viewModelScope: CoroutineScope,
         crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
-        crossinline mapActualToRelated: (ACTUAL) -> RELATED
+        crossinline mapActualToRelated: (ACTUAL) -> RELATED,
+        coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
     ): Flow<PagingData<ACTUAL>> {
         val accumulatedUpdates = MutableStateFlow<Map<ID, ACTUAL>>(mapOf())
         val updatedData = mutableSetOf<ID>()
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutineDispatcher) {
             updateModel
                 .filterIsInstance<Synchronizable<ID>>()
                 .filter { it is RELATED }
@@ -83,13 +85,14 @@ object DataSynchronizer {
     }
 
     inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
-        viewModelScope: CoroutineScope
+        viewModelScope: CoroutineScope,
+        coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
     ): Flow<PagingData<T>> {
         val accumulatedUpdates = MutableStateFlow<Map<ID, T>>(mapOf())
         val accumulatedDeletions = MutableStateFlow<Map<ID, T>>(mapOf())
         val updatedData = mutableSetOf<ID>()
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutineDispatcher) {
             updateModel
                 .filterIsInstance<T>()
                 .collectLatest { modelUpdate ->
@@ -99,7 +102,7 @@ object DataSynchronizer {
                 }
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutineDispatcher) {
             deletedModel
                 .filterIsInstance<T>()
                 .collectLatest { modelDeletion ->
@@ -109,7 +112,7 @@ object DataSynchronizer {
                 }
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutineDispatcher) {
             cancelDeleteModel
                 .filterIsInstance<T>()
                 .collectLatest { modelDeletionCancellation ->
