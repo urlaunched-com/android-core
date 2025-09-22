@@ -7,64 +7,77 @@ import androidx.paging.map
 import com.urlaunched.android.synchonizer.model.Synchronizable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.reflect.KClass
 
 object DataSynchronizer {
     val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
     val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
     val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
 
-    inline fun <reified T : Synchronizable<ID>, reified R : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
+    inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelatedModel(
         viewModelScope: CoroutineScope,
-        relatedType: KClass<R>,
-        crossinline map: (T, R) -> T = { t, _ -> t }
-    ): Flow<PagingData<T>> {
-        val localMap = MutableStateFlow<Map<ID, T>>(mapOf())
+        crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
+        crossinline mapActualToRelated: (ACTUAL) -> RELATED
+    ): Flow<PagingData<ACTUAL>> {
+        val accumulatedUpdates = MutableStateFlow<Map<ID, ACTUAL>>(mapOf())
+        val updatedData = mutableSetOf<ID>()
 
         viewModelScope.launch(Dispatchers.IO) {
             updateModel
-                .filter { it is T || it is R }
-                .collectLatest { item ->
-                    item.let { updatedItem ->
-                        updatedItem as Synchronizable<ID>
+                .filterIsInstance<Synchronizable<ID>>()
+                .filter { it is RELATED }
+                .collectLatest { modelUpdate ->
+                    accumulatedUpdates.update { currentData ->
+                        val currentItem = currentData[modelUpdate.id]
 
-                        localMap.update { currentData ->
-                            val updatedMap = currentData.toMutableMap()
-                            val currentItem = updatedMap[updatedItem.id]
-
-                            val mappedItem = if (updatedItem is R) {
-                                currentItem?.let { current ->
-                                    map(current, updatedItem)
-                                }
-                            } else {
-                                updatedItem as T
+                        val mappedItem = if (modelUpdate is RELATED) {
+                            currentItem?.let { current ->
+                                mapRelatedToActual(current, modelUpdate)
                             }
+                        } else {
+                            modelUpdate as ACTUAL
+                        }
 
-                            mappedItem?.let { updatedMap[updatedItem.id] = it }
-                            updatedMap
+                        if (mappedItem != null) {
+                            currentData + Pair(mappedItem.id, mappedItem)
+                        } else {
+                            currentData
                         }
                     }
                 }
         }
 
         return combine(
-            this.cachedIn(viewModelScope),
-            localMap
-        ) { pagingData, localMapValue ->
+            this
+                .onEach {
+                    updatedData.clear()
+                }
+                .map { pagingData ->
+                    pagingData.map { item ->
+                        if (!updatedData.contains(item.id)) {
+                            updateModel.emit(mapActualToRelated(item))
+                            updatedData.add(item.id)
+                        }
+
+                        item
+                    }
+                }
+                .cachedIn(viewModelScope),
+            accumulatedUpdates
+        ) { pagingData, updates ->
             pagingData.map { item ->
-                val updatedMap = localMap.value.toMutableMap()
-                updatedMap[item.id] = item
-                localMap.value = updatedMap
-                localMapValue[item.id] ?: item
+                updates[item.id] ?: item
             }
         }.cachedIn(viewModelScope)
     }
@@ -72,160 +85,160 @@ object DataSynchronizer {
     inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
         viewModelScope: CoroutineScope
     ): Flow<PagingData<T>> {
-        val updatedLocalMap = MutableStateFlow<Map<ID, T>>(mapOf())
-        val deletedLocalMap = MutableStateFlow<Map<ID, T>>(mapOf())
+        val accumulatedUpdates = MutableStateFlow<Map<ID, T>>(mapOf())
+        val accumulatedDeletions = MutableStateFlow<Map<ID, T>>(mapOf())
+        val updatedData = mutableSetOf<ID>()
 
         viewModelScope.launch(Dispatchers.IO) {
-            updateModel.filter { it is T }.collectLatest { item ->
-                item.let { updatedItem ->
-                    updatedItem as Synchronizable<ID>
-
-                    updatedLocalMap.update { currentData ->
-                        val updatedMap = currentData.toMutableMap()
-
-                        updatedMap[updatedItem.id] = updatedItem as T
-                        updatedMap
+            updateModel
+                .filterIsInstance<T>()
+                .collectLatest { modelUpdate ->
+                    accumulatedUpdates.update { currentData ->
+                        currentData + Pair(modelUpdate.id, modelUpdate)
                     }
                 }
-            }
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            deletedModel.filter { it is T }.collectLatest { item ->
-                item.let { deletedItem ->
-                    deletedItem as Synchronizable<ID>
-
-                    deletedLocalMap.update { currentData ->
-                        val deletedMap = currentData.toMutableMap()
-
-                        deletedMap[deletedItem.id] = deletedItem as T
-                        deletedMap
+            deletedModel
+                .filterIsInstance<T>()
+                .collectLatest { modelDeletion ->
+                    accumulatedDeletions.update { currentData ->
+                        currentData + Pair(modelDeletion.id, modelDeletion)
                     }
                 }
-            }
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            cancelDeleteModel.filter { it is T }.collectLatest { item ->
-                item.let { cancelDeleteItem ->
-                    cancelDeleteItem as Synchronizable<ID>
-
-                    deletedLocalMap.update { currentData ->
-                        val deletedMap = currentData.toMutableMap()
-                        deletedMap.remove(cancelDeleteItem.id)
-                        deletedMap
+            cancelDeleteModel
+                .filterIsInstance<T>()
+                .collectLatest { modelDeletionCancellation ->
+                    accumulatedDeletions.update { currentData ->
+                        currentData - modelDeletionCancellation.id
                     }
                 }
-            }
         }
 
         return combine(
-            this.cachedIn(viewModelScope),
-            updatedLocalMap
-        ) { pagingData, updatedData ->
+            this
+                .onEach {
+                    updatedData.clear()
+                }
+                .map { pagingData ->
+                    pagingData.map { item ->
+                        if (!updatedData.contains(item.id)) {
+                            updateModel.emit(item)
+                            updatedData.add(item.id)
+                        }
+
+                        item
+                    }
+                }
+                .cachedIn(viewModelScope),
+            accumulatedUpdates,
+            accumulatedDeletions
+        ) { pagingData, updatedData, deletedData ->
             pagingData
+                .filter { item ->
+                    !deletedData.contains(item.id)
+                }
                 .map { item ->
-                    val updatedMap = updatedLocalMap.value.toMutableMap()
-                    updatedMap[item.id] = item
-                    updatedLocalMap.value = updatedMap
                     updatedData[item.id] ?: item
                 }
-        }.combine(deletedLocalMap) { pagingData, deletedData ->
-            pagingData.filter { item ->
-                deletedData.containsKey(item.id).not()
-            }
         }.cachedIn(viewModelScope)
     }
 
-    inline fun <reified T : Synchronizable<ID>, reified R : Synchronizable<ID>, ID> List<T>.synchronize(
-        viewModelScope: CoroutineScope,
-        relatedType: KClass<R>,
-        crossinline map: (T, R) -> T = { t, _ -> t }
-    ): List<T> {
-        val localMap = MutableStateFlow<Map<ID, T>>(mapOf())
+    suspend inline fun <reified ACTUAL : Synchronizable<ID>, ID> synchronizeList(
+        crossinline listGetter: () -> List<ACTUAL>,
+        crossinline onListUpdate: (List<ACTUAL>) -> Unit
+    ) {
+        coroutineScope {
+            launch {
+                updateModel
+                    .filterIsInstance<ACTUAL>()
+                    .collectLatest { updatedData ->
+                        val currentList = listGetter()
 
-        viewModelScope.launch(Dispatchers.IO) {
-            updateModel
-                .filter { it is T || it is R }
-                .collectLatest { item ->
-                    item.let { updatedItem ->
-                        updatedItem as Synchronizable<ID>
-
-                        localMap.update { currentData ->
-                            val updatedMap = currentData.toMutableMap()
-                            val currentItem = updatedMap[updatedItem.id]
-
-                            val mappedItem = if (updatedItem is R) {
-                                currentItem?.let { current ->
-                                    map(current, updatedItem)
+                        onListUpdate(
+                            currentList.map { currentItem ->
+                                if (currentItem.id == updatedData.id) {
+                                    updatedData
+                                } else {
+                                    currentItem
                                 }
-                            } else {
-                                updatedItem as T
                             }
-
-                            mappedItem?.let { updatedMap[updatedItem.id] = it }
-                            updatedMap
-                        }
+                        )
                     }
-                }
-        }
+            }
 
-        return localMap.value.values.toList()
+            launch {
+                val deletedItemsPositions = mutableMapOf<ID, Int>()
+
+                launch {
+                    deletedModel
+                        .filterIsInstance<ACTUAL>()
+                        .collectLatest { deletedModel ->
+                            val currentList = listGetter()
+
+                            currentList.indexOf(deletedModel).takeIf { it != -1 }?.let { index ->
+                                deletedItemsPositions.put(deletedModel.id, index)
+
+                                onListUpdate(
+                                    currentList.filter { item -> item.id != deletedModel.id }
+                                )
+                            }
+                        }
+                }
+
+                launch {
+                    cancelDeleteModel
+                        .filterIsInstance<ACTUAL>()
+                        .collectLatest { cancelDeleteModel ->
+                            val currentList = listGetter()
+
+                            deletedItemsPositions[cancelDeleteModel.id]?.let { index ->
+                                deletedItemsPositions.remove(cancelDeleteModel.id)
+                                onListUpdate(
+                                    currentList.toMutableList().apply { add(index, cancelDeleteModel) }
+                                )
+                            }
+                        }
+                }
+            }
+        }
     }
 
-    inline fun <reified T : Synchronizable<ID>, ID> List<T>.synchronize(viewModelScope: CoroutineScope): List<T> {
-        val localMap = MutableStateFlow<Map<ID, T>>(mapOf())
-
-        viewModelScope.launch(Dispatchers.IO) {
-            updateModel
-                .filter { it is T }
-                .collectLatest { item ->
-                    item.let { updatedItem ->
-                        updatedItem as Synchronizable<ID>
-
-                        localMap.update { currentData ->
-                            val updatedMap = currentData.toMutableMap()
-
-                            val mappedItem = updatedItem as T
-                            mappedItem.let { updatedMap[updatedItem.id] = it }
-                            updatedMap
-                        }
-                    }
-                }
-        }
-
-        return localMap.value.values.toList()
-    }
-
-    suspend inline fun <reified T : Synchronizable<ID>, reified R : Synchronizable<ID>, ID> T.synchronize(
-        crossinline onUpdate: (T) -> Unit,
-        relatedType: KClass<R>,
-        crossinline map: (R) -> T
+    suspend inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> synchronizeRelatedModelList(
+        crossinline listGetter: () -> List<ACTUAL>,
+        crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
+        crossinline onListUpdate: (List<ACTUAL>) -> Unit
     ) {
         updateModel
-            .filterNotNull()
-            .filter { it is T || it is R }
-            .filter { it.id == this.id }
-            .collectLatest { updatedItem ->
-                when (updatedItem) {
-                    is R -> {
-                        onUpdate(map(updatedItem))
-                    }
+            .filterIsInstance<RELATED>()
+            .collectLatest { updatedData ->
+                val currentList = listGetter()
 
-                    is T -> {
-                        onUpdate(updatedItem)
+                onListUpdate(
+                    currentList.map { currentItem ->
+                        if (currentItem.id == updatedData.id) {
+                            mapRelatedToActual(currentItem, updatedData)
+                        } else {
+                            currentItem
+                        }
                     }
-                }
+                )
             }
     }
 
-    suspend inline fun <reified T : Synchronizable<ID>, ID> T.synchronize(crossinline onUpdate: (T) -> Unit) {
+    suspend inline fun <reified MODEL : Synchronizable<ID>, ID> synchronizeModel(
+        id: ID,
+        crossinline onUpdate: (MODEL) -> Unit
+    ) {
         updateModel
-            .filterNotNull()
-            .filter { it is T }
-            .filter { it.id == this.id }
+            .filterIsInstance<MODEL>()
+            .filter { it.id == id }
             .collectLatest { updatedItem ->
-                onUpdate(updatedItem as T)
+                onUpdate(updatedItem)
             }
     }
 
