@@ -1,5 +1,6 @@
 package com.urlaunched.android.design.ui.downloadingprogressdialog
 
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -43,6 +44,7 @@ import kotlinx.coroutines.isActive
 @Composable
 fun AnimatedDownloadingProgressBar(
     modifier: Modifier = Modifier,
+    @FloatRange(0.0, 1.0)
     progress: Float,
     trackColor: Color,
     progressColor: Color,
@@ -70,6 +72,7 @@ fun AnimatedDownloadingProgressBar(
 @Composable
 fun AnimatedDownloadingProgressBar(
     modifier: Modifier = Modifier,
+    @FloatRange(0.0, 1.0)
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
@@ -105,6 +108,7 @@ fun AnimatedDownloadingProgressBar(
 @Composable
 fun DownloadingProgressBar(
     modifier: Modifier = Modifier,
+    @FloatRange(0.0, 1.0)
     progress: Float,
     trackColor: Color,
     progressColor: Color,
@@ -130,6 +134,7 @@ fun DownloadingProgressBar(
 @Composable
 fun DownloadingProgressBar(
     modifier: Modifier = Modifier,
+    @FloatRange(0.0, 1.0)
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
@@ -139,8 +144,6 @@ fun DownloadingProgressBar(
     progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
-    val safeProgress = progress.coerceIn(0f, 1f)
-
     Column(modifier = modifier) {
         Box(
             contentAlignment = Alignment.Center
@@ -149,7 +152,7 @@ fun DownloadingProgressBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(progressBarHeight),
-                progress = safeProgress,
+                progress = progress,
                 trackBrush = trackBrush,
                 progressBrush = progressBrush,
                 trackShape = trackShape,
