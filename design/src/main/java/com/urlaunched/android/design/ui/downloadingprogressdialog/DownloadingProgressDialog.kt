@@ -1,11 +1,12 @@
 package com.urlaunched.android.design.ui.downloadingprogressdialog
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,8 +39,6 @@ fun DownloadingProgressDialog(
     modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
-    downloaded: Float = progress,
-    total: Float = 1f,
     onDismissRequest: () -> Unit = {},
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
     dialogContainerColor: Color = Color.White,
@@ -49,13 +48,11 @@ fun DownloadingProgressDialog(
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null,
+    supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BaseDownloadingProgressDialog(
         progress = progress,
-        total = total,
-        downloaded = downloaded,
         modifier = modifier,
         onDismissRequest = onDismissRequest,
         progressBarStyle = progressBarStyle,
@@ -103,8 +100,6 @@ fun BaseDownloadingProgressDialog(
     modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
-    downloaded: Float = progress,
-    total: Float = 1f,
     onDismissRequest: () -> Unit = {},
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
     dialogContainerColor: Color = Color.White,
@@ -114,7 +109,7 @@ fun BaseDownloadingProgressDialog(
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null,
+    supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BasicAlertDialog(
@@ -136,8 +131,6 @@ fun BaseDownloadingProgressDialog(
 
                 DownloadingProgressBar(
                     progress = progress,
-                    downloaded = downloaded,
-                    total = total,
                     modifier = Modifier.fillMaxWidth(),
                     progressBarHeight = progressBarStyle.progressBarHeight,
                     trackShape = progressBarStyle.trackShape,
@@ -157,13 +150,10 @@ fun BaseDownloadingProgressDialog(
 @Preview(showBackground = true)
 @Composable
 private fun BaseDownloadingProgressDialogPreview() {
-    val totalValue = remember { 10f }
     val progress = remember { 0.73f }
 
     BaseDownloadingProgressDialog(
         progress = progress,
-        total = totalValue,
-        downloaded = progress * totalValue,
         title = {
             Text(
                 text = "Downloading file",
@@ -188,12 +178,19 @@ private fun BaseDownloadingProgressDialogPreview() {
                     .align(Alignment.Center)
             )
         },
-        supportingText = { value ->
-            Text(
-                text = "$value MB",
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall
-            )
+        supportingText = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                listOf(progress * 100, 100).forEach { value ->
+                    Text(
+                        text = "$value MB",
+                        color = Color.Gray,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
         },
         button = {
             TextButton(
@@ -208,13 +205,10 @@ private fun BaseDownloadingProgressDialogPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun DownloadingProgressDialogPreview() {
-    val totalValue = remember { 10f }
     val progress = remember { 0.5f }
 
     DownloadingProgressDialog(
         progress = progress,
-        total = totalValue,
-        downloaded = progress * totalValue,
         title = {
             Text(
                 text = "Downloading file",
@@ -239,12 +233,19 @@ private fun DownloadingProgressDialogPreview() {
                     .align(Alignment.Center)
             )
         },
-        supportingText = { value ->
-            Text(
-                text = "$value MB",
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall
-            )
+        supportingText = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                listOf(progress * 100, 100).forEach { value ->
+                    Text(
+                        text = "$value MB",
+                        color = Color.Gray,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
         },
         button = {
             TextButton(

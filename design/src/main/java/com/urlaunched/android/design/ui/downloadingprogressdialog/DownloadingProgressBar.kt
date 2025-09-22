@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,22 +46,18 @@ fun AnimatedDownloadingProgressBar(
     progress: Float,
     trackColor: Color,
     progressColor: Color,
-    downloaded: Float = progress,
-    total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
     animationSpec: AnimationSpec<Float> = tween(),
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null
+    supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     AnimatedDownloadingProgressBar(
         progress = progress,
         trackBrush = SolidColor(trackColor),
         progressBrush = SolidColor(progressColor),
         modifier = modifier,
-        downloaded = downloaded,
-        total = total,
         progressBarHeight = progressBarHeight,
         trackShape = trackShape,
         progressShape = progressShape,
@@ -78,21 +73,15 @@ fun AnimatedDownloadingProgressBar(
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
-    downloaded: Float = progress,
-    total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
     animationSpec: AnimationSpec<Float> = tween(),
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null
+    supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
-        animationSpec = animationSpec
-    )
-    val animatedDownloaded by animateFloatAsState(
-        targetValue = downloaded,
         animationSpec = animationSpec
     )
 
@@ -101,8 +90,6 @@ fun AnimatedDownloadingProgressBar(
         trackBrush = trackBrush,
         progressBrush = progressBrush,
         modifier = modifier,
-        downloaded = animatedDownloaded,
-        total = total,
         progressBarHeight = progressBarHeight,
         trackShape = trackShape,
         progressShape = progressShape,
@@ -117,21 +104,17 @@ fun DownloadingProgressBar(
     progress: Float,
     trackColor: Color,
     progressColor: Color,
-    downloaded: Float = progress,
-    total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null
+    supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     DownloadingProgressBar(
         progress = progress,
         trackBrush = SolidColor(trackColor),
         progressBrush = SolidColor(progressColor),
         modifier = modifier,
-        downloaded = downloaded,
-        total = total,
         progressBarHeight = progressBarHeight,
         trackShape = trackShape,
         progressShape = progressShape,
@@ -146,13 +129,11 @@ fun DownloadingProgressBar(
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
-    downloaded: Float = progress,
-    total: Float = 1f,
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
-    supportingText: (@Composable RowScope.(Float) -> Unit)? = null
+    supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val safeProgress = progress.coerceIn(0f, 1f)
 
@@ -174,13 +155,11 @@ fun DownloadingProgressBar(
             progressText?.invoke(this@Box, safeProgress)
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            supportingText?.invoke(this@Row, downloaded)
-
-            supportingText?.invoke(this@Row, total)
+        supportingText?.let { textContent ->
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                content = textContent
+            )
         }
     }
 }
@@ -230,16 +209,23 @@ private fun GradientProgressBarPreview() {
             progress to Color.Magenta
         ),
         trackBrush = SolidColor(Color.LightGray),
-        supportingText = { value ->
-            Text(
-                text = "$value MB",
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(
-                    horizontal = Dimens.spacingSmall,
-                    vertical = Dimens.spacingTinyHalf
-                )
-            )
+        supportingText = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                listOf(progress * 100f, 100f).forEach { value ->
+                    Text(
+                        text = "${"%.1f".format(value)} MB",
+                        color = Color.Gray,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(
+                            horizontal = Dimens.spacingSmall,
+                            vertical = Dimens.spacingTinyHalf
+                        )
+                    )
+                }
+            }
         }
     )
 }
@@ -286,17 +272,6 @@ private fun AnimatedProgressBarPreview() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.Center)
-            )
-        },
-        supportingText = { value ->
-            Text(
-                text = "${"%.2f".format(value)} MB",
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(
-                    horizontal = Dimens.spacingSmall,
-                    vertical = Dimens.spacingTinyHalf
-                )
             )
         }
     )
