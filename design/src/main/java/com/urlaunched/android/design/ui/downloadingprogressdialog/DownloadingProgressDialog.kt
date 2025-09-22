@@ -47,7 +47,7 @@ fun DownloadingProgressDialog(
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
@@ -108,7 +108,7 @@ fun BaseDownloadingProgressDialog(
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {

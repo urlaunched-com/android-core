@@ -93,8 +93,12 @@ fun AnimatedDownloadingProgressBar(
         progressBarHeight = progressBarHeight,
         trackShape = trackShape,
         progressShape = progressShape,
-        progressText = progressText,
-        supportingText = supportingText
+        supportingText = supportingText,
+        progressText = progressText?.let { textContent ->
+            @Composable {
+                textContent(animatedProgress)
+            }
+        }
     )
 }
 
@@ -107,7 +111,7 @@ fun DownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     DownloadingProgressBar(
@@ -132,7 +136,7 @@ fun DownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val safeProgress = progress.coerceIn(0f, 1f)
@@ -152,7 +156,7 @@ fun DownloadingProgressBar(
                 progressShape = progressShape
             )
 
-            progressText?.invoke(this@Box, safeProgress)
+            progressText?.invoke(this@Box)
         }
 
         supportingText?.let { textContent ->
