@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
-abstract class BaseSynchronizer {
+object DataSynchronizer {
     val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
     val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
     val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
