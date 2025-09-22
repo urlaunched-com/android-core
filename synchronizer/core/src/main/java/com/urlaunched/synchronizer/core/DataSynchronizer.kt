@@ -11,6 +11,7 @@ import com.urlaunched.synchronizer.core.DataSynchronizer.updateModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,9 +26,18 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 object DataSynchronizer {
-    val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
-    val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
-    val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow()
+    val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val deletedModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val cancelDeleteModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
 
     suspend inline fun <reified ACTUAL : Synchronizable<ID>, ID> synchronizeList(
         crossinline listGetter: () -> List<ACTUAL>,
