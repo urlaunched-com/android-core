@@ -147,7 +147,7 @@ object DataSynchronizer {
 }
 
 inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelatedModel(
-    viewModelScope: CoroutineScope,
+    coroutineScope: CoroutineScope,
     crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
     crossinline mapActualToRelated: (ACTUAL) -> RELATED,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -155,7 +155,7 @@ inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizabl
     val accumulatedUpdates = MutableStateFlow<Map<ID, RELATED>>(mapOf())
     val updatedData = mutableSetOf<ID>()
 
-    viewModelScope.launch(coroutineDispatcher) {
+    coroutineScope.launch(coroutineDispatcher) {
         updateModel
             .filterIsInstance<RELATED>()
             .collectLatest { modelUpdate ->
@@ -180,24 +180,24 @@ inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizabl
                     item
                 }
             }
-            .cachedIn(viewModelScope),
+            .cachedIn(coroutineScope),
         accumulatedUpdates
     ) { pagingData, updates ->
         pagingData.map { item ->
             updates[item.id]?.let { mapRelatedToActual(item, it) } ?: item
         }
-    }.cachedIn(viewModelScope)
+    }.cachedIn(coroutineScope)
 }
 
 inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
-    viewModelScope: CoroutineScope,
+    coroutineScope: CoroutineScope,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Flow<PagingData<T>> {
     val accumulatedUpdates = MutableStateFlow<Map<ID, T>>(mapOf())
     val accumulatedDeletions = MutableStateFlow<Map<ID, T>>(mapOf())
     val updatedData = mutableSetOf<ID>()
 
-    viewModelScope.launch(coroutineDispatcher) {
+    coroutineScope.launch(coroutineDispatcher) {
         updateModel
             .filterIsInstance<T>()
             .collectLatest { modelUpdate ->
@@ -207,7 +207,7 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
             }
     }
 
-    viewModelScope.launch(coroutineDispatcher) {
+    coroutineScope.launch(coroutineDispatcher) {
         deletedModel
             .filterIsInstance<T>()
             .collectLatest { modelDeletion ->
@@ -217,7 +217,7 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
             }
     }
 
-    viewModelScope.launch(coroutineDispatcher) {
+    coroutineScope.launch(coroutineDispatcher) {
         cancelDeleteModel
             .filterIsInstance<T>()
             .collectLatest { modelDeletionCancellation ->
@@ -242,7 +242,7 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
                     item
                 }
             }
-            .cachedIn(viewModelScope),
+            .cachedIn(coroutineScope),
         accumulatedUpdates,
         accumulatedDeletions
     ) { pagingData, updatedData, deletedData ->
@@ -253,5 +253,5 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
             .map { item ->
                 updatedData[item.id] ?: item
             }
-    }.cachedIn(viewModelScope)
+    }.cachedIn(coroutineScope)
 }
