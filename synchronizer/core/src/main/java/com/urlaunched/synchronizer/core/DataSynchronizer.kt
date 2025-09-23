@@ -39,14 +39,14 @@ object DataSynchronizer {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    suspend inline fun <reified ACTUAL : Synchronizable<ID>, ID> synchronizeList(
-        crossinline listGetter: () -> List<ACTUAL>,
-        crossinline onListUpdate: (List<ACTUAL>) -> Unit
+    suspend inline fun <reified MODEL : Synchronizable<ID>, ID> synchronizeList(
+        crossinline listGetter: () -> List<MODEL>,
+        crossinline onListUpdate: (List<MODEL>) -> Unit
     ) {
         coroutineScope {
             launch {
                 updateModel
-                    .filterIsInstance<ACTUAL>()
+                    .filterIsInstance<MODEL>()
                     .collectLatest { updatedData ->
                         val currentList = listGetter()
 
@@ -67,7 +67,7 @@ object DataSynchronizer {
 
                 launch {
                     deletedModel
-                        .filterIsInstance<ACTUAL>()
+                        .filterIsInstance<MODEL>()
                         .collectLatest { deletedModel ->
                             val currentList = listGetter()
 
@@ -83,7 +83,7 @@ object DataSynchronizer {
 
                 launch {
                     cancelDeleteModel
-                        .filterIsInstance<ACTUAL>()
+                        .filterIsInstance<MODEL>()
                         .collectLatest { cancelDeleteModel ->
                             val currentList = listGetter()
 
@@ -191,17 +191,17 @@ inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizabl
     }.cachedIn(coroutineScope)
 }
 
-inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
+inline fun <reified MODEL : Synchronizable<ID>, ID> Flow<PagingData<MODEL>>.synchronize(
     coroutineScope: CoroutineScope,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-): Flow<PagingData<T>> {
-    val accumulatedUpdates = MutableStateFlow<Map<ID, T>>(mapOf())
-    val accumulatedDeletions = MutableStateFlow<Map<ID, T>>(mapOf())
+): Flow<PagingData<MODEL>> {
+    val accumulatedUpdates = MutableStateFlow<Map<ID, MODEL>>(mapOf())
+    val accumulatedDeletions = MutableStateFlow<Map<ID, MODEL>>(mapOf())
     val updatedData = mutableSetOf<ID>()
 
     coroutineScope.launch(coroutineDispatcher) {
         updateModel
-            .filterIsInstance<T>()
+            .filterIsInstance<MODEL>()
             .collectLatest { modelUpdate ->
                 accumulatedUpdates.update { currentData ->
                     currentData + Pair(modelUpdate.id, modelUpdate)
@@ -211,7 +211,7 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
 
     coroutineScope.launch(coroutineDispatcher) {
         deletedModel
-            .filterIsInstance<T>()
+            .filterIsInstance<MODEL>()
             .collectLatest { modelDeletion ->
                 accumulatedDeletions.update { currentData ->
                     currentData + Pair(modelDeletion.id, modelDeletion)
@@ -221,7 +221,7 @@ inline fun <reified T : Synchronizable<ID>, ID> Flow<PagingData<T>>.synchronize(
 
     coroutineScope.launch(coroutineDispatcher) {
         cancelDeleteModel
-            .filterIsInstance<T>()
+            .filterIsInstance<MODEL>()
             .collectLatest { modelDeletionCancellation ->
                 accumulatedDeletions.update { currentData ->
                     currentData - modelDeletionCancellation.id
