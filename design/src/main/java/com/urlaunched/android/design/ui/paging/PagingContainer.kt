@@ -71,7 +71,11 @@ fun <T : Any> PagingContainer(
     val loadState = pagingItems.loadState
     var isNoItems by remember { mutableStateOf(actualNoItems) }
 
-    LaunchedEffect(loadState.refresh) {
+    LaunchedEffect(
+        loadState.refresh,
+        pagingItems.itemSnapshotList.isEmpty(),
+        loadState.append.endOfPaginationReached
+    ) {
         if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && pagingItems.itemSnapshotList.isEmpty()) {
             isNoItems = true
         } else if (pagingItems.itemSnapshotList.isNotEmpty()) {
