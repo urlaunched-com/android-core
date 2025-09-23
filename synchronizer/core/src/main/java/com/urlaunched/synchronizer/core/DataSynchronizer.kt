@@ -133,6 +133,8 @@ object DataSynchronizer {
             }
     }
 
+    inline fun <reified MODEL : Synchronizable<*>> getUpdatesFlow() = updateModel.filterIsInstance<MODEL>()
+
     suspend fun emitUpdate(value: Synchronizable<*>) {
         updateModel.emit(value)
     }
@@ -149,7 +151,7 @@ object DataSynchronizer {
 inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelatedModel(
     coroutineScope: CoroutineScope,
     crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
-    crossinline mapActualToRelated: (ACTUAL) -> RELATED,
+    crossinline mapActualToRelated: (ACTUAL) -> RELATED?,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Flow<PagingData<ACTUAL>> {
     val accumulatedUpdates = MutableStateFlow<Map<ID, RELATED>>(mapOf())
@@ -173,7 +175,7 @@ inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizabl
             .map { pagingData ->
                 pagingData.map { item ->
                     if (!updatedData.contains(item.id)) {
-                        updateModel.emit(mapActualToRelated(item))
+                        mapActualToRelated(item)?.let { updateModel.emit(it) }
                         updatedData.add(item.id)
                     }
 
