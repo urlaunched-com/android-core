@@ -1,9 +1,6 @@
 package com.urlaunched.android.design.ui.downloadingprogressdialog
 
 import androidx.annotation.FloatRange
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -51,7 +48,6 @@ fun AnimatedDownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    animationSpec: AnimationSpec<Float> = tween(),
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
@@ -63,7 +59,6 @@ fun AnimatedDownloadingProgressBar(
         progressBarHeight = progressBarHeight,
         trackShape = trackShape,
         progressShape = progressShape,
-        animationSpec = animationSpec,
         progressText = progressText,
         supportingText = supportingText
     )
@@ -79,14 +74,10 @@ fun AnimatedDownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    animationSpec: AnimationSpec<Float> = tween(),
     progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
-    val animatedProgress by animateFloatAsState(
-        targetValue = progress,
-        animationSpec = animationSpec
-    )
+    val animatedProgress by animateProgressAsState(progress = progress)
 
     DownloadingProgressBar(
         progress = animatedProgress,
@@ -251,11 +242,11 @@ private fun SolidProgressBarPreview() {
 @Preview
 @Composable
 private fun AnimatedProgressBarPreview() {
-    var progress by remember { mutableFloatStateOf(0.33f) }
+    var progress by remember { mutableFloatStateOf(0f) }
 
     LaunchedEffect(Unit) {
         while (isActive) {
-            delay(1000)
+            delay(500)
             if (progress < 1f) {
                 progress += 0.1f
             } else {
