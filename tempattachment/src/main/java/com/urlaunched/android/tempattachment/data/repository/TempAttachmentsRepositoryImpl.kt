@@ -1,6 +1,7 @@
 package com.urlaunched.android.tempattachment.data.repository
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import com.urlaunched.android.common.files.MediaType
 import com.urlaunched.android.common.response.Response
@@ -15,6 +16,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 class TempAttachmentsRepositoryImpl(
@@ -51,6 +54,28 @@ class TempAttachmentsRepositoryImpl(
             contentResolver = context.contentResolver,
             contentType = mediaType.mimeType.toMediaTypeOrNull()
         )
+
+        val request = Request.Builder()
+            .url(presignedUrl)
+            .put(requestBody)
+            .build()
+
+        executeOkhttpRequest { okHttpClient.newCall(request) }
+    }
+
+    override suspend fun uploadBitmapToPresignedUrl(
+        mediaType: MediaType,
+        bitmap: Bitmap,
+        presignedUrl: String,
+        compress: Int
+    ): Response<Unit> = wrapResponseFlatten {
+        val format = Bitmap.CompressFormat.JPEG
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(format, compress, stream)
+
+        val requestBody = stream
+            .toByteArray()
+            .toRequestBody(mediaType.mimeType.toMediaTypeOrNull())
 
         val request = Request.Builder()
             .url(presignedUrl)
