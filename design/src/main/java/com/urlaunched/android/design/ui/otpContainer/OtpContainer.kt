@@ -89,9 +89,15 @@ fun OtpTextField(
             }
 
         )
-        Spacer(Modifier.height(cellsStyle.errorTextTopPadding))
+
         if (hasError) {
-            Text(text = errorText, style = cellsStyle.errorTextStyle, color = cellsColors.errorBorderColor)
+            Spacer(Modifier.height(cellsStyle.errorTextTopPadding))
+
+            Text(
+                text = errorText,
+                style = cellsStyle.errorTextStyle,
+                color = cellsColors.errorBorderColor
+            )
         }
     }
 }
@@ -159,7 +165,7 @@ private fun OtpTextFieldPreview() {
             onOtpTextChange = { textFieldValue = it },
             errorText = "Otp is incorrect, try another one",
             cellsArrangement = Arrangement.SpaceBetween,
-            hasError = true
+            hasError = false
         )
     }
 }
