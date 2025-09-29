@@ -84,8 +84,7 @@ fun OtpTextField(
 
             Text(
                 text = error,
-                style = cellsStyle.errorTextStyle,
-                color = cellsColors.errorBorderColor
+                style = cellsStyle.errorTextStyle
             )
         }
     }
