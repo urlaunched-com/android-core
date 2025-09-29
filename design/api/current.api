@@ -203,15 +203,25 @@ package com.urlaunched.android.design.ui.modifiers {
 
 }
 
-package com.urlaunched.android.design.ui.otpContainer {
+package com.urlaunched.android.design.ui.otptextfield {
 
-  public final class OtpContainerKt {
-    method @androidx.compose.runtime.Composable public static void OtpTextField(androidx.compose.ui.Modifier modifier, optional int otpLength, boolean hasError, String otpText, String errorText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement cellsArrangement, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle cellsStyle, optional com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors cellsColors);
+  public final class OtpTextFieldKt {
+    method @androidx.compose.runtime.Composable public static void OtpTextField(optional androidx.compose.ui.Modifier modifier, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional String? error, optional int otpLength, optional androidx.compose.foundation.layout.Arrangement.Horizontal cellsArrangement, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional com.urlaunched.android.design.ui.otptextfield.models.OtpCellStyle cellsStyle, optional com.urlaunched.android.design.ui.otptextfield.models.OtpCellColors cellsColors);
   }
 
 }
 
-package com.urlaunched.android.design.ui.otpContainer.models {
+package com.urlaunched.android.design.ui.otptextfield.constants {
+
+  public final class OtpTextFieldDefaults {
+    method public androidx.compose.foundation.text.KeyboardOptions getDefaultKeyboardOptions();
+    property public final androidx.compose.foundation.text.KeyboardOptions DefaultKeyboardOptions;
+    field public static final com.urlaunched.android.design.ui.otptextfield.constants.OtpTextFieldDefaults INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.otptextfield.models {
 
   public final class OtpCellColors {
     ctor public OtpCellColors(optional long backgroundColor, optional long emptyBackgroundColor, optional long filledBorderColor, optional long focusedBorderColor, optional long errorBorderColor, optional long emptyBorderColor);
@@ -221,7 +231,7 @@ package com.urlaunched.android.design.ui.otpContainer.models {
     method public long component4-0d7_KjU();
     method public long component5-0d7_KjU();
     method public long component6-0d7_KjU();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors copy-tNS2XkQ(long backgroundColor, long emptyBackgroundColor, long filledBorderColor, long focusedBorderColor, long errorBorderColor, long emptyBorderColor);
+    method public com.urlaunched.android.design.ui.otptextfield.models.OtpCellColors copy-tNS2XkQ(long backgroundColor, long emptyBackgroundColor, long filledBorderColor, long focusedBorderColor, long errorBorderColor, long emptyBorderColor);
     method public long getBackgroundColor();
     method public long getEmptyBackgroundColor();
     method public long getEmptyBorderColor();
@@ -246,7 +256,7 @@ package com.urlaunched.android.design.ui.otpContainer.models {
     method public float component6-D9Ej5fM();
     method public float component7-D9Ej5fM();
     method public androidx.compose.ui.text.TextStyle component8();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle copy-F0d9qfw(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, float errorTextTopPadding, androidx.compose.ui.text.TextStyle errorTextStyle);
+    method public com.urlaunched.android.design.ui.otptextfield.models.OtpCellStyle copy-F0d9qfw(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, float errorTextTopPadding, androidx.compose.ui.text.TextStyle errorTextStyle);
     method public androidx.compose.ui.text.TextStyle getErrorTextStyle();
     method public float getErrorTextTopPadding();
     method public float getFocusedBorderWidth();
@@ -263,21 +273,6 @@ package com.urlaunched.android.design.ui.otpContainer.models {
     property public final androidx.compose.ui.text.TextStyle textStyle;
     property public final float unfocusedBorderWidth;
     property public final float width;
-  }
-
-  public abstract sealed class OtpCellsArrangement {
-  }
-
-  public static final class OtpCellsArrangement.SpaceBetween extends com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement {
-    field public static final com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement.SpaceBetween INSTANCE;
-  }
-
-  public static final class OtpCellsArrangement.Spaced extends com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement {
-    ctor public OtpCellsArrangement.Spaced(float spacing);
-    method public float component1-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement.Spaced copy-0680j_4(float spacing);
-    method public float getSpacing();
-    property public final float spacing;
   }
 
 }
