@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -170,7 +171,10 @@ private fun OtpTextFieldErrorPreview() {
             otpText = textFieldValue,
             onOtpTextChange = { textFieldValue = it },
             error = "Otp is incorrect, try another one",
-            cellsArrangement = Arrangement.SpaceBetween
+            cellsArrangement = Arrangement.SpaceBetween,
+            cellsStyle = OtpCellStyle(
+                errorTextStyle = TextStyle(color = Color.Red)
+            )
         )
     }
 }
