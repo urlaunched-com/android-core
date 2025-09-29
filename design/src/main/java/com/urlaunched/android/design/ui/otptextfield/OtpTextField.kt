@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.otpContainer
+package com.urlaunched.android.design.ui.otptextfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,9 +30,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
-import com.urlaunched.android.design.ui.otpContainer.constants.OtpTextFieldDefaults
-import com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors
-import com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle
+import com.urlaunched.android.design.ui.otptextfield.constants.OtpTextFieldDefaults
+import com.urlaunched.android.design.ui.otptextfield.models.OtpCellColors
+import com.urlaunched.android.design.ui.otptextfield.models.OtpCellStyle
 
 private const val DEFAULT_OTP_LENGTH = 6
 

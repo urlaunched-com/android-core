@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.otpContainer.models
+package com.urlaunched.android.design.ui.otptextfield.models
 
 import androidx.compose.ui.graphics.Color
 

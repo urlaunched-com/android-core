@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.otpContainer.constants
+package com.urlaunched.android.design.ui.otptextfield.constants
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType

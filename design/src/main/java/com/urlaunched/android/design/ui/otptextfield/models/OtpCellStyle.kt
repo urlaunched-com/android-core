@@ -1,19 +1,19 @@
-package com.urlaunched.android.design.ui.otpContainer.models
+package com.urlaunched.android.design.ui.otptextfield.models
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import com.urlaunched.android.design.resources.dimens.Dimens
-import com.urlaunched.android.design.ui.otpContainer.constants.OtpContainerDimens
+import com.urlaunched.android.design.ui.otptextfield.constants.OtpTextFieldDimens
 
 data class OtpCellStyle(
     val textStyle: TextStyle = androidx.compose.material3.Typography().bodyLarge,
     val shape: Shape = RoundedCornerShape(Dimens.cornerRadiusSmall),
-    val width: Dp = OtpContainerDimens.defaultOtpCellWidth,
-    val height: Dp = OtpContainerDimens.defaultOtpCellHeight,
-    val focusedBorderWidth: Dp = OtpContainerDimens.defaultBorderWidth,
-    val unfocusedBorderWidth: Dp = OtpContainerDimens.defaultBorderWidth,
+    val width: Dp = OtpTextFieldDimens.defaultOtpCellWidth,
+    val height: Dp = OtpTextFieldDimens.defaultOtpCellHeight,
+    val focusedBorderWidth: Dp = OtpTextFieldDimens.defaultBorderWidth,
+    val unfocusedBorderWidth: Dp = OtpTextFieldDimens.defaultBorderWidth,
     val errorTextTopPadding: Dp = Dimens.spacingTiny,
     val errorTextStyle: TextStyle = TextStyle()
 )
