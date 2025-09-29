@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
+import com.urlaunched.android.design.ui.otpContainer.constants.OtpTextFieldDefaults
 import com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors
 import com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle
 
@@ -43,6 +44,8 @@ fun OtpTextField(
     error: String? = null,
     otpLength: Int = DEFAULT_OTP_LENGTH,
     cellsArrangement: Arrangement.Horizontal = Arrangement.spacedBy(Dimens.spacingSmall),
+    keyboardOptions: KeyboardOptions = OtpTextFieldDefaults.DefaultKeyboardOptions,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     cellsStyle: OtpCellStyle = OtpCellStyle(),
     cellsColors: OtpCellColors = OtpCellColors()
 ) {
@@ -55,10 +58,10 @@ fun OtpTextField(
                     onOtpTextChange(it.text)
                 }
             },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
             decorationBox = {
                 Row(
-                    modifier = Modifier,
                     horizontalArrangement = cellsArrangement,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -74,7 +77,6 @@ fun OtpTextField(
                     }
                 }
             }
-
         )
 
         if (!error.isNullOrEmpty()) {
