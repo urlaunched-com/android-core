@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.otpContainer.models.OtpCellColors
 import com.urlaunched.android.design.ui.otpContainer.models.OtpCellStyle
-import com.urlaunched.android.design.ui.otpContainer.models.OtpCellsArrangement
 
 private const val DEFAULT_OTP_LENGTH = 6
 
@@ -45,12 +43,10 @@ private const val DEFAULT_OTP_LENGTH = 6
  * @param hasError If true, the OTP boxes will show an error state (e.g., red border color).
  * @param otpText The current OTP input as a plain [String]. The cursor will automatically be placed at the end.
  * @param onOtpTextChange Callback invoked when the OTP value changes.
- * @param cellsArrangement Defines how the OTP boxes are arranged horizontally. Use [OtpCellsArrangement.SpaceBetween]
- * for evenly distributed boxes, or [OtpCellsArrangement.Spaced] to specify exact spacing between them.
+ * @param cellsArrangement Defines how the OTP boxes are arranged horizontally.
  * @param cellsStyle Configuration of the visual properties for each OTP cell, such as size, shape, text style, and border widths.
  * @param cellsColors Configuration of the color states (focused, error, empty, filled) and backgrounds for OTP cells.
  */
-
 @Composable
 fun OtpTextField(
     modifier: Modifier,
@@ -59,14 +55,10 @@ fun OtpTextField(
     otpText: String,
     errorText: String,
     onOtpTextChange: (text: String) -> Unit,
-    cellsArrangement: OtpCellsArrangement = OtpCellsArrangement.Spaced(Dimens.spacingSmall),
+    cellsArrangement: Arrangement.Horizontal = Arrangement.spacedBy(Dimens.spacingSmall),
     cellsStyle: OtpCellStyle = OtpCellStyle(),
     cellsColors: OtpCellColors = OtpCellColors()
 ) {
-    val horizontalArrangement = when (cellsArrangement) {
-        is OtpCellsArrangement.SpaceBetween -> Arrangement.SpaceBetween
-        is OtpCellsArrangement.Spaced -> Arrangement.spacedBy(cellsArrangement.spacing)
-    }
     Column(modifier) {
         BasicTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -80,7 +72,7 @@ fun OtpTextField(
             decorationBox = {
                 Row(
                     modifier = Modifier,
-                    horizontalArrangement = horizontalArrangement,
+                    horizontalArrangement = cellsArrangement,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     repeat(otpLength) { index ->
@@ -137,15 +129,13 @@ private fun OtpCellView(
     Box(
         Modifier
             .size(width = style.width, height = style.height)
-            .border(borderWidth, currentBorderColor, style.shape)
             .clip(style.shape)
-            .padding(borderWidth)
-            .background(backgroundColor),
+            .background(backgroundColor)
+            .border(borderWidth, currentBorderColor, style.shape),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = char,
-            modifier = Modifier,
             style = style.textStyle,
             textAlign = TextAlign.Center
         )
@@ -155,13 +145,10 @@ private fun OtpCellView(
 @Preview(showBackground = true)
 @Composable
 private fun OtpTextFieldPreview() {
-    var textFieldValue by remember {
-        mutableStateOf("")
-    }
+    var textFieldValue by remember { mutableStateOf("12") }
+
     Box(
-        Modifier
-            .fillMaxSize()
-            .background(Color.Gray),
+        modifier = Modifier.background(Color.Black),
         contentAlignment = Alignment.TopCenter
     ) {
         OtpTextField(
@@ -170,9 +157,9 @@ private fun OtpTextFieldPreview() {
                 .fillMaxWidth(),
             otpText = textFieldValue,
             onOtpTextChange = { textFieldValue = it },
-            errorText = "ERROR",
-            cellsArrangement = OtpCellsArrangement.SpaceBetween,
-            hasError = false
+            errorText = "Otp is incorrect, try another one",
+            cellsArrangement = Arrangement.SpaceBetween,
+            hasError = true
         )
     }
 }
