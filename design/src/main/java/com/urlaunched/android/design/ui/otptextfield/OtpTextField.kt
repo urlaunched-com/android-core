@@ -38,7 +38,7 @@ private const val DEFAULT_OTP_LENGTH = 6
 
 @Composable
 fun OtpTextField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     otpText: String,
     onOtpTextChange: (text: String) -> Unit,
     error: String? = null,
