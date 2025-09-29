@@ -6,6 +6,6 @@ import androidx.compose.ui.text.input.KeyboardType
 object OtpTextFieldDefaults {
 
     val DefaultKeyboardOptions = KeyboardOptions.Default.copy(
-        keyboardType = KeyboardType.Number
+        keyboardType = KeyboardType.NumberPassword
     )
 }
