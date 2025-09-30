@@ -203,76 +203,31 @@ package com.urlaunched.android.design.ui.modifiers {
 
 }
 
-package com.urlaunched.android.design.ui.otptextfield {
+package com.urlaunched.android.design.ui.otpcontainer {
 
-  public final class OtpTextFieldKt {
-    method @androidx.compose.runtime.Composable public static void OtpTextField(optional androidx.compose.ui.Modifier modifier, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional String? error, optional int otpLength, optional androidx.compose.foundation.layout.Arrangement.Horizontal cellsArrangement, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional com.urlaunched.android.design.ui.otptextfield.models.OtpCellStyle cellsStyle, optional com.urlaunched.android.design.ui.otptextfield.models.OtpCellColors cellsColors);
+  public final class OTPCellScope {
+    ctor public OTPCellScope(String char, boolean isFocused);
+    method public String component1();
+    method public boolean component2();
+    method public com.urlaunched.android.design.ui.otpcontainer.OTPCellScope copy(String char, boolean isFocused);
+    method public String getChar();
+    method public boolean isFocused();
+    property public final String char;
+    property public final boolean isFocused;
+  }
+
+  public final class OTPContainerKt {
+    method @androidx.compose.runtime.Composable public static void OTPContainer(optional androidx.compose.ui.Modifier modifier, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional int otpLength, optional androidx.compose.foundation.layout.Arrangement.Horizontal cellsArrangement, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.otpcontainer.OTPCellScope,kotlin.Unit> cellContent);
   }
 
 }
 
-package com.urlaunched.android.design.ui.otptextfield.constants {
+package com.urlaunched.android.design.ui.otpcontainer.constants {
 
-  public final class OtpTextFieldDefaults {
+  public final class OTPContainerDefaults {
     method public androidx.compose.foundation.text.KeyboardOptions getDefaultKeyboardOptions();
     property public final androidx.compose.foundation.text.KeyboardOptions DefaultKeyboardOptions;
-    field public static final com.urlaunched.android.design.ui.otptextfield.constants.OtpTextFieldDefaults INSTANCE;
-  }
-
-}
-
-package com.urlaunched.android.design.ui.otptextfield.models {
-
-  public final class OtpCellColors {
-    ctor public OtpCellColors(optional long backgroundColor, optional long emptyBackgroundColor, optional long filledBorderColor, optional long focusedBorderColor, optional long errorBorderColor, optional long emptyBorderColor);
-    method public long component1-0d7_KjU();
-    method public long component2-0d7_KjU();
-    method public long component3-0d7_KjU();
-    method public long component4-0d7_KjU();
-    method public long component5-0d7_KjU();
-    method public long component6-0d7_KjU();
-    method public com.urlaunched.android.design.ui.otptextfield.models.OtpCellColors copy-tNS2XkQ(long backgroundColor, long emptyBackgroundColor, long filledBorderColor, long focusedBorderColor, long errorBorderColor, long emptyBorderColor);
-    method public long getBackgroundColor();
-    method public long getEmptyBackgroundColor();
-    method public long getEmptyBorderColor();
-    method public long getErrorBorderColor();
-    method public long getFilledBorderColor();
-    method public long getFocusedBorderColor();
-    property public final long backgroundColor;
-    property public final long emptyBackgroundColor;
-    property public final long emptyBorderColor;
-    property public final long errorBorderColor;
-    property public final long filledBorderColor;
-    property public final long focusedBorderColor;
-  }
-
-  public final class OtpCellStyle {
-    ctor public OtpCellStyle(optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional float errorTextTopPadding, optional androidx.compose.ui.text.TextStyle errorTextStyle);
-    method public androidx.compose.ui.text.TextStyle component1();
-    method public androidx.compose.ui.graphics.Shape component2();
-    method public float component3-D9Ej5fM();
-    method public float component4-D9Ej5fM();
-    method public float component5-D9Ej5fM();
-    method public float component6-D9Ej5fM();
-    method public float component7-D9Ej5fM();
-    method public androidx.compose.ui.text.TextStyle component8();
-    method public com.urlaunched.android.design.ui.otptextfield.models.OtpCellStyle copy-F0d9qfw(androidx.compose.ui.text.TextStyle textStyle, androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, float errorTextTopPadding, androidx.compose.ui.text.TextStyle errorTextStyle);
-    method public androidx.compose.ui.text.TextStyle getErrorTextStyle();
-    method public float getErrorTextTopPadding();
-    method public float getFocusedBorderWidth();
-    method public float getHeight();
-    method public androidx.compose.ui.graphics.Shape getShape();
-    method public androidx.compose.ui.text.TextStyle getTextStyle();
-    method public float getUnfocusedBorderWidth();
-    method public float getWidth();
-    property public final androidx.compose.ui.text.TextStyle errorTextStyle;
-    property public final float errorTextTopPadding;
-    property public final float focusedBorderWidth;
-    property public final float height;
-    property public final androidx.compose.ui.graphics.Shape shape;
-    property public final androidx.compose.ui.text.TextStyle textStyle;
-    property public final float unfocusedBorderWidth;
-    property public final float width;
+    field public static final com.urlaunched.android.design.ui.otpcontainer.constants.OTPContainerDefaults INSTANCE;
   }
 
 }
