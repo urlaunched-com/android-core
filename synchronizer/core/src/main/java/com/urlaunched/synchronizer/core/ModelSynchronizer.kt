@@ -5,9 +5,9 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import com.urlaunched.android.synchonizer.model.Synchronizable
-import com.urlaunched.synchronizer.core.DataSynchronizer.cancelDeleteModel
-import com.urlaunched.synchronizer.core.DataSynchronizer.deletedModel
-import com.urlaunched.synchronizer.core.DataSynchronizer.updateModel
+import com.urlaunched.synchronizer.core.ModelSynchronizer.cancelDeleteModel
+import com.urlaunched.synchronizer.core.ModelSynchronizer.deletedModel
+import com.urlaunched.synchronizer.core.ModelSynchronizer.updateModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-object DataSynchronizer {
+object ModelSynchronizer {
     val updateModel: MutableSharedFlow<Synchronizable<*>> = MutableSharedFlow(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
@@ -39,18 +39,18 @@ object DataSynchronizer {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    suspend inline fun <reified MODEL : Synchronizable<ID>, ID> synchronizeList(
-        crossinline listGetter: () -> List<MODEL>,
-        crossinline onListUpdate: (List<MODEL>) -> Unit
+    suspend inline fun <reified ACTUAL : Synchronizable<ID>, ID> synchronize(
+        crossinline getList: () -> List<ACTUAL>,
+        crossinline onUpdate: (updatedList: List<ACTUAL>) -> Unit
     ) {
         coroutineScope {
             launch {
                 updateModel
-                    .filterIsInstance<MODEL>()
+                    .filterIsInstance<ACTUAL>()
                     .collectLatest { updatedData ->
-                        val currentList = listGetter()
+                        val currentList = getList()
 
-                        onListUpdate(
+                        onUpdate(
                             currentList.map { currentItem ->
                                 if (currentItem.id == updatedData.id) {
                                     updatedData
@@ -67,14 +67,14 @@ object DataSynchronizer {
 
                 launch {
                     deletedModel
-                        .filterIsInstance<MODEL>()
+                        .filterIsInstance<ACTUAL>()
                         .collectLatest { deletedModel ->
-                            val currentList = listGetter()
+                            val currentList = getList()
 
                             currentList.indexOf(deletedModel).takeIf { it != -1 }?.let { index ->
                                 deletedItemsPositions.put(deletedModel.id, index)
 
-                                onListUpdate(
+                                onUpdate(
                                     currentList.filter { item -> item.id != deletedModel.id }
                                 )
                             }
@@ -83,13 +83,13 @@ object DataSynchronizer {
 
                 launch {
                     cancelDeleteModel
-                        .filterIsInstance<MODEL>()
+                        .filterIsInstance<ACTUAL>()
                         .collectLatest { cancelDeleteModel ->
-                            val currentList = listGetter()
+                            val currentList = getList()
 
                             deletedItemsPositions[cancelDeleteModel.id]?.let { index ->
                                 deletedItemsPositions.remove(cancelDeleteModel.id)
-                                onListUpdate(
+                                onUpdate(
                                     currentList.toMutableList().apply { add(index, cancelDeleteModel) }
                                 )
                             }
@@ -99,20 +99,20 @@ object DataSynchronizer {
         }
     }
 
-    suspend inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> synchronizeRelatedModelList(
-        crossinline listGetter: () -> List<ACTUAL>,
-        crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
-        crossinline onListUpdate: (List<ACTUAL>) -> Unit
+    suspend inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> synchronizeRelated(
+        crossinline getList: () -> List<ACTUAL>,
+        crossinline map: (ACTUAL, RELATED) -> ACTUAL,
+        crossinline onUpdate: (updatedList: List<ACTUAL>) -> Unit
     ) {
         updateModel
             .filterIsInstance<RELATED>()
             .collectLatest { updatedData ->
-                val currentList = listGetter()
+                val currentList = getList()
 
-                onListUpdate(
+                onUpdate(
                     currentList.map { currentItem ->
                         if (currentItem.id == updatedData.id) {
-                            mapRelatedToActual(currentItem, updatedData)
+                            map(currentItem, updatedData)
                         } else {
                             currentItem
                         }
@@ -121,19 +121,19 @@ object DataSynchronizer {
             }
     }
 
-    suspend inline fun <reified MODEL : Synchronizable<ID>, ID> synchronizeModel(
+    suspend inline fun <reified ACTUAL : Synchronizable<ID>, ID> synchronize(
         id: ID,
-        crossinline onUpdate: (MODEL) -> Unit
+        crossinline onUpdate: (ACTUAL) -> Unit
     ) {
         updateModel
-            .filterIsInstance<MODEL>()
+            .filterIsInstance<ACTUAL>()
             .filter { it.id == id }
             .collectLatest { updatedItem ->
                 onUpdate(updatedItem)
             }
     }
 
-    inline fun <reified MODEL : Synchronizable<*>> getUpdatesFlow() = updateModel.filterIsInstance<MODEL>()
+    inline fun <reified ACTUAL : Synchronizable<*>> getUpdatesFlow() = updateModel.filterIsInstance<ACTUAL>()
 
     suspend fun emitUpdate(value: Synchronizable<*>) {
         updateModel.emit(value)
@@ -148,10 +148,10 @@ object DataSynchronizer {
     }
 }
 
-inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelatedModel(
+inline fun <reified ACTUAL : Synchronizable<ID>, reified RELATED : Synchronizable<ID>, ID> Flow<PagingData<ACTUAL>>.synchronizeRelated(
     coroutineScope: CoroutineScope,
     crossinline mapRelatedToActual: (ACTUAL, RELATED) -> ACTUAL,
-    crossinline mapActualToRelated: (ACTUAL) -> RELATED?,
+    crossinline mapActualToRelated: (ACTUAL) -> RELATED,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Flow<PagingData<ACTUAL>> {
     val accumulatedUpdates = MutableStateFlow<Map<ID, RELATED>>(mapOf())
