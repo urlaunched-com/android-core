@@ -9,6 +9,15 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.urlaunched.android.design.ui.shadow.models.ShadowStyle
+
+fun Modifier.shadow(style: ShadowStyle) = this.shadow(
+    color = style.color,
+    alpha = style.alpha,
+    cornersRadius = style.cornersRadius,
+    shadowBlurRadius = style.blurRadius,
+    offset = style.offset
+)
 
 fun Modifier.shadow(
     color: Color = Color.Black,
