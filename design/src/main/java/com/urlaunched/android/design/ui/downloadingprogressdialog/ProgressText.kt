@@ -1,4 +1,4 @@
-package com.urlaunched.android.design.ui.progresstext
+package com.urlaunched.android.design.ui.downloadingprogressdialog
 
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.background
@@ -28,10 +28,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.urlaunched.android.design.ui.progresstext.models.ProgressDirection
+import com.urlaunched.android.design.ui.downloadingprogressdialog.models.ProgressDirection
 
 @Composable
-fun ProgressText(
+internal fun ProgressText(
     modifier: Modifier = Modifier,
     text: String,
     @FloatRange(0.0, 1.0)

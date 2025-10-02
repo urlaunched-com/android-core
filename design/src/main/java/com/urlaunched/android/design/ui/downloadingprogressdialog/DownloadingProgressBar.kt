@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
-import com.urlaunched.android.design.ui.progresstext.ProgressText
+import com.urlaunched.android.design.ui.downloadingprogressdialog.models.ProgressTextStyle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 
@@ -48,7 +48,8 @@ fun AnimatedDownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: ((animatedProgress: Float) -> String)? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     AnimatedDownloadingProgressBar(
@@ -60,6 +61,7 @@ fun AnimatedDownloadingProgressBar(
         trackShape = trackShape,
         progressShape = progressShape,
         progressText = progressText,
+        progressTextStyle = progressTextStyle,
         supportingText = supportingText
     )
 }
@@ -74,7 +76,8 @@ fun AnimatedDownloadingProgressBar(
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.(Float) -> Unit)? = null,
+    progressText: ((animatedProgress: Float) -> String)? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val animatedProgress by animateProgressAsState(progress = progress)
@@ -88,11 +91,8 @@ fun AnimatedDownloadingProgressBar(
         trackShape = trackShape,
         progressShape = progressShape,
         supportingText = supportingText,
-        progressText = progressText?.let { textContent ->
-            @Composable {
-                textContent(animatedProgress)
-            }
-        }
+        progressText = progressText?.invoke(animatedProgress),
+        progressTextStyle = progressTextStyle
     )
 }
 
@@ -103,10 +103,11 @@ fun DownloadingProgressBar(
     progress: Float,
     trackColor: Color,
     progressColor: Color,
+    progressText: String? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     DownloadingProgressBar(
@@ -118,6 +119,7 @@ fun DownloadingProgressBar(
         trackShape = trackShape,
         progressShape = progressShape,
         progressText = progressText,
+        progressTextStyle = progressTextStyle,
         supportingText = supportingText
     )
 }
@@ -129,10 +131,11 @@ fun DownloadingProgressBar(
     progress: Float,
     trackBrush: Brush,
     progressBrush: Brush,
+    progressText: String? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     progressBarHeight: Dp = Dimens.spacingLarge,
     trackShape: Shape = CircleShape,
     progressShape: Shape = trackShape,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null
 ) {
     Column(modifier = modifier) {
@@ -150,7 +153,18 @@ fun DownloadingProgressBar(
                 progressShape = progressShape
             )
 
-            progressText?.invoke(this@Box)
+            if (progressText != null) {
+                ProgressText(
+                    text = progressText,
+                    progress = progress,
+                    startColor = progressTextStyle.startColor,
+                    endColor = progressTextStyle.endColor,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                )
+            }
         }
 
         supportingText?.let { textContent ->
@@ -242,7 +256,7 @@ private fun SolidProgressBarPreview() {
 @Preview
 @Composable
 private fun AnimatedProgressBarPreview() {
-    var progress by remember { mutableFloatStateOf(0f) }
+    var progress by remember { mutableFloatStateOf(0.49f) }
 
     LaunchedEffect(Unit) {
         while (isActive) {
@@ -261,16 +275,7 @@ private fun AnimatedProgressBarPreview() {
         progressColor = Color.Red,
         trackColor = Color.LightGray,
         progressText = { animatedProgress ->
-            ProgressText(
-                text = "${"%.1f".format(animatedProgress * 100f)} %",
-                progress = animatedProgress,
-                startColor = Color.White,
-                endColor = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center)
-            )
+            "${"%.1f".format(animatedProgress * 100f)} %"
         }
     )
 }

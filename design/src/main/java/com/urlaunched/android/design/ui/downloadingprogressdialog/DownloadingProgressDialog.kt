@@ -23,31 +23,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 import com.composables.core.androidx.annotation.FloatRange
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.downloadingprogressdialog.models.ProgressBarStyle
-import com.urlaunched.android.design.ui.progresstext.ProgressText
+import com.urlaunched.android.design.ui.downloadingprogressdialog.models.ProgressTextStyle
 
-/**
- * @see ProgressText
- */
 @Composable
 fun DownloadingProgressDialog(
     modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
-    onDismissRequest: () -> Unit = {},
+    progressText: String? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
     dialogContainerColor: Color = Color.White,
+    onDismissRequest: () -> Unit = {},
     dialogContainerShape: Shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
@@ -60,6 +57,8 @@ fun DownloadingProgressDialog(
         dialogContainerColor = dialogContainerColor,
         dialogContainerShape = dialogContainerShape,
         contentPadding = contentPadding,
+        progressText = progressText,
+        progressTextStyle = progressTextStyle,
         title = title?.let { titleContent ->
             @Composable {
                 titleContent()
@@ -74,7 +73,6 @@ fun DownloadingProgressDialog(
                 Spacer(modifier = Modifier.height(Dimens.spacingBigSpecial))
             }
         },
-        progressText = progressText,
         supportingText = supportingText,
         button = button?.let { buttonContent ->
             @Composable {
@@ -91,24 +89,22 @@ fun DownloadingProgressDialog(
     )
 }
 
-/**
- * @see ProgressText
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BaseDownloadingProgressDialog(
     modifier: Modifier = Modifier,
     @FloatRange(0.0, 1.0)
     progress: Float,
-    onDismissRequest: () -> Unit = {},
+    progressText: String? = null,
+    progressTextStyle: ProgressTextStyle = ProgressTextStyle(),
     progressBarStyle: ProgressBarStyle = ProgressBarStyle(),
+    onDismissRequest: () -> Unit = {},
     dialogContainerColor: Color = Color.White,
     dialogContainerShape: Shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
     dialogProperties: DialogProperties = DialogProperties(),
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
-    progressText: (@Composable BoxScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
     button: (@Composable ColumnScope.() -> Unit)? = null
 ) {
@@ -138,6 +134,7 @@ fun BaseDownloadingProgressDialog(
                     progressBrush = progressBarStyle.progressBrush,
                     trackBrush = progressBarStyle.trackBrush,
                     progressText = progressText,
+                    progressTextStyle = progressTextStyle,
                     supportingText = supportingText
                 )
 
@@ -166,18 +163,7 @@ private fun BaseDownloadingProgressDialogPreview() {
                 style = MaterialTheme.typography.bodyMedium
             )
         },
-        progressText = {
-            ProgressText(
-                text = "${progress * 100f}%",
-                progress = progress,
-                startColor = Color.Yellow,
-                endColor = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center)
-            )
-        },
+        progressText = "${progress * 100f}%",
         supportingText = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -221,18 +207,7 @@ private fun DownloadingProgressDialogPreview() {
                 style = MaterialTheme.typography.bodyMedium
             )
         },
-        progressText = {
-            ProgressText(
-                text = "${progress * 100f}%",
-                progress = progress,
-                startColor = Color.Yellow,
-                endColor = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center)
-            )
-        },
+        progressText = "${progress * 100f}%",
         supportingText = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
