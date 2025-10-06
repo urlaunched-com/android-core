@@ -37,11 +37,9 @@ fun OnboardingContainer(
     stepProgressBarColors: StepProgressBarColors = StepProgressBarColors(),
     stepProgressBarStyle: StepProgressBarStyle = StepProgressBarStyle(),
     stepProgressPadding: PaddingValues = PaddingValues(top = Dimens.spacingNormal),
-    pageArrangement: Arrangement.Vertical = Arrangement.Top,
-    pageAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    pageImage: @Composable ColumnScope.(page: Int) -> Unit,
-    pageTitle: @Composable ColumnScope.(page: Int) -> Unit,
-    pageDescription: @Composable ColumnScope.(page: Int) -> Unit,
+    contentArrangement: Arrangement.Vertical = Arrangement.Top,
+    contentAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    pageContent: @Composable ColumnScope.(page: Int) -> Unit,
     nextButton: @Composable ColumnScope.() -> Unit,
     skipButton: @Composable ColumnScope.() -> Unit,
     additionalContent: @Composable ColumnScope.() -> Unit = {}
@@ -56,14 +54,10 @@ fun OnboardingContainer(
         ) { page ->
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = pageAlignment,
-                verticalArrangement = pageArrangement
+                horizontalAlignment = contentAlignment,
+                verticalArrangement = contentArrangement
             ) {
-                pageImage(page)
-
-                pageTitle(page)
-
-                pageDescription(page)
+                pageContent(page)
             }
         }
 
@@ -95,22 +89,20 @@ private fun OnboardingContainerPreview() {
 
     OnboardingContainer(
         pagerState = pagerState,
-        pageImage = { page ->
+        pageContent = { page ->
             Box(
                 modifier = Modifier
                     .padding(top = 100.dp)
                     .size(270.dp)
                     .background(Color(0xFF4CAF50), RoundedCornerShape(24.dp))
             )
-        },
-        pageTitle = {
+
             Text(
                 text = "Welcome to the App",
                 style = MaterialTheme.typography.displaySmall,
                 modifier = Modifier.padding(top = 32.dp)
             )
-        },
-        pageDescription = {
+
             Text(
                 text = "Your go-to application for everything.\nEmbark on an exciting journey with us.",
                 style = MaterialTheme.typography.labelLarge,
