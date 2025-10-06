@@ -1,5 +1,6 @@
 package com.urlaunched.android.design.ui.onboardingcontainer
 
+import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,8 +30,71 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
+import com.urlaunched.android.design.ui.onboardingcontainer.constants.OnboardingConstants
 import com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressBarColors
 import com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressBarStyle
+import kotlinx.coroutines.launch
+
+private const val FIRST_PAGE_INDEX = 0
+private const val ONE_PAGE = 1
+
+@Composable
+fun <T> OnboardingContainer(
+    modifier: Modifier = Modifier,
+    pages: List<T>,
+    initialPageIndex: Int = FIRST_PAGE_INDEX,
+    stepProgressBarColors: StepProgressBarColors = StepProgressBarColors(),
+    stepProgressBarStyle: StepProgressBarStyle = StepProgressBarStyle(),
+    stepProgressPadding: PaddingValues = PaddingValues(top = Dimens.spacingNormal),
+    contentArrangement: Arrangement.Vertical = Arrangement.Top,
+    contentAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    onPageChange: ((page: T) -> Unit)? = null,
+    nextButton: @Composable ColumnScope.(page: T, isLastPage: Boolean, nextPage: () -> Unit) -> Unit,
+    skipButton: @Composable ColumnScope.(isLastPage: Boolean) -> Unit,
+    additionalContent: @Composable ColumnScope.() -> Unit = {},
+    pageContent: @Composable ColumnScope.(page: T) -> Unit
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(
+        initialPage = initialPageIndex,
+        pageCount = { pages.size }
+    )
+
+    onPageChange?.let { onChange ->
+        LaunchedEffect(pagerState.currentPage) {
+            onChange(pages[pagerState.currentPage])
+        }
+    }
+
+    val goToNextPage: () -> Unit = {
+        coroutineScope.launch {
+            pagerState.animateScrollToPage(
+                page = pagerState.currentPage + ONE_PAGE,
+                animationSpec = TweenSpec(durationMillis = OnboardingConstants.PAGE_ANIMATION_DURATION_MILLIS)
+            )
+        }
+    }
+
+    OnboardingContainer(
+        modifier = modifier,
+        pagerState = pagerState,
+        stepProgressBarColors = stepProgressBarColors,
+        stepProgressBarStyle = stepProgressBarStyle,
+        stepProgressPadding = stepProgressPadding,
+        contentArrangement = contentArrangement,
+        contentAlignment = contentAlignment,
+        pageContent = { pageIndex ->
+            pageContent(pages[pageIndex])
+        },
+        nextButton = {
+            nextButton(pages[pagerState.currentPage], pagerState.currentPage == pages.lastIndex, goToNextPage)
+        },
+        skipButton = {
+            skipButton(pagerState.currentPage == pages.lastIndex)
+        },
+        additionalContent = additionalContent
+    )
+}
 
 @Composable
 fun OnboardingContainer(

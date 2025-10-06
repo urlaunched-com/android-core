@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.urlaunched.android.design.ui.onboardingcontainer.constants.StepProgressBarConstants
+import com.urlaunched.android.design.ui.onboardingcontainer.constants.OnboardingConstants
 import com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressBarColors
 import com.urlaunched.android.design.ui.onboardingcontainer.models.StepProgressBarStyle
 
@@ -31,14 +31,14 @@ fun StepProgressBar(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(stepProgressBarStyle.stepsSpacing)
     ) {
-        for (stepIndex in StepProgressBarConstants.PROGRESS_BAR_FIRST_STEP until stepsCount) {
+        for (stepIndex in OnboardingConstants.PROGRESS_BAR_FIRST_STEP until stepsCount) {
             val tabColor by animateColorAsState(
                 targetValue = if (stepIndex == activeStepIndex) {
                     stepProgressBarColors.selectedStepColor
                 } else {
                     stepProgressBarColors.unselectedStepColor
                 },
-                animationSpec = tween(StepProgressBarConstants.STEP_COLOR_ANIM_DURATION_MILLIS, easing = LinearEasing)
+                animationSpec = tween(OnboardingConstants.PAGE_ANIMATION_DURATION_MILLIS, easing = LinearEasing)
             )
 
             Box(
