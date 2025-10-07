@@ -67,54 +67,16 @@ package com.urlaunched.android.design.resources.dimens {
 
 }
 
-package com.urlaunched.android.design.ui.accountbinding.models {
-
-  public final class EmailAccountColors {
-    ctor public EmailAccountColors(optional long driverColor);
-    method public long component1-0d7_KjU();
-    method public com.urlaunched.android.design.ui.accountbinding.models.EmailAccountColors copy-8_81llA(long driverColor);
-    method public long getDriverColor();
-    property public final long driverColor;
-  }
-
-  public final class EmailAccountDimens {
-    ctor public EmailAccountDimens(optional float dividerHeight);
-    method public float component1-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.accountbinding.models.EmailAccountDimens copy-0680j_4(float dividerHeight);
-    method public float getDividerHeight();
-    property public final float dividerHeight;
-  }
-
-  public final class SocialAccountDimens {
-    ctor public SocialAccountDimens(optional float paddingEnd, optional float paddingStart, optional float paddingTop, optional float paddingBottom, optional float paddingHorizontal);
-    method public float component1-D9Ej5fM();
-    method public float component2-D9Ej5fM();
-    method public float component3-D9Ej5fM();
-    method public float component4-D9Ej5fM();
-    method public float component5-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.accountbinding.models.SocialAccountDimens copy-RyVG9vg(float paddingEnd, float paddingStart, float paddingTop, float paddingBottom, float paddingHorizontal);
-    method public float getPaddingBottom();
-    method public float getPaddingEnd();
-    method public float getPaddingHorizontal();
-    method public float getPaddingStart();
-    method public float getPaddingTop();
-    property public final float paddingBottom;
-    property public final float paddingEnd;
-    property public final float paddingHorizontal;
-    property public final float paddingStart;
-    property public final float paddingTop;
-  }
-
-}
-
 package com.urlaunched.android.design.ui.accountbinding.ui {
 
   public final class EmailAccountKt {
-    method @androidx.compose.runtime.Composable public static void EmailAccount(optional androidx.compose.ui.Modifier modifier, boolean hasAccount, boolean isCurrentAccount, boolean hasEmail, com.urlaunched.android.design.ui.accountbinding.models.EmailAccountColors emailAccountColors, optional com.urlaunched.android.design.ui.accountbinding.models.EmailAccountDimens emailAccountDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onEditEmailClick, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> onEditPasswordClick, kotlin.jvm.functions.Function0<kotlin.Unit> emailProviderText, kotlin.jvm.functions.Function0<kotlin.Unit> accountEmailText, kotlin.jvm.functions.Function0<kotlin.Unit> passwordText, kotlin.jvm.functions.Function0<kotlin.Unit> trailingIcon, kotlin.jvm.functions.Function0<kotlin.Unit> addAccountText, kotlin.jvm.functions.Function0<kotlin.Unit> currentAccountContainer, kotlin.jvm.functions.Function0<kotlin.Unit> deleteAccountContainer);
+    method @androidx.compose.runtime.Composable public static void EmailAccount(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier cardModifier, boolean hasAccount, boolean hasEmail, kotlin.jvm.functions.Function0<kotlin.Unit> onEditEmailClick, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> onEditPasswordClick, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit> divider, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> emailProviderContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> accountEmail, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> passwordContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> trailingIcon, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> noAccountContent, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> supportingContent);
+    method @androidx.compose.runtime.Composable public static void EmailAccount(optional androidx.compose.ui.Modifier modifier, boolean isCurrentAccount, boolean hasAccount, boolean hasEmail, optional long containerColor, optional androidx.compose.ui.graphics.Shape shape, optional com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadow, kotlin.jvm.functions.Function0<kotlin.Unit> onEditEmailClick, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> onEditPasswordClick, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.foundation.layout.PaddingValues supportingContentPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit> divider, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> emailProviderContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> accountEmail, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> passwordContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> trailingIcon, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> noAccountContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> deleteAccount, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> currentAccount);
   }
 
   public final class SocialAccountKt {
-    method @androidx.compose.runtime.Composable public static void SocialAccount(optional androidx.compose.ui.Modifier modifier, boolean hasAccount, boolean isCurrentAccount, boolean hasEmail, optional com.urlaunched.android.design.ui.accountbinding.models.SocialAccountDimens socialAccountDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, kotlin.jvm.functions.Function0<kotlin.Unit> leadingIcon, kotlin.jvm.functions.Function0<kotlin.Unit> providerText, kotlin.jvm.functions.Function0<kotlin.Unit> accountEmailText, kotlin.jvm.functions.Function0<kotlin.Unit> addAccountText, kotlin.jvm.functions.Function0<kotlin.Unit> currentAccountContainer, kotlin.jvm.functions.Function0<kotlin.Unit> deleteAccountContainer);
+    method @androidx.compose.runtime.Composable public static void SocialAccount(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier cardModifier, boolean hasEmail, optional boolean enabled, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> providerContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> accountEmail, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> addAccount, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> supportingContent);
+    method @androidx.compose.runtime.Composable public static void SocialAccount(optional androidx.compose.ui.Modifier modifier, boolean isCurrentAccount, boolean hasAccount, boolean hasEmail, optional long containerColor, optional androidx.compose.ui.graphics.Shape shape, optional com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadow, kotlin.jvm.functions.Function0<kotlin.Unit> onAddAccountClick, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional androidx.compose.foundation.layout.PaddingValues supportingContentPadding, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> providerContent, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> accountEmail, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> addAccount, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> deleteAccount, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> currentAccount);
   }
 
 }
@@ -480,7 +442,32 @@ package com.urlaunched.android.design.ui.scrollbar.controller {
 package com.urlaunched.android.design.ui.shadow {
 
   public final class ShadowKt {
+    method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, com.urlaunched.android.design.ui.shadow.models.ShadowStyle style);
     method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.shadow.models {
+
+  public final class ShadowStyle {
+    ctor public ShadowStyle(optional long color, optional float alpha, optional float cornersRadius, optional float blurRadius, optional long offset);
+    method public long component1-0d7_KjU();
+    method public float component2();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public long component5-RKDOV3M();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle copy-w1ByDHw(long color, float alpha, float cornersRadius, float blurRadius, long offset);
+    method public float getAlpha();
+    method public float getBlurRadius();
+    method public long getColor();
+    method public float getCornersRadius();
+    method public long getOffset();
+    property public final float alpha;
+    property public final float blurRadius;
+    property public final long color;
+    property public final float cornersRadius;
+    property public final long offset;
   }
 
 }
