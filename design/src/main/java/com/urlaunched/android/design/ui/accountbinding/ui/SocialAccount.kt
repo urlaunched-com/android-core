@@ -1,71 +1,173 @@
 package com.urlaunched.android.design.ui.accountbinding.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.urlaunched.android.design.ui.accountbinding.models.SocialAccountDimens
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import com.urlaunched.android.design.resources.dimens.Dimens
+import com.urlaunched.android.design.ui.accountbinding.constants.SocialAccountDimens
+import com.urlaunched.android.design.ui.clickable.debouncedClickable
+import com.urlaunched.android.design.ui.modifiers.ifNotNull
+import com.urlaunched.android.design.ui.shadow.models.ShadowStyle
+import com.urlaunched.android.design.ui.shadow.shadow
 
 @Composable
 fun SocialAccount(
     modifier: Modifier = Modifier,
-    hasAccount: Boolean,
     isCurrentAccount: Boolean,
+    hasAccount: Boolean,
     hasEmail: Boolean,
-    socialAccountDimens: SocialAccountDimens = SocialAccountDimens(),
+    containerColor: Color = Color.White,
+    shape: Shape = RoundedCornerShape(Dimens.cornerRadiusBig),
+    shadow: ShadowStyle? = null,
     onAddAccountClick: () -> Unit,
-    leadingIcon: @Composable () -> Unit,
-    providerText: @Composable () -> Unit,
-    accountEmailText: @Composable () -> Unit,
-    addAccountText: @Composable () -> Unit,
-    currentAccountContainer: @Composable () -> Unit,
-    deleteAccountContainer: @Composable () -> Unit
+    contentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
+    supportingContentPadding: PaddingValues = PaddingValues(top = Dimens.spacingSmall),
+    providerContent: @Composable RowScope.() -> Unit,
+    accountEmail: @Composable RowScope.() -> Unit,
+    addAccount: @Composable RowScope.() -> Unit,
+    deleteAccount: @Composable ColumnScope.() -> Unit,
+    currentAccount: @Composable ColumnScope.() -> Unit
 ) {
-    AccountContainer(
+    SocialAccount(
+        cardModifier = Modifier
+            .ifNotNull(shadow) { Modifier.shadow(it) }
+            .clip(shape)
+            .background(containerColor),
         modifier = modifier,
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        enabled = true,
-                        onClick = onAddAccountClick
-                    )
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(socialAccountDimens.paddingHorizontal),
-                    modifier = Modifier.padding(
-                        end = socialAccountDimens.paddingEnd,
-                        start = socialAccountDimens.paddingStart,
-                        top = socialAccountDimens.paddingTop,
-                        bottom = socialAccountDimens.paddingBottom
-                    )
+        enabled = hasAccount,
+        hasEmail = hasEmail,
+        onAddAccountClick = onAddAccountClick,
+        contentPadding = contentPadding,
+        accountEmail = accountEmail,
+        addAccount = addAccount,
+        providerContent = providerContent,
+        supportingContent = {
+            if (hasAccount) {
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(supportingContentPadding)
                 ) {
-                    leadingIcon()
-
-                    providerText()
-
-                    if (hasEmail) {
-                        accountEmailText()
+                    if (isCurrentAccount) {
+                        currentAccount()
                     } else {
-                        addAccountText()
+                        deleteAccount()
                     }
                 }
             }
         }
     )
+}
 
-    CurrentAccountOrDeleteContainer(
-        modifier = Modifier.fillMaxWidth(),
-        hasAccount = hasAccount,
-        isCurrentAccount = isCurrentAccount,
-        currentAccountContainer = currentAccountContainer,
-        deleteAccountContainer = deleteAccountContainer
+@Composable
+fun SocialAccount(
+    modifier: Modifier = Modifier,
+    cardModifier: Modifier = Modifier,
+    hasEmail: Boolean,
+    enabled: Boolean = true,
+    onAddAccountClick: () -> Unit,
+    contentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
+    providerContent: @Composable RowScope.() -> Unit,
+    accountEmail: @Composable RowScope.() -> Unit,
+    addAccount: @Composable RowScope.() -> Unit,
+    supportingContent: @Composable ColumnScope.() -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Column(modifier = cardModifier) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .debouncedClickable(
+                        enabled = enabled,
+                        onClick = onAddAccountClick
+                    )
+                    .padding(contentPadding)
+            ) {
+                providerContent()
+
+                Spacer(Modifier.weight(1f))
+
+                if (hasEmail) {
+                    accountEmail()
+                } else {
+                    addAccount()
+                }
+            }
+        }
+
+        supportingContent()
+    }
+}
+
+@Preview
+@Composable
+private fun SocialAccountPreview() {
+    SocialAccount(
+        hasEmail = true,
+        hasAccount = true,
+        isCurrentAccount = true,
+        modifier = Modifier
+            .background(Color.LightGray)
+            .padding(Dimens.spacingNormal),
+        onAddAccountClick = {},
+        providerContent = {
+            Icon(
+                imageVector = Icons.Default.Email,
+                contentDescription = null
+            )
+
+            Spacer(Modifier.width(Dimens.spacingSmall))
+
+            Text(
+                text = "Gmail",
+                fontWeight = FontWeight.Bold
+            )
+        },
+        accountEmail = {
+            Text(
+                text = "someone@gmail.com"
+            )
+        },
+        addAccount = {
+            Text(
+                text = "Add account",
+                modifier = Modifier.padding(end = Dimens.spacingSmall)
+            )
+        },
+        currentAccount = {
+            Text(
+                text = "Current account"
+            )
+        },
+        deleteAccount = {
+            Text(
+                text = "Delete",
+                color = Color.Red
+            )
+        }
     )
 }
