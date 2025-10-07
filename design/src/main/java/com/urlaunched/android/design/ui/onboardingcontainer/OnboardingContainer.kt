@@ -49,9 +49,7 @@ fun <T> OnboardingContainer(
     contentArrangement: Arrangement.Vertical = Arrangement.Top,
     contentAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     onPageChange: ((page: T) -> Unit)? = null,
-    nextButton: @Composable ColumnScope.(page: T, isLastPage: Boolean, nextPage: () -> Unit) -> Unit,
-    skipButton: @Composable ColumnScope.(isLastPage: Boolean) -> Unit,
-    additionalContent: @Composable ColumnScope.() -> Unit = {},
+    footerContent: @Composable ColumnScope.(page: T, isLastPage: Boolean, nextPage: () -> Unit) -> Unit,
     pageContent: @Composable ColumnScope.(page: T) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -86,13 +84,9 @@ fun <T> OnboardingContainer(
         pageContent = { pageIndex ->
             pageContent(pages[pageIndex])
         },
-        nextButton = {
-            nextButton(pages[pagerState.currentPage], pagerState.currentPage == pages.lastIndex, goToNextPage)
-        },
-        skipButton = {
-            skipButton(pagerState.currentPage == pages.lastIndex)
-        },
-        additionalContent = additionalContent
+        footerContent = {
+            footerContent(pages[pagerState.currentPage], pagerState.currentPage == pages.lastIndex, goToNextPage)
+        }
     )
 }
 
@@ -105,10 +99,8 @@ fun OnboardingContainer(
     stepProgressPadding: PaddingValues = PaddingValues(top = Dimens.spacingNormal),
     contentArrangement: Arrangement.Vertical = Arrangement.Top,
     contentAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    pageContent: @Composable ColumnScope.(page: Int) -> Unit,
-    nextButton: @Composable ColumnScope.() -> Unit,
-    skipButton: @Composable ColumnScope.() -> Unit,
-    additionalContent: @Composable ColumnScope.() -> Unit = {}
+    footerContent: @Composable ColumnScope.() -> Unit,
+    pageContent: @Composable ColumnScope.(page: Int) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -139,11 +131,7 @@ fun OnboardingContainer(
                 modifier = Modifier.padding(stepProgressPadding)
             )
 
-            nextButton()
-
-            skipButton()
-
-            additionalContent()
+            footerContent()
         }
     }
 }
@@ -155,6 +143,10 @@ private fun OnboardingContainerPreview() {
 
     OnboardingContainer(
         pagerState = pagerState,
+        stepProgressBarColors = StepProgressBarColors(
+            selectedStepColor = MaterialTheme.colorScheme.primary,
+            unselectedStepColor = MaterialTheme.colorScheme.primaryContainer
+        ),
         pageContent = { page ->
             Box(
                 modifier = Modifier
@@ -177,7 +169,7 @@ private fun OnboardingContainerPreview() {
                 modifier = Modifier.padding(top = 8.dp)
             )
         },
-        nextButton = {
+        footerContent = {
             Button(
                 onClick = {},
                 modifier = Modifier
@@ -186,20 +178,14 @@ private fun OnboardingContainerPreview() {
             ) {
                 Text("Next")
             }
-        },
-        stepProgressBarColors = StepProgressBarColors(
-            selectedStepColor = MaterialTheme.colorScheme.primary,
-            unselectedStepColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        skipButton = {
+
             TextButton(
                 onClick = {},
                 modifier = Modifier.width(200.dp)
             ) {
                 Text("Skip")
             }
-        },
-        additionalContent = {
+
             Text(
                 text = "Privacy Policy, Terms & Conditions",
                 modifier = Modifier.padding(vertical = Dimens.spacingNormal)
