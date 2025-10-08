@@ -36,7 +36,8 @@ class SinglePlayerStateImpl(
         PlayerUiState(
             audioState = AudioState.PAUSE,
             currentMediaItemId = "-1",
-            audioDuration = 0
+            audioDuration = 0,
+            currentMediaIndex = 0
         )
     )
 
@@ -216,7 +217,8 @@ class SinglePlayerStateImpl(
         coroutineScope.launch {
             _playerUiState.value = _playerUiState.value.copy(
                 audioState = player.state,
-                audioDuration = player?.duration.takeIf { it != C.TIME_UNSET } ?: 0
+                audioDuration = player?.duration.takeIf { it != C.TIME_UNSET } ?: 0,
+                currentMediaIndex = player?.currentMediaItemIndex ?: 0
             )
         }
     }
