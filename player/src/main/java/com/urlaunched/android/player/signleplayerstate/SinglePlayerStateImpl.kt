@@ -207,7 +207,8 @@ class SinglePlayerStateImpl(
     private inline fun Player.Events.onPlaybackButtonChanged(changePlaybackState: () -> Unit) {
         if (containsAny(
                 Player.EVENT_PLAYBACK_STATE_CHANGED,
-                Player.EVENT_PLAY_WHEN_READY_CHANGED
+                Player.EVENT_PLAY_WHEN_READY_CHANGED,
+                Player.EVENT_TRACKS_CHANGED
             )
         ) {
             changePlaybackState()
