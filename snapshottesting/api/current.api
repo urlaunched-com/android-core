@@ -2,7 +2,7 @@
 package com.urlaunched.android.snapshottesting {
 
   public abstract class BaseSnapshotTest {
-    ctor public BaseSnapshotTest(optional app.cash.paparazzi.DeviceConfig deviceConfig, optional com.android.ide.common.rendering.api.SessionParams.RenderingMode renderingMode, optional boolean supportsDarkMode, optional boolean supportsLandscape, optional boolean supportsRtl);
+    ctor public BaseSnapshotTest(optional app.cash.paparazzi.DeviceConfig deviceConfig, optional com.android.ide.common.rendering.api.SessionParams.RenderingMode renderingMode, optional boolean supportsDarkMode, optional boolean supportsLandscape, optional boolean supportsRtl, optional java.util.List<java.lang.String> languages);
     method @org.junit.Rule public final com.urlaunched.android.snapshottesting.DefaultLocaleRule getLocalRule();
     method @org.junit.Rule public app.cash.paparazzi.Paparazzi getPaparazzi();
     method public final void snapshot(kotlin.jvm.functions.Function0<kotlin.Unit> composable);
