@@ -31,6 +31,7 @@ interface SinglePlayerState : DefaultLifecycleObserver {
 fun rememberPlayerState(
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    seekToStartOnEnd: Boolean = true,
     notificationData: NotificationPlayerHelper.NotificationData? = null,
     notificationChannelName: String? = null
 ): SinglePlayerState = if (LocalInspectionMode.current) {
@@ -38,7 +39,7 @@ fun rememberPlayerState(
         NoOpSinglePlayerStateImpl()
     }
 } else {
-    remember(context, coroutineScope, notificationData) {
-        SinglePlayerStateImpl(context, coroutineScope, notificationData, notificationChannelName)
+    remember(context, coroutineScope, seekToStartOnEnd, notificationData) {
+        SinglePlayerStateImpl(context, seekToStartOnEnd, coroutineScope, notificationData, notificationChannelName)
     }
 }

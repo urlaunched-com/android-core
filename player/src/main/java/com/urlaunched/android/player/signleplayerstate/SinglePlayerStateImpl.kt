@@ -22,6 +22,7 @@ import java.io.File
 @UnstableApi
 class SinglePlayerStateImpl(
     context: Context,
+    private val seekToStartOnEnd: Boolean,
     private val coroutineScope: CoroutineScope,
     private val notificationData: NotificationPlayerHelper.NotificationData?,
     private val notificationChannelName: String?
@@ -228,8 +229,10 @@ class SinglePlayerStateImpl(
                 }
 
                 Player.STATE_ENDED -> {
-                    player?.seekTo(0)
-                    player?.pause()
+                    if (seekToStartOnEnd) {
+                        player?.seekTo(0)
+                        player?.pause()
+                    }
 
                     actualState = AudioState.PAUSE
                     actualState
