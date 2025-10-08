@@ -7,5 +7,6 @@ data class PlayerUiState(
     val currentMediaItemId: String,
     val audioDuration: Long,
     val isWaitingForAutoplay: Boolean = false,
-    val currentMediaIndex: Int
+    val currentMediaIndex: Int,
+    val endReached: Boolean
 )

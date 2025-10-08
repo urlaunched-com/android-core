@@ -12,7 +12,8 @@ class NoOpSinglePlayerStateImpl : SinglePlayerState {
             audioState = AudioState.PAUSE,
             currentMediaItemId = "",
             audioDuration = 0L,
-            currentMediaIndex = 0
+            currentMediaIndex = 0,
+            endReached = false
         )
     )
     override val currentPlayingPosition: Long = 0

@@ -37,7 +37,8 @@ class SinglePlayerStateImpl(
             audioState = AudioState.PAUSE,
             currentMediaItemId = "-1",
             audioDuration = 0,
-            currentMediaIndex = 0
+            currentMediaIndex = 0,
+            endReached = false
         )
     )
 
@@ -218,7 +219,8 @@ class SinglePlayerStateImpl(
             _playerUiState.value = _playerUiState.value.copy(
                 audioState = player.state,
                 audioDuration = player?.duration.takeIf { it != C.TIME_UNSET } ?: 0,
-                currentMediaIndex = player?.currentMediaItemIndex ?: 0
+                currentMediaIndex = player?.currentMediaItemIndex ?: 0,
+                endReached = player?.playbackState == Player.STATE_ENDED
             )
         }
     }
