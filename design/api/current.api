@@ -428,7 +428,32 @@ package com.urlaunched.android.design.ui.scrollbar.controller {
 package com.urlaunched.android.design.ui.shadow {
 
   public final class ShadowKt {
+    method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, com.urlaunched.android.design.ui.shadow.models.ShadowStyle style);
     method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.shadow.models {
+
+  public final class ShadowStyle {
+    ctor public ShadowStyle(optional long color, optional float alpha, optional float cornersRadius, optional float blurRadius, optional long offset);
+    method public long component1-0d7_KjU();
+    method public float component2();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public long component5-RKDOV3M();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle copy-w1ByDHw(long color, float alpha, float cornersRadius, float blurRadius, long offset);
+    method public float getAlpha();
+    method public float getBlurRadius();
+    method public long getColor();
+    method public float getCornersRadius();
+    method public long getOffset();
+    property public final float alpha;
+    property public final float blurRadius;
+    property public final long color;
+    property public final float cornersRadius;
+    property public final long offset;
   }
 
 }
@@ -730,74 +755,36 @@ package com.urlaunched.android.design.ui.tutorial.utils {
 
 }
 
-package com.urlaunched.android.design.ui.videoTutorial.model {
-
-  public final class VideoContentColors {
-    ctor public VideoContentColors(optional long backgroundColor);
-    method public long component1-0d7_KjU();
-    method public com.urlaunched.android.design.ui.videoTutorial.model.VideoContentColors copy-8_81llA(long backgroundColor);
-    method public long getBackgroundColor();
-    property public final long backgroundColor;
-  }
+package com.urlaunched.android.design.ui.videotutorial.model {
 
   public final class VideoProgressColors {
     ctor public VideoProgressColors(optional long trackColor, optional long progressColor);
     method public long component1-0d7_KjU();
     method public long component2-0d7_KjU();
-    method public com.urlaunched.android.design.ui.videoTutorial.model.VideoProgressColors copy--OWjLjI(long trackColor, long progressColor);
+    method public com.urlaunched.android.design.ui.videotutorial.model.VideoProgressColors copy--OWjLjI(long trackColor, long progressColor);
     method public long getProgressColor();
     method public long getTrackColor();
     property public final long progressColor;
     property public final long trackColor;
   }
 
-  public final class VideoProgressPadding {
-    ctor public VideoProgressPadding(optional float start, optional float top, optional float end, optional float bottom, optional float spaceBetweenProgress);
-    method public float component1-D9Ej5fM();
+  public final class VideoProgressStyle {
+    ctor public VideoProgressStyle(optional com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadow, optional float gapSize);
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle? component1();
     method public float component2-D9Ej5fM();
-    method public float component3-D9Ej5fM();
-    method public float component4-D9Ej5fM();
-    method public float component5-D9Ej5fM();
-    method public com.urlaunched.android.design.ui.videoTutorial.model.VideoProgressPadding copy-RyVG9vg(float start, float top, float end, float bottom, float spaceBetweenProgress);
-    method public float getBottom();
-    method public float getEnd();
-    method public float getSpaceBetweenProgress();
-    method public float getStart();
-    method public float getTop();
-    property public final float bottom;
-    property public final float end;
-    property public final float spaceBetweenProgress;
-    property public final float start;
-    property public final float top;
+    method public com.urlaunched.android.design.ui.videotutorial.model.VideoProgressStyle copy-3ABfNKs(com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadow, float gapSize);
+    method public float getGapSize();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle? getShadow();
+    property public final float gapSize;
+    property public final com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadow;
   }
 
 }
 
-package com.urlaunched.android.design.ui.videoTutorial.ui {
+package com.urlaunched.android.design.ui.videotutorial.ui {
 
-  public final class VideoProgressModifierKt {
-    method @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier dropShadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
-  }
-
-  public final class VideoTutorialWrapperKt {
-    method @androidx.compose.runtime.Composable public static void VideoTutorialWrapper(optional androidx.compose.ui.Modifier modifier, androidx.media3.common.Player? player, optional com.urlaunched.android.design.ui.videoTutorial.model.VideoContentColors videoContentColors, kotlin.jvm.functions.Function0<kotlin.Unit> onPreviousVideo, kotlin.jvm.functions.Function0<kotlin.Unit> onNextVideo, java.util.List<java.lang.String> mediaLink, int currentMediaIndex, float progressForCurrentMedia, optional com.urlaunched.android.design.ui.videoTutorial.model.VideoProgressColors videoProgressDefaultColors, optional com.urlaunched.android.design.ui.videoTutorial.model.VideoProgressPadding videoProgressPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit> closeButton);
-  }
-
-}
-
-package com.urlaunched.android.design.ui.videoTutorial.utils {
-
-  public final class ShadowConstants {
-    field public static final float DROP_SHADOW_ALPHA = 0.15f;
-    field public static final com.urlaunched.android.design.ui.videoTutorial.utils.ShadowConstants INSTANCE;
-  }
-
-  public final class ShadowDimens {
-    method public float getDropShadowBlurRadius();
-    method public long getDropShadowOffset();
-    property public final float dropShadowBlurRadius;
-    property public final long dropShadowOffset;
-    field public static final com.urlaunched.android.design.ui.videoTutorial.utils.ShadowDimens INSTANCE;
+  public final class VideoTutorialContainerKt {
+    method @androidx.compose.runtime.Composable public static void VideoTutorialContainer(optional androidx.compose.ui.Modifier modifier, androidx.media3.common.Player? player, int mediaCount, int currentMediaIndex, @FloatRange(from=0.0, to=1.0) float currentMediaProgress, kotlin.jvm.functions.Function0<kotlin.Unit> onPreviousVideo, kotlin.jvm.functions.Function0<kotlin.Unit> onNextVideo, optional int videoResizeMode, optional androidx.compose.foundation.layout.PaddingValues progressBarPadding, optional com.urlaunched.android.design.ui.videotutorial.model.VideoProgressColors videoProgressColors, optional com.urlaunched.android.design.ui.videotutorial.model.VideoProgressStyle videoProgressStyle, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> closeButton);
   }
 
 }
