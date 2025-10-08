@@ -75,8 +75,9 @@ dependencies {
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
-    //Media 3
-    implementation libs.composeMedia3.ui
+    // Media3
+    implementation libs.media3Dependencies.core
+    implementation libs.media3Dependencies.ui
 
     // Paging
     implementation libs.pagingDependencies.core
