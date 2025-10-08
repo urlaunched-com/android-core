@@ -32,7 +32,7 @@ fun rememberPlayerState(
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     notificationData: NotificationPlayerHelper.NotificationData? = null,
-    notificationChannelName: String?
+    notificationChannelName: String? = null
 ): SinglePlayerState = if (LocalInspectionMode.current) {
     remember {
         NoOpSinglePlayerStateImpl()
