@@ -87,8 +87,8 @@ bottomSheetVersion = "1.33.0"
 
 # plugins
 # dependencies
-androidApplicationPluginVersion = "8.4.2"
-androidLibraryPluginVersion = "8.4.2"
+androidApplicationPluginVersion = "8.6.0"
+androidLibraryPluginVersion = "8.6.0"
 kotlinAndroidPluginVersion = "2.1.20"
 kotlinJvmPluginVersion = "2.1.20"
 kotlinSerializationPluginVersion = "2.1.20"
