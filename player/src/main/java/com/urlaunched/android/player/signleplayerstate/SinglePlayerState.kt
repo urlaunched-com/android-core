@@ -23,6 +23,7 @@ interface SinglePlayerState : DefaultLifecycleObserver {
     fun release()
     fun seekTo(millis: Long)
     fun seekFor(millis: Long)
+    fun playUrls(urls: List<String>)
 }
 
 @Composable

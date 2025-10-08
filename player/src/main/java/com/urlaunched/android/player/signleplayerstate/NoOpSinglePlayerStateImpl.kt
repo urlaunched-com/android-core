@@ -29,6 +29,10 @@ class NoOpSinglePlayerStateImpl : SinglePlayerState {
         // No-op
     }
 
+    override fun playUrls(urls: List<String>) {
+        // No-op
+    }
+
     override fun playFile(path: String, id: String) {
         // No-op
     }

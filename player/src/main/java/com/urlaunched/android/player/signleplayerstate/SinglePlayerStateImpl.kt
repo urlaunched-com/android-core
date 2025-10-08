@@ -94,6 +94,21 @@ class SinglePlayerStateImpl(
         }
     }
 
+    override fun playUrls(urls: List<String>) {
+        player?.run {
+            addMediaItems(
+                urls.map { url ->
+                    MediaItem.Builder()
+                        .setUri(url)
+                        .setMediaId(url)
+                        .build()
+                }
+            )
+            prepare()
+            playWhenReady = true
+        }
+    }
+
     override fun playFile(path: String, id: String) {
         player?.run {
             if (currentMediaItem?.mediaId != id) {
