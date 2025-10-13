@@ -40,7 +40,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @Composable
 fun VideoTutorialContainer(
     modifier: Modifier = Modifier,
-    videoTutorial: List<String>,
+    videoUrls: List<String>,
     onTutorialFinish: () -> Unit,
     videoResizeMode: Int = AspectRatioFrameLayout.RESIZE_MODE_ZOOM,
     progressBarPadding: PaddingValues =
@@ -57,7 +57,7 @@ fun VideoTutorialContainer(
     VideoTutorialContainer(
         modifier = modifier,
         player = playerState.player,
-        mediaCount = videoTutorial.size,
+        mediaCount = videoUrls.size,
         currentMediaIndex = playerUiState.currentMediaIndex,
         currentMediaProgress = currentMediaProgress,
         videoResizeMode = videoResizeMode,
@@ -100,7 +100,7 @@ fun VideoTutorialContainer(
 
     DisposableEffect(playerState) {
         lifecycleOwner.lifecycle.addObserver(playerState)
-        playerState.playUrls(videoTutorial)
+        playerState.playUrls(videoUrls)
 
         onDispose {
             playerState.release()
@@ -158,7 +158,7 @@ fun VideoTutorialContainer(
 @Composable
 private fun VideoTutorialContainerPreview() {
     VideoTutorialContainer(
-        videoTutorial = listOf(
+        videoUrls = listOf(
             "https://www.w3schools.com/html/mov_bbb.mp4",
             "https://www.w3schools.com/html/mov_bbb.mp4",
             "https://www.w3schools.com/html/mov_bbb.mp4",
