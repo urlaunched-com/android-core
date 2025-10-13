@@ -2,14 +2,9 @@ package com.urlaunched.android.design.ui.textfield
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,12 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 import com.urlaunched.android.design.ui.textfield.constants.TextFieldConstants
@@ -114,25 +107,6 @@ fun PasswordTextField(
                     passwordVisibleIcon()
                 }
             }
-        }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PasswordTextFieldPreview() {
-    val text = remember { mutableStateOf("") }
-    PasswordTextField(
-        modifier = Modifier.padding(Dimens.spacingNormal),
-        value = text.value,
-        label = "Label",
-        placeHolder = "Placeholder",
-        onValueChange = { text.value = it },
-        passwordVisibleIcon = {
-            Icon(painter = rememberVectorPainter(Icons.Outlined.Info), contentDescription = null)
-        },
-        passwordHiddenIcon = {
-            Icon(painter = rememberVectorPainter(Icons.Outlined.Clear), contentDescription = null)
         }
     )
 }

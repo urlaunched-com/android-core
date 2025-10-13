@@ -23,9 +23,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -39,7 +36,6 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
@@ -310,24 +306,6 @@ private fun TextFieldPreview() {
         label = "Label",
         bottomLabel = "Label",
         onValueChange = { text.value = it }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun TextFieldErrorPreview() {
-    val text = remember { mutableStateOf("") }
-    TextField(
-        modifier = Modifier.padding(Dimens.spacingNormal),
-        value = text.value,
-        label = "Label",
-        placeHolder = "Placeholder",
-        error = "Error",
-        collapseLabel = false,
-        onValueChange = { text.value = it },
-        labelIcon = {
-            Icon(painter = rememberVectorPainter(Icons.Filled.Info), contentDescription = null)
-        }
     )
 }
 
