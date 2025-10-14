@@ -35,7 +35,7 @@ fun SocialAccount(
     modifier: Modifier = Modifier,
     isCurrentAccount: Boolean,
     hasAccount: Boolean,
-    hasEmail: Boolean,
+    hasCredential: Boolean,
     containerColor: Color = Color.White,
     shape: Shape = RoundedCornerShape(Dimens.cornerRadiusBig),
     shadow: ShadowStyle? = null,
@@ -43,7 +43,7 @@ fun SocialAccount(
     contentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
     supportingContentPadding: PaddingValues = PaddingValues(top = Dimens.spacingSmall),
     providerContent: @Composable RowScope.() -> Unit,
-    accountEmail: @Composable RowScope.() -> Unit,
+    accountCredential: @Composable RowScope.() -> Unit,
     addAccount: @Composable RowScope.() -> Unit,
     deleteAccount: @Composable ColumnScope.() -> Unit,
     currentAccount: @Composable ColumnScope.() -> Unit
@@ -55,10 +55,10 @@ fun SocialAccount(
             .background(containerColor),
         modifier = modifier,
         enabled = !hasAccount,
-        hasEmail = hasEmail,
+        hasCredential = hasCredential,
         onAddAccountClick = onAddAccountClick,
         contentPadding = contentPadding,
-        accountEmail = accountEmail,
+        accountCredential = accountCredential,
         addAccount = addAccount,
         providerContent = providerContent,
         supportingContent = {
@@ -84,12 +84,12 @@ fun SocialAccount(
 fun SocialAccount(
     modifier: Modifier = Modifier,
     cardModifier: Modifier = Modifier,
-    hasEmail: Boolean,
+    hasCredential: Boolean,
     enabled: Boolean = true,
     onAddAccountClick: () -> Unit,
     contentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
     providerContent: @Composable RowScope.() -> Unit,
-    accountEmail: @Composable RowScope.() -> Unit,
+    accountCredential: @Composable RowScope.() -> Unit,
     addAccount: @Composable RowScope.() -> Unit,
     supportingContent: @Composable ColumnScope.() -> Unit = {}
 ) {
@@ -111,8 +111,8 @@ fun SocialAccount(
 
                 Spacer(Modifier.weight(1f))
 
-                if (hasEmail) {
-                    accountEmail()
+                if (hasCredential) {
+                    accountCredential()
                 } else {
                     addAccount()
                 }
@@ -127,7 +127,7 @@ fun SocialAccount(
 @Composable
 private fun SocialAccountPreview() {
     SocialAccount(
-        hasEmail = true,
+        hasCredential = true,
         hasAccount = true,
         isCurrentAccount = true,
         modifier = Modifier
@@ -147,7 +147,7 @@ private fun SocialAccountPreview() {
                 fontWeight = FontWeight.Bold
             )
         },
-        accountEmail = {
+        accountCredential = {
             Text(
                 text = "someone@gmail.com"
             )

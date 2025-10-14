@@ -57,7 +57,7 @@ fun AccountBindingContainer(
     account: (provider: AccountProvider) -> Account?,
     onUnbindAccountClick: (provider: AccountProvider) -> Unit,
     onEditPasswordClick: (provider: AccountProvider) -> Unit,
-    onEditEmailClick: (provider: AccountProvider) -> Unit,
+    onEditCredentialClick: (provider: AccountProvider) -> Unit,
     onAddAccountClick: (provider: AccountProvider) -> Unit,
     titles: AccountBindingTitles,
     cardStyle: AccountCardStyle = AccountCardStyle(),
@@ -76,13 +76,13 @@ fun AccountBindingContainer(
         hasAccount = { provider ->
             account(provider) != null
         },
-        accountEmail = { provider ->
+        accountCredential = { provider ->
             account(provider)?.credential
         },
         footerSection = footerSection,
         onUnbindAccountClick = onUnbindAccountClick,
         onEditPasswordClick = onEditPasswordClick,
-        onEditEmailClick = onEditEmailClick,
+        onEditCredentialClick = onEditCredentialClick,
         onAddAccountClick = onAddAccountClick,
         titles = titles,
         cardStyle = cardStyle,
@@ -99,10 +99,10 @@ fun AccountBindingContainer(
     sections: List<AccountsSection>,
     isCurrentAccount: (provider: AccountProvider) -> Boolean,
     hasAccount: (provider: AccountProvider) -> Boolean,
-    accountEmail: (provider: AccountProvider) -> String?,
+    accountCredential: (provider: AccountProvider) -> String?,
     onUnbindAccountClick: (provider: AccountProvider) -> Unit,
     onEditPasswordClick: (provider: AccountProvider) -> Unit,
-    onEditEmailClick: (provider: AccountProvider) -> Unit,
+    onEditCredentialClick: (provider: AccountProvider) -> Unit,
     onAddAccountClick: (provider: AccountProvider) -> Unit,
     titles: AccountBindingTitles,
     cardStyle: AccountCardStyle = AccountCardStyle(),
@@ -168,22 +168,22 @@ fun AccountBindingContainer(
                 }
 
                 section.accountProviders.forEach { provider ->
-                    val accountEmail = accountEmail(provider)
+                    val accountCredential = accountCredential(provider)
 
                     when (provider) {
                         is PasswordBasedAccountProvider -> {
-                            EmailAccount(
+                            PasswordBasedAccount(
                                 isCurrentAccount = isCurrentAccount(provider),
                                 hasAccount = hasAccount(provider),
-                                hasEmail = accountEmail != null,
+                                hasCredential = accountCredential != null,
                                 onAddAccountClick = {
                                     onAddAccountClick(provider)
                                 },
                                 onEditPasswordClick = {
                                     onEditPasswordClick(provider)
                                 },
-                                onEditEmailClick = {
-                                    onEditEmailClick(provider)
+                                onEditCredentialClick = {
+                                    onEditCredentialClick(provider)
                                 },
                                 divider = divider,
                                 trailingIcon = {
@@ -191,13 +191,13 @@ fun AccountBindingContainer(
 
                                     trailingIcon()
                                 },
-                                emailProviderContent = {
+                                providerContent = {
                                     providerContent(provider)
                                 },
-                                accountEmail = {
+                                accountCredential = {
                                     Text(
-                                        text = accountEmail.orEmpty(),
-                                        style = textStyles.accountEmailStyle,
+                                        text = accountCredential.orEmpty(),
+                                        style = textStyles.accountCredentialStyle,
                                         overflow = TextOverflow.Ellipsis,
                                         maxLines = 1
                                     )
@@ -237,22 +237,22 @@ fun AccountBindingContainer(
                             SocialAccount(
                                 hasAccount = hasAccount(provider),
                                 isCurrentAccount = isCurrentAccount(provider),
-                                hasEmail = accountEmail != null,
+                                hasCredential = accountCredential != null,
                                 containerColor = cardStyle.containerColor,
                                 shape = cardStyle.shape,
                                 shadow = cardStyle.shadow,
                                 onAddAccountClick = {
                                     onAddAccountClick(provider)
                                 },
-                                contentPadding = cardStyle.contentPadding,
+                                contentPadding = cardStyle.socialContentPadding,
                                 supportingContentPadding = cardStyle.supportingContentPadding,
                                 providerContent = {
                                     providerContent(provider)
                                 },
-                                accountEmail = {
+                                accountCredential = {
                                     Text(
-                                        text = accountEmail.orEmpty(),
-                                        style = textStyles.accountEmailStyle,
+                                        text = accountCredential.orEmpty(),
+                                        style = textStyles.accountCredentialStyle,
                                         overflow = TextOverflow.Ellipsis,
                                         maxLines = 1
                                     )
@@ -322,7 +322,7 @@ private fun AccountBindingContainerPreview() {
         textStyles = AccountBindingTextStyles(
             sectionTitleStyle = MaterialTheme.typography.titleMedium,
             providerStyle = MaterialTheme.typography.bodyLarge,
-            accountEmailStyle = MaterialTheme.typography.bodyMedium,
+            accountCredentialStyle = MaterialTheme.typography.bodyMedium,
             passwordStyle = MaterialTheme.typography.bodyLarge,
             addAccountStyle = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.primary),
             currentAccountStyle = MaterialTheme.typography.labelMedium,
@@ -349,7 +349,7 @@ private fun AccountBindingContainerPreview() {
         },
         onUnbindAccountClick = {},
         onEditPasswordClick = {},
-        onEditEmailClick = {},
+        onEditCredentialClick = {},
         onAddAccountClick = {}
     )
 }

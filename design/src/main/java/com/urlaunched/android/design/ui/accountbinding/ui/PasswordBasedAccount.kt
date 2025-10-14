@@ -32,15 +32,15 @@ import com.urlaunched.android.design.ui.shadow.models.ShadowStyle
 import com.urlaunched.android.design.ui.shadow.shadow
 
 @Composable
-fun EmailAccount(
+fun PasswordBasedAccount(
     modifier: Modifier = Modifier,
     isCurrentAccount: Boolean,
     hasAccount: Boolean,
-    hasEmail: Boolean,
+    hasCredential: Boolean,
     containerColor: Color = Color.White,
     shape: Shape = RoundedCornerShape(Dimens.cornerRadiusBig),
     shadow: ShadowStyle? = null,
-    onEditEmailClick: () -> Unit,
+    onEditCredentialClick: () -> Unit,
     onAddAccountClick: () -> Unit,
     onEditPasswordClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
@@ -48,29 +48,29 @@ fun EmailAccount(
     divider: @Composable () -> Unit = {
         HorizontalDivider()
     },
-    emailProviderContent: @Composable RowScope.() -> Unit,
-    accountEmail: @Composable RowScope.() -> Unit,
+    providerContent: @Composable RowScope.() -> Unit,
+    accountCredential: @Composable RowScope.() -> Unit,
     passwordContent: @Composable RowScope.() -> Unit,
     trailingIcon: @Composable RowScope.() -> Unit,
     noAccountContent: @Composable RowScope.() -> Unit,
     deleteAccount: @Composable ColumnScope.() -> Unit,
     currentAccount: @Composable ColumnScope.() -> Unit
 ) {
-    EmailAccount(
+    PasswordBasedAccount(
         cardModifier = Modifier
             .ifNotNull(shadow) { Modifier.shadow(it) }
             .clip(shape)
             .background(containerColor),
         modifier = modifier,
         hasAccount = hasAccount,
-        hasEmail = hasEmail,
-        onEditEmailClick = onEditEmailClick,
+        hasCredential = hasCredential,
+        onEditCredentialClick = onEditCredentialClick,
         onAddAccountClick = onAddAccountClick,
         onEditPasswordClick = onEditPasswordClick,
         contentPadding = contentPadding,
         divider = divider,
-        emailProviderContent = emailProviderContent,
-        accountEmail = accountEmail,
+        providerContent = providerContent,
+        accountCredential = accountCredential,
         passwordContent = passwordContent,
         trailingIcon = trailingIcon,
         noAccountContent = noAccountContent,
@@ -94,20 +94,20 @@ fun EmailAccount(
 }
 
 @Composable
-fun EmailAccount(
+fun PasswordBasedAccount(
     modifier: Modifier = Modifier,
     cardModifier: Modifier = Modifier,
     hasAccount: Boolean,
-    hasEmail: Boolean,
-    onEditEmailClick: () -> Unit,
+    hasCredential: Boolean,
+    onEditCredentialClick: () -> Unit,
     onAddAccountClick: () -> Unit,
     onEditPasswordClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
     divider: @Composable () -> Unit = {
         HorizontalDivider()
     },
-    emailProviderContent: @Composable RowScope.() -> Unit,
-    accountEmail: @Composable RowScope.() -> Unit,
+    providerContent: @Composable RowScope.() -> Unit,
+    accountCredential: @Composable RowScope.() -> Unit,
     passwordContent: @Composable RowScope.() -> Unit,
     trailingIcon: @Composable RowScope.() -> Unit,
     noAccountContent: @Composable RowScope.() -> Unit,
@@ -124,19 +124,19 @@ fun EmailAccount(
                     .fillMaxWidth()
                     .debouncedClickable {
                         if (hasAccount) {
-                            onEditEmailClick()
+                            onEditCredentialClick()
                         } else {
                             onAddAccountClick()
                         }
                     }
                     .padding(contentPadding)
             ) {
-                emailProviderContent()
+                providerContent()
 
                 Spacer(Modifier.weight(1f))
 
-                if (hasEmail) {
-                    accountEmail()
+                if (hasCredential) {
+                    accountCredential()
 
                     trailingIcon()
                 } else {
@@ -168,24 +168,24 @@ fun EmailAccount(
 
 @Preview
 @Composable
-private fun EmailAccountPreview() {
-    EmailAccount(
+private fun PasswordBasedAccountPreview() {
+    PasswordBasedAccount(
         isCurrentAccount = true,
         hasAccount = true,
-        hasEmail = true,
+        hasCredential = true,
         modifier = Modifier
             .background(Color.LightGray)
             .padding(Dimens.spacingNormal),
-        onEditEmailClick = { },
+        onEditCredentialClick = { },
         onAddAccountClick = { },
         onEditPasswordClick = { },
-        emailProviderContent = {
+        providerContent = {
             Text(
                 text = "Gmail",
                 fontWeight = FontWeight.Bold
             )
         },
-        accountEmail = {
+        accountCredential = {
             Text(
                 text = "someone@gmail.com",
                 textAlign = TextAlign.End,

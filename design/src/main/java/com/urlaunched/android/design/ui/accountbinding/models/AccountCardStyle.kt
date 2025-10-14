@@ -13,7 +13,7 @@ data class AccountCardStyle(
     val containerColor: Color = Color.White,
     val shape: Shape = RoundedCornerShape(Dimens.cornerRadiusBig),
     val shadow: ShadowStyle? = null,
-    val contentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
+    val socialContentPadding: PaddingValues = SocialAccountDimens.defaultContentPadding,
     val passwordBasedContentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
     val supportingContentPadding: PaddingValues = PaddingValues(top = Dimens.spacingSmall),
     val providerIconSize: Dp = SocialAccountDimens.providerIconSize,
