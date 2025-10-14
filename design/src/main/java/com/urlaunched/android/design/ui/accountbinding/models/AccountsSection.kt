@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 
 data class AccountsSection(
     val title: String,
-    val accountProviders: List<AccountProvider>,
+    val accounts: Map<AccountProvider, AccountData?>,
     val trailingContent: (@Composable RowScope.() -> Unit)? = null
 )

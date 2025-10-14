@@ -35,71 +35,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
-import com.urlaunched.android.design.ui.accountbinding.models.Account
 import com.urlaunched.android.design.ui.accountbinding.models.AccountBindingDimens
 import com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTextStyles
 import com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTitles
 import com.urlaunched.android.design.ui.accountbinding.models.AccountCardStyle
+import com.urlaunched.android.design.ui.accountbinding.models.AccountData
 import com.urlaunched.android.design.ui.accountbinding.models.AccountProvider
 import com.urlaunched.android.design.ui.accountbinding.models.AccountsSection
-import com.urlaunched.android.design.ui.accountbinding.models.AppleAccountProvider
-import com.urlaunched.android.design.ui.accountbinding.models.DefaultAccount
 import com.urlaunched.android.design.ui.accountbinding.models.EmailAccountProvider
-import com.urlaunched.android.design.ui.accountbinding.models.FacebookAccountProvider
-import com.urlaunched.android.design.ui.accountbinding.models.GoogleAccountProvider
 import com.urlaunched.android.design.ui.accountbinding.models.PasswordBasedAccountProvider
+import com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider
 import com.urlaunched.android.design.ui.clickable.debouncedClickable
 
 @Composable
 fun AccountBindingContainer(
     modifier: Modifier = Modifier,
     sections: List<AccountsSection>,
-    account: (provider: AccountProvider) -> Account?,
-    onUnbindAccountClick: (provider: AccountProvider) -> Unit,
-    onEditPasswordClick: (provider: AccountProvider) -> Unit,
-    onEditCredentialClick: (provider: AccountProvider) -> Unit,
-    onAddAccountClick: (provider: AccountProvider) -> Unit,
-    titles: AccountBindingTitles,
-    cardStyle: AccountCardStyle = AccountCardStyle(),
-    dimens: AccountBindingDimens = AccountBindingDimens(),
-    textStyles: AccountBindingTextStyles = AccountBindingTextStyles(),
-    divider: @Composable () -> Unit = { HorizontalDivider() },
-    trailingIcon: @Composable RowScope.() -> Unit,
-    footerSection: @Composable ColumnScope.() -> Unit = {}
-) {
-    AccountBindingContainer(
-        modifier = modifier,
-        sections = sections,
-        isCurrentAccount = { provider ->
-            account(provider)?.isCurrent == true
-        },
-        hasAccount = { provider ->
-            account(provider) != null
-        },
-        accountCredential = { provider ->
-            account(provider)?.credential
-        },
-        footerSection = footerSection,
-        onUnbindAccountClick = onUnbindAccountClick,
-        onEditPasswordClick = onEditPasswordClick,
-        onEditCredentialClick = onEditCredentialClick,
-        onAddAccountClick = onAddAccountClick,
-        titles = titles,
-        cardStyle = cardStyle,
-        dimens = dimens,
-        textStyles = textStyles,
-        divider = divider,
-        trailingIcon = trailingIcon
-    )
-}
-
-@Composable
-fun AccountBindingContainer(
-    modifier: Modifier = Modifier,
-    sections: List<AccountsSection>,
-    isCurrentAccount: (provider: AccountProvider) -> Boolean,
-    hasAccount: (provider: AccountProvider) -> Boolean,
-    accountCredential: (provider: AccountProvider) -> String?,
     onUnbindAccountClick: (provider: AccountProvider) -> Unit,
     onEditPasswordClick: (provider: AccountProvider) -> Unit,
     onEditCredentialClick: (provider: AccountProvider) -> Unit,
@@ -167,15 +118,18 @@ fun AccountBindingContainer(
                     section.trailingContent?.invoke(this@Row)
                 }
 
-                section.accountProviders.forEach { provider ->
-                    val accountCredential = accountCredential(provider)
+                section.accounts.forEach { (provider, data) ->
+                    val accountCredential = data?.credential
+                    val hasCredential = accountCredential != null
+                    val isCurrent = data?.isCurrent == true
+                    val hasAccount = data != null
 
                     when (provider) {
                         is PasswordBasedAccountProvider -> {
                             PasswordBasedAccount(
-                                isCurrentAccount = isCurrentAccount(provider),
-                                hasAccount = hasAccount(provider),
-                                hasCredential = accountCredential != null,
+                                isCurrentAccount = isCurrent,
+                                hasAccount = hasAccount,
+                                hasCredential = hasCredential,
                                 onAddAccountClick = {
                                     onAddAccountClick(provider)
                                 },
@@ -235,9 +189,9 @@ fun AccountBindingContainer(
 
                         else -> {
                             SocialAccount(
-                                hasAccount = hasAccount(provider),
-                                isCurrentAccount = isCurrentAccount(provider),
-                                hasCredential = accountCredential != null,
+                                hasAccount = hasAccount,
+                                isCurrentAccount = isCurrent,
+                                hasCredential = hasAccount,
                                 containerColor = cardStyle.containerColor,
                                 shape = cardStyle.shape,
                                 shadow = cardStyle.shadow,
@@ -288,6 +242,11 @@ fun AccountBindingContainer(
 @Preview(showBackground = true, backgroundColor = 0xFFEFEFEF)
 @Composable
 private fun AccountBindingContainerPreview() {
+    val emailAccount = remember { AccountData(credential = "someone@gmail.com", isCurrent = true) }
+    val googleAccount = remember { AccountData(credential = "someone@gmail.com", isCurrent = false) }
+    val appleAccount = remember { null }
+    val facebookAccount = remember { null }
+
     val titleInfoBadge: @Composable RowScope.() -> Unit = {
         Box(
             modifier = Modifier
@@ -311,12 +270,18 @@ private fun AccountBindingContainerPreview() {
         sections = listOf(
             AccountsSection(
                 title = "Account with mail:",
-                accountProviders = listOf(EmailAccountProvider()),
+                accounts = mapOf(
+                    EmailAccountProvider() to emailAccount
+                ),
                 trailingContent = titleInfoBadge
             ),
             AccountsSection(
                 title = "Social accounts:",
-                accountProviders = listOf(GoogleAccountProvider, AppleAccountProvider, FacebookAccountProvider)
+                accounts = mapOf(
+                    SocialAccountProvider.Google to googleAccount,
+                    SocialAccountProvider.Apple to appleAccount,
+                    SocialAccountProvider.Facebook to facebookAccount
+                )
             )
         ),
         textStyles = AccountBindingTextStyles(
@@ -340,13 +305,6 @@ private fun AccountBindingContainerPreview() {
             currentAccountTitle = "Your current account",
             deleteAccountTitle = "Delete"
         ),
-        account = { provider ->
-            when (provider) {
-                is EmailAccountProvider -> DefaultAccount("someone@gmail.com", true)
-                is GoogleAccountProvider -> DefaultAccount("someone@gmail.com", false)
-                else -> null
-            }
-        },
         onUnbindAccountClick = {},
         onEditPasswordClick = {},
         onEditCredentialClick = {},

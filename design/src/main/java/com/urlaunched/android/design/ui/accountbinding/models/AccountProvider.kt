@@ -17,17 +17,19 @@ interface PasswordBasedAccountProvider : AccountProvider
 
 class EmailAccountProvider(override val nameResId: Int = R.string.email_provider) : PasswordBasedAccountProvider
 
-object AppleAccountProvider : AccountProvider {
-    override val nameResId = R.string.apple_provider
-    override val iconResId = R.drawable.ic_apple_icon
-}
+sealed class SocialAccountProvider : AccountProvider {
+    object Apple : SocialAccountProvider() {
+        override val nameResId = R.string.apple_provider
+        override val iconResId = R.drawable.ic_apple_icon
+    }
 
-object GoogleAccountProvider : AccountProvider {
-    override val nameResId = R.string.google_provider
-    override val iconResId = R.drawable.ic_google_icon
-}
+    object Google : SocialAccountProvider() {
+        override val nameResId = R.string.google_provider
+        override val iconResId = R.drawable.ic_google_icon
+    }
 
-object FacebookAccountProvider : AccountProvider {
-    override val nameResId = R.string.facebook_provider
-    override val iconResId = R.drawable.ic_facebook_icon
+    object Facebook : SocialAccountProvider() {
+        override val nameResId = R.string.facebook_provider
+        override val iconResId = R.drawable.ic_facebook_icon
+    }
 }

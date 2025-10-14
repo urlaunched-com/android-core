@@ -69,13 +69,6 @@ package com.urlaunched.android.design.resources.dimens {
 
 package com.urlaunched.android.design.ui.accountbinding.models {
 
-  public interface Account {
-    method public String? getCredential();
-    method public boolean isCurrent();
-    property public abstract String? credential;
-    property public abstract boolean isCurrent;
-  }
-
   public final class AccountBindingDimens {
     ctor public AccountBindingDimens(optional float sectionsSpacing, optional float accountsSpacing);
     method public float component1-D9Ej5fM();
@@ -162,6 +155,17 @@ package com.urlaunched.android.design.ui.accountbinding.models {
     property public final float trailingIconSpacing;
   }
 
+  public final class AccountData {
+    ctor public AccountData(String? credential, boolean isCurrent);
+    method public String? component1();
+    method public boolean component2();
+    method public com.urlaunched.android.design.ui.accountbinding.models.AccountData copy(String? credential, boolean isCurrent);
+    method public String? getCredential();
+    method public boolean isCurrent();
+    property public final String? credential;
+    property public final boolean isCurrent;
+  }
+
   public interface AccountProvider {
     method @DrawableRes public default Integer? getIconResId();
     method @StringRes public int getNameResId();
@@ -170,35 +174,17 @@ package com.urlaunched.android.design.ui.accountbinding.models {
   }
 
   public final class AccountsSection {
-    ctor public AccountsSection(String title, java.util.List<? extends com.urlaunched.android.design.ui.accountbinding.models.AccountProvider> accountProviders, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? trailingContent);
+    ctor public AccountsSection(String title, java.util.Map<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,com.urlaunched.android.design.ui.accountbinding.models.AccountData> accounts, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? trailingContent);
     method public String component1();
-    method public java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider> component2();
+    method public java.util.Map<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,com.urlaunched.android.design.ui.accountbinding.models.AccountData> component2();
     method public kotlin.jvm.functions.Function1<androidx.compose.foundation.layout.RowScope,kotlin.Unit>? component3();
-    method public com.urlaunched.android.design.ui.accountbinding.models.AccountsSection copy(String title, java.util.List<? extends com.urlaunched.android.design.ui.accountbinding.models.AccountProvider> accountProviders, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? trailingContent);
-    method public java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider> getAccountProviders();
+    method public com.urlaunched.android.design.ui.accountbinding.models.AccountsSection copy(String title, java.util.Map<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,com.urlaunched.android.design.ui.accountbinding.models.AccountData> accounts, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? trailingContent);
+    method public java.util.Map<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,com.urlaunched.android.design.ui.accountbinding.models.AccountData> getAccounts();
     method public String getTitle();
     method public kotlin.jvm.functions.Function1<androidx.compose.foundation.layout.RowScope,kotlin.Unit>? getTrailingContent();
-    property public final java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider> accountProviders;
+    property public final java.util.Map<com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,com.urlaunched.android.design.ui.accountbinding.models.AccountData> accounts;
     property public final String title;
     property public final kotlin.jvm.functions.Function1<androidx.compose.foundation.layout.RowScope,kotlin.Unit>? trailingContent;
-  }
-
-  public final class AppleAccountProvider implements com.urlaunched.android.design.ui.accountbinding.models.AccountProvider {
-    method public int getNameResId();
-    property public Integer iconResId;
-    property public int nameResId;
-    field public static final com.urlaunched.android.design.ui.accountbinding.models.AppleAccountProvider INSTANCE;
-  }
-
-  public final class DefaultAccount implements com.urlaunched.android.design.ui.accountbinding.models.Account {
-    ctor public DefaultAccount(String? credential, boolean isCurrent);
-    method public String? component1();
-    method public boolean component2();
-    method public com.urlaunched.android.design.ui.accountbinding.models.DefaultAccount copy(String? credential, boolean isCurrent);
-    method public String? getCredential();
-    method public boolean isCurrent();
-    property public String? credential;
-    property public boolean isCurrent;
   }
 
   public final class EmailAccountProvider implements com.urlaunched.android.design.ui.accountbinding.models.PasswordBasedAccountProvider {
@@ -207,21 +193,31 @@ package com.urlaunched.android.design.ui.accountbinding.models {
     property public int nameResId;
   }
 
-  public final class FacebookAccountProvider implements com.urlaunched.android.design.ui.accountbinding.models.AccountProvider {
-    method public int getNameResId();
-    property public Integer iconResId;
-    property public int nameResId;
-    field public static final com.urlaunched.android.design.ui.accountbinding.models.FacebookAccountProvider INSTANCE;
-  }
-
-  public final class GoogleAccountProvider implements com.urlaunched.android.design.ui.accountbinding.models.AccountProvider {
-    method public int getNameResId();
-    property public Integer iconResId;
-    property public int nameResId;
-    field public static final com.urlaunched.android.design.ui.accountbinding.models.GoogleAccountProvider INSTANCE;
-  }
-
   public interface PasswordBasedAccountProvider extends com.urlaunched.android.design.ui.accountbinding.models.AccountProvider {
+  }
+
+  public abstract sealed class SocialAccountProvider implements com.urlaunched.android.design.ui.accountbinding.models.AccountProvider {
+  }
+
+  public static final class SocialAccountProvider.Apple extends com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider {
+    method public int getNameResId();
+    property public Integer iconResId;
+    property public int nameResId;
+    field public static final com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider.Apple INSTANCE;
+  }
+
+  public static final class SocialAccountProvider.Facebook extends com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider {
+    method public int getNameResId();
+    property public Integer iconResId;
+    property public int nameResId;
+    field public static final com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider.Facebook INSTANCE;
+  }
+
+  public static final class SocialAccountProvider.Google extends com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider {
+    method public int getNameResId();
+    property public Integer iconResId;
+    property public int nameResId;
+    field public static final com.urlaunched.android.design.ui.accountbinding.models.SocialAccountProvider.Google INSTANCE;
   }
 
 }
@@ -229,8 +225,7 @@ package com.urlaunched.android.design.ui.accountbinding.models {
 package com.urlaunched.android.design.ui.accountbinding.ui {
 
   public final class AccountBindingContainerKt {
-    method @androidx.compose.runtime.Composable public static void AccountBindingContainer(optional androidx.compose.ui.Modifier modifier, java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountsSection> sections, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,? extends com.urlaunched.android.design.ui.accountbinding.models.Account> account, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onUnbindAccountClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditPasswordClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditCredentialClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onAddAccountClick, com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTitles titles, optional com.urlaunched.android.design.ui.accountbinding.models.AccountCardStyle cardStyle, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingDimens dimens, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTextStyles textStyles, optional kotlin.jvm.functions.Function0<kotlin.Unit> divider, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> trailingIcon, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> footerSection);
-    method @androidx.compose.runtime.Composable public static void AccountBindingContainer(optional androidx.compose.ui.Modifier modifier, java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountsSection> sections, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,java.lang.Boolean> isCurrentAccount, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,java.lang.Boolean> hasAccount, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,java.lang.String> accountCredential, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onUnbindAccountClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditPasswordClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditCredentialClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onAddAccountClick, com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTitles titles, optional com.urlaunched.android.design.ui.accountbinding.models.AccountCardStyle cardStyle, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingDimens dimens, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTextStyles textStyles, optional kotlin.jvm.functions.Function0<kotlin.Unit> divider, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> trailingIcon, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> footerSection);
+    method @androidx.compose.runtime.Composable public static void AccountBindingContainer(optional androidx.compose.ui.Modifier modifier, java.util.List<com.urlaunched.android.design.ui.accountbinding.models.AccountsSection> sections, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onUnbindAccountClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditPasswordClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onEditCredentialClick, kotlin.jvm.functions.Function1<? super com.urlaunched.android.design.ui.accountbinding.models.AccountProvider,kotlin.Unit> onAddAccountClick, com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTitles titles, optional com.urlaunched.android.design.ui.accountbinding.models.AccountCardStyle cardStyle, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingDimens dimens, optional com.urlaunched.android.design.ui.accountbinding.models.AccountBindingTextStyles textStyles, optional kotlin.jvm.functions.Function0<kotlin.Unit> divider, kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit> trailingIcon, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.ColumnScope,kotlin.Unit> footerSection);
   }
 
   public final class PasswordBasedAccountKt {
