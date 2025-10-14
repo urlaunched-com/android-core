@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_provider">Google</string>
+    <string name="apple_provider">Apple</string>
+    <string name="facebook_provider">Facebook</string>
+    <string name="email_provider">Email</string>
+</resources>

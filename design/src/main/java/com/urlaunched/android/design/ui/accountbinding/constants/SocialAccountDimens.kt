@@ -5,6 +5,9 @@ import androidx.compose.ui.unit.dp
 import com.urlaunched.android.design.resources.dimens.Dimens
 
 internal object SocialAccountDimens {
+
+    val providerIconSize = 24.dp
+
     private val defaultSocialAccountCardPadding = 14.dp
 
     val defaultContentPadding = PaddingValues(

@@ -54,7 +54,7 @@ fun SocialAccount(
             .clip(shape)
             .background(containerColor),
         modifier = modifier,
-        enabled = hasAccount,
+        enabled = !hasAccount,
         hasEmail = hasEmail,
         onAddAccountClick = onAddAccountClick,
         contentPadding = contentPadding,
