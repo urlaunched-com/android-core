@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -53,7 +54,7 @@ fun CustomDropdownMenuTextField(
     ) {
         Column {
             textField(
-                Modifier.menuAnchor()
+                Modifier.menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryEditable)
             )
 
             BaseExposedDropdownMenu(
