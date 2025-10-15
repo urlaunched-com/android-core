@@ -53,7 +53,7 @@ fun AccountBindingContainer(
     sections: List<AccountsSection>,
     onUnbindAccountClick: (provider: AccountProvider) -> Unit,
     onEditPasswordClick: (provider: AccountProvider) -> Unit,
-    onEditCredentialClick: (provider: AccountProvider) -> Unit,
+    onEditIdentifierClick: (provider: AccountProvider) -> Unit,
     onAddAccountClick: (provider: AccountProvider) -> Unit,
     titles: AccountBindingTitles,
     cardStyle: AccountCardStyle = AccountCardStyle(),
@@ -119,8 +119,8 @@ fun AccountBindingContainer(
                 }
 
                 section.accounts.forEach { (provider, data) ->
-                    val accountCredential = data?.credential
-                    val hasCredential = accountCredential != null
+                    val accountIdentifier = data?.identifier
+                    val hasIdentifier = accountIdentifier != null
                     val isCurrent = data?.isCurrent == true
                     val hasAccount = data != null
 
@@ -129,15 +129,15 @@ fun AccountBindingContainer(
                             PasswordBasedAccount(
                                 isCurrentAccount = isCurrent,
                                 hasAccount = hasAccount,
-                                hasCredential = hasCredential,
+                                hasIdentifier = hasIdentifier,
                                 onAddAccountClick = {
                                     onAddAccountClick(provider)
                                 },
                                 onEditPasswordClick = {
                                     onEditPasswordClick(provider)
                                 },
-                                onEditCredentialClick = {
-                                    onEditCredentialClick(provider)
+                                onEditIdentifierClick = {
+                                    onEditIdentifierClick(provider)
                                 },
                                 divider = divider,
                                 trailingIcon = {
@@ -148,10 +148,10 @@ fun AccountBindingContainer(
                                 providerContent = {
                                     providerContent(provider)
                                 },
-                                accountCredential = {
+                                accountIdentifier = {
                                     Text(
-                                        text = accountCredential.orEmpty(),
-                                        style = textStyles.accountCredentialStyle,
+                                        text = accountIdentifier.orEmpty(),
+                                        style = textStyles.accountIdentifierStyle,
                                         overflow = TextOverflow.Ellipsis,
                                         maxLines = 1
                                     )
@@ -191,7 +191,7 @@ fun AccountBindingContainer(
                             SocialAccount(
                                 hasAccount = hasAccount,
                                 isCurrentAccount = isCurrent,
-                                hasCredential = hasAccount,
+                                hasIdentifier = hasAccount,
                                 containerColor = cardStyle.containerColor,
                                 shape = cardStyle.shape,
                                 shadow = cardStyle.shadow,
@@ -203,10 +203,10 @@ fun AccountBindingContainer(
                                 providerContent = {
                                     providerContent(provider)
                                 },
-                                accountCredential = {
+                                accountIdentifier = {
                                     Text(
-                                        text = accountCredential.orEmpty(),
-                                        style = textStyles.accountCredentialStyle,
+                                        text = accountIdentifier.orEmpty(),
+                                        style = textStyles.accountIdentifierStyle,
                                         overflow = TextOverflow.Ellipsis,
                                         maxLines = 1
                                     )
@@ -242,8 +242,8 @@ fun AccountBindingContainer(
 @Preview(showBackground = true, backgroundColor = 0xFFEFEFEF)
 @Composable
 private fun AccountBindingContainerPreview() {
-    val emailAccount = remember { AccountData(credential = "someone@gmail.com", isCurrent = true) }
-    val googleAccount = remember { AccountData(credential = "someone@gmail.com", isCurrent = false) }
+    val emailAccount = remember { AccountData(identifier = "someone@gmail.com", isCurrent = true) }
+    val googleAccount = remember { AccountData(identifier = "someone@gmail.com", isCurrent = false) }
     val appleAccount = remember { null }
     val facebookAccount = remember { null }
 
@@ -287,7 +287,7 @@ private fun AccountBindingContainerPreview() {
         textStyles = AccountBindingTextStyles(
             sectionTitleStyle = MaterialTheme.typography.titleMedium,
             providerStyle = MaterialTheme.typography.bodyLarge,
-            accountCredentialStyle = MaterialTheme.typography.bodyMedium,
+            accountIdentifierStyle = MaterialTheme.typography.bodyMedium,
             passwordStyle = MaterialTheme.typography.bodyLarge,
             addAccountStyle = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.primary),
             currentAccountStyle = MaterialTheme.typography.labelMedium,
@@ -307,7 +307,7 @@ private fun AccountBindingContainerPreview() {
         ),
         onUnbindAccountClick = {},
         onEditPasswordClick = {},
-        onEditCredentialClick = {},
+        onEditIdentifierClick = {},
         onAddAccountClick = {}
     )
 }

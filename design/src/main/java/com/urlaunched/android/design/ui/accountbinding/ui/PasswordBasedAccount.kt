@@ -36,11 +36,11 @@ fun PasswordBasedAccount(
     modifier: Modifier = Modifier,
     isCurrentAccount: Boolean,
     hasAccount: Boolean,
-    hasCredential: Boolean,
+    hasIdentifier: Boolean,
     containerColor: Color = Color.White,
     shape: Shape = RoundedCornerShape(Dimens.cornerRadiusBig),
     shadow: ShadowStyle? = null,
-    onEditCredentialClick: () -> Unit,
+    onEditIdentifierClick: () -> Unit,
     onAddAccountClick: () -> Unit,
     onEditPasswordClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
@@ -49,7 +49,7 @@ fun PasswordBasedAccount(
         HorizontalDivider()
     },
     providerContent: @Composable RowScope.() -> Unit,
-    accountCredential: @Composable RowScope.() -> Unit,
+    accountIdentifier: @Composable RowScope.() -> Unit,
     passwordContent: @Composable RowScope.() -> Unit,
     trailingIcon: @Composable RowScope.() -> Unit,
     noAccountContent: @Composable RowScope.() -> Unit,
@@ -63,14 +63,14 @@ fun PasswordBasedAccount(
             .background(containerColor),
         modifier = modifier,
         hasAccount = hasAccount,
-        hasCredential = hasCredential,
-        onEditCredentialClick = onEditCredentialClick,
+        hasIdentifier = hasIdentifier,
+        onEditIdentifierClick = onEditIdentifierClick,
         onAddAccountClick = onAddAccountClick,
         onEditPasswordClick = onEditPasswordClick,
         contentPadding = contentPadding,
         divider = divider,
         providerContent = providerContent,
-        accountCredential = accountCredential,
+        accountIdentifier = accountIdentifier,
         passwordContent = passwordContent,
         trailingIcon = trailingIcon,
         noAccountContent = noAccountContent,
@@ -98,8 +98,8 @@ fun PasswordBasedAccount(
     modifier: Modifier = Modifier,
     cardModifier: Modifier = Modifier,
     hasAccount: Boolean,
-    hasCredential: Boolean,
-    onEditCredentialClick: () -> Unit,
+    hasIdentifier: Boolean,
+    onEditIdentifierClick: () -> Unit,
     onAddAccountClick: () -> Unit,
     onEditPasswordClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
@@ -107,7 +107,7 @@ fun PasswordBasedAccount(
         HorizontalDivider()
     },
     providerContent: @Composable RowScope.() -> Unit,
-    accountCredential: @Composable RowScope.() -> Unit,
+    accountIdentifier: @Composable RowScope.() -> Unit,
     passwordContent: @Composable RowScope.() -> Unit,
     trailingIcon: @Composable RowScope.() -> Unit,
     noAccountContent: @Composable RowScope.() -> Unit,
@@ -124,7 +124,7 @@ fun PasswordBasedAccount(
                     .fillMaxWidth()
                     .debouncedClickable {
                         if (hasAccount) {
-                            onEditCredentialClick()
+                            onEditIdentifierClick()
                         } else {
                             onAddAccountClick()
                         }
@@ -135,8 +135,8 @@ fun PasswordBasedAccount(
 
                 Spacer(Modifier.weight(1f))
 
-                if (hasCredential) {
-                    accountCredential()
+                if (hasIdentifier) {
+                    accountIdentifier()
 
                     trailingIcon()
                 } else {
@@ -172,11 +172,11 @@ private fun PasswordBasedAccountPreview() {
     PasswordBasedAccount(
         isCurrentAccount = true,
         hasAccount = true,
-        hasCredential = true,
+        hasIdentifier = true,
         modifier = Modifier
             .background(Color.LightGray)
             .padding(Dimens.spacingNormal),
-        onEditCredentialClick = { },
+        onEditIdentifierClick = { },
         onAddAccountClick = { },
         onEditPasswordClick = { },
         providerContent = {
@@ -185,7 +185,7 @@ private fun PasswordBasedAccountPreview() {
                 fontWeight = FontWeight.Bold
             )
         },
-        accountCredential = {
+        accountIdentifier = {
             Text(
                 text = "someone@gmail.com",
                 textAlign = TextAlign.End,
