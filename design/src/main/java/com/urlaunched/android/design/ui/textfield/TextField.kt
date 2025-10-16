@@ -26,6 +26,7 @@ import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,6 +95,120 @@ fun TextField(
     maxSymbols: Int? = null,
     counterFormat: String? = null,
     onValueChange: (value: String) -> Unit
+) {
+    // This is a copy from the androidx.compose.foundation.text.BasicTextField String overload
+    // Holds the latest internal TextFieldValue state. We need to keep it to have the correct value
+    // of the composition.
+    var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
+    // Holds the latest TextFieldValue that BasicTextField was recomposed with. We couldn't simply
+    // pass `TextFieldValue(text = value)` to the CoreTextField because we need to preserve the
+    // composition.
+    val textFieldValue = textFieldValueState.copy(text = value)
+
+    SideEffect {
+        if (
+            textFieldValue.selection != textFieldValueState.selection ||
+            textFieldValue.composition != textFieldValueState.composition
+        ) {
+            textFieldValueState = textFieldValue
+        }
+    }
+    // Last String value that either text field was recomposed with or updated in the onValueChange
+    // callback. We keep track of it to prevent calling onValueChange(String) for same String when
+    // CoreTextField's onValueChange is called multiple times without recomposition in between.
+    var lastTextValue by remember(value) { mutableStateOf(value) }
+
+    TextField(
+        modifier = modifier,
+        innerFieldModifier = innerFieldModifier,
+        value = textFieldValue,
+        label = label,
+        borderConfig = borderConfig,
+        inputTextAlignment = inputTextAlignment,
+        inputTextConfig = inputTextConfig,
+        errorTextConfig = errorTextConfig,
+        inputPlaceholderTextConfig = inputPlaceholderTextConfig,
+        topLabelConfig = topLabelConfig,
+        bottomLabelConfig = bottomLabelConfig,
+        counterConfig = counterConfig,
+        backgroundConfig = backgroundConfig,
+        textFieldsSpacerConfig = textFieldsSpacerConfig,
+        selectionHandleColor = selectionHandleColor,
+        selectionBackgroundColor = selectionBackgroundColor,
+        cursorBrush = cursorBrush,
+        placeHolder = placeHolder,
+        bottomLabel = bottomLabel,
+        error = error,
+        enabled = enabled,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        minLines = minLines,
+        visualTransformation = visualTransformation,
+        collapseLabel = collapseLabel,
+        textFieldHeight = textFieldHeight,
+        readOnly = readOnly,
+        innerPadding = innerPadding,
+        trailingIcon = trailingIcon,
+        leadingIcon = leadingIcon,
+        labelIcon = labelIcon,
+        trailingIconAlwaysShown = trailingIconAlwaysShown,
+        maxSymbols = maxSymbols,
+        counterFormat = counterFormat,
+        onValueChange = { newTextFieldValueState ->
+            textFieldValueState = newTextFieldValueState
+
+            val stringChangedSinceLastInvocation = lastTextValue != newTextFieldValueState.text
+            lastTextValue = newTextFieldValueState.text
+
+            if (stringChangedSinceLastInvocation) {
+                onValueChange(newTextFieldValueState.text)
+            }
+        }
+    )
+}
+
+@Composable
+fun TextField(
+    modifier: Modifier = Modifier,
+    innerFieldModifier: Modifier = Modifier,
+    value: TextFieldValue,
+    label: String? = null,
+    borderConfig: TextFieldBorderConfig = LocalTextFieldBorderConfig.current,
+    inputTextAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    inputTextConfig: TextFieldInputTextConfig = LocalTextFieldInputTextConfig.current,
+    errorTextConfig: TextFieldErrorTextConfig = LocalTextFieldErrorTextConfig.current,
+    inputPlaceholderTextConfig: TextFieldInputPlaceholderTextConfig = LocalTextFieldInputPlaceholderTextConfig.current,
+    topLabelConfig: TextFieldTopLabelConfig = LocalTextFieldTopLabelConfig.current,
+    bottomLabelConfig: TextFieldBottomLabelConfig = LocalTextFieldBottomLabelConfig.current,
+    counterConfig: TextFieldCounterConfig = LocalTextFieldCounterConfig.current,
+    backgroundConfig: TextFieldBackgroundConfig = LocalTextFieldBackgroundConfig.current,
+    textFieldsSpacerConfig: TextFieldsSpacerConfig = LocalTextFieldsSpacerConfig.current,
+    selectionHandleColor: Color = LocalSelectionHandleColor.current,
+    selectionBackgroundColor: Color = LocalSelectionBackgroundColor.current,
+    cursorBrush: Brush = LocalCursorBrush.current,
+    placeHolder: String? = null,
+    bottomLabel: String? = null,
+    error: String? = null,
+    enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    collapseLabel: Boolean = true,
+    textFieldHeight: Dp? = null,
+    readOnly: Boolean = false,
+    innerPadding: PaddingValues = PaddingValues(Dimens.spacingNormal),
+    trailingIcon: (@Composable () -> Unit)? = null,
+    leadingIcon: (@Composable () -> Unit)? = null,
+    labelIcon: (@Composable () -> Unit)? = null,
+    trailingIconAlwaysShown: Boolean = false,
+    maxSymbols: Int? = null,
+    counterFormat: String? = null,
+    onValueChange: (value: TextFieldValue) -> Unit
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val borderColor by animateColorAsState(
@@ -174,7 +290,7 @@ fun TextField(
             decorationBox = { innerTextField ->
                 Column {
                     AnimatedVisibility(
-                        visible = (value.isNotEmpty() || !collapseLabel) && !label.isNullOrEmpty(),
+                        visible = (value.text.isNotEmpty() || !collapseLabel) && !label.isNullOrEmpty(),
                         enter = expandVertically(),
                         exit = shrinkVertically()
                     ) {
@@ -246,7 +362,7 @@ fun TextField(
 
                             innerTextField()
 
-                            if (value.isEmpty()) {
+                            if (value.text.isEmpty()) {
                                 Text(
                                     text = placeHolder ?: label.orEmpty(),
                                     style = inputPlaceholderTextConfig.textStyle,
@@ -258,7 +374,7 @@ fun TextField(
                             }
                         }
 
-                        if ((value.isNotEmpty() || trailingIconAlwaysShown) && trailingIcon != null) {
+                        if ((value.text.isNotEmpty() || trailingIconAlwaysShown) && trailingIcon != null) {
                             Spacer(modifier = Modifier.width(textFieldsSpacerConfig.trailingIconSpacer))
 
                             trailingIcon.invoke()
@@ -283,7 +399,7 @@ fun TextField(
                                 Spacer(modifier = Modifier.weight(1f))
 
                                 Text(
-                                    text = counterFormat ?: "${value.length}/$maxSymbols",
+                                    text = counterFormat ?: "${value.text.length}/$maxSymbols",
                                     style = counterConfig.textStyle,
                                     color = if (error != null) animatedErrorTextColor else animatedCounterTextColor
                                 )
