@@ -123,7 +123,7 @@ fun OTPContainer(
 }
 
 @Composable
-fun OTPContainer(
+private fun OTPContainer(
     modifier: Modifier = Modifier,
     otpText: String,
     onOtpTextChange: (text: String) -> Unit,
