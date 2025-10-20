@@ -21,7 +21,3 @@ dependencies {
     implementation(platform(libs.kotlinDependencies.bom))
     implementation libs.kotlinDependencies.serialization
 }
-
-kotlin {
-    jvmToolchain(17)
-}
