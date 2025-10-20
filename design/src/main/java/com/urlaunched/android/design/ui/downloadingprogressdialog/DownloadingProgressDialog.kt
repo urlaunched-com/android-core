@@ -46,7 +46,7 @@ fun DownloadingProgressDialog(
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
-    button: (@Composable ColumnScope.() -> Unit)? = null
+    bottomContent: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BaseDownloadingProgressDialog(
         progress = progress,
@@ -74,7 +74,7 @@ fun DownloadingProgressDialog(
             }
         },
         supportingText = supportingText,
-        button = button?.let { buttonContent ->
+        bottomContent = bottomContent?.let { bottomContent ->
             @Composable {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -82,7 +82,7 @@ fun DownloadingProgressDialog(
                 ) {
                     Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-                    buttonContent()
+                    bottomContent()
                 }
             }
         }
@@ -106,7 +106,7 @@ fun BaseDownloadingProgressDialog(
     title: (@Composable ColumnScope.() -> Unit)? = null,
     description: (@Composable ColumnScope.() -> Unit)? = null,
     supportingText: (@Composable BoxScope.() -> Unit)? = null,
-    button: (@Composable ColumnScope.() -> Unit)? = null
+    bottomContent: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     BasicAlertDialog(
         modifier = modifier,
@@ -138,7 +138,7 @@ fun BaseDownloadingProgressDialog(
                     supportingText = supportingText
                 )
 
-                button?.invoke(this@Column)
+                bottomContent?.invoke(this@Column)
             }
         }
     )
@@ -178,7 +178,7 @@ private fun BaseDownloadingProgressDialogPreview() {
                 }
             }
         },
-        button = {
+        bottomContent = {
             TextButton(
                 onClick = {}
             ) {
@@ -222,7 +222,7 @@ private fun DownloadingProgressDialogPreview() {
                 }
             }
         },
-        button = {
+        bottomContent = {
             TextButton(
                 onClick = {}
             ) {
