@@ -70,7 +70,7 @@ fun OTPContainerWithError(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             cellContent = {
-                OTPCellView(
+                OTPCell(
                     isError = error != null,
                     style = cellStyle,
                     colors = cellColors,
@@ -112,7 +112,7 @@ fun OTPContainer(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         cellContent = {
-            OTPCellView(
+            OTPCell(
                 isError = isError,
                 style = cellStyle,
                 colors = cellColors,
@@ -162,7 +162,7 @@ fun OTPContainer(
 }
 
 @Composable
-private fun OTPCellScope.OTPCellView(
+private fun OTPCellScope.OTPCell(
     modifier: Modifier = Modifier,
     isError: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
