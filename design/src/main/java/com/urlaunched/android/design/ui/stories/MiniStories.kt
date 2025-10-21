@@ -28,7 +28,7 @@ import com.urlaunched.android.design.ui.stories.constants.StoryConstants
 import com.urlaunched.android.design.ui.stories.constants.StoryDimens
 
 @Composable
-fun <T> MiniStories(
+internal fun <T> MiniStories(
     modifier: Modifier = Modifier,
     stories: List<T>,
     imageModel: (T) -> Any? = { it },
@@ -91,7 +91,7 @@ fun <T> MiniStories(
 }
 
 @Composable
-fun MiniStoriesShimmer(
+private fun MiniStoriesShimmer(
     modifier: Modifier = Modifier,
     placeholdersCount: Int,
     storySize: Dp = StoryDimens.miniStoriesMaxHeight,
@@ -130,7 +130,7 @@ fun MiniStoriesShimmer(
 }
 
 @Composable
-fun <T> MiniStories(
+private fun <T> MiniStories(
     modifier: Modifier = Modifier,
     stories: List<T>,
     imageModel: (T) -> Any? = { it },

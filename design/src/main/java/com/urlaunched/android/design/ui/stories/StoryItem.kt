@@ -23,7 +23,7 @@ import com.urlaunched.android.design.ui.stories.constants.StoryConstants
 import com.urlaunched.android.design.ui.stories.constants.StoryDimens
 
 @Composable
-fun StoryItem(
+internal fun StoryItem(
     modifier: Modifier = Modifier,
     storyImageModel: Any?,
     maxHeight: Dp,

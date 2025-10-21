@@ -35,7 +35,7 @@ import com.urlaunched.android.design.ui.topbar.rememberCollapsingTopBarState
 import kotlin.math.roundToInt
 
 @Composable
-fun <T> CollapsingStoriesList(
+internal fun <T> CollapsingStoriesList(
     modifier: Modifier = Modifier,
     stories: List<T>,
     isLoading: Boolean,
@@ -110,7 +110,7 @@ fun <T> CollapsingStoriesList(
 }
 
 @Composable
-fun CollapsableLazyStoriesShimmerRow(
+private fun CollapsableLazyStoriesShimmerRow(
     modifier: Modifier = Modifier,
     placeholdersCount: Int,
     topBarState: CollapsingTopBarState,
@@ -157,7 +157,7 @@ fun CollapsableLazyStoriesShimmerRow(
 }
 
 @Composable
-fun <T> CollapsableLazyStoriesRow(
+private fun <T> CollapsableLazyStoriesRow(
     modifier: Modifier = Modifier,
     stories: List<T>,
     imageModel: (T) -> Any? = { it },
