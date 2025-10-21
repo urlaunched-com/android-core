@@ -162,7 +162,15 @@ fun <T> CollapsingStoriesTopBar(
 @Preview(showBackground = true)
 @Composable
 private fun CollapsingTopBarPreview() {
-    val stories = remember { List(10) { null } }
+    val stories = remember {
+        listOf(
+            "https://cdn.pixabay.com/photo/2025/09/04/05/38/leaves-9814751_1280.jpg",
+            "https://cdn.pixabay.com/photo/2025/08/09/09/05/nature-9764183_1280.jpg",
+            "https://cdn.pixabay.com/photo/2025/09/21/12/12/crocodile-9846352_1280.jpg",
+            "https://cdn.pixabay.com/photo/2022/08/16/16/46/daylily-7390789_1280.jpg",
+            "https://cdn.pixabay.com/photo/2022/09/17/17/54/monkey-7461483_1280.jpg"
+        )
+    }
     val isLoading = remember { false }
     val minHeight = remember { 64.dp }
     val maxHeight = remember(minHeight) {
