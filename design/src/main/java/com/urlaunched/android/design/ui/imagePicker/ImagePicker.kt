@@ -1,81 +1,70 @@
-package com.urlaunched.android.design.ui.imagePicker
+package com.urlaunched.android.design.ui.imagepicker
 
 import android.Manifest
-import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.urlaunched.android.common.compression.CompressImageUtil
 import com.urlaunched.android.common.files.FileHelper
-import com.urlaunched.android.common.files.FilePickerHelper
 import com.urlaunched.android.common.files.TakeCameraPictureContract
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.urlaunched.android.design.resources.dimens.Dimens
+import com.urlaunched.android.design.ui.image.UrlImage
+import com.urlaunched.android.design.ui.imagepicker.model.ImagePickerDialogStyle
+import com.urlaunched.android.design.ui.imagepicker.model.ImagePickerTextStyles
+import com.urlaunched.android.design.ui.imagepicker.model.ImageSource
+import com.urlaunched.android.design.ui.imagepicker.model.ImagesCount
 import java.io.File
 
 private const val FILE_PROVIDER = ".provider"
 
 @OptIn(ExperimentalPermissionsApi::class)
-@Suppress("ktlint:ktlintrules:composable-modifier-missing-rule")
 @Composable
 fun ImagePicker(
-    dialogModifier: Modifier = Modifier,
-    dialogConfig: ImagePickerDialogConfig,
-    onFilesChanges: ((file: List<File>) -> Unit)?,
-    deleteTempFilesWhenOnDispose: Boolean = true,
-    maxFiles: Int = ImagePickerConstants.MAX_PHOTOS_AMOUNT,
-    needToPickMultipleFiles: Boolean = false,
-    compressionTargetSize: Long = 5 * 1000 * 1000,
-    compressionMinWidth: Int = 1920,
-    compressionMinHeight: Int = 1080,
-    photoTooLargeMessage: String = "Photo must be less than 15 MB",
-    compressionFailedMessage: String = "Something went wrong",
-    showSnackbar: suspend (message: String) -> Unit,
-    setIsCompressionProceed: (isCompressionProceed: Boolean) -> Unit = {},
-    content: @Composable (onClick: () -> Unit) -> Unit
+    state: ImagePickerState,
+    gallerySource: ImageSource.Gallery,
+    cameraSource: ImageSource.Camera,
+    headlineText: String,
+    dismissButtonText: String,
+    style: ImagePickerDialogStyle = ImagePickerDialogStyle(),
+    textStyles: ImagePickerTextStyles = ImagePickerTextStyles()
 ) {
     if (!LocalInspectionMode.current) {
         val context = LocalContext.current
-        val coroutineScope = rememberCoroutineScope()
-        var showSelectorDialog by remember { mutableStateOf(false) }
-
-        val cameraPickerContract =
-            remember { TakeCameraPictureContract(fileProviderAuthority = context.packageName + FILE_PROVIDER) }
+        val cameraPickerContract = remember {
+            TakeCameraPictureContract(fileProviderAuthority = context.packageName + FILE_PROVIDER)
+        }
 
         val cameraLauncher = rememberLauncherForActivityResult(
             contract = cameraPickerContract,
             onResult = { file ->
                 if (file != null) {
-                    validateFilesAndCompress(
-                        files = listOf(file),
-                        context = context,
-                        coroutineScope = coroutineScope,
-                        onFileChanges = onFilesChanges,
-                        showSnackbar = showSnackbar,
-                        setIsCompressionProceed = setIsCompressionProceed,
-                        compressionTargetSize = compressionTargetSize,
-                        compressionMinWidth = compressionMinWidth,
-                        compressionMinHeight = compressionMinHeight,
-                        photoTooLargeMessage = photoTooLargeMessage,
-                        compressionFailedMessage = compressionFailedMessage
-                    )
-
+                    state.processPickedFiles(files = listOf(file), context = context)
                 }
             }
         )
@@ -83,49 +72,17 @@ fun ImagePicker(
         val pickerLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickVisualMedia(),
             onResult = { uri ->
-                uri?.let {
-                    FilePickerHelper.createFileFromUri(context, it)?.let { file ->
-                        validateFilesAndCompress(
-                            files = listOf(file),
-                            context = context,
-                            coroutineScope = coroutineScope,
-                            onFileChanges = onFilesChanges,
-                            showSnackbar = showSnackbar,
-                            setIsCompressionProceed = setIsCompressionProceed,
-                            compressionTargetSize = compressionTargetSize,
-                            compressionMinWidth = compressionMinWidth,
-                            compressionMinHeight = compressionMinHeight,
-                            photoTooLargeMessage = photoTooLargeMessage,
-                            compressionFailedMessage = compressionFailedMessage
-                        )
-                    }
+                if (uri != null) {
+                    state.processPickedUris(uris = listOf(uri), context = context)
                 }
             }
         )
 
-        val multiplePhotoPickerLauncher = if (maxFiles > 1) {
+        val multiplePhotoPickerLauncher = if (state.maxImagesCount > ImagesCount.SINGLE_IMAGE) {
             rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = maxFiles),
+                contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = state.maxImagesCount.count),
                 onResult = { uris ->
-                    val files = mutableListOf<File>()
-                    uris.forEach {
-                        FilePickerHelper.createFileFromUri(context, it)?.let { file ->
-                            files.add(file)
-                        }
-                    }
-                    validateFilesAndCompress(
-                        files = files,
-                        context = context,
-                        coroutineScope = coroutineScope,
-                        onFileChanges = onFilesChanges,
-                        showSnackbar = showSnackbar,
-                        setIsCompressionProceed = setIsCompressionProceed,
-                        compressionTargetSize = compressionTargetSize,
-                        compressionMinWidth = compressionMinWidth,
-                        compressionMinHeight = compressionMinHeight,
-                        photoTooLargeMessage = photoTooLargeMessage,
-                        compressionFailedMessage = compressionFailedMessage
-                    )
+                    state.processPickedUris(uris = uris, context = context)
                 }
             )
         } else {
@@ -135,14 +92,15 @@ fun ImagePicker(
         val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
         val cameraRequestPermissionLauncher = rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { granted ->
-            if (granted) {
-                launchCameraPicker(cameraLauncher)
+            contract = ActivityResultContracts.RequestPermission(),
+            onResult = { granted ->
+                if (granted) {
+                    launchCameraPicker(cameraLauncher)
+                }
             }
-        }
+        )
 
-        if (deleteTempFilesWhenOnDispose) {
+        if (state.deleteTempFilesOnDispose) {
             DisposableEffect(Unit) {
                 onDispose {
                     FileHelper.deleteTempFilesFromCache(context)
@@ -150,85 +108,81 @@ fun ImagePicker(
             }
         }
 
-        content {
-            showSelectorDialog = true
-        }
-
-        if (showSelectorDialog) {
-            ImagePickerSelectorDialog(
-
-                onGallerySelectClick = {
-                    if (needToPickMultipleFiles && maxFiles > 1 && multiplePhotoPickerLauncher != null) {
+        if (state.isSourceSelectorDialogShown) {
+            ImageSourceSelectorDialog(
+                onGalleryClick = {
+                    if (state.maxImagesCount > ImagesCount.SINGLE_IMAGE && multiplePhotoPickerLauncher != null) {
                         launchMultipleImagePicker(multiplePhotoPickerLauncher)
                     } else {
                         launchImagePicker(pickerLauncher)
                     }
                 },
-                onCameraSelectClick = {
+                onCameraClick = {
                     if (!cameraPermissionState.status.isGranted) {
                         cameraRequestPermissionLauncher.launch(Manifest.permission.CAMERA)
                     } else {
                         launchCameraPicker(cameraLauncher)
                     }
                 },
-                onDismiss = { showSelectorDialog = false },
-                modifier = dialogModifier,
-                config = dialogConfig
+                onDismiss = state::hideSourceSelectorDialog,
+                cameraSource = cameraSource,
+                gallerySource = gallerySource,
+                headlineText = headlineText,
+                dismissButtonText = dismissButtonText,
+                style = style,
+                textStyles = textStyles
             )
         }
-    } else {
-        content {}
     }
 }
 
-private fun validateFilesAndCompress(
-    files: List<File>,
-    onFileChanges: ((file: List<File>) -> Unit)?,
-    context: Context,
-    coroutineScope: CoroutineScope,
-    showSnackbar: suspend (message: String) -> Unit,
-    setIsCompressionProceed: (isUnderCompression: Boolean) -> Unit,
-    compressionTargetSize: Long,
-    compressionMinWidth: Int,
-    compressionMinHeight: Int,
-    photoTooLargeMessage: String,
-    compressionFailedMessage: String
-) {
-    val maxImageSize = 15 * 1024 * 1024
-    val targetImageSize = 5 * 1000 * 1000
+@Preview(showBackground = true)
+@Composable
+private fun ImagePickerPreview() {
+    var pickedImage by remember { mutableStateOf<List<File>>(emptyList()) }
+    val imagePickerState = rememberImagePickerState(
+        onError = {},
+        onImagesPicked = { images ->
+            pickedImage += images
+        }
+    )
 
-    val validFiles = mutableListOf<File>()
-    val compressedFiles = mutableListOf<File>()
+    ImagePicker(
+        state = imagePickerState,
+        cameraSource = ImageSource.Camera(title = "Camera"),
+        gallerySource = ImageSource.Gallery(title = "Gallery"),
+        headlineText = "Choose source",
+        dismissButtonText = "Cancel",
+    )
 
-    coroutineScope.launch(Dispatchers.IO) {
-        setIsCompressionProceed(true)
-
-        files.forEach { file ->
-            if (file.length() > maxImageSize) {
-                showSnackbar(photoTooLargeMessage)
-            } else if (file.length() < targetImageSize) {
-                validFiles.add(file)
-            } else {
-                try {
-                    val compressedFile = CompressImageUtil.compressImage(
-                        input = file,
-                        context = context,
-                        targetSize = compressionTargetSize,
-                        minWidth = compressionMinWidth,
-                        minHeight = compressionMinHeight
-                    )
-                    compressedFile?.let { compressedFiles.add(it) }
-                        ?: showSnackbar(compressionFailedMessage)
-                } catch (e: Exception) {
-                    showSnackbar(compressionFailedMessage)
-                    return@launch
-                }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(space = Dimens.spacingBig, alignment = Alignment.CenterVertically)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(space = Dimens.spacingNormal, alignment = Alignment.CenterHorizontally)
+        ) {
+            pickedImage.forEach { image ->
+                UrlImage(
+                    model = image,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(Dimens.cornerRadiusNormal))
+                )
             }
         }
 
-        validFiles.addAll(compressedFiles)
-        onFileChanges?.invoke(validFiles)
-        setIsCompressionProceed(false)
+        Button(
+            enabled = pickedImage.size < 3,
+            onClick = {
+                imagePickerState.showSourceSelectorDialog(ImagesCount(count = 3 - pickedImage.size))
+            }
+        ) {
+            Text("Pick images")
+        }
     }
 }
 
