@@ -55,7 +55,7 @@ fun <T> CollapsingStoriesTopBar(
     onStoryClick: (story: T) -> Unit,
     topBarMinHeight: Dp,
     topBarMaxHeight: Dp,
-    imageModel: (T) -> Any? = { it },
+    imageModel: (T) -> Any?,
     contentDescription: (T) -> String? = { null },
     isLoading: Boolean = false,
     showStories: Boolean = true,
@@ -183,6 +183,7 @@ private fun CollapsingTopBarPreview() {
 
     CollapsingStoriesTopBar(
         stories = stories,
+        imageModel = { it },
         isLoading = isLoading,
         topBarMinHeight = minHeight,
         topBarMaxHeight = maxHeight,

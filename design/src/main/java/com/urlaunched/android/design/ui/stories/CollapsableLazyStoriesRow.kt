@@ -39,10 +39,10 @@ internal fun <T> CollapsingStoriesList(
     modifier: Modifier = Modifier,
     stories: List<T>,
     isLoading: Boolean,
-    placeholdersCount: Int = StoryConstants.STORY_PLACEHOLDERS_COUNT,
-    imageModel: (T) -> Any? = { it },
+    imageModel: (T) -> Any?,
     contentDescription: (T) -> String? = { null },
     onStoryClick: (story: T) -> Unit,
+    placeholdersCount: Int = StoryConstants.STORY_PLACEHOLDERS_COUNT,
     lazyListState: LazyListState = rememberLazyListState(),
     topBarState: CollapsingTopBarState,
     contentPadding: PaddingValues = PaddingValues(Dimens.zeroDp),
@@ -136,6 +136,7 @@ private fun CollapsableLazyStoriesShimmerRow(
 ) {
     CollapsableLazyStoriesRow(
         stories = List(placeholdersCount) { null },
+        imageModel = { it },
         onStoryClick = {
             // Do nothing
         },
@@ -160,7 +161,7 @@ private fun CollapsableLazyStoriesShimmerRow(
 private fun <T> CollapsableLazyStoriesRow(
     modifier: Modifier = Modifier,
     stories: List<T>,
-    imageModel: (T) -> Any? = { it },
+    imageModel: (T) -> Any?,
     contentDescription: (T) -> String? = { null },
     onStoryClick: (story: T) -> Unit,
     lazyListState: LazyListState = rememberLazyListState(),
@@ -265,6 +266,7 @@ private fun Modifier.storyCollapseEffect(
 private fun CollapsableLazyStoriesRowPreview() {
     CollapsableLazyStoriesRow(
         stories = listOf(null, null, null),
+        imageModel = { it },
         onStoryClick = {},
         topBarState = rememberCollapsingTopBarState(StoryDimens.miniStoriesMaxHeight, StoryDimens.maxHeight)
     )

@@ -31,7 +31,7 @@ import com.urlaunched.android.design.ui.stories.constants.StoryDimens
 internal fun <T> MiniStories(
     modifier: Modifier = Modifier,
     stories: List<T>,
-    imageModel: (T) -> Any? = { it },
+    imageModel: (T) -> Any?,
     onStoriesClick: () -> Unit,
     isLoading: Boolean,
     placeholdersCount: Int = StoryConstants.STORY_PLACEHOLDERS_COUNT,
@@ -114,6 +114,7 @@ private fun MiniStoriesShimmer(
     MiniStories(
         modifier = modifier,
         stories = List(placeholdersCount) { null },
+        imageModel = { it },
         onStoriesClick = {
             // Do nothing
         },
@@ -133,7 +134,7 @@ private fun MiniStoriesShimmer(
 private fun <T> MiniStories(
     modifier: Modifier = Modifier,
     stories: List<T>,
-    imageModel: (T) -> Any? = { it },
+    imageModel: (T) -> Any?,
     onStoriesClick: () -> Unit,
     contentDescription: (T) -> String? = { null },
     storySize: Dp = StoryDimens.miniStoriesMaxHeight,
@@ -248,6 +249,7 @@ private fun HiddenStoriesIndicator(
 private fun MiniStoriesPreview() {
     MiniStories(
         stories = List(4) { null },
+        imageModel = { it },
         onStoriesClick = {}
     )
 }
