@@ -35,7 +35,7 @@ package com.urlaunched.android.network.interceptors {
 package com.urlaunched.android.network.okhttp {
 
   public final class OkHttpInitializer {
-    method public okhttp3.OkHttpClient createGeneralOkHttpClient(boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, okhttp3.Interceptor... interceptors);
+    method public okhttp3.OkHttpClient createGeneralOkHttpClient(boolean enableLogging, optional okhttp3.OkHttpClient? okHttpClient, optional long timeoutSeconds, okhttp3.Interceptor... interceptors);
     field public static final com.urlaunched.android.network.okhttp.OkHttpInitializer INSTANCE;
   }
 
