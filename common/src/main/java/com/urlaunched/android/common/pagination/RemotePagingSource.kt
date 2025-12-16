@@ -2,8 +2,8 @@ package com.urlaunched.android.common.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.urlaunched.android.common.response.ErrorData
 import com.urlaunched.android.common.response.Response
 
