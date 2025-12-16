@@ -1,8 +1,8 @@
 package com.urlaunched.android.logger.aspect
 
 import androidx.paging.PagingData
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.urlaunched.android.common.pagination.PagingFlowWithMeta
 import com.urlaunched.android.common.response.Response
 import kotlinx.coroutines.CoroutineScope
