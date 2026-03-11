@@ -44,7 +44,7 @@ datastoreVersion = "1.1.1"
 browserVersion = "1.8.0"
 
 # uCropDependencies
-uCropVersion = '2.2.9'
+uCropVersion = '2.2.11'
 
 # roomDependencies
 roomVersion = "2.6.1"
