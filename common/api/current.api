@@ -437,6 +437,76 @@ package com.urlaunched.android.common.socket {
 
 }
 
+package com.urlaunched.android.common.socket.socketmanager {
+
+  public abstract sealed class DataType {
+    method public final <T, R> R safeType(kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.DateSeparator,? extends R> dateSeparator, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.TimeSeparator<T>,? extends R> timeSeparator, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,? extends R> data);
+    method @androidx.compose.runtime.Composable public final <T> void safeType(kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.DateSeparator,kotlin.Unit> dateSeparator, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.TimeSeparator<T>,kotlin.Unit> timeSeparator, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,kotlin.Unit> data);
+  }
+
+  public static final class DataType.Data<T> extends com.urlaunched.android.common.socket.socketmanager.DataType {
+    ctor public DataType.Data(T data, java.time.Instant createdAt);
+    method public T component1();
+    method public java.time.Instant component2();
+    method public com.urlaunched.android.common.socket.socketmanager.DataType.Data<T> copy(T! data, java.time.Instant createdAt);
+    method public java.time.Instant getCreatedAt();
+    method public T getData();
+    property public final java.time.Instant createdAt;
+    property public final T data;
+  }
+
+  public static final class DataType.DateSeparator extends com.urlaunched.android.common.socket.socketmanager.DataType {
+    ctor public DataType.DateSeparator(java.time.Instant time);
+    method public java.time.Instant component1();
+    method public com.urlaunched.android.common.socket.socketmanager.DataType.DateSeparator copy(java.time.Instant time);
+    method public java.time.Instant getTime();
+    property public final java.time.Instant time;
+  }
+
+  public static final class DataType.TimeSeparator<T> extends com.urlaunched.android.common.socket.socketmanager.DataType {
+    ctor public DataType.TimeSeparator(T data);
+    method public T component1();
+    method public com.urlaunched.android.common.socket.socketmanager.DataType.TimeSeparator<T> copy(T! data);
+    method public T getData();
+    property public final T data;
+  }
+
+  public interface SocketEvent<T> {
+    method public T getData();
+    property public abstract T data;
+  }
+
+  public static interface SocketEvent.Delete<T> extends com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> {
+    property public abstract T data;
+  }
+
+  public static interface SocketEvent.New<T> extends com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> {
+    property public abstract T data;
+  }
+
+  public static interface SocketEvent.Updated<T> extends com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> {
+    property public abstract T data;
+  }
+
+  public final class SocketManager<I, T> {
+    ctor public SocketManager(kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<I>> pagingDataFlow, kotlin.jvm.functions.Function1<? super I,? extends T> mapper, kotlin.jvm.functions.Function1<? super T,java.lang.Long> itemId, kotlin.jvm.functions.Function1<? super T,java.time.Instant> itemCreatedAt, kotlinx.coroutines.CoroutineScope scope, kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+    method public void cancel();
+    method public void cancelDelete(long id);
+    method public void delete(long id, T data);
+    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<T>> getFlow();
+    method public kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> getFlow(kotlin.jvm.functions.Function2<? super com.urlaunched.android.common.socket.socketmanager.SocketManager<I,T>,? super androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>>,androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>> separators, kotlin.jvm.functions.Function1<? super T,java.time.Instant> createdAt);
+    method public void handleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<T> data);
+    method public <T> androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType> insertDateSeparators(androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>>, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,java.time.Instant> createdAt);
+    method public <T> androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType> insertTimeSeparators(androidx.paging.PagingData<com.urlaunched.android.common.socket.socketmanager.DataType>, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.socketmanager.DataType.Data<T>,java.lang.Boolean> isAuthor, optional java.time.Duration? maxDurationBetweenData);
+    method public void mapHandleSocketAction(long id, com.urlaunched.android.common.socket.socketmanager.SocketEvent<I> data);
+    method public void mapUpdate(long id, I data);
+    method public void refresh();
+    method public <S> void subscribeUpdatesFromRemote(kotlinx.coroutines.flow.Flow<? extends com.urlaunched.android.common.socket.ActionCableSocketEventMessage<S>> flow, kotlin.jvm.functions.Function1<? super com.urlaunched.android.common.socket.ActionCableSocketEventMessage<S>,kotlin.Unit> onEvent);
+    method public void update(long id, T data);
+  }
+
+}
+
 package com.urlaunched.android.common.string {
 
   public final class OrNullKt {
