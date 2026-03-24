@@ -1,0 +1,27 @@
+// Signature format: 4.0
+package com.urlaunched.synchronizer.core {
+
+  public final class ModelSynchronizer {
+    method public suspend Object? emitCancelDelete(com.urlaunched.android.synchonizer.model.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? emitDelete(com.urlaunched.android.synchonizer.model.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? emitUpdate(com.urlaunched.android.synchonizer.model.Synchronizable<?> value, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> getCancelDeleteModel();
+    method public kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> getDeletedModel();
+    method public kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> getUpdateModel();
+    method public inline <reified ACTUAL extends com.urlaunched.android.synchonizer.model.Synchronizable<?>> <ErrorType> getUpdatesFlow();
+    method public suspend inline <reified ACTUAL extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, ID> void synchronize(ID id, kotlin.jvm.functions.Function1<? super ACTUAL,? extends kotlin.Unit> onUpdate);
+    method public suspend inline <reified ACTUAL extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, ID> void synchronize(kotlin.jvm.functions.Function0<? extends java.util.List<? extends ACTUAL>> getList, kotlin.jvm.functions.Function1<? super java.util.List<? extends ACTUAL>,? extends kotlin.Unit> onUpdate);
+    method public suspend inline <reified ACTUAL extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, reified RELATED extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, ID> void synchronizeRelated(kotlin.jvm.functions.Function0<? extends java.util.List<? extends ACTUAL>> getList, kotlin.jvm.functions.Function2<? super ACTUAL,? super RELATED,? extends ACTUAL> map, kotlin.jvm.functions.Function1<? super java.util.List<? extends ACTUAL>,? extends kotlin.Unit> onUpdate);
+    property public final kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> cancelDeleteModel;
+    property public final kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> deletedModel;
+    property public final kotlinx.coroutines.flow.MutableSharedFlow<com.urlaunched.android.synchonizer.model.Synchronizable<?>> updateModel;
+    field public static final com.urlaunched.synchronizer.core.ModelSynchronizer INSTANCE;
+  }
+
+  public final class ModelSynchronizerKt {
+    method public static inline <reified MODEL extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, ID> kotlinx.coroutines.flow.Flow<? extends androidx.paging.PagingData<MODEL>> synchronize(kotlinx.coroutines.flow.Flow<? extends androidx.paging.PagingData<MODEL>>, kotlinx.coroutines.CoroutineScope coroutineScope, optional kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+    method public static inline <reified ACTUAL extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, reified RELATED extends com.urlaunched.android.synchonizer.model.Synchronizable<ID>, ID> kotlinx.coroutines.flow.Flow<? extends androidx.paging.PagingData<ACTUAL>> synchronizeRelated(kotlinx.coroutines.flow.Flow<? extends androidx.paging.PagingData<ACTUAL>>, kotlinx.coroutines.CoroutineScope coroutineScope, kotlin.jvm.functions.Function2<? super ACTUAL,? super RELATED,? extends ACTUAL> mapRelatedToActual, kotlin.jvm.functions.Function1<? super ACTUAL,? extends RELATED> mapActualToRelated, optional kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+  }
+
+}
+
