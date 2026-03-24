@@ -558,6 +558,60 @@ package com.urlaunched.android.design.ui.slider {
 
 }
 
+package com.urlaunched.android.design.ui.tabsrow {
+
+  public final class AnimatedTabsRowKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedTabsRow(optional androidx.compose.ui.Modifier modifier, com.urlaunched.android.design.ui.tabsrow.components.SynchronizedLazyGridScrollState synchronizedLazyGridScrollState, androidx.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<kotlin.Unit> topBarContent, java.util.List<java.lang.String> pages, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional float tabsHeight, optional float indicatorHeight, optional androidx.compose.ui.unit.Dp? indicatorShadow, optional boolean enabled, optional java.util.List<androidx.compose.ui.graphics.Color> colors, optional long selectedTextColor, optional long unselectedTextColor, optional long containerColor, optional androidx.compose.ui.text.TextStyle selectedTextStyle, optional androidx.compose.ui.text.TextStyle unselectedTextStyle, optional long minFontSize, optional long backgroundColor, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onTabChange, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit>? indicator, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? startContent, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? endContent);
+  }
+
+  public final class AnimatedTabsRowScaffoldKt {
+    method @androidx.compose.runtime.Composable public static void AnimatedTabsRowScaffold(optional androidx.compose.ui.Modifier modifier, com.urlaunched.android.design.ui.tabsrow.components.SynchronizedLazyGridScrollState synchronizedLazyGridScrollState, androidx.compose.foundation.pager.PagerState pagerState, java.util.List<java.lang.String> pages, optional androidx.compose.foundation.layout.PaddingValues tabsPadding, optional float tabsHeight, optional float indicatorHeight, optional androidx.compose.ui.unit.Dp? indicatorShadow, optional boolean enabled, optional java.util.List<androidx.compose.ui.graphics.Color> colors, optional long selectedTextColor, optional long unselectedTextColor, optional long containerColor, optional androidx.compose.ui.text.TextStyle selectedTextStyle, optional androidx.compose.ui.text.TextStyle unselectedTextStyle, optional long minFontSize, optional long backgroundColor, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onTabChange, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit>? tabIndicator, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? tabStartContent, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? tabEndContent, kotlin.jvm.functions.Function0<kotlin.Unit> topBarContent, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  public final class TabsRowKt {
+    method @androidx.compose.runtime.Composable public static void TabsRow(optional androidx.compose.ui.Modifier modifier, java.util.List<java.lang.String> pages, androidx.compose.foundation.pager.PagerState pagerState, optional float tabsHeight, optional float indicatorHeight, optional androidx.compose.ui.unit.Dp? indicatorShadow, optional boolean enabled, optional java.util.List<androidx.compose.ui.graphics.Color> colors, optional long selectedTextColor, optional long unselectedTextColor, optional long containerColor, optional androidx.compose.ui.text.TextStyle selectedTextStyle, optional androidx.compose.ui.text.TextStyle unselectedTextStyle, optional long minFontSize, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit> onTabChange, optional kotlin.jvm.functions.Function1<? super java.lang.Integer,kotlin.Unit>? indicator, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? startContent, optional kotlin.jvm.functions.Function1<? super androidx.compose.foundation.layout.RowScope,kotlin.Unit>? endContent);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.tabsrow.components {
+
+  public final class RememberScrollProgressKt {
+    method @androidx.compose.runtime.Composable public static androidx.compose.runtime.State<java.lang.Float> rememberScrollProgress(androidx.compose.foundation.lazy.grid.LazyGridState, float targetOffset);
+    method @androidx.compose.runtime.Composable public static androidx.compose.runtime.State<java.lang.Float> rememberScrollProgress(androidx.compose.foundation.lazy.LazyListState, float targetOffset);
+  }
+
+  public final class SynchronizedLazyGridScrollState {
+    ctor public SynchronizedLazyGridScrollState(androidx.compose.foundation.lazy.grid.LazyGridState firstTabState, androidx.compose.foundation.lazy.grid.LazyGridState secondTabState, int targetOffset, int firstItemOffsetPx);
+    method public androidx.compose.foundation.lazy.grid.LazyGridState component1();
+    method public androidx.compose.foundation.lazy.grid.LazyGridState component2();
+    method public int component3();
+    method public com.urlaunched.android.design.ui.tabsrow.components.SynchronizedLazyGridScrollState copy(androidx.compose.foundation.lazy.grid.LazyGridState firstTabState, androidx.compose.foundation.lazy.grid.LazyGridState secondTabState, int targetOffset, int firstItemOffsetPx);
+    method public androidx.compose.foundation.lazy.grid.LazyGridState getFirstTabState();
+    method public float getFirstTabStateProgress();
+    method public androidx.compose.foundation.lazy.grid.LazyGridState getSecondTabState();
+    method public float getSecondTabStateProgress();
+    method public int getTargetOffset();
+    method public suspend Object? scrollToTopFirstTab(optional boolean animated, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? scrollToTopSecondTab(optional boolean animated, optional kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    property public final androidx.compose.foundation.lazy.grid.LazyGridState firstTabState;
+    property public final float firstTabStateProgress;
+    property public final androidx.compose.foundation.lazy.grid.LazyGridState secondTabState;
+    property public final float secondTabStateProgress;
+    property public final int targetOffset;
+  }
+
+  public final class SynchronizedLazyGridScrollStateKt {
+    method @androidx.compose.runtime.Composable public static com.urlaunched.android.design.ui.tabsrow.components.SynchronizedLazyGridScrollState rememberSynchronizedLazyGridScrollStates(optional float spacing, optional float initialOffset);
+  }
+
+  public final class VerticalOffsetKt {
+    method @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier verticalOffset(androidx.compose.ui.Modifier, androidx.compose.foundation.lazy.grid.LazyGridState firstScrollState, androidx.compose.foundation.lazy.grid.LazyGridState secondScrollState, float initialOffset, float maxOffset);
+    method @androidx.compose.runtime.Composable public static androidx.compose.ui.Modifier verticalOffset(androidx.compose.ui.Modifier, androidx.compose.foundation.lazy.LazyListState firstScrollState, androidx.compose.foundation.lazy.LazyListState secondScrollState, float initialOffset, float maxOffset);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.textfield {
 
   public final class LocalTextFieldConfigsKt {
