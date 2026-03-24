@@ -203,6 +203,89 @@ package com.urlaunched.android.design.ui.modifiers {
 
 }
 
+package com.urlaunched.android.design.ui.otpcontainer {
+
+  public final class OTPCellScope {
+    ctor public OTPCellScope(Character? char, boolean isFocused);
+    method public Character? component1();
+    method public boolean component2();
+    method public com.urlaunched.android.design.ui.otpcontainer.OTPCellScope copy(Character? char, boolean isFocused);
+    method public Character? getChar();
+    method public boolean isFocused();
+    property public final Character? char;
+    property public final boolean isFocused;
+  }
+
+  public final class OTPContainerKt {
+    method @androidx.compose.runtime.Composable public static void OTPContainer(optional androidx.compose.ui.Modifier modifier, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional androidx.compose.ui.text.TextStyle textStyle, optional int otpLength, optional androidx.compose.foundation.layout.Arrangement.Horizontal cellsArrangement, optional boolean isError, optional com.urlaunched.android.design.ui.otpcontainer.models.OTPCellStyle cellStyle, optional com.urlaunched.android.design.ui.otpcontainer.models.OTPCellColors cellColors, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions);
+    method @androidx.compose.runtime.Composable public static void OTPContainerWithError(optional androidx.compose.ui.Modifier modifier, String otpText, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOtpTextChange, optional String? error, optional androidx.compose.ui.text.TextStyle textStyle, optional androidx.compose.ui.text.TextStyle errorTextStyle, optional androidx.compose.foundation.layout.PaddingValues errorContentPadding, optional int otpLength, optional androidx.compose.foundation.layout.Arrangement.Horizontal cellsArrangement, optional com.urlaunched.android.design.ui.otpcontainer.models.OTPCellStyle cellStyle, optional com.urlaunched.android.design.ui.otpcontainer.models.OTPCellColors cellColors, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.otpcontainer.constants {
+
+  public final class OTPContainerDefaults {
+    method public androidx.compose.foundation.text.KeyboardOptions getDefaultKeyboardOptions();
+    property public final androidx.compose.foundation.text.KeyboardOptions DefaultKeyboardOptions;
+    field public static final com.urlaunched.android.design.ui.otpcontainer.constants.OTPContainerDefaults INSTANCE;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.otpcontainer.models {
+
+  public final class OTPCellColors {
+    ctor public OTPCellColors(optional long backgroundColor, optional long emptyBackgroundColor, optional long focusedBackgroundColor, optional long borderColor, optional long emptyBorderColor, optional long focusedBorderColor, optional long errorBorderColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public long component4-0d7_KjU();
+    method public long component5-0d7_KjU();
+    method public long component6-0d7_KjU();
+    method public long component7-0d7_KjU();
+    method public com.urlaunched.android.design.ui.otpcontainer.models.OTPCellColors copy-4JmcsL4(long backgroundColor, long emptyBackgroundColor, long focusedBackgroundColor, long borderColor, long emptyBorderColor, long focusedBorderColor, long errorBorderColor);
+    method public long getBackgroundColor();
+    method public long getBorderColor();
+    method public long getEmptyBackgroundColor();
+    method public long getEmptyBorderColor();
+    method public long getErrorBorderColor();
+    method public long getFocusedBackgroundColor();
+    method public long getFocusedBorderColor();
+    property public final long backgroundColor;
+    property public final long borderColor;
+    property public final long emptyBackgroundColor;
+    property public final long emptyBorderColor;
+    property public final long errorBorderColor;
+    property public final long focusedBackgroundColor;
+    property public final long focusedBorderColor;
+  }
+
+  public final class OTPCellStyle {
+    ctor public OTPCellStyle(optional androidx.compose.ui.graphics.Shape shape, optional float width, optional float height, optional float focusedBorderWidth, optional float unfocusedBorderWidth, optional com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadowStyle);
+    method public androidx.compose.ui.graphics.Shape component1();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle? component6();
+    method public com.urlaunched.android.design.ui.otpcontainer.models.OTPCellStyle copy-YLPp7PM(androidx.compose.ui.graphics.Shape shape, float width, float height, float focusedBorderWidth, float unfocusedBorderWidth, com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadowStyle);
+    method public float getFocusedBorderWidth();
+    method public float getHeight();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle? getShadowStyle();
+    method public androidx.compose.ui.graphics.Shape getShape();
+    method public float getUnfocusedBorderWidth();
+    method public float getWidth();
+    property public final float focusedBorderWidth;
+    property public final float height;
+    property public final com.urlaunched.android.design.ui.shadow.models.ShadowStyle? shadowStyle;
+    property public final androidx.compose.ui.graphics.Shape shape;
+    property public final float unfocusedBorderWidth;
+    property public final float width;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.paging {
 
   public final class PagingColumnKt {
@@ -428,7 +511,32 @@ package com.urlaunched.android.design.ui.scrollbar.controller {
 package com.urlaunched.android.design.ui.shadow {
 
   public final class ShadowKt {
+    method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, com.urlaunched.android.design.ui.shadow.models.ShadowStyle style);
     method public static androidx.compose.ui.Modifier shadow(androidx.compose.ui.Modifier, optional long color, optional float alpha, optional float cornersRadius, optional float shadowBlurRadius, optional long offset);
+  }
+
+}
+
+package com.urlaunched.android.design.ui.shadow.models {
+
+  public final class ShadowStyle {
+    ctor public ShadowStyle(optional long color, optional float alpha, optional float cornersRadius, optional float blurRadius, optional long offset);
+    method public long component1-0d7_KjU();
+    method public float component2();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public long component5-RKDOV3M();
+    method public com.urlaunched.android.design.ui.shadow.models.ShadowStyle copy-w1ByDHw(long color, float alpha, float cornersRadius, float blurRadius, long offset);
+    method public float getAlpha();
+    method public float getBlurRadius();
+    method public long getColor();
+    method public float getCornersRadius();
+    method public long getOffset();
+    property public final float alpha;
+    property public final float blurRadius;
+    property public final long color;
+    property public final float cornersRadius;
+    property public final long offset;
   }
 
 }
