@@ -598,6 +598,42 @@ package com.urlaunched.android.design.ui.textfield {
 
 }
 
+package com.urlaunched.android.design.ui.textfield.hashtags {
+
+  public abstract class Delegate implements java.io.Closeable {
+    ctor public Delegate(kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+    method public void close();
+    method public final error.NonExistentClass! getDelegateScope();
+    property public final error.NonExistentClass! delegateScope;
+  }
+
+  public final class HashtagsContainerKt {
+    method @androidx.compose.runtime.Composable public static void HashtagsContainer(optional androidx.compose.ui.Modifier modifier, optional androidx.compose.ui.Modifier innerFieldModifier, optional androidx.compose.ui.text.input.TextFieldValue value, optional String? label, String? placeHolder, optional String? error, optional boolean enabled, optional boolean readOnly, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBorderConfig borderConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldBackgroundConfig backgroundConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputTextConfig inputTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldInputPlaceholderTextConfig inputPlaceholderTextConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldTopLabelConfig topLabelConfig, optional com.urlaunched.android.design.ui.textfield.models.TextFieldsSpacerConfig textFieldsSpacerConfig, optional long selectionHandleColor, optional long selectionBackgroundColor, optional androidx.compose.ui.graphics.Brush cursorBrush, optional androidx.compose.foundation.text.KeyboardOptions keyboardOptions, optional androidx.compose.foundation.text.KeyboardActions keyboardActions, optional boolean singleLine, optional int maxLines, optional int minLines, optional androidx.compose.ui.text.input.VisualTransformation visualTransformation, optional boolean collapseLabel, optional androidx.compose.ui.unit.Dp? textFieldHeight, optional androidx.compose.foundation.layout.PaddingValues innerPadding, optional kotlin.jvm.functions.Function0<kotlin.Unit>? trailingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? leadingIcon, optional kotlin.jvm.functions.Function0<kotlin.Unit>? labelIcon, optional boolean trailingIconAlwaysShown, kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.input.TextFieldValue,kotlin.Unit> onValueChange);
+  }
+
+  public interface HashtagsDelegate {
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState> getUiHashtagsStage();
+    method public void setCurrentHashtags(androidx.compose.ui.text.input.TextFieldValue newValue);
+    property public abstract kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState> uiHashtagsStage;
+  }
+
+  public final class HashtagsDelegateImpl extends com.urlaunched.android.design.ui.textfield.hashtags.Delegate implements com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegate {
+    ctor public HashtagsDelegateImpl(kotlinx.coroutines.CoroutineDispatcher coroutineDispatcher);
+    method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState> getUiHashtagsStage();
+    method public void setCurrentHashtags(androidx.compose.ui.text.input.TextFieldValue newValue);
+    property public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState> uiHashtagsStage;
+  }
+
+  public final class HashtagsDelegateState {
+    ctor public HashtagsDelegateState(androidx.compose.ui.text.input.TextFieldValue currentHashtagsText);
+    method public androidx.compose.ui.text.input.TextFieldValue component1();
+    method public com.urlaunched.android.design.ui.textfield.hashtags.HashtagsDelegateState copy(androidx.compose.ui.text.input.TextFieldValue currentHashtagsText);
+    method public androidx.compose.ui.text.input.TextFieldValue getCurrentHashtagsText();
+    property public final androidx.compose.ui.text.input.TextFieldValue currentHashtagsText;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.textfield.models {
 
   public final class TextFieldBackgroundConfig {
