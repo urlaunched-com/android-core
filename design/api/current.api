@@ -374,6 +374,29 @@ package com.urlaunched.android.design.ui.pulltorefresh {
 
 }
 
+package com.urlaunched.android.design.ui.readmoretext {
+
+  public final class ReadMoreTextKt {
+    method @androidx.compose.runtime.Composable public static void ReadMoreText(optional androidx.compose.ui.Modifier modifier, String text, boolean expanded, kotlin.jvm.functions.Function0<kotlin.Unit> onExpandedChange, androidx.compose.ui.text.TextStyle style, optional kotlin.jvm.functions.Function1<? super androidx.compose.ui.text.TextLayoutResult,kotlin.Unit> onTextLayout, optional boolean softWrap, String readMoreText, optional int readMoreMaxLines, androidx.compose.ui.text.SpanStyle readMoreStyle, optional com.urlaunched.android.design.ui.readmoretext.TextPosition readMoreTextPosition, String readLessText, optional androidx.compose.ui.text.SpanStyle readLessStyle, optional com.urlaunched.android.design.ui.readmoretext.TextPosition readLessTextPosition, optional Integer? maxLinesExpanded);
+  }
+
+  public abstract sealed class TextPosition {
+  }
+
+  public static final class TextPosition.Inline extends com.urlaunched.android.design.ui.readmoretext.TextPosition {
+    field public static final com.urlaunched.android.design.ui.readmoretext.TextPosition.Inline INSTANCE;
+  }
+
+  public static final class TextPosition.NewLine extends com.urlaunched.android.design.ui.readmoretext.TextPosition {
+    ctor public TextPosition.NewLine(optional float paddingTop);
+    method public float component1-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.readmoretext.TextPosition.NewLine copy-0680j_4(float paddingTop);
+    method public float getPaddingTop();
+    property public final float paddingTop;
+  }
+
+}
+
 package com.urlaunched.android.design.ui.scrollbar {
 
   public final class ColumnScrollbarKt {
