@@ -357,6 +357,231 @@ package com.urlaunched.android.design.ui.paging {
 
 }
 
+package com.urlaunched.android.design.ui.player.models {
+
+  public final class AudioPlayButtonColor {
+    ctor public AudioPlayButtonColor(optional long buttonColor, optional long circularProgressColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor copy--OWjLjI(long buttonColor, long circularProgressColor);
+    method public long getButtonColor();
+    method public long getCircularProgressColor();
+    property public final long buttonColor;
+    property public final long circularProgressColor;
+  }
+
+  public final class AudioPlayButtonConstants {
+    ctor public AudioPlayButtonConstants(optional float playButtonProgressSizeFraction, optional String audioPlayButtonIconAnimationLabel);
+    method public float component1();
+    method public String component2();
+    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonConstants copy(float playButtonProgressSizeFraction, String audioPlayButtonIconAnimationLabel);
+    method public String getAudioPlayButtonIconAnimationLabel();
+    method public float getPlayButtonProgressSizeFraction();
+    property public final String audioPlayButtonIconAnimationLabel;
+    property public final float playButtonProgressSizeFraction;
+  }
+
+  public final class AudioPlayButtonDimens {
+    ctor public AudioPlayButtonDimens(optional float buttonSize);
+    method public float component1-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.AudioPlayButtonDimens copy-0680j_4(float buttonSize);
+    method public float getButtonSize();
+    property public final float buttonSize;
+  }
+
+  public final class AudioSliderColor {
+    ctor public AudioSliderColor(optional long thumbColor, optional long activeTrackColor, optional long inactiveTrackColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.AudioSliderColor copy-ysEtTa8(long thumbColor, long activeTrackColor, long inactiveTrackColor);
+    method public long getActiveTrackColor();
+    method public long getInactiveTrackColor();
+    method public long getThumbColor();
+    property public final long activeTrackColor;
+    property public final long inactiveTrackColor;
+    property public final long thumbColor;
+  }
+
+  public final class AudioSliderDimens {
+    ctor public AudioSliderDimens(optional float sliderThumbTrackGapSize, optional float sliderTrackInsideCornerSize, optional float sliderTrackHeight, optional float sliderTrackHorizontalPadding);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.AudioSliderDimens copy-a9UjIt4(float sliderThumbTrackGapSize, float sliderTrackInsideCornerSize, float sliderTrackHeight, float sliderTrackHorizontalPadding);
+    method public float getSliderThumbTrackGapSize();
+    method public float getSliderTrackHeight();
+    method public float getSliderTrackHorizontalPadding();
+    method public float getSliderTrackInsideCornerSize();
+    property public final float sliderThumbTrackGapSize;
+    property public final float sliderTrackHeight;
+    property public final float sliderTrackHorizontalPadding;
+    property public final float sliderTrackInsideCornerSize;
+  }
+
+  public enum AudioStateType {
+    method public static com.urlaunched.android.design.ui.player.models.AudioStateType valueOf(String value) throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+    method public static com.urlaunched.android.design.ui.player.models.AudioStateType[] values();
+    enum_constant public static final com.urlaunched.android.design.ui.player.models.AudioStateType BUFFERING;
+    enum_constant public static final com.urlaunched.android.design.ui.player.models.AudioStateType PAUSE;
+    enum_constant public static final com.urlaunched.android.design.ui.player.models.AudioStateType PLAYING;
+  }
+
+  public final class BottomBarItem {
+    ctor public BottomBarItem(String title, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> icon, optional androidx.compose.ui.Modifier modifier, optional boolean enabled);
+    method public String component1();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component2();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> component3();
+    method public androidx.compose.ui.Modifier component4();
+    method public boolean component5();
+    method public com.urlaunched.android.design.ui.player.models.BottomBarItem copy(String title, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, kotlin.jvm.functions.Function0<kotlin.Unit> icon, androidx.compose.ui.Modifier modifier, boolean enabled);
+    method public boolean getEnabled();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getIcon();
+    method public androidx.compose.ui.Modifier getModifier();
+    method public kotlin.jvm.functions.Function0<kotlin.Unit> getOnClick();
+    method public String getTitle();
+    property public final boolean enabled;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> icon;
+    property public final androidx.compose.ui.Modifier modifier;
+    property public final kotlin.jvm.functions.Function0<kotlin.Unit> onClick;
+    property public final String title;
+  }
+
+  public final class BottomItemColors {
+    ctor public BottomItemColors(optional long background, optional long enabledTextColor, optional long disabledTextColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.BottomItemColors copy-ysEtTa8(long background, long enabledTextColor, long disabledTextColor);
+    method public long getBackground();
+    method public long getDisabledTextColor();
+    method public long getEnabledTextColor();
+    property public final long background;
+    property public final long disabledTextColor;
+    property public final long enabledTextColor;
+  }
+
+  public final class BottomItemDimens {
+    ctor public BottomItemDimens(optional float actionItemWidth, optional float actionItemHeight, optional float columnClip);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.BottomItemDimens copy-2z7ARbQ(float actionItemWidth, float actionItemHeight, float columnClip);
+    method public float getActionItemHeight();
+    method public float getActionItemWidth();
+    method public float getColumnClip();
+    property public final float actionItemHeight;
+    property public final float actionItemWidth;
+    property public final float columnClip;
+  }
+
+  public final class BottomPanelDimens {
+    ctor public BottomPanelDimens(optional float rowHorizontalPadding, optional float rowVerticalPadding, optional float horizontalArrangementPadding);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.BottomPanelDimens copy-2z7ARbQ(float rowHorizontalPadding, float rowVerticalPadding, float horizontalArrangementPadding);
+    method public float getHorizontalArrangementPadding();
+    method public float getRowHorizontalPadding();
+    method public float getRowVerticalPadding();
+    property public final float horizontalArrangementPadding;
+    property public final float rowHorizontalPadding;
+    property public final float rowVerticalPadding;
+  }
+
+  public final class MiniPlayerColors {
+    ctor public MiniPlayerColors(optional long background, optional long textColor, optional long leadingLineColor, optional long trailingLineColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public long component4-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.MiniPlayerColors copy-jRlVdoo(long background, long textColor, long leadingLineColor, long trailingLineColor);
+    method public long getBackground();
+    method public long getLeadingLineColor();
+    method public long getTextColor();
+    method public long getTrailingLineColor();
+    property public final long background;
+    property public final long leadingLineColor;
+    property public final long textColor;
+    property public final long trailingLineColor;
+  }
+
+  public final class MiniPlayerConstants {
+    ctor public MiniPlayerConstants(optional int defaultFadeInDuration, optional int defaultFadeInDelay, optional int defaultFadeOutDuration, optional String chapterNameAnimationLabel, optional String emptyString);
+    method public int component1();
+    method public int component2();
+    method public int component3();
+    method public String component4();
+    method public String component5();
+    method public com.urlaunched.android.design.ui.player.models.MiniPlayerConstants copy(int defaultFadeInDuration, int defaultFadeInDelay, int defaultFadeOutDuration, String chapterNameAnimationLabel, String emptyString);
+    method public String getChapterNameAnimationLabel();
+    method public int getDefaultFadeInDelay();
+    method public int getDefaultFadeInDuration();
+    method public int getDefaultFadeOutDuration();
+    method public String getEmptyString();
+    property public final String chapterNameAnimationLabel;
+    property public final int defaultFadeInDelay;
+    property public final int defaultFadeInDuration;
+    property public final int defaultFadeOutDuration;
+    property public final String emptyString;
+  }
+
+  public final class MiniPlayerDimens {
+    ctor public MiniPlayerDimens(optional float sliderHalfHeightOffset, optional float audioSliderHeight);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.MiniPlayerDimens copy-YgX7TsA(float sliderHalfHeightOffset, float audioSliderHeight);
+    method public float getAudioSliderHeight();
+    method public float getSliderHalfHeightOffset();
+    property public final float audioSliderHeight;
+    property public final float sliderHalfHeightOffset;
+  }
+
+  public final class PlayerDimens {
+    ctor public PlayerDimens(optional float horizontalDimens, optional float verticalDimens);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.PlayerDimens copy-YgX7TsA(float horizontalDimens, float verticalDimens);
+    method public float getHorizontalDimens();
+    method public float getVerticalDimens();
+    property public final float horizontalDimens;
+    property public final float verticalDimens;
+  }
+
+  public final class PlayerWrapperBottomColor {
+    ctor public PlayerWrapperBottomColor(optional long backGround);
+    method public long component1-0d7_KjU();
+    method public com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomColor copy-8_81llA(long backGround);
+    method public long getBackGround();
+    property public final long backGround;
+  }
+
+  public final class PlayerWrapperBottomDimens {
+    ctor public PlayerWrapperBottomDimens(optional float topStartShape, optional float topEndShape);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomDimens copy-YgX7TsA(float topStartShape, float topEndShape);
+    method public float getTopEndShape();
+    method public float getTopStartShape();
+    property public final float topEndShape;
+    property public final float topStartShape;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.player.ui {
+
+  public final class MiniPlayerWrapperKt {
+    method @androidx.compose.runtime.Composable public static void MiniPlayerWrapper(optional androidx.compose.ui.Modifier modifier, String? currentChapterName, String? bookInfoText, optional boolean isRtlEnabled, Object audioState, androidx.compose.ui.text.TextStyle chapterTextStyle, androidx.compose.ui.text.TextStyle bookInfoTextStyle, optional com.urlaunched.android.design.ui.player.models.MiniPlayerColors miniPlayerColors, optional com.urlaunched.android.design.ui.player.models.MiniPlayerConstants miniPlayerConstants, optional com.urlaunched.android.design.ui.player.models.MiniPlayerDimens miniPlayerDimens, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayerClick, kotlin.jvm.functions.Function1<? super androidx.compose.ui.unit.IntSize,kotlin.Unit> onSizeChange, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> leadingContent, float audioProgress, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> audioSliderOnValueChange, optional com.urlaunched.android.design.ui.player.models.AudioSliderColor audioSliderColor, optional com.urlaunched.android.design.ui.player.models.AudioSliderDimens audioSliderDimens, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonDimens audioPlayButtonDimens, kotlin.jvm.functions.Function0<kotlin.Unit> thumb);
+  }
+
+  public final class PlayerWrapperKt {
+    method @androidx.compose.runtime.Composable public static void PlayerWrapper(optional androidx.compose.ui.Modifier modifier, optional boolean isRtlEnabled, float audioProgress, Object audioState, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> audioSliderOnValueChange, kotlin.jvm.functions.Function0<kotlin.Unit> onPlayAudioClick, optional com.urlaunched.android.design.ui.player.models.AudioPlayButtonColor audioPlayButtonColor, optional com.urlaunched.android.design.ui.player.models.AudioSliderColor audioSliderColor, optional com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomColor playerWrapperBottomColor, optional com.urlaunched.android.design.ui.player.models.BottomItemColors bottomItemColors, optional com.urlaunched.android.design.ui.player.models.AudioSliderDimens audioSliderDimens, optional com.urlaunched.android.design.ui.player.models.PlayerWrapperBottomDimens playerWrapperBottomDimens, optional com.urlaunched.android.design.ui.player.models.PlayerDimens playerDimens, androidx.compose.ui.text.TextStyle bottomTextStyle, java.util.List<com.urlaunched.android.design.ui.player.models.BottomBarItem> bottomBarItems, kotlin.jvm.functions.Function0<kotlin.Unit> nextTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> previousTrackButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotatePlusButton, kotlin.jvm.functions.Function0<kotlin.Unit> rotateMinusButton, kotlin.jvm.functions.Function0<kotlin.Unit> playingButton, kotlin.jvm.functions.Function0<kotlin.Unit> pauseButton, kotlin.jvm.functions.Function0<kotlin.Unit> thumb, kotlin.jvm.functions.Function0<kotlin.Unit> currentPositionText, kotlin.jvm.functions.Function0<kotlin.Unit> timeLeftText, kotlin.jvm.functions.Function0<kotlin.Unit> chapterDetails, kotlin.jvm.functions.Function0<kotlin.Unit> audioTrackDetails);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.progressbarcontainer {
 
   public final class ProgressBarContainerKt {
