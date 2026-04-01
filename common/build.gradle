@@ -106,6 +106,7 @@ dependencies {
 
     // Accompanist
     implementation libs.composeAccompanist.navigation
+    implementation libs.composeAccompanist.permissions
 
     // Kotlin reflect
     implementation libs.kotlin.reflect

@@ -69,9 +69,11 @@ dependencies {
     implementation libs.composeDependencies.composePreview
     implementation libs.composeDependencies.composeMaterial3
     implementation libs.composeDependencies.composeMaterial2
+    implementation libs.composeDependencies.composeMaterialIconsCore
     implementation libs.composeDependencies.composeNavigation
     implementation libs.composeDependencies.composeConstraintLayout
     implementation libs.composeDependencies.lifecycleRuntime
+    implementation libs.composeDependencies.runtime
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
@@ -91,7 +93,12 @@ dependencies {
 
     // Local modules
     implementation project(":cdn:models:presentation")
+    implementation project(":common")
+    implementation project(":tempattachment")
 
     // Bottom sheet
     implementation libs.bottomSheet
+
+    implementation libs.composeAccompanist.permissions
+
 }
