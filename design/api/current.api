@@ -374,6 +374,72 @@ package com.urlaunched.android.design.ui.pulltorefresh {
 
 }
 
+package com.urlaunched.android.design.ui.question.models {
+
+  public final class QuestionColors {
+    ctor public QuestionColors(optional long borderColor, optional long driverColor, optional long questionTextColor, optional long answerTextColor);
+    method public long component1-0d7_KjU();
+    method public long component2-0d7_KjU();
+    method public long component3-0d7_KjU();
+    method public long component4-0d7_KjU();
+    method public com.urlaunched.android.design.ui.question.models.QuestionColors copy-jRlVdoo(long borderColor, long driverColor, long questionTextColor, long answerTextColor);
+    method public long getAnswerTextColor();
+    method public long getBorderColor();
+    method public long getDriverColor();
+    method public long getQuestionTextColor();
+    property public final long answerTextColor;
+    property public final long borderColor;
+    property public final long driverColor;
+    property public final long questionTextColor;
+  }
+
+  public final class QuestionConstants {
+    ctor public QuestionConstants(optional float rotateAngleArrow, optional float defaultAngleArrow, optional String rotateStateArrowLabel);
+    method public float component1();
+    method public float component2();
+    method public String component3();
+    method public com.urlaunched.android.design.ui.question.models.QuestionConstants copy(float rotateAngleArrow, float defaultAngleArrow, String rotateStateArrowLabel);
+    method public float getDefaultAngleArrow();
+    method public float getRotateAngleArrow();
+    method public String getRotateStateArrowLabel();
+    property public final float defaultAngleArrow;
+    property public final float rotateAngleArrow;
+    property public final String rotateStateArrowLabel;
+  }
+
+  public final class QuestionDimens {
+    ctor public QuestionDimens(optional float borderWidth, optional float borderShape, optional float horizontalPadding, optional float minHeight, optional float answerTextVerticalPadding, optional float questionButtonSpacing);
+    method public float component1-D9Ej5fM();
+    method public float component2-D9Ej5fM();
+    method public float component3-D9Ej5fM();
+    method public float component4-D9Ej5fM();
+    method public float component5-D9Ej5fM();
+    method public float component6-D9Ej5fM();
+    method public com.urlaunched.android.design.ui.question.models.QuestionDimens copy-erZIsFM(float borderWidth, float borderShape, float horizontalPadding, float minHeight, float answerTextVerticalPadding, float questionButtonSpacing);
+    method public float getAnswerTextVerticalPadding();
+    method public float getBorderShape();
+    method public float getBorderWidth();
+    method public float getHorizontalPadding();
+    method public float getMinHeight();
+    method public float getQuestionButtonSpacing();
+    property public final float answerTextVerticalPadding;
+    property public final float borderShape;
+    property public final float borderWidth;
+    property public final float horizontalPadding;
+    property public final float minHeight;
+    property public final float questionButtonSpacing;
+  }
+
+}
+
+package com.urlaunched.android.design.ui.question.ui {
+
+  public final class QuestionItemKt {
+    method @androidx.compose.runtime.Composable public static void QuestionItem(optional androidx.compose.ui.Modifier modifier, String questionText, String answerText, androidx.compose.ui.text.TextStyle questionTextStyle, androidx.compose.ui.text.TextStyle answerTextStyle, optional com.urlaunched.android.design.ui.question.models.QuestionDimens questionDimens, optional com.urlaunched.android.design.ui.question.models.QuestionConstants questionConstants, optional com.urlaunched.android.design.ui.question.models.QuestionColors questionColors, kotlin.jvm.functions.Function1<? super java.lang.Float,kotlin.Unit> arrowButton);
+  }
+
+}
+
 package com.urlaunched.android.design.ui.scrollbar {
 
   public final class ColumnScrollbarKt {
