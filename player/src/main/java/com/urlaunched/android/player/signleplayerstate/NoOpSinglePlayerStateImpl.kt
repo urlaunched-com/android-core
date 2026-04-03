@@ -11,7 +11,9 @@ class NoOpSinglePlayerStateImpl : SinglePlayerState {
         PlayerUiState(
             audioState = AudioState.PAUSE,
             currentMediaItemId = "",
-            audioDuration = 0L
+            audioDuration = 0L,
+            currentMediaIndex = 0,
+            endReached = false
         )
     )
     override val currentPlayingPosition: Long = 0
@@ -26,6 +28,10 @@ class NoOpSinglePlayerStateImpl : SinglePlayerState {
     }
 
     override fun playUrl(url: String, id: String) {
+        // No-op
+    }
+
+    override fun playUrls(urls: List<String>) {
         // No-op
     }
 

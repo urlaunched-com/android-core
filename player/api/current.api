@@ -116,6 +116,7 @@ package com.urlaunched.android.player.signleplayerstate {
     method public void pause();
     method public void playFile(String path, String id);
     method public void playUrl(String url, String id);
+    method public void playUrls(java.util.List<java.lang.String> urls);
     method public void release();
     method public void seekFor(long millis);
     method public void seekTo(long millis);
@@ -155,6 +156,7 @@ package com.urlaunched.android.player.signleplayerstate {
     method public void pause();
     method public void playFile(String path, String id);
     method public void playUrl(String url, String id);
+    method public void playUrls(java.util.List<java.lang.String> urls);
     method public void release();
     method public void seekFor(long millis);
     method public void seekTo(long millis);
@@ -164,13 +166,14 @@ package com.urlaunched.android.player.signleplayerstate {
   }
 
   @androidx.media3.common.util.UnstableApi public final class SinglePlayerStateImpl implements com.urlaunched.android.player.signleplayerstate.SinglePlayerState {
-    ctor public SinglePlayerStateImpl(android.content.Context context, kotlinx.coroutines.CoroutineScope coroutineScope, com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, String? notificationChannelName);
+    ctor public SinglePlayerStateImpl(android.content.Context context, boolean seekToStartOnEnd, kotlinx.coroutines.CoroutineScope coroutineScope, com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, String? notificationChannelName);
     method public long getCurrentPlayingPosition();
     method public androidx.media3.common.Player? getPlayer();
     method public kotlinx.coroutines.flow.StateFlow<com.urlaunched.android.player.signleplayerstate.model.PlayerUiState> getPlayerUiState();
     method public void pause();
     method public void playFile(String path, String id);
     method public void playUrl(String url, String id);
+    method public void playUrls(java.util.List<java.lang.String> urls);
     method @androidx.media3.common.util.UnstableApi public void release();
     method public void seekFor(long millis);
     method public void seekTo(long millis);
@@ -181,7 +184,7 @@ package com.urlaunched.android.player.signleplayerstate {
   }
 
   public final class SinglePlayerStateKt {
-    method @androidx.compose.runtime.Composable @androidx.media3.common.util.UnstableApi public static com.urlaunched.android.player.signleplayerstate.SinglePlayerState rememberPlayerState(optional android.content.Context context, optional kotlinx.coroutines.CoroutineScope coroutineScope, optional com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, String? notificationChannelName);
+    method @androidx.compose.runtime.Composable @androidx.media3.common.util.UnstableApi public static com.urlaunched.android.player.signleplayerstate.SinglePlayerState rememberPlayerState(optional android.content.Context context, optional kotlinx.coroutines.CoroutineScope coroutineScope, optional boolean seekToStartOnEnd, optional com.urlaunched.android.player.signleplayerstate.NotificationPlayerHelper.NotificationData? notificationData, optional String? notificationChannelName);
   }
 
 }
@@ -189,19 +192,25 @@ package com.urlaunched.android.player.signleplayerstate {
 package com.urlaunched.android.player.signleplayerstate.model {
 
   public final class PlayerUiState {
-    ctor public PlayerUiState(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, optional boolean isWaitingForAutoplay);
+    ctor public PlayerUiState(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, optional boolean isWaitingForAutoplay, int currentMediaIndex, boolean endReached);
     method public com.urlaunched.android.player.models.AudioState component1();
     method public String component2();
     method public long component3();
     method public boolean component4();
-    method public com.urlaunched.android.player.signleplayerstate.model.PlayerUiState copy(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, boolean isWaitingForAutoplay);
+    method public int component5();
+    method public boolean component6();
+    method public com.urlaunched.android.player.signleplayerstate.model.PlayerUiState copy(com.urlaunched.android.player.models.AudioState audioState, String currentMediaItemId, long audioDuration, boolean isWaitingForAutoplay, int currentMediaIndex, boolean endReached);
     method public long getAudioDuration();
     method public com.urlaunched.android.player.models.AudioState getAudioState();
+    method public int getCurrentMediaIndex();
     method public String getCurrentMediaItemId();
+    method public boolean getEndReached();
     method public boolean isWaitingForAutoplay();
     property public final long audioDuration;
     property public final com.urlaunched.android.player.models.AudioState audioState;
+    property public final int currentMediaIndex;
     property public final String currentMediaItemId;
+    property public final boolean endReached;
     property public final boolean isWaitingForAutoplay;
   }
 

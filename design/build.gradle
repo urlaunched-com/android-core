@@ -75,6 +75,10 @@ dependencies {
     debugImplementation libs.composeDependencies.composeUiTooling
     debugImplementation libs.composeDependencies.composeUiTestManifest
 
+    // Media3
+    implementation libs.media3Dependencies.core
+    implementation libs.media3Dependencies.ui
+
     // Paging
     implementation libs.pagingDependencies.core
     implementation libs.pagingDependencies.compose
@@ -91,6 +95,8 @@ dependencies {
 
     // Local modules
     implementation project(":cdn:models:presentation")
+    implementation project(":player")
+    implementation project(":common")
 
     // Bottom sheet
     implementation libs.bottomSheet

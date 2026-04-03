@@ -22,6 +22,7 @@ import java.io.File
 @UnstableApi
 class SinglePlayerStateImpl(
     context: Context,
+    private val seekToStartOnEnd: Boolean,
     private val coroutineScope: CoroutineScope,
     private val notificationData: NotificationPlayerHelper.NotificationData?,
     private val notificationChannelName: String?
@@ -35,7 +36,9 @@ class SinglePlayerStateImpl(
         PlayerUiState(
             audioState = AudioState.PAUSE,
             currentMediaItemId = "-1",
-            audioDuration = 0
+            audioDuration = 0,
+            currentMediaIndex = 0,
+            endReached = false
         )
     )
 
@@ -90,6 +93,21 @@ class SinglePlayerStateImpl(
             } else {
                 prepare()
             }
+            playWhenReady = true
+        }
+    }
+
+    override fun playUrls(urls: List<String>) {
+        player?.run {
+            addMediaItems(
+                urls.map { url ->
+                    MediaItem.Builder()
+                        .setUri(url)
+                        .setMediaId(url)
+                        .build()
+                }
+            )
+            prepare()
             playWhenReady = true
         }
     }
@@ -189,7 +207,8 @@ class SinglePlayerStateImpl(
     private inline fun Player.Events.onPlaybackButtonChanged(changePlaybackState: () -> Unit) {
         if (containsAny(
                 Player.EVENT_PLAYBACK_STATE_CHANGED,
-                Player.EVENT_PLAY_WHEN_READY_CHANGED
+                Player.EVENT_PLAY_WHEN_READY_CHANGED,
+                Player.EVENT_TRACKS_CHANGED
             )
         ) {
             changePlaybackState()
@@ -200,7 +219,9 @@ class SinglePlayerStateImpl(
         coroutineScope.launch {
             _playerUiState.value = _playerUiState.value.copy(
                 audioState = player.state,
-                audioDuration = player?.duration.takeIf { it != C.TIME_UNSET } ?: 0
+                audioDuration = player?.duration.takeIf { it != C.TIME_UNSET } ?: 0,
+                currentMediaIndex = player?.currentMediaItemIndex ?: 0,
+                endReached = player?.playbackState == Player.STATE_ENDED
             )
         }
     }
@@ -213,8 +234,10 @@ class SinglePlayerStateImpl(
                 }
 
                 Player.STATE_ENDED -> {
-                    player?.seekTo(0)
-                    player?.pause()
+                    if (seekToStartOnEnd) {
+                        player?.seekTo(0)
+                        player?.pause()
+                    }
 
                     actualState = AudioState.PAUSE
                     actualState

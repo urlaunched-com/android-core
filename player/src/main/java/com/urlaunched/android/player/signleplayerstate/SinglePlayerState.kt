@@ -23,6 +23,7 @@ interface SinglePlayerState : DefaultLifecycleObserver {
     fun release()
     fun seekTo(millis: Long)
     fun seekFor(millis: Long)
+    fun playUrls(urls: List<String>)
 }
 
 @Composable
@@ -30,14 +31,15 @@ interface SinglePlayerState : DefaultLifecycleObserver {
 fun rememberPlayerState(
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    seekToStartOnEnd: Boolean = true,
     notificationData: NotificationPlayerHelper.NotificationData? = null,
-    notificationChannelName: String?
+    notificationChannelName: String? = null
 ): SinglePlayerState = if (LocalInspectionMode.current) {
     remember {
         NoOpSinglePlayerStateImpl()
     }
 } else {
-    remember(context, coroutineScope, notificationData) {
-        SinglePlayerStateImpl(context, coroutineScope, notificationData, notificationChannelName)
+    remember(context, coroutineScope, seekToStartOnEnd, notificationData) {
+        SinglePlayerStateImpl(context, seekToStartOnEnd, coroutineScope, notificationData, notificationChannelName)
     }
 }
