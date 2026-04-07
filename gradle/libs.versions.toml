@@ -87,8 +87,8 @@ bottomSheetVersion = "1.33.0"
 
 # plugins
 # dependencies
-androidApplicationPluginVersion = "8.4.2"
-androidLibraryPluginVersion = "8.4.2"
+androidApplicationPluginVersion = "8.6.0"
+androidLibraryPluginVersion = "8.6.0"
 kotlinAndroidPluginVersion = "2.1.20"
 kotlinJvmPluginVersion = "2.1.20"
 kotlinSerializationPluginVersion = "2.1.20"
@@ -121,6 +121,7 @@ composeDependencies-composeUi = { module = "androidx.compose.ui:ui", version.ref
 composeDependencies-composePreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeVersion" }
 composeDependencies-composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3Version" }
 composeDependencies-composeMaterial2 = { module = "androidx.compose.material:material", version.ref = "composeMaterial2Version" }
+composeDependencies-composeMaterialIconsCore = { module = "androidx.compose.material:material-icons-core", version.ref = "composeVersion" }
 composeDependencies-composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigationVersion" }
 composeDependencies-composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraintLayout" }
 composeDependencies-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeVersion" }
